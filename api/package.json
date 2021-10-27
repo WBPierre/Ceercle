@@ -1,0 +1,14 @@
+{
+  "name": "Spacecorner",
+  "version": "0.0.1",
+  "description": "NodeJS server for Spacecorner",
+  "author": "Louis Lacaille & Pierre Delmer",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon -L"
+  },
+  "dependencies": {
+    "express": "4.17.1",
+    "nodemon": "^2.0.14"
+  }
+}

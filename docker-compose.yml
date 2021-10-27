@@ -1,0 +1,56 @@
+version: '3'
+
+services :
+  api:
+    build:
+      dockerfile: Dockerfile
+      context: ./api
+    volumes:
+      - /api/node_modules
+      - ./api:/api
+    ports:
+      - "8080:8080"
+
+  frontend:
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    build:
+      dockerfile: Dockerfile
+      context: ./frontend
+    volumes:
+      - /app/node_modules
+      - ./frontend:/app
+    ports:
+      - "80:3000"
+
+  postgres:
+    image: postgres:14.0
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "root"
+      POSTGRES_DB: "spacecorner"
+      PGDATA: /var/lib/postgresql/data
+    restart: always
+    volumes:
+      - "postgres-data:/var/lib/postgresql/data"
+
+  pgadmin:
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@spacecorner.com
+      PGADMIN_DEFAULT_PASSWORD: secret
+      PGADMIN_LISTEN_PORT: 8000
+    image: "dpage/pgadmin4:6.1"
+    links:
+      - "postgres:pgsql-server"
+    ports:
+      - "8000:8000"
+    restart: always
+    volumes:
+      - "pgadmin-data:/var/lib/pgadmin"
+
+volumes:
+  postgres-data: ~
+  pgadmin-data: ~
