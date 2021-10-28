@@ -8,7 +8,7 @@ const HOSTNAME = "0.0.0.0";
 const app = express();
 
 app.get('/', (req, res) => {
-    res.send('Hello testtest');
+    res.send('Hello tes');
 });
 
 app.listen(PORT, HOSTNAME);

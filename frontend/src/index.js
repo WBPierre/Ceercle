@@ -1,12 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import './i18n/index';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+// Move to App.js
+import CustomThemeProvider from "./components/context/theme/CustomThemeProvider";
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <CustomThemeProvider>
+        <App />
+    </CustomThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

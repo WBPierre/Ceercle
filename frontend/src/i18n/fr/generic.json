@@ -1,0 +1,20 @@
+{
+  "continue": "Continuer",
+  "yes": "Oui",
+  "all": "Tous",
+  "save": "Sauvegarder",
+  "edit": "Éditer",
+  "create": "Créer",
+  "cancel": "Annuler",
+  "close": "Fermer",
+  "upload": "Télécharger",
+  "add": "Ajouter",
+  "delete": "Supprimer",
+  "search": "Rechercher",
+  "name": "Nom",
+  "import": "Importer",
+  "export": "Exporter",
+  "description": "Description",
+  "type": "Type",
+  "loading": "Chargement... Merci de patienter"
+}
