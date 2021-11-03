@@ -9,7 +9,6 @@ deploy_stage:
     - eval $(ssh-agent -s)
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
-    - cat $SSH_KEY_EC2
     - echo "$(cat $SSH_KEY_EC2)" >> ~/.ssh/ssh-key.pem
     - chmod 400 ~/.ssh/ssh-key.pem
     - cat ~/.ssh/ssh-key.pem
