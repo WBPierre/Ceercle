@@ -19,8 +19,7 @@ deploy_stage:
     - >-
       ssh -i ~/.ssh/ssh-key.pem ubuntu@$EC2_ADDRESS \
       '
-      if [ -d app ];
-      then cd ~/app
+      cd ~/app
       && git status
       && docker-compose stop
       && git pull
