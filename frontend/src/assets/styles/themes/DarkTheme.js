@@ -6,7 +6,7 @@ const theme = createTheme({
     palette: {
         type: 'dark',
         primary: {
-            main: '#fc0000',
+            main: '#FFF',
             light: '#000',
             dark: '#fc0000',
         },
@@ -16,6 +16,12 @@ const theme = createTheme({
             dark: '#007bb2',
         }
     },
+    typography: {
+        button:{
+            fontFamily: 'Nunito'
+        },
+        fontFamily: 'Nunito'
+    }
 })
 
 export default theme

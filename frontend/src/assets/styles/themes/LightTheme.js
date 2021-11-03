@@ -18,6 +18,12 @@ const theme = createTheme({
             default: '#f5f5f5',
         },
     },
+    typography: {
+        button:{
+            fontFamily: 'Nunito'
+        },
+        fontFamily: 'Nunito'
+    }
 })
 
 export default theme
