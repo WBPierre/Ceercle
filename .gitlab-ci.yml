@@ -1,0 +1,28 @@
+default:
+  image: ubuntu:latest
+
+deploy_stage:
+  only:
+    - stage
+  before_script:
+    - 'which ssh-agent || (apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - cat $SSH_KEY_EC2
+    - echo "$(cat $SSH_KEY_EC2)" >> ~/.ssh/ssh-key.pem
+    - chmod 400 ~/.ssh/ssh-key.pem
+    - cat ~/.ssh/ssh-key.pem
+    - echo -e "HOST *\n\tStrictHostKeyChecking no \n\n" < ~/.ssh/config
+    - apt-get update -y
+    - apt-get -y install rsync
+  script:
+    - >-
+      ssh -i ~/.ssh/ssh-key.pem ubuntu@$EC2_ADDRESS \
+      '
+      if [ -d app ];
+      then cd ~/app
+      && git status
+      && docker-compose stop
+      && git pull
+      && docker-compose up -d --build
