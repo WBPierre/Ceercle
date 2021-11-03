@@ -7,6 +7,7 @@ Version [0.0.1]
 
 - Docker
 - Git
+- Node ^17.0.1
 
 ### Starting up
 
@@ -15,6 +16,17 @@ Go to project directory and run :
 
 If you don't need the console, add ````-d```` to run it in background.
 
+### Troubleshooting
+
+- If you're using Windows with Docker and WSL2, modify your : ````/etc/wsl.conf```` inside your WSL System.
+- Add to the file :   
+```
+[automount]
+root = /
+options = "metadata"
+```
+
+Save, reboot, and retry
 
 ### How to use Git
 
