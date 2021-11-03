@@ -10,9 +10,9 @@ import Box from "@mui/material/Box";
 import DescriptionList from "../components/containers/home/DescriptionList";
 import {useEffect, useRef, useState} from "react";
 import Divider from "@mui/material/Divider";
-import SCValue from "../components/molecules/home/SCValue";
+import SCValueList from "../components/containers/home/SCValueList";
 import Demo from "../components/molecules/home/Demo";
-import UserInterface from "../components/molecules/home/UserInterface";
+import UserInterfaceList from "../components/containers/home/UserInterfaceList";
 import Footer from "../components/containers/footer/Footer";
 import TypingEffect from "../components/molecules/home/TypingEffect";
 
@@ -25,6 +25,7 @@ function Home(){
         setHeight(textRef.current.clientHeight);
     }, []);
 
+    var test = "test"
     return(
         <Container maxWidth={false} disableGutters={true}>
             <NavBar/>
@@ -34,17 +35,16 @@ function Home(){
                         <Grid container spacing={3} direction="column">
                             <Grid item>
                                 <Typography variant="h3" component="h3" align="left" fontWeight={600}>
-                                    Optimisez la gestion du travail hybride de vos collaborateurs <TypingEffect/>
+                                    { t('home:main.title') } <TypingEffect/>
                                 </Typography>
                             </Grid>
                             <Grid item>
                                 <Typography variant="body1" align="left" fontSize={20}>
-                                    Fluidifiez l'organisation de travail de vos équipes, pilotez l'usage de vos espaces et offrez à vos collaborateurs
-                                    des soltuions pensées pour favoriser leurs bien-être et productivité. Le futur du travail, maintenant.
+                                { t('home:main.content') }
                                 </Typography>
                             </Grid>
                             <Grid item>
-                                <Button variant="contained">Demander une démo</Button>
+                                <Button variant="contained">{ t("generic:demo") }</Button>
                             </Grid>
                         </Grid>
                     </Grid>
@@ -56,11 +56,11 @@ function Home(){
             <Container maxWidth="xl">
                 <DescriptionList/>
                 <Divider/>
-                <SCValue/>
+                <SCValueList/>
                 <Divider/>
                 <Demo/>
                 <Divider/>
-                <UserInterface/>
+                <UserInterfaceList/>
             </Container>
             <Footer/>
         </Container>

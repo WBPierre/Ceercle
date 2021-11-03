@@ -16,5 +16,7 @@
   "export": "Exporter",
   "description": "Description",
   "type": "Type",
-  "loading": "Chargement... Merci de patienter"
+  "loading": "Chargement... Merci de patienter",
+  "more": "En savoir plus",
+  "demo": "Demander une démo"
 }

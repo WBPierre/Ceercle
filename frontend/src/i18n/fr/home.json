@@ -1,0 +1,39 @@
+{
+  "main" : {
+    "title": "Optimisez la gestion du travail hybride de vos collaborateurs",
+    "slider_at_the_office": "dans vos bureaux",
+    "slider_at_home": "en télétravail",
+    "slider_at_coworking": "dans des tiers lieux",
+    "content": "Fluidifiez l’organisation de travail de vos équipes, pilotez l’usage de vos espaces et offrez à vos collaborateurs des solutions pensées pour favoriser leur bien-être et productivité. Le futur du travail, maintenant."
+  },
+  "description_list" : {
+    "catchphrase_1" : "Vous éprouvez des difficultés à mettre en place une nouvelle organisation de travail plus flexible ?",
+    "catchphrase_2" : "Adoptez SpaceCorner, une solution tout-en-un pour vous accompagner dans vos problématiques liées au travail hybride.",
+    "title_element_1" : "Personnalisez votre outil. Intégrez vos salariés. Le tour est joué.",
+    "content_element_1" : "Définissez vos critères et règles de travail hybride : nombre de jours en télétravail, taux d’occupation des espaces, date limite de saisie, etc. Intégrez SpaceCorner à vos outils de travail (Slack, Outlook, Teams, etc.) et logiciels RH (Lucca, BambooHR, Payfit) existants afin d’en faciliter son déploiement. Ajoutez vos collaborateurs et offrez-leurs un cadre de travail clair et intuitif, loin des frictions rencontrées dans la mise en place du flex-office.",
+    "title_element_2" : "Simplifiez la gestion du travail hybride. Renforcez la collaboration au sein des équipes.",
+    "content_element_2" : "Avec SpaceCorner, améliorez le quotidien de vos collaborateurs en leur mettant à disposition un planning de présence partagé au sein de l’entreprise, à compléter chaque semaine. Vous gagnerez ainsi en visibilité sur l'organisation des équipes en flex-office tout en nourrissant un sentiment d’appartenance plus solide. Plus de pertes d’informations, et tout cela en quelques clics.",
+    "title_element_3" : "La réservation d’espaces de travail n'a jamais été aussi facile. Dans vos locaux, ou ailleurs. ",
+    "content_element_3" : "Les salariés disposent désormais d’une solution simple et efficace pour réserver des espaces de travail au sein de vos locaux ou dans un espace partenaire. Notre outil de réservation interne permet aux salariés de réserver facilement un poste de travail dans vos bureaux et de visualiser la présence de leurs collaborateurs. Notre marketplace offre quant à elle un choix exhaustif d’espaces de travail partenaires répondant à vos problématiques liées au flex-office : poste de travail individuel, salle de réunion, bureaux privatisés... Libérez-vous de vos contraintes immobilières et offrez un cadre de travail optimal à chacun.",
+    "title_element_4" : "Suivez, analysez et pilotez l’organisation de vos équipes et l’occupation de vos bureaux.",
+    "content_element_4" : "Grâce au dashboard complet de SpaceCorner, suivez l’organisation de vos équipes et de vos espaces. Analysez des indicateurs clés comme le taux d’occupation de vos locaux, la présence des équipes ou le moral de vos collaborateurs à distance et prenez le contrôle de vos dépenses liées aux réservations d’espaces de travail chez nos partenaires. Tirez profit de ce nouveau mode de travail hybride à travers une seule et même plateforme."
+  },
+  "SCValue" : {
+    "title" : "Une solution pensée pour chacun et qui profite à tous",
+    "content" : "SpaceCorner permet à l'ensemble des directions d'entreprise d'optimiser leurs opérations quotidiennes. Et d'en faire profiter tout le monde.",
+    "sub_element_1_title" : "Des salariés libérés ",
+    "sub_element_1_content": "Vos collaborateurs disposent désormais des outils nécessaires pour appréhender sereinement le travail hybride",
+    "sub_element_2_title" : "Une culture d’entreprise affirmée",
+    "sub_element_2_content": "Stimulez le sentiment d’appartenance de vos collaborateurs en favorisant la collaboration des équipes et le suivi d’activité des salariés de votre entreprise",
+    "sub_element_3_title" : "Une marque employeur renforcée",
+    "sub_element_3_content": "Favorisez l’attractivité et la rétention de talents en adoptant un cadre de travail plus flexible en ligne avec leurs attentes",
+    "sub_element_4_title" : "Des économies tangibles réalisées",
+    "sub_element_4_content": "Optimisez l’usage de vos bureaux et réduisez vos coûts immobiliers et environnementaux"
+  },
+  "demo" : "Vous souhaitez en savoir plus sur notre solution ? Demandez-nous une démo gratuite d'une vingtaine de minutes, nous vous répondorons dans les plus brefs délais.",
+  "UserInterface" : {
+    "web" : "Interface Web",
+    "mobile" : "Application Smartphone",
+    "sirh" : "Intégration directement sur vos applications Teams, Slack"
+  }
+}
