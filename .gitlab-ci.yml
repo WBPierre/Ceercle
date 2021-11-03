@@ -12,7 +12,7 @@ deploy_stage:
     - echo "$(cat $SSH_KEY_EC2)" >> ~/.ssh/ssh-key.pem
     - chmod 400 ~/.ssh/ssh-key.pem
     - cat ~/.ssh/ssh-key.pem
-    - echo -e "HOST *\n\tStrictHostKeyChecking no \n\n" < ~/.ssh/config
+    - echo -e "Host *\n\tStrictHostKeyChecking no \n\n" > ~/.ssh/config
     - apt-get update -y
     - apt-get -y install rsync
   script:
