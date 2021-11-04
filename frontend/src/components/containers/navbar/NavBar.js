@@ -32,10 +32,14 @@ import Popper from '@mui/material/Popper';
 import MenuList from '@mui/material/MenuList';
 import Grid from "@mui/material/Grid";
 import LangSwitcher from "../../molecules/navbar/LangSwitcher";
+import {useTheme} from "@mui/material";
 
 const options = ['Français', 'English'];
 
-export default function NavBar() {
+export default function NavBar(props) {
+
+    const theme = useTheme();
+
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -160,7 +164,7 @@ export default function NavBar() {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
+            <AppBar position="fixed" style={{zIndex: theme.zIndex.appBar, backgroundColor: theme.palette.background.default}}>
                 <Toolbar>
                     <Grid container alignItems="center">
                         <Grid item md={4}>
@@ -168,6 +172,7 @@ export default function NavBar() {
                                 variant="h6"
                                 noWrap
                                 component="div"
+                                color={theme.palette.text.primary}
                             >
                                 SpaceCorner
                             </Typography>
@@ -176,13 +181,13 @@ export default function NavBar() {
                             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                                 <Grid container spacing={5} direction="row" justifyContent="flex-end" alignItems="center">
                                     <Grid item>
-                                        <Button variant="text" color="inherit" size="medium" style={{fontWeight: 600}}>Nos offres</Button>
+                                        <Button variant="text" size="medium" style={{fontWeight: 600, color: theme.palette.text.primary}}>Nos offres</Button>
                                     </Grid>
                                     <Grid item>
-                                        <Button variant="text" color="inherit" size="medium" style={{fontWeight: 600}}>Ajouter un espace</Button>
+                                        <Button variant="text" color="inherit" size="medium" style={{fontWeight: 600, color: theme.palette.text.primary}}>Ajouter un espace</Button>
                                     </Grid>
                                     <Grid item>
-                                        <Button variant="outlined" color="inherit" size="medium" style={{fontWeight: 600}}>Demander une démo</Button>
+                                        <Button variant="outlined" color="inherit" size="medium" style={{fontWeight: 600, color: theme.palette.text.primary}}>Demander une démo</Button>
                                     </Grid>
                                     <Grid item>
                                         <Button variant="container"
@@ -192,6 +197,7 @@ export default function NavBar() {
                                                 aria-controls={menuId}
                                                 aria-haspopup="true"
                                                 onClick={handleProfileMenuOpen}
+                                                style={{color: theme.palette.text.primary}}
                                         >
                                             Mon compte
                                         </Button>

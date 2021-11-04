@@ -6,21 +6,55 @@ const theme = createTheme({
     palette: {
         type: 'dark',
         primary: {
-            main: '#FFF',
-            light: '#000',
-            dark: '#fc0000',
+            main: '#4C82D3',
         },
         secondary: {
-            main: '#00b0ff',
-            light: '#33bfff',
-            dark: '#007bb2',
+            main: '#69D0DB',
+        },
+        success: {
+            main: '#60B56D'
+        },
+        info: {
+            main: '#69D0DB'
+        },
+        error: {
+            main: '#DE5959'
+        },
+        warning: {
+            main: '#F6B84E'
+        },
+        purple: {
+            main: '#9872B2'
+        },
+        gdark: {
+            main: '#156756'
+        },
+        charcoal: {
+            main: '#474C55'
+        },
+        background: {
+            paper: '#FFF7EA',
+            default: '#F7F1E0'
+        },
+        text:{
+            primary: '#000'
         }
     },
     typography: {
         button:{
-            fontFamily: 'Nunito'
+            fontFamily: 'Nunito',
+            fontWeight: 600
         },
-        fontFamily: 'Nunito'
+        fontFamily: 'Nunito',
+        fontSize: 14,
+        htmlFontSize: 16
+    },
+    zIndex: {
+        appBar: 1100,
+        drawer: 1200,
+        modal: 1300,
+        snackbar: 1400,
+        tooltip: 1500
     }
 })
 
