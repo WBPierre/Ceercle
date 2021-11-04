@@ -30,6 +30,8 @@ import Grow from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import MenuList from '@mui/material/MenuList';
+import Grid from "@mui/material/Grid";
+import LangSwitcher from "../../molecules/navbar/LangSwitcher";
 
 const options = ['Français', 'English'];
 
@@ -97,6 +99,9 @@ export default function NavBar() {
             onClose={handleMobileMenuClose}
         >
             <MenuItem>
+                <Button variant="text" color="inherit" size="medium" style={{fontWeight: 600}}>Nos offres</Button>
+            </MenuItem>
+            <MenuItem>
                 <Button variant="text" color="inherit" size="medium" style={{fontWeight: 600}}>Ajouter un espace</Button>
             </MenuItem>
             <MenuItem>
@@ -116,14 +121,7 @@ export default function NavBar() {
                 </IconButton>
             </MenuItem>
             <MenuItem>
-                <IconButton
-                    size="large"
-                    edge="end"
-                    aria-label="theme"
-                    color="inherit"
-                >
-                    <WbSunnyIcon/>
-                </IconButton>
+                <LangSwitcher/>
             </MenuItem>
         </Menu>
     );
@@ -164,50 +162,61 @@ export default function NavBar() {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                    >
-                        SpaceCorner
-                    </Typography>
-                    <Button variant="text" color="inherit" size="medium" style={{fontWeight: 600}}>Nos offres</Button>
-                    <Box sx={{ flexGrow: 1 }} />
-                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <Button variant="text" color="inherit" size="medium" style={{fontWeight: 600}}>Ajouter un espace</Button>
-                        <Button variant="outlined" color="inherit" size="medium" style={{fontWeight: 600}}>Demander une démo</Button>
-                        <IconButton
-                            size="large"
-                            edge="end"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
-                            color="inherit"
-                        >
-                            <AccountCircle />
-                        </IconButton>
-                        <IconButton
-                            size="large"
-                            edge="end"
-                            aria-label="theme"
-                            color="inherit"
+                    <Grid container alignItems="center">
+                        <Grid item md={4}>
+                            <Typography
+                                variant="h6"
+                                noWrap
+                                component="div"
                             >
-                            <WbSunnyIcon/>
-                        </IconButton>
-                    </Box>
-                    <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-                        <IconButton
-                            size="large"
-                            aria-label="show more"
-                            aria-controls={mobileMenuId}
-                            aria-haspopup="true"
-                            onClick={handleMobileMenuOpen}
-                            color="inherit"
-                        >
-                            <MoreIcon />
-                        </IconButton>
-                    </Box>
+                                SpaceCorner
+                            </Typography>
+                        </Grid>
+                        <Grid item md={8}>
+                            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                                <Grid container spacing={5} direction="row" justifyContent="flex-end" alignItems="center">
+                                    <Grid item>
+                                        <Button variant="text" color="inherit" size="medium" style={{fontWeight: 600}}>Nos offres</Button>
+                                    </Grid>
+                                    <Grid item>
+                                        <Button variant="text" color="inherit" size="medium" style={{fontWeight: 600}}>Ajouter un espace</Button>
+                                    </Grid>
+                                    <Grid item>
+                                        <Button variant="outlined" color="inherit" size="medium" style={{fontWeight: 600}}>Demander une démo</Button>
+                                    </Grid>
+                                    <Grid item>
+                                        <Button variant="container"
+                                                startIcon={<AccountCircle />}
+                                                edge="end"
+                                                aria-label="account of current user"
+                                                aria-controls={menuId}
+                                                aria-haspopup="true"
+                                                onClick={handleProfileMenuOpen}
+                                        >
+                                            Mon compte
+                                        </Button>
+                                    </Grid>
+                                    <Grid item>
+                                        <LangSwitcher/>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                        </Grid>
+                        <Grid item xs={8}>
+                            <Box sx={{ display: { xs: 'flex', md: 'none' }, justifyContent: 'flex-end' }}>
+                                <IconButton
+                                    size="large"
+                                    aria-label="show more"
+                                    aria-controls={mobileMenuId}
+                                    aria-haspopup="true"
+                                    onClick={handleMobileMenuOpen}
+                                    color="inherit"
+                                >
+                                    <MoreIcon />
+                                </IconButton>
+                            </Box>
+                        </Grid>
+                    </Grid>
                 </Toolbar>
             </AppBar>
             {renderMobileMenu}
