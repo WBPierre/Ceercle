@@ -35,7 +35,7 @@ Rules :
 [Never push on main branch]
 
 Commands : 
-- ````git clone````
+- ````git clone https://gitlab.com/l585/spacecorner.git````
 
 - ```git pull``` : to fetch any changes
 
