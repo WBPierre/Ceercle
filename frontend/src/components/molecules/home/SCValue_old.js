@@ -1,20 +1,23 @@
 import Grid from "@mui/material/Grid";
+import {useTranslation} from "react-i18next";
 import Typography from "@mui/material/Typography";
 import FreeBreakfastIcon from '@mui/icons-material/FreeBreakfast';
 import GridModule from "../../containers/home/GridModule";
 
 function SCValue(){
+    
+    const { t } = useTranslation();
 
     return(
         <GridModule direction="column">
             <Grid item>
                 <Typography variant="h5" fontWeight={600} align="center">
-                    Une solution pensée pour chacun et qui profite à tous
+                    { t("home:SCValue.title")}
                 </Typography>
             </Grid>
             <Grid item>
                 <Typography variant="body1" align="center">
-                    SpaceCorner permet à l'ensemble des directions d'entreprise d'optimiser leurs opérations quotidiennes. Et d'en faire profiter tout le monde.
+                    { t("home:SCValue.content")}
                 </Typography>
             </Grid>
             <Grid item>
@@ -26,12 +29,12 @@ function SCValue(){
                             </Grid>
                             <Grid item>
                                 <Typography variant="subtitle1" fontWeight={600}>
-                                    Title
+                                    { t("home:SCValue.sub_element_1_title")}
                                 </Typography>
                             </Grid>
                             <Grid item>
                                 <Typography variant="body1">
-                                    Text
+                                    { t("home:SCValue.sub_element_1_content")}
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -43,12 +46,12 @@ function SCValue(){
                             </Grid>
                             <Grid item>
                                 <Typography variant="subtitle1" fontWeight={600}>
-                                    Title
+                                    { t("home:SCValue.sub_element_2_title")}
                                 </Typography>
                             </Grid>
                             <Grid item>
                                 <Typography variant="body1">
-                                    Text
+                                    { t("home:SCValue.sub_element_2_content")}
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -60,12 +63,12 @@ function SCValue(){
                             </Grid>
                             <Grid item>
                                 <Typography variant="subtitle1" fontWeight={600}>
-                                    Title
+                                    { t("home:SCValue.sub_element_3_title")}
                                 </Typography>
                             </Grid>
                             <Grid item>
                                 <Typography variant="body1">
-                                    Text
+                                    { t("home:SCValue.sub_element_3_content")}
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -77,12 +80,12 @@ function SCValue(){
                             </Grid>
                             <Grid item>
                                 <Typography variant="subtitle1" fontWeight={600}>
-                                    Title
+                                    { t("home:SCValue.sub_element_4_title")}
                                 </Typography>
                             </Grid>
                             <Grid item>
                                 <Typography variant="body1">
-                                    Text
+                                    { t("home:SCValue.sub_element_4_content")}
                                 </Typography>
                             </Grid>
                         </Grid>

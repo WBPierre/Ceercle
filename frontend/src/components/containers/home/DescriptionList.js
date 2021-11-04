@@ -1,14 +1,17 @@
 import Grid from "@mui/material/Grid";
+import {useTranslation} from "react-i18next";
 import Typography from "@mui/material/Typography"
 import Divider from "@mui/material/Divider"
 import DescriptionElement from "../../molecules/home/DescriptionElement"
-import Desc1 from "../../../assets/images/home/desc1.png";
-import Desc2 from "../../../assets/images/home/desc2.png";
-import Desc3 from "../../../assets/images/home/desc3.png";
+import Desc1 from "../../../assets/images/home/desc1.PNG";
+import Desc2 from "../../../assets/images/home/desc2.PNG";
+import Desc3 from "../../../assets/images/home/desc3.PNG";
+import Desc4 from "../../../assets/images/home/desc4.PNG";
 import GridModule from "./GridModule";
 
 
 function DescriptionList({props}){
+    const { t } = useTranslation();
 
     return(
         <GridModule direction="column">
@@ -16,12 +19,12 @@ function DescriptionList({props}){
                 <Grid container spacing={5} direction="column">
                     <Grid item>
                         <Typography variant="body1" align="center">
-                            Vous éprouvez des difficultés à mettre ne place une nouvelle organisation de travail plus flexible ?
+                            { t('home:description_list.catchphrase_1')}
                         </Typography>
                     </Grid>
                     <Grid item>
                         <Typography variant="h4" fontWeight={600} align="center">
-                            Adoptez SpaceCorner, une solution tout-en-un pour vous accompagner dans vos problématiques liées au travail hybride.
+                        { t('home:description_list.catchphrase_2')}
                         </Typography>
                     </Grid>
                     <Grid item>
@@ -30,12 +33,10 @@ function DescriptionList({props}){
                 </Grid>
             </Grid>
             <Grid item>
-                <DescriptionElement align="left" title="Louis Lacaille" image={Desc1} buttonText="En savoir plus" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere efficitur augue eu commodo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse at purus in nulla viverra lacinia non nec justo. Nullam congue nunc condimentum, ornare lectus et, molestie ante. Vivamus congue et massa sed molestie. Pellentesque vitae lacus sed massa accumsan rhoncus sed vitae metus. In hac habitasse platea dictumst. Pellentesque eu metus id nunc bibendum euismod in et elit. Ut vestibulum eleifend massa non scelerisque.
-"/>
-                <DescriptionElement align="right" title="Title" image={Desc2} buttonText="En savoir plus" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere efficitur augue eu commodo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse at purus in nulla viverra lacinia non nec justo. Nullam congue nunc condimentum, ornare lectus et, molestie ante. Vivamus congue et massa sed molestie. Pellentesque vitae lacus sed massa accumsan rhoncus sed vitae metus. In hac habitasse platea dictumst. Pellentesque eu metus id nunc bibendum euismod in et elit. Ut vestibulum eleifend massa non scelerisque.
-"/>
-                <DescriptionElement align="left" title="Title" image={Desc3} buttonText="En savoir plus" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere efficitur augue eu commodo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse at purus in nulla viverra lacinia non nec justo. Nullam congue nunc condimentum, ornare lectus et, molestie ante. Vivamus congue et massa sed molestie. Pellentesque vitae lacus sed massa accumsan rhoncus sed vitae metus. In hac habitasse platea dictumst. Pellentesque eu metus id nunc bibendum euismod in et elit. Ut vestibulum eleifend massa non scelerisque.
-"/>
+                <DescriptionElement align="left" title={ t('home:description_list.title_element_1')} image={Desc1} buttonText={ t("generic:more") } text={ t('home:description_list.content_element_1')} />
+                <DescriptionElement align="right" title={ t('home:description_list.title_element_2')} image={Desc2} buttonText={ t("generic:more") } text={ t('home:description_list.content_element_2')} />
+                <DescriptionElement align="left" title={ t('home:description_list.title_element_3')} image={Desc3} buttonText={ t("generic:more") } text={ t('home:description_list.content_element_3')} />
+                <DescriptionElement align="right" title={ t('home:description_list.title_element_4')} image={Desc4} buttonText={ t("generic:more") } text={ t('home:description_list.content_element_4')} />
             </Grid>
         </GridModule>
     )
