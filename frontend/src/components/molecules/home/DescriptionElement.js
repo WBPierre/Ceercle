@@ -1,6 +1,5 @@
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography"
-import Desc1 from "../../../assets/images/home/desc1.png"
 import {useEffect, useRef, useState} from "react";
 import Button from "@mui/material/Button";
 
@@ -33,9 +32,8 @@ function DescriptionElement(props){
                     </Grid>
                 </Grid>
                 <Grid item xs={12} md={6} align="center">
-                    <img src={props.image} style={{maxHeight: height}} alt="logo" />
+                    <img src={props.image} style={{maxHeight: height, width:'100%'}} alt="logo" />
                 </Grid>
-
             </Grid>
         )
     }else{
