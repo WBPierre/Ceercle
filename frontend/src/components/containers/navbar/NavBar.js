@@ -112,17 +112,17 @@ export default function NavBar(props) {
                 <Button variant="outlined" color="inherit" size="medium" style={{fontWeight: 600}}>Demander une démo</Button>
             </MenuItem>
             <MenuItem onClick={handleProfileMenuOpen}>
-                <IconButton
-                    size="large"
-                    edge="end"
-                    aria-label="account of current user"
-                    aria-controls={menuId}
-                    aria-haspopup="true"
-                    onClick={handleProfileMenuOpen}
-                    color="inherit"
+                <Button variant="container"
+                        startIcon={<AccountCircle />}
+                        edge="end"
+                        aria-label="account of current user"
+                        aria-controls={menuId}
+                        aria-haspopup="true"
+                        onClick={handleProfileMenuOpen}
+                        style={{color: theme.palette.text.primary}}
                 >
-                    <AccountCircle />
-                </IconButton>
+                    Mon compte
+                </Button>
             </MenuItem>
             <MenuItem>
                 <LangSwitcher/>
@@ -167,7 +167,7 @@ export default function NavBar(props) {
             <AppBar position="fixed" style={{zIndex: theme.zIndex.appBar, backgroundColor: theme.palette.background.default}}>
                 <Toolbar>
                     <Grid container alignItems="center">
-                        <Grid item md={4}>
+                        <Grid item md={3}>
                             <Typography
                                 variant="h6"
                                 noWrap
@@ -177,9 +177,9 @@ export default function NavBar(props) {
                                 SpaceCorner
                             </Typography>
                         </Grid>
-                        <Grid item md={8}>
-                            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                                <Grid container spacing={5} direction="row" justifyContent="flex-end" alignItems="center">
+                        <Grid item md={9}>
+                            <Box sx={{ display: { xs: 'none', sm:'none', md: 'flex' } }}>
+                                <Grid container spacing={1} direction="row" justifyContent="flex-end" alignItems="center">
                                     <Grid item>
                                         <Button variant="text" size="medium" style={{fontWeight: 600, color: theme.palette.text.primary}}>Nos offres</Button>
                                     </Grid>
@@ -202,14 +202,11 @@ export default function NavBar(props) {
                                             Mon compte
                                         </Button>
                                     </Grid>
-                                    <Grid item>
-                                        <LangSwitcher/>
-                                    </Grid>
                                 </Grid>
                             </Box>
                         </Grid>
-                        <Grid item xs={8}>
-                            <Box sx={{ display: { xs: 'flex', md: 'none' }, justifyContent: 'flex-end' }}>
+                        <Grid item xs={9} sm={9}>
+                            <Box sx={{ display: { xs: 'flex', sm: 'flex', md: 'none' }, justifyContent: 'flex-end' }}>
                                 <IconButton
                                     size="large"
                                     aria-label="show more"
