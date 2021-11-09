@@ -4,5 +4,15 @@
   "add_coworking": "Ajouter un espace",
   "my_account": "Mon Compte",
   "create_profile": "Créer un profil",
-  "connect_to_account": "Me connecter"
+  "connect_to_account": "Me connecter",
+  "create_profile_dialog": {
+    "title": "Créer un profil",
+    "content": "Pour créer un profil, veuillez renseignez les éléments suivants :",
+    "first_name": "Prénom",
+    "last_name":"Nom",
+    "email_adress":"Adresse email",
+    "password": "Mot de passe",
+    "cancel_creation": "Annuler",
+    "confirm_creation": "Créer mon compte"
+  }
 }

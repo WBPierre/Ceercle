@@ -35,6 +35,13 @@ import LangSwitcher from "../../molecules/navbar/LangSwitcher";
 import {useTheme} from "@mui/material";
 import {useTranslation} from "react-i18next";
 
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
 const options = ['Français', 'English'];
 
 export default function NavBar(props) {
@@ -51,14 +58,17 @@ export default function NavBar(props) {
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
+        //setDialogOpen(true);
     };
 
     const handleMobileMenuClose = () => {
         setMobileMoreAnchorEl(null);
+        setDialogOpen(false);
     };
 
     const handleMenuClose = () => {
         setAnchorEl(null);
+        alert("clicked");
         handleMobileMenuClose();
     };
 
@@ -66,6 +76,13 @@ export default function NavBar(props) {
         setMobileMoreAnchorEl(event.currentTarget);
     };
 
+    const createProfileOpen = (event) => {
+        setDialogOpen(true);
+    };
+
+    const [dialog_open, setDialogOpen] = React.useState(false);
+
+    
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
         <Menu
@@ -83,7 +100,7 @@ export default function NavBar(props) {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}> { t('navbar:create_profile')} </MenuItem>
+            <MenuItem onClick={createProfileOpen}> { t('navbar:create_profile')} </MenuItem>
             <MenuItem onClick={handleMenuClose}>{ t('navbar:connect_to_account')}</MenuItem>
         </Menu>
     );
@@ -166,9 +183,60 @@ export default function NavBar(props) {
     };
 
     return (
+        
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="fixed" style={{zIndex: theme.zIndex.appBar, backgroundColor: theme.palette.background.default}}>
                 <Toolbar>
+
+                <Dialog open={dialog_open} onClose={handleClose}>
+                    <DialogTitle>{ t('navbar:create_profile_dialog.title') }</DialogTitle>
+                    <DialogContent>
+                    <DialogContentText>
+                        { t('navbar:create_profile_dialog.content') }
+                    </DialogContentText>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label={ t('navbar:create_profile_dialog.first_name') }
+                        type="email"
+                        fullWidth
+                        variant="standard"
+                    />
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label={ t('navbar:create_profile_dialog.last_name') }
+                        type="email"
+                        fullWidth
+                        variant="standard"
+                    />
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label={ t('navbar:create_profile_dialog.email_adress') }
+                        type="email"
+                        fullWidth
+                        variant="standard"
+                    />
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label={ t('navbar:create_profile_dialog.password') }
+                        type="email"
+                        fullWidth
+                        variant="standard"
+                    />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button variant="text" onClick={handleClose}> { t('navbar:create_profile_dialog.cancel_creation') } </Button>
+                        <Button variant="text" onClick={handleClose}> { t('navbar:create_profile_dialog.confirm_creation') } </Button>
+                    </DialogActions>
+                </Dialog>
+
                     <Grid container alignItems="center">
                         <Grid item md={3}>
                             <Typography
