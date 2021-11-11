@@ -1,12 +1,9 @@
-import logo from './logo.svg';
 import './App.css';
-import {useTranslation} from "react-i18next";
-import Button from '@mui/material/Button';
-import Home from "./views/Home"
+import Rooter from "./navigation/Rooter";
 
 function App() {
   return (
-    <Home/>
+    <Rooter/>
   );
 }
 
