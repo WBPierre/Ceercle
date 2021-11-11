@@ -33,11 +33,14 @@ import MenuList from '@mui/material/MenuList';
 import Grid from "@mui/material/Grid";
 import LangSwitcher from "../../molecules/navbar/LangSwitcher";
 import {useTheme} from "@mui/material";
+import {useTranslation} from "react-i18next";
 
 const options = ['Français', 'English'];
 
 export default function NavBar(props) {
-
+    
+    const { t } = useTranslation();
+    
     const theme = useTheme();
 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -80,8 +83,8 @@ export default function NavBar(props) {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+            <MenuItem onClick={handleMenuClose}> { t('navbar:create_profile')} </MenuItem>
+            <MenuItem onClick={handleMenuClose}>{ t('navbar:connect_to_account')}</MenuItem>
         </Menu>
     );
 
@@ -103,13 +106,13 @@ export default function NavBar(props) {
             onClose={handleMobileMenuClose}
         >
             <MenuItem>
-                <Button variant="text" color="inherit" size="medium" style={{fontWeight: 600}}>Nos offres</Button>
+                <Button variant="text" color="inherit" size="medium" style={{fontWeight: 600}}>{ t('navbar:offers')}</Button>
             </MenuItem>
             <MenuItem>
-                <Button variant="text" color="inherit" size="medium" style={{fontWeight: 600}}>Ajouter un espace</Button>
+                <Button variant="text" color="inherit" size="medium" style={{fontWeight: 600}}>{ t('navbar:add_coworking')}</Button>
             </MenuItem>
             <MenuItem>
-                <Button variant="outlined" color="inherit" size="medium" style={{fontWeight: 600}}>Demander une démo</Button>
+                <Button variant="outlined" color="inherit" size="medium" style={{fontWeight: 600}}>{ t('generic:demo')}</Button>
             </MenuItem>
             <MenuItem onClick={handleProfileMenuOpen}>
                 <Button variant="container"
@@ -121,7 +124,7 @@ export default function NavBar(props) {
                         onClick={handleProfileMenuOpen}
                         style={{color: theme.palette.text.primary}}
                 >
-                    Mon compte
+                    { t('navbar:my_account')}
                 </Button>
             </MenuItem>
             <MenuItem>
@@ -174,20 +177,20 @@ export default function NavBar(props) {
                                 component="div"
                                 color={theme.palette.text.primary}
                             >
-                                SpaceCorner
+                                { t('navbar:company_name')}
                             </Typography>
                         </Grid>
                         <Grid item md={9}>
                             <Box sx={{ display: { xs: 'none', sm:'none', md: 'flex' } }}>
                                 <Grid container spacing={1} direction="row" justifyContent="flex-end" alignItems="center">
                                     <Grid item>
-                                        <Button variant="text" size="medium" style={{fontWeight: 600, color: theme.palette.text.primary}}>Nos offres</Button>
+                                        <Button variant="text" size="medium" style={{fontWeight: 600, color: theme.palette.text.primary}}>{ t('navbar:offers')}</Button>
                                     </Grid>
                                     <Grid item>
-                                        <Button variant="text" color="inherit" size="medium" style={{fontWeight: 600, color: theme.palette.text.primary}}>Ajouter un espace</Button>
+                                        <Button variant="text" color="inherit" size="medium" style={{fontWeight: 600, color: theme.palette.text.primary}}>{ t('navbar:add_coworking')}</Button>
                                     </Grid>
                                     <Grid item>
-                                        <Button variant="outlined" color="inherit" size="medium" style={{fontWeight: 600, color: theme.palette.text.primary}}>Demander une démo</Button>
+                                        <Button variant="outlined" color="inherit" size="medium" style={{fontWeight: 600, color: theme.palette.text.primary}}>{ t('generic:demo')}</Button>
                                     </Grid>
                                     <Grid item>
                                         <Button variant="container"
@@ -199,7 +202,7 @@ export default function NavBar(props) {
                                                 onClick={handleProfileMenuOpen}
                                                 style={{color: theme.palette.text.primary}}
                                         >
-                                            Mon compte
+                                            { t('navbar:my_account')}
                                         </Button>
                                     </Grid>
                                 </Grid>

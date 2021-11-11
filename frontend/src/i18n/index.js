@@ -7,6 +7,7 @@ import generic_fr from "./fr/generic.json";
 import header_en from "./en/header.json";
 import header_fr from "./fr/header.json";
 import home_fr from "./fr/home.json";
+import navbar_fr from "./fr/navbar.json";
 
 const resources = {
     en: {
@@ -18,6 +19,7 @@ const resources = {
         generic: generic_fr,
         header: header_fr,
         home : home_fr,
+        navbar : navbar_fr,
     }
 };
 
