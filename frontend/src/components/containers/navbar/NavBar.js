@@ -1,110 +1,39 @@
 import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
-import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import Switch from '@mui/material/Switch';
-import Stack from '@mui/material/Stack';
-import WbSunnyIcon from '@mui/icons-material/WbSunny';
-import NightsStayIcon from '@mui/icons-material/NightsStay';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import ButtonGroup from '@mui/material/ButtonGroup';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import ClickAwayListener from '@mui/material/ClickAwayListener';
-import Grow from '@mui/material/Grow';
-import Paper from '@mui/material/Paper';
-import Popper from '@mui/material/Popper';
-import MenuList from '@mui/material/MenuList';
 import Grid from "@mui/material/Grid";
 import LangSwitcher from "../../molecules/navbar/LangSwitcher";
 import {useTheme} from "@mui/material";
 import {useTranslation} from "react-i18next";
-
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import DialogGeneric from '../generic/DialogGeneric';
+import DialogLogin from '../../molecules/navbar/DialogLogin';
 
 const options = ['Français', 'English'];
 
 export default function NavBar(props) {
     
+    // Overall const
     const { t } = useTranslation();
-    
     const theme = useTheme();
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    // For mobile
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
-    const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-    const handleProfileMenuOpen = (event) => {
-        setAnchorEl(event.currentTarget);
-        //setDialogOpen(true);
-    };
-
     const handleMobileMenuClose = () => {
         setMobileMoreAnchorEl(null);
-        setDialogOpen(false);
     };
-
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-        alert("clicked");
-        handleMobileMenuClose();
-    };
-
     const handleMobileMenuOpen = (event) => {
         setMobileMoreAnchorEl(event.currentTarget);
     };
-
-    const createProfileOpen = (event) => {
-        setDialogOpen(true);
-    };
-
-    const [dialog_open, setDialogOpen] = React.useState(false);
-
-    
-    const menuId = 'primary-search-account-menu';
-    const renderMenu = (
-        <Menu
-            anchorEl={anchorEl}
-            anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            id={menuId}
-            keepMounted
-            transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            open={isMenuOpen}
-            onClose={handleMenuClose}
-        >
-            <MenuItem onClick={createProfileOpen}> { t('navbar:create_profile')} </MenuItem>
-            <MenuItem onClick={handleMenuClose}>{ t('navbar:connect_to_account')}</MenuItem>
-        </Menu>
-    );
-
     const mobileMenuId = 'primary-search-account-menu-mobile';
     const renderMobileMenu = (
         <Menu
@@ -131,14 +60,12 @@ export default function NavBar(props) {
             <MenuItem>
                 <Button variant="outlined" color="inherit" size="medium" style={{fontWeight: 600}}>{ t('generic:demo')}</Button>
             </MenuItem>
-            <MenuItem onClick={handleProfileMenuOpen}>
+            <MenuItem>
                 <Button variant="container"
                         startIcon={<AccountCircle />}
                         edge="end"
                         aria-label="account of current user"
-                        aria-controls={menuId}
-                        aria-haspopup="true"
-                        onClick={handleProfileMenuOpen}
+                        //onClick={handleProfileMenuOpen}
                         style={{color: theme.palette.text.primary}}
                 >
                     { t('navbar:my_account')}
@@ -150,92 +77,26 @@ export default function NavBar(props) {
         </Menu>
     );
 
-
-    const [checked, setChecked] = React.useState(true);
-
-    const handleChange = (event) => {
-        setChecked(event.target.checked);
+    //  Dialog logic
+    const [dialog_open, setDialogOpen] = React.useState(false);
+    const createProfileOpen = (event) => {
+        setDialogOpen(true);
+    };
+    const createProfileClose = (event) => {
+        setDialogOpen(false);
     };
 
-    const [open, setOpen] = React.useState(false);
-    const anchorRef = React.useRef(null);
-    const [selectedIndex, setSelectedIndex] = React.useState(1);
 
-    const handleClick = () => {
-        console.info(`You clicked ${options[selectedIndex]}`);
-    };
-
-    const handleMenuItemClick = (event, index) => {
-        setSelectedIndex(index);
-        setOpen(false);
-    };
-
-    const handleToggle = () => {
-        setOpen((prevOpen) => !prevOpen);
-    };
-
-    const handleClose = (event) => {
-        if (anchorRef.current && anchorRef.current.contains(event.target)) {
-            return;
-        }
-
-        setOpen(false);
-    };
-
+    // Return
     return (
-        
+
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="fixed" style={{zIndex: theme.zIndex.appBar, backgroundColor: theme.palette.background.default}}>
                 <Toolbar>
 
-                <Dialog open={dialog_open} onClose={handleClose}>
-                    <DialogTitle>{ t('navbar:create_profile_dialog.title') }</DialogTitle>
-                    <DialogContent>
-                    <DialogContentText>
-                        { t('navbar:create_profile_dialog.content') }
-                    </DialogContentText>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        label={ t('navbar:create_profile_dialog.first_name') }
-                        type="email"
-                        fullWidth
-                        variant="standard"
-                    />
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        label={ t('navbar:create_profile_dialog.last_name') }
-                        type="email"
-                        fullWidth
-                        variant="standard"
-                    />
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        label={ t('navbar:create_profile_dialog.email_adress') }
-                        type="email"
-                        fullWidth
-                        variant="standard"
-                    />
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        label={ t('navbar:create_profile_dialog.password') }
-                        type="email"
-                        fullWidth
-                        variant="standard"
-                    />
-                    </DialogContent>
-                    <DialogActions>
-                        <Button variant="text" onClick={handleClose}> { t('navbar:create_profile_dialog.cancel_creation') } </Button>
-                        <Button variant="text" onClick={handleClose}> { t('navbar:create_profile_dialog.confirm_creation') } </Button>
-                    </DialogActions>
-                </Dialog>
+                    <DialogGeneric openState={dialog_open} onClose={createProfileClose} title={ t('navbar:create_profile_dialog.title') }>
+                        <DialogLogin cancel={createProfileClose} confirm={createProfileClose} />
+                    </DialogGeneric>
 
                     <Grid container alignItems="center">
                         <Grid item md={3}>
@@ -265,9 +126,7 @@ export default function NavBar(props) {
                                                 startIcon={<AccountCircle />}
                                                 edge="end"
                                                 aria-label="account of current user"
-                                                aria-controls={menuId}
-                                                aria-haspopup="true"
-                                                onClick={handleProfileMenuOpen}
+                                                onClick={createProfileOpen}
                                                 style={{color: theme.palette.text.primary}}
                                         >
                                             { t('navbar:my_account')}
@@ -281,8 +140,6 @@ export default function NavBar(props) {
                                 <IconButton
                                     size="large"
                                     aria-label="show more"
-                                    aria-controls={mobileMenuId}
-                                    aria-haspopup="true"
                                     onClick={handleMobileMenuOpen}
                                     color="inherit"
                                 >
@@ -294,7 +151,6 @@ export default function NavBar(props) {
                 </Toolbar>
             </AppBar>
             {renderMobileMenu}
-            {renderMenu}
         </Box>
     );
 }
