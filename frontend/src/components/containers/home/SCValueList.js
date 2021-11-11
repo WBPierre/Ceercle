@@ -20,7 +20,7 @@ function SCValueList(props){
 
     return(
         <div style={{backgroundColor: theme.palette.info.main}}>
-            <Container maxWidth="xl">
+            <Container>
                 <GridModule direction="column">
                     <Grid item>
                         <Typography variant="h5" fontWeight={600} align="center">
