@@ -15,7 +15,7 @@ function DescriptionList({props}){
     const { t } = useTranslation();
 
     return(
-        <Container maxWidth="xl">
+        <Container>
             <GridModule direction="column">
                 <Grid item>
                     <Grid container spacing={5} direction="column">

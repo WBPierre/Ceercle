@@ -11,7 +11,7 @@ function UserInterfaceList(){
 
     return(
         <div>
-            <Container maxWidth="xl">
+            <Container>
                 <GridModule direction="row">
                     <UserInterfaceElement title={ t("home:UserInterface.web") } text="texte ?"/>
                     <UserInterfaceElement title={ t("home:UserInterface.mobile") } text="texte ?" />

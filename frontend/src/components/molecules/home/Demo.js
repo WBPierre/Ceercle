@@ -13,7 +13,7 @@ function Demo(){
     const theme = useTheme();
     return (
         <div>
-            <Container maxWidth="xl">
+            <Container>
                 <GridModule direction="column">
                     <Grid item>
                         <Typography variant="h5" fontWeight={600} align="center">

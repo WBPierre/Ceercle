@@ -208,15 +208,15 @@ export default function NavBar(props) {
                                 </Grid>
                             </Box>
                         </Grid>
-                        <Grid item xs={9} sm={9}>
-                            <Box sx={{ display: { xs: 'flex', sm: 'flex', md: 'none' }, justifyContent: 'flex-end' }}>
+                        <Grid item xs={8} sm={8}>
+                            <Box sx={{ display: { xs: 'flex', sm: 'flex', md: 'none' }, justifyContent: 'flex-end'}}>
                                 <IconButton
                                     size="large"
                                     aria-label="show more"
                                     aria-controls={mobileMenuId}
                                     aria-haspopup="true"
                                     onClick={handleMobileMenuOpen}
-                                    color="inherit"
+                                    style={{color:'black'}}
                                 >
                                     <MoreIcon />
                                 </IconButton>

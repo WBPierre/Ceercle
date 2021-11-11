@@ -13,7 +13,7 @@ function DescriptionElement(props){
 
     if(props.align === "left"){
         return(
-            <Grid container direction="row" my={10}>
+            <Grid container direction="row" my={10} spacing={5}>
                 <Grid item xs={12} md={6}>
                     <Grid container spacing={5} direction="column" ref={textRef}>
                         <Grid item>
@@ -31,16 +31,16 @@ function DescriptionElement(props){
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item xs={12} md={6} align="center">
-                    <img src={props.image} style={{maxHeight: height, width:'100%'}} alt="logo" />
+                <Grid item xs={12} md={6} style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
+                    <img src={props.image} style={{maxHeight: height, width:'50%'}} alt="logo" />
                 </Grid>
             </Grid>
         )
     }else{
         return(
-            <Grid container direction="row">
-                <Grid item xs={12} md={6} align="center">
-                    <img src={props.image} style={{maxHeight: height}} alt="logo" />
+            <Grid container direction="row" my={10} spacing={5}>
+                <Grid item xs={12} md={6} style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
+                    <img src={props.image} style={{maxHeight: height, width:'50%'}} alt="logo" />
                 </Grid>
                 <Grid item xs={12} md={6}>
                 <Grid container spacing={5} direction="column" ref={textRef}>
