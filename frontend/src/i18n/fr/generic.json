@@ -21,5 +21,7 @@
   "demo": "Demander une démo",
   "email": "Adresse email",
   "password" : "Mot de passe",
-  "login" : "Me connecter"
+  "login" : "Me connecter",
+  "send": "Envoyer",
+  "subject": "Sujet"
 }

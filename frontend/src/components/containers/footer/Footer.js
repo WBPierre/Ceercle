@@ -6,6 +6,7 @@ import Container from "@mui/material/Container";
 import Essec from "../../../assets/images/footer/essec.jpg";
 import Pepites from "../../../assets/images/footer/pepites.png";
 import Paper from "@mui/material/Paper";
+import { Link } from "react-router-dom";
 
 function Footer(){
     const theme = useTheme();
@@ -38,7 +39,9 @@ function Footer(){
                                 <Typography variant={"body1"} color="white">Pricing</Typography>
                             </Grid>
                             <Grid item xs={2}>
-                                <Typography variant={"body1"} color="white">Contact</Typography>
+                                <Link to="/contact">
+                                    <Button variant="default" style={{color: 'white'}}>Contact</Button>
+                                </Link>
                             </Grid>
                             <Grid item xs={2}>
                                 <Typography variant={"body1"} color="white">Mentions légales</Typography>
