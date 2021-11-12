@@ -18,5 +18,8 @@
   "type": "Type",
   "loading": "Chargement... Merci de patienter",
   "more": "En savoir plus",
-  "demo": "Demander une démo"
+  "demo": "Demander une démo",
+  "email": "Adresse email",
+  "password" : "Mot de passe",
+  "login" : "Me connecter"
 }
