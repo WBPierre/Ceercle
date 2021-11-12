@@ -15,6 +15,7 @@ import {useTheme} from "@mui/material";
 import {useTranslation} from "react-i18next";
 import DialogGeneric from '../generic/DialogGeneric';
 import DialogLogin from '../../molecules/navbar/DialogLogin';
+import {Link} from "react-router-dom";
 
 const options = ['Français', 'English'];
 
@@ -116,10 +117,14 @@ export default function NavBar(props) {
                                         <Button variant="text" size="medium" style={{fontWeight: 600, color: theme.palette.text.primary}}>{ t('navbar:offers')}</Button>
                                     </Grid>
                                     <Grid item>
-                                        <Button variant="text" color="inherit" size="medium" style={{fontWeight: 600, color: theme.palette.text.primary}}>{ t('navbar:add_coworking')}</Button>
+                                        <Link to="/demo/space">
+                                            <Button variant="text" color="inherit" size="medium" style={{fontWeight: 600, color: theme.palette.text.primary}}>{ t('navbar:add_coworking')}</Button>
+                                        </Link>
                                     </Grid>
                                     <Grid item>
-                                        <Button variant="outlined" color="inherit" size="medium" style={{fontWeight: 600, color: theme.palette.text.primary}}>{ t('generic:demo')}</Button>
+                                        <Link to="/demo/company">
+                                            <Button variant="outlined" color="inherit" size="medium" style={{fontWeight: 600, color: theme.palette.text.primary}}>{ t('generic:demo')}</Button>
+                                        </Link>
                                     </Grid>
                                     <Grid item>
                                         <Button variant="container"
