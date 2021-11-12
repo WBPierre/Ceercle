@@ -25,5 +25,7 @@
   "login" : "Me connecter",
   "phone": "Téléphone",
   "zip_code": "Code postal",
-  "professional_email": "Email professionnel"
+  "professional_email": "Email professionnel",
+  "send": "Envoyer",
+  "subject": "Sujet"
 }
