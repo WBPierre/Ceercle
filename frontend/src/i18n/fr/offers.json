@@ -1,0 +1,50 @@
+{
+  "main" : {
+    "title": "Du temps économisé. Un gain de clarté. Une hausse de la productivité et du bien-être pour l'ensemble de vos collaborateurs.",
+    "sub_title_1": "Et bien d'autres.",
+    "sub_title_2": "En une solution.",
+    "content": "Tirez profit dès maintenant d'une organisation de travail hybrique à travers l'une de nos 3 offres.",
+    "our_offers": "Nos offres",
+    "unit_price": "/mois/collaborateur",
+    "choose_this_offer": "Choisir cette offre"
+  },
+  "offer_1" : {
+    "title": "Business",
+    "price": "3€",
+    "description": "Les services essentiels pour la gestion du travail hybride au sein de votre organisation.",
+    "services" : {
+      "service_1": "Déclaration de planning de présence",
+      "service_2": "Réservation de poste de travail interne",
+      "service_3": "Calendrier collaboratif de présence des collaborateurs",
+      "service_4": "Intégration avec votre SIRH",
+      "service_5": "Intégration avec vos outils (Slack, Teams, ...)",
+      "service_6": "Dashboard de suivi de présence et analytics",
+      "max_users": "Jusqu'à 300 collaborateurs"
+    }
+  },
+  "offer_2" : {
+    "title": "Premium",
+    "price": "6€",
+    "description": "La solution phare incluant l’ensemble de nos solutions, du planning de présence à la réservation d’espaces de travail tiers.",
+    "services" : {
+      "service_1": "L’ensemble de l’offre Business",
+      "service_2": "Marketplace d’espace de travail tiers (postes de travail individuels, salles de réunion, bureaux privatisés) accessibles aux collaborateurs souhaités",
+      "service_3": "Définition sur-mesure de plafonds de dépenses en tiers-lieux pour les salariés",
+      "service_4": "Réservation autonome de postes de travail et de salles de réunion",
+      "service_5": "Souscription à des offres forfaitaires de postes individuels et/ou de bureaux fermés",
+      "service_6": "Demande de réservations en tiers-lieux centralisées sur le dashboard SpaceCorner"
+    },
+    "offer_3" : {
+      "title": "Sur-mesure",
+      "contact_us": "Nous contacter",
+      "description": "La solution sur-mesure destinées aux grands comptes",
+      "services" : {
+        "service_1": "Plus de 300 collaborateurs",
+        "service_2": "Personnalisation de la plateforme",
+        "service_3": "Support prioritaire dédié",
+        "service_4": "Single Sign-On (SSO)",
+        "service_5": "Tarification sur-mesure "
+      }
+    }
+  }
+}
