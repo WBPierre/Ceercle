@@ -9,15 +9,22 @@ import Desc3 from "../../../assets/images/home/desc3.PNG";
 import Desc4 from "../../../assets/images/home/desc4.PNG";
 import GridModule from "./GridModule";
 import Container from "@mui/material/Container";
+import {Fade, useTheme} from "@mui/material";
+import {useRef} from "react";
+import ObserverViewPort from "../../functions/ObserverViewPort";
+import FadeInElement from "../../molecules/generic/FadeInElement";
 
 
 function DescriptionList({props}){
     const { t } = useTranslation();
+    const theme = useTheme();
+
 
     return(
         <Container>
             <GridModule direction="column">
-                <Grid item>
+                <FadeInElement>
+                <Grid item style={{backgroundColor: theme.palette.info.main}}>
                     <Grid container spacing={5} direction="column">
                         <Grid item>
                             <Typography variant="body1" align="center">
@@ -34,8 +41,9 @@ function DescriptionList({props}){
                         </Grid>
                     </Grid>
                 </Grid>
+                </FadeInElement>
                 <Grid item>
-                    <DescriptionElement align="left" title={ t('home:description_list.title_element_1')} image={Desc1} buttonText={ t("generic:more") } text={ t('home:description_list.content_element_1')} />
+                    <DescriptionElement align="left" title={ t('home:description_list.title_element_1')} image={Desc1} buttonText={ t("generic:more") } text={ t('home:description_list.content_element_1')}/>
                     <DescriptionElement align="right" title={ t('home:description_list.title_element_2')} image={Desc2} buttonText={ t("generic:more") } text={ t('home:description_list.content_element_2')} />
                     <DescriptionElement align="left" title={ t('home:description_list.title_element_3')} image={Desc3} buttonText={ t("generic:more") } text={ t('home:description_list.content_element_3')} />
                     <DescriptionElement align="right" title={ t('home:description_list.title_element_4')} image={Desc4} buttonText={ t("generic:more") } text={ t('home:description_list.content_element_4')} />

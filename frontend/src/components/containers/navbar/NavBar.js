@@ -15,7 +15,7 @@ import {useTheme} from "@mui/material";
 import {useTranslation} from "react-i18next";
 import DialogGeneric from '../generic/DialogGeneric';
 import DialogLogin from '../../molecules/navbar/DialogLogin';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const options = ['Français', 'English'];
 
@@ -24,6 +24,7 @@ export default function NavBar(props) {
     // Overall const
     const { t } = useTranslation();
     const theme = useTheme();
+    let navigate = useNavigate();
 
 
     // For mobile
@@ -53,13 +54,13 @@ export default function NavBar(props) {
             onClose={handleMobileMenuClose}
         >
             <MenuItem>
-                <Button variant="text" color="inherit" size="medium" style={{fontWeight: 600}}>{ t('navbar:offers')}</Button>
+                <Button onClick={() => navigate('/offers')} variant="text" color="inherit" size="medium" style={{fontWeight: 600}}>{ t('navbar:offers')}</Button>
             </MenuItem>
             <MenuItem>
-                <Button variant="text" color="inherit" size="medium" style={{fontWeight: 600}}>{ t('navbar:add_coworking')}</Button>
+                <Button onClick={() => navigate('/demo/space')} variant="text" color="inherit" size="medium" style={{fontWeight: 600}}>{ t('navbar:add_coworking')}</Button>
             </MenuItem>
             <MenuItem>
-                <Button variant="outlined" color="inherit" size="medium" style={{fontWeight: 600}}>{ t('generic:demo')}</Button>
+                <Button onClick={() => navigate('/demo/company')} variant="outlined" color="inherit" size="medium" style={{fontWeight: 600}}>{ t('generic:demo')}</Button>
             </MenuItem>
             <MenuItem>
                 <Button variant="container"
@@ -92,7 +93,7 @@ export default function NavBar(props) {
     return (
 
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="fixed" style={{zIndex: theme.zIndex.appBar, backgroundColor: theme.palette.background.default}}>
+            <AppBar position="fixed" style={{zIndex: theme.zIndex.appBar, backgroundColor: theme.palette.background.paper}}>
                 <Toolbar>
 
                     <DialogGeneric openState={dialog_open} onClose={createProfileClose} title={ t('navbar:create_profile_dialog.title') }>
@@ -101,30 +102,28 @@ export default function NavBar(props) {
 
                     <Grid container alignItems="center">
                         <Grid item md={3}>
-                            <Typography
-                                variant="h6"
-                                noWrap
-                                component="div"
-                                color={theme.palette.text.primary}
-                            >
-                                { t('navbar:company_name')}
-                            </Typography>
+                            <Button variant="text" onClick={() => navigate('/')}>
+                                <Typography
+                                    variant="h6"
+                                    noWrap
+                                    component="div"
+                                    color={theme.palette.text.primary}
+                                >
+                                    { t('navbar:company_name')}
+                                </Typography>
+                            </Button>
                         </Grid>
                         <Grid item md={9}>
                             <Box sx={{ display: { xs: 'none', sm:'none', md: 'flex' } }}>
                                 <Grid container spacing={1} direction="row" justifyContent="flex-end" alignItems="center">
                                     <Grid item>
-                                        <Button variant="text" size="medium" style={{fontWeight: 600, color: theme.palette.text.primary}}>{ t('navbar:offers')}</Button>
+                                        <Button onClick={() => navigate('/offers')} variant="text" size="medium" style={{fontWeight: 600, color: theme.palette.primary.main}}>{ t('navbar:offers')}</Button>
                                     </Grid>
                                     <Grid item>
-                                        <Link to="/demo/space">
-                                            <Button variant="text" color="inherit" size="medium" style={{fontWeight: 600, color: theme.palette.text.primary}}>{ t('navbar:add_coworking')}</Button>
-                                        </Link>
+                                        <Button onClick={() => navigate('/demo/space')} variant="text" color="inherit" size="medium" style={{fontWeight: 600, color: theme.palette.primary.main}}>{ t('navbar:add_coworking')}</Button>
                                     </Grid>
                                     <Grid item>
-                                        <Link to="/demo/company">
-                                            <Button variant="outlined" color="inherit" size="medium" style={{fontWeight: 600, color: theme.palette.text.primary}}>{ t('generic:demo')}</Button>
-                                        </Link>
+                                        <Button onClick={() => navigate('/demo/company')} variant="outlined" size="medium" style={{fontWeight: 600, color: theme.palette.primary.main}}>{ t('generic:demo')}</Button>
                                     </Grid>
                                     <Grid item>
                                         <Button variant="container"
@@ -132,7 +131,7 @@ export default function NavBar(props) {
                                                 edge="end"
                                                 aria-label="account of current user"
                                                 onClick={createProfileOpen}
-                                                style={{color: theme.palette.text.primary}}
+                                                style={{color: theme.palette.primary.main}}
                                         >
                                             { t('navbar:my_account')}
                                         </Button>
