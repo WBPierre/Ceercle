@@ -11,6 +11,7 @@
   "add": "Ajouter",
   "delete": "Supprimer",
   "search": "Rechercher",
+  "firstname": "Prénom",
   "name": "Nom",
   "import": "Importer",
   "export": "Exporter",
@@ -21,5 +22,10 @@
   "demo": "Demander une démo",
   "email": "Adresse email",
   "password" : "Mot de passe",
-  "login" : "Me connecter"
+  "login" : "Me connecter",
+  "phone": "Téléphone",
+  "zip_code": "Code postal",
+  "professional_email": "Email professionnel",
+  "send": "Envoyer",
+  "subject": "Sujet"
 }

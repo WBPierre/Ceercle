@@ -1,0 +1,16 @@
+{
+  "title": "Demandez une démonstration personnalisée",
+  "subtitle": "Notre équipe est disponible de 9h à 18h et sera ravie de vous présenter notre solution.",
+  "check_1": "Concentrez-vous sur l'essentiel",
+  "check_2": "Dites adieu aux coûts cachés",
+  "check_3": "Gagnez en autonomie et en agilité",
+  "coworking": {
+    "title": "Inscrire un espace",
+    "name": "Nom du coworking"
+  },
+  "company": {
+    "title": "Demander une démonstration",
+    "name": "Nom de l'entreprise",
+    "function": "Fonction occupée"
+  }
+}

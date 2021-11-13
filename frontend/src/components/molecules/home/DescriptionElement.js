@@ -2,6 +2,8 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography"
 import {useEffect, useRef, useState} from "react";
 import Button from "@mui/material/Button";
+import ObserverViewPort from "../../functions/ObserverViewPort";
+import {Fade} from "@mui/material";
 
 function DescriptionElement(props){
     const [height, setHeight] = useState(0);
@@ -22,7 +24,7 @@ function DescriptionElement(props){
                             </Typography>
                         </Grid>
                         <Grid item>
-                            <Typography variant="h5">
+                            <Typography variant="body1" fontSize={18}>
                                 {props.text}
                             </Typography>
                         </Grid>
@@ -50,7 +52,7 @@ function DescriptionElement(props){
                         </Typography>
                     </Grid>
                     <Grid item>
-                        <Typography variant="h5">
+                        <Typography variant="body1" fontSize={18}>
                             {props.text}
                         </Typography>
                     </Grid>

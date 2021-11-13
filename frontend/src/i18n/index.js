@@ -9,6 +9,8 @@ import header_fr from "./fr/header.json";
 import home_fr from "./fr/home.json";
 import navbar_fr from "./fr/navbar.json";
 import offers_fr from "./fr/offers.json";
+import demo_fr from "./fr/demo.json";
+import contact_fr from "./fr/contact.json";
 
 const resources = {
     en: {
@@ -22,6 +24,8 @@ const resources = {
         home : home_fr,
         navbar : navbar_fr,
         offers : offers_fr,
+        demo: demo_fr,
+        contact: contact_fr
     }
 };
 
