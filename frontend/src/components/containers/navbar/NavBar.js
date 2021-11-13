@@ -15,6 +15,7 @@ import {useTheme} from "@mui/material";
 import {useTranslation} from "react-i18next";
 import DialogGeneric from '../generic/DialogGeneric';
 import DialogLogin from '../../molecules/navbar/DialogLogin';
+import {Link} from 'react-router-dom';
 
 const options = ['Français', 'English'];
 
@@ -113,7 +114,9 @@ export default function NavBar(props) {
                             <Box sx={{ display: { xs: 'none', sm:'none', md: 'flex' } }}>
                                 <Grid container spacing={1} direction="row" justifyContent="flex-end" alignItems="center">
                                     <Grid item>
-                                        <Button variant="text" size="medium" style={{fontWeight: 600, color: theme.palette.text.primary}}>{ t('navbar:offers')}</Button>
+                                        <Link to="/offers">
+                                            <Button variant="text" size="medium" style={{fontWeight: 600, color: theme.palette.text.primary}}>{ t('navbar:offers')}</Button>
+                                        </Link>
                                     </Grid>
                                     <Grid item>
                                         <Button variant="text" color="inherit" size="medium" style={{fontWeight: 600, color: theme.palette.text.primary}}>{ t('navbar:add_coworking')}</Button>
