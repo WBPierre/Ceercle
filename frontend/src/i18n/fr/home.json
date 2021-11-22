@@ -1,12 +1,13 @@
 {
   "main" : {
     "title": "Optimisez la gestion du travail hybride de vos collaborateurs",
-    "slider_at_the_office": "dans vos bureaux",
-    "slider_at_home": "en télétravail",
-    "slider_at_coworking": "dans des tiers lieux",
+    "slider_at_the_office": "dans vos bureaux.",
+    "slider_at_home": "en télétravail.",
+    "slider_at_coworking": "dans des tiers lieux.",
     "content": "Fluidifiez l’organisation de travail de vos équipes, pilotez l’usage de vos espaces et offrez à vos collaborateurs des solutions pensées pour favoriser leur bien-être et productivité. Le futur du travail, maintenant."
   },
   "description_list" : {
+    "simply": "Simplement.",
     "catchphrase_1" : "Vous éprouvez des difficultés à mettre en place une nouvelle organisation de travail plus flexible ?",
     "catchphrase_2" : "Adoptez SpaceCorner, une solution tout-en-un pour vous accompagner dans vos problématiques liées au travail hybride.",
     "title_element_1" : "Personnalisez votre outil. Intégrez vos salariés. Le tour est joué.",

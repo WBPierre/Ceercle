@@ -33,7 +33,7 @@ const theme = createTheme({
             main: '#474C55'
         },
         background: {
-            paper: '#F8F8F8',
+            paper: '#FBFBFC',
             default: '#FFF'
         },
         text:{
@@ -42,10 +42,10 @@ const theme = createTheme({
     },
     typography: {
         button:{
-            fontFamily: 'Nunito',
+            fontFamily: 'SF Pro Display',
             fontWeight: 600
         },
-        fontFamily: 'Nunito',
+        fontFamily: 'SF Pro Display',
         fontSize: 14,
         htmlFontSize: 16
     },

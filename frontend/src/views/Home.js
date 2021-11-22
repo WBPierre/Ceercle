@@ -13,51 +13,22 @@ import UserInterfaceList from "../components/containers/home/UserInterfaceList";
 import Footer from "../components/containers/footer/Footer";
 import TypingEffect from "../components/molecules/home/TypingEffect";
 import {Fade, useTheme} from "@mui/material";
+import ContactImage from "../assets/images/contact/right.jpg";
+import Box from "@mui/material/Box";
+import Intro from "../components/molecules/home/Intro";
 
 function Home(){
-    const { t } = useTranslation();
-    const [height, setHeight] = useState(0);
-    const textRef = useRef(null);
-    const theme = useTheme();
-
-    useEffect( () => {
-        setHeight(textRef.current.clientHeight);
-    }, []);
-
     return(
         <Container maxWidth={false} disableGutters={true}>
             <NavBar/>
-            <div style={{backgroundColor: theme.palette.background.default}}>
-                <Fade in={true} timeout={1000}>
-                    <Container style={{minHeight:'100vh', display:'flex', paddingTop: 100}}>
-                        <Grid container spacing={2} style={{flex:1}} direction="row" justifyContent="center" alignItems="center">
-                            <Grid item xs={12} md={6} ref={textRef}>
-                                <Grid container spacing={3} direction="column">
-                                    <Grid item>
-                                        <Typography variant="h3" component="h3" align="left" fontWeight={600}>
-                                            { t('home:main.title') } <TypingEffect/>
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item>
-                                        <Typography variant="body1" align="left" fontSize={20}>
-                                            { t('home:main.content') }
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item>
-                                        <Button variant="contained">{ t("generic:demo") }</Button>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                            <Grid item xs={12} md={6} style={{textAlign:'center'}}>
-                                <img src={HomeImage} style={{maxHeight: height, width:'100%'}} alt="logo" />
-                            </Grid>
-                        </Grid>
-                    </Container>
-                </Fade>
-            </div>
+            <Intro/>
+            <div style={{marginTop:'5%'}}/>
             <DescriptionList/>
+            <div style={{marginTop:'5%'}}/>
             <SCValueList/>
+            <div style={{marginTop:'5%'}}/>
             <Demo/>
+            <div style={{marginTop:'5%'}}/>
             <UserInterfaceList/>
             <Footer/>
         </Container>
