@@ -17,6 +17,7 @@ import DialogGeneric from '../generic/DialogGeneric';
 import DialogLogin from '../../molecules/navbar/DialogLogin';
 import {Link, useNavigate} from "react-router-dom";
 import HideOnScroll from "../../molecules/navbar/HideOnScroll";
+import WbSunnyIcon from '@mui/icons-material/WbSunny';
 
 const options = ['Français', 'English'];
 
@@ -58,15 +59,26 @@ export default function NavBar(props) {
                 <Button onClick={() => navigate('/offers')} variant="text" color="inherit" size="medium" style={{fontWeight: 600}}>{ t('navbar:offers')}</Button>
             </MenuItem>
             <MenuItem>
-                <Button variant="outlined"
+                <Button onClick={() => navigate('/offers')} variant="outlined" color="error" size="medium" style={{fontWeight: 600}}>{ t('navbar:ask_for_demo')}</Button>
+            </MenuItem>
+            <MenuItem>
+                <Button variant="text"
                         color="inherit"
                         size="medium"
                         aria-label="account of current user"
                         //onClick={handleProfileMenuOpen}
                         style={{fontWeight: 600}}
                 >
-                    { t('navbar:my_account')}
+                    { t('navbar:connect')}
                 </Button>
+            </MenuItem>
+            <MenuItem>
+                <LangSwitcher/>
+            </MenuItem>
+            <MenuItem>
+                <IconButton style={{color:'black'}} aria-label="add to shopping cart" sx={{mr:2}}>
+                    <WbSunnyIcon />
+                </IconButton>
             </MenuItem>
         </Menu>
     );
@@ -86,12 +98,14 @@ export default function NavBar(props) {
 
         <Box sx={{ flexGrow: 1 }}>
             <HideOnScroll {...props}>
-                <AppBar>
+                <AppBar style={{backgroundColor:theme.palette.background.default}}>
                     <Toolbar>
                         <Typography
                             variant="h6"
                             noWrap
                             component="div"
+                            color="black"
+                            style={{fontWeight:800}}
                         >
                             Spacecorner
                         </Typography>
@@ -100,20 +114,31 @@ export default function NavBar(props) {
                             <Button
                                 size="medium"
                                 aria-label="account of current user"
-                                color="inherit"
+                                color="primary"
                             >
                                 { t('navbar:offers')}
                             </Button>
                         </Box>
                         <Box sx={{ flexGrow: 10 }} />
                         <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                            <IconButton style={{color:'black'}} aria-label="add to shopping cart" sx={{mr:2}}>
+                                <WbSunnyIcon />
+                            </IconButton>
+                            <LangSwitcher/>
                             <Button variant="outlined"
-                                    startIcon={<AccountCircle />}
                                     aria-label="account of current user"
                                     onClick={createProfileOpen}
-                                    color="inherit"
+                                    color="error"
+                                    sx={{mr:2}}
                             >
-                                { t('navbar:my_account')}
+                                { t('navbar:ask_for_demo')}
+                            </Button>
+                            <Button variant="text"
+                                    aria-label="account of current user"
+                                    onClick={createProfileOpen}
+                                    color="primary"
+                            >
+                                { t('navbar:connect')}
                             </Button>
                         </Box>
                         <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
@@ -121,7 +146,7 @@ export default function NavBar(props) {
                                 size="large"
                                 aria-label="show more"
                                 aria-haspopup="true"
-                                color="inherit"
+                                style={{color:'black'}}
                                 onClick={handleMobileMenuOpen}
                             >
                                 <MoreIcon />
