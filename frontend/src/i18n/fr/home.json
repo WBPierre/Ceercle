@@ -17,9 +17,18 @@
     "title_element_3" : "La réservation d’espaces de travail n'a jamais été aussi facile. Dans vos locaux, ou ailleurs. ",
     "content_element_3" : "Les salariés disposent désormais d’une solution simple et efficace pour réserver des espaces de travail au sein de vos locaux ou dans un espace partenaire. Notre outil de réservation interne permet aux salariés de réserver facilement un poste de travail dans vos bureaux et de visualiser la présence de leurs collaborateurs. Notre marketplace offre quant à elle un choix exhaustif d’espaces de travail partenaires répondant à vos problématiques liées au flex-office : poste de travail individuel, salle de réunion, bureaux privatisés... Libérez-vous de vos contraintes immobilières et offrez un cadre de travail optimal à chacun.",
     "title_element_4" : "Suivez, analysez et pilotez l’organisation de vos équipes et l’occupation de vos bureaux.",
-    "content_element_4" : "Grâce au dashboard complet de SpaceCorner, suivez l’organisation de vos équipes et de vos espaces. Analysez des indicateurs clés comme le taux d’occupation de vos locaux, la présence des équipes ou le moral de vos collaborateurs à distance et prenez le contrôle de vos dépenses liées aux réservations d’espaces de travail chez nos partenaires. Tirez profit de ce nouveau mode de travail hybride à travers une seule et même plateforme."
+    "content_element_4" : "Grâce au dashboard complet de SpaceCorner, suivez l’organisation de vos équipes et de vos espaces. Analysez des indicateurs clés comme le taux d’occupation de vos locaux, la présence des équipes ou le moral de vos collaborateurs à distance et prenez le contrôle de vos dépenses liées aux réservations d’espaces de travail chez nos partenaires. Tirez profit de ce nouveau mode de travail hybride à travers une seule et même plateforme.",
+    "chip_1": "Renseigner son planning",
+    "chip_2": "Réservation d'un bureau",
+    "chip_3": "Organiser vos réunions",
+    "chip_4": "Activité des équipes"
   },
   "SCValue" : {
+    "main": "Productivité. Collaboration. Simplicité.",
+    "subtitle": "Offrez à vos collaborateurs une solution complète pour les accompagner dans leur organisation quotidienne.",
+    "step_1": {
+      "chip_title": "Ressources humaines"
+    },
     "title" : "Une solution pensée pour chacun et qui profite à tous",
     "content" : "SpaceCorner permet à l'ensemble des directions d'entreprise d'optimiser leurs opérations quotidiennes. Et d'en faire profiter tout le monde.",
     "sub_element_1_title" : "Des salariés libérés ",

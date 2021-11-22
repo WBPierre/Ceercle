@@ -5,8 +5,10 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography"
 import Box from "@mui/material/Box";
+import ProductPresentation from "../components/containers/home/ProductPresentation";
 import {useEffect, useRef, useState} from "react";
 import Divider from "@mui/material/Divider";
+import DescriptionList from "../components/containers/home/DescriptionList";
 import Demo from "../components/molecules/home/Demo";
 import Footer from "../components/containers/footer/Footer";
 import {useTheme} from "@mui/material";
