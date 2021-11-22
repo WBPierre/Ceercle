@@ -7,10 +7,12 @@ import reportWebVitals from './reportWebVitals';
 
 // Move to App.js
 import CustomThemeProvider from "./components/context/theme/CustomThemeProvider";
+import {CssBaseline} from "@mui/material";
 
 ReactDOM.render(
   <React.StrictMode>
     <CustomThemeProvider>
+        <CssBaseline />
         <App />
     </CustomThemeProvider>
   </React.StrictMode>,
