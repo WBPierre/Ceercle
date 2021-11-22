@@ -5,9 +5,9 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography"
 import HomeImage from "../assets/images/home/homeIntro.png"
-import DescriptionList from "../components/containers/home/DescriptionList";
+import ProductPresentation from "../components/containers/home/ProductPresentation";
 import {useEffect, useRef, useState} from "react";
-import SCValueList from "../components/containers/home/SCValueList";
+import DescriptionList from "../components/containers/home/DescriptionList";
 import Demo from "../components/molecules/home/Demo";
 import UserInterfaceList from "../components/containers/home/UserInterfaceList";
 import Footer from "../components/containers/footer/Footer";
@@ -23,9 +23,9 @@ function Home(){
             <NavBar/>
             <Intro/>
             <div style={{marginTop:'5%'}}/>
-            <DescriptionList/>
+            <ProductPresentation/>
             <div style={{marginTop:'5%'}}/>
-            <SCValueList/>
+            <DescriptionList/>
             <div style={{marginTop:'5%'}}/>
             <Demo/>
             <div style={{marginTop:'5%'}}/>

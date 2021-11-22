@@ -7,10 +7,10 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography"
 import HomeImage from "../assets/images/home/homeIntro.png"
 import Box from "@mui/material/Box";
-import DescriptionList from "../components/containers/home/DescriptionList";
+import ProductPresentation from "../components/containers/home/ProductPresentation";
 import {useEffect, useRef, useState} from "react";
 import Divider from "@mui/material/Divider";
-import SCValueList from "../components/containers/home/SCValueList";
+import DescriptionList from "../components/containers/home/DescriptionList";
 import Demo from "../components/molecules/home/Demo";
 import UserInterfaceList from "../components/containers/home/UserInterfaceList";
 import Footer from "../components/containers/footer/Footer";
