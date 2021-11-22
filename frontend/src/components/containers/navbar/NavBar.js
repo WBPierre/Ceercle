@@ -16,6 +16,7 @@ import {useTranslation} from "react-i18next";
 import DialogGeneric from '../generic/DialogGeneric';
 import DialogLogin from '../../molecules/navbar/DialogLogin';
 import {Link, useNavigate} from "react-router-dom";
+import HideOnScroll from "../../molecules/navbar/HideOnScroll";
 
 const options = ['Français', 'English'];
 
@@ -57,24 +58,15 @@ export default function NavBar(props) {
                 <Button onClick={() => navigate('/offers')} variant="text" color="inherit" size="medium" style={{fontWeight: 600}}>{ t('navbar:offers')}</Button>
             </MenuItem>
             <MenuItem>
-                <Button onClick={() => navigate('/demo/space')} variant="text" color="inherit" size="medium" style={{fontWeight: 600}}>{ t('navbar:add_coworking')}</Button>
-            </MenuItem>
-            <MenuItem>
-                <Button onClick={() => navigate('/demo/company')} variant="outlined" color="inherit" size="medium" style={{fontWeight: 600}}>{ t('generic:demo')}</Button>
-            </MenuItem>
-            <MenuItem>
-                <Button variant="container"
-                        startIcon={<AccountCircle />}
-                        edge="end"
+                <Button variant="outlined"
+                        color="inherit"
+                        size="medium"
                         aria-label="account of current user"
                         //onClick={handleProfileMenuOpen}
-                        style={{color: theme.palette.text.primary}}
+                        style={{fontWeight: 600}}
                 >
                     { t('navbar:my_account')}
                 </Button>
-            </MenuItem>
-            <MenuItem>
-                <LangSwitcher/>
             </MenuItem>
         </Menu>
     );
@@ -93,67 +85,51 @@ export default function NavBar(props) {
     return (
 
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="fixed" style={{zIndex: theme.zIndex.appBar, backgroundColor: theme.palette.background.paper}}>
-                <Toolbar>
-
-                    <DialogGeneric openState={dialog_open} onClose={createProfileClose} title={ t('navbar:create_profile_dialog.title') }>
-                        <DialogLogin cancel={createProfileClose} confirm={createProfileClose} />
-                    </DialogGeneric>
-
-                    <Grid container alignItems="center">
-                        <Grid item md={3}>
-                            <Button variant="text" onClick={() => navigate('/')}>
-                                <Typography
-                                    variant="h6"
-                                    noWrap
-                                    component="div"
-                                    color={theme.palette.text.primary}
-                                >
-                                    { t('navbar:company_name')}
-                                </Typography>
+            <HideOnScroll {...props}>
+                <AppBar>
+                    <Toolbar>
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="div"
+                        >
+                            Spacecorner
+                        </Typography>
+                        <Box sx={{ flexGrow: 1 }} />
+                        <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                            <Button
+                                size="medium"
+                                aria-label="account of current user"
+                                color="inherit"
+                            >
+                                { t('navbar:offers')}
                             </Button>
-                        </Grid>
-                        <Grid item md={9}>
-                            <Box sx={{ display: { xs: 'none', sm:'none', md: 'flex' } }}>
-                                <Grid container spacing={1} direction="row" justifyContent="flex-end" alignItems="center">
-                                    <Grid item>
-                                        <Button onClick={() => navigate('/offers')} variant="text" size="medium" style={{fontWeight: 600, color: theme.palette.primary.main}}>{ t('navbar:offers')}</Button>
-                                    </Grid>
-                                    <Grid item>
-                                        <Button onClick={() => navigate('/demo/space')} variant="text" color="inherit" size="medium" style={{fontWeight: 600, color: theme.palette.primary.main}}>{ t('navbar:add_coworking')}</Button>
-                                    </Grid>
-                                    <Grid item>
-                                        <Button onClick={() => navigate('/demo/company')} variant="outlined" size="medium" style={{fontWeight: 600, color: theme.palette.primary.main}}>{ t('generic:demo')}</Button>
-                                    </Grid>
-                                    <Grid item>
-                                        <Button variant="container"
-                                                startIcon={<AccountCircle />}
-                                                edge="end"
-                                                aria-label="account of current user"
-                                                onClick={createProfileOpen}
-                                                style={{color: theme.palette.primary.main}}
-                                        >
-                                            { t('navbar:my_account')}
-                                        </Button>
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                        </Grid>
-                        <Grid item xs={8} sm={8}>
-                            <Box sx={{ display: { xs: 'flex', sm: 'flex', md: 'none' }, justifyContent: 'flex-end'}}>
-                                <IconButton
-                                    size="large"
-                                    aria-label="show more"
-                                    onClick={handleMobileMenuOpen}
-                                    style={{color:'black'}}
-                                >
-                                    <MoreIcon />
-                                </IconButton>
-                            </Box>
-                        </Grid>
-                    </Grid>
-                </Toolbar>
-            </AppBar>
+                        </Box>
+                        <Box sx={{ flexGrow: 10 }} />
+                        <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                            <Button variant="outlined"
+                                    startIcon={<AccountCircle />}
+                                    aria-label="account of current user"
+                                    onClick={createProfileOpen}
+                                    color="inherit"
+                            >
+                                { t('navbar:my_account')}
+                            </Button>
+                        </Box>
+                        <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+                            <IconButton
+                                size="large"
+                                aria-label="show more"
+                                aria-haspopup="true"
+                                color="inherit"
+                                onClick={handleMobileMenuOpen}
+                            >
+                                <MoreIcon />
+                            </IconButton>
+                        </Box>
+                    </Toolbar>
+                </AppBar>
+            </HideOnScroll>
             {renderMobileMenu}
         </Box>
     );
