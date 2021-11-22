@@ -3,8 +3,10 @@
   "offers": "Nos offres",
   "add_coworking": "Ajouter un espace",
   "my_account": "Mon Compte",
+  "connect": "Connexion",
   "create_profile": "Créer un profil",
   "connect_to_account": "Me connecter",
+  "ask_for_demo": "Demander une démo",
   "create_profile_dialog": {
     "title": "Créer un profil",
     "content": "Pour créer un profil, veuillez renseignez les éléments suivants :",

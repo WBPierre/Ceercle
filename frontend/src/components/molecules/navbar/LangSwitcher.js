@@ -19,10 +19,6 @@ function LangSwitcher(){
         setAnchorEl(null);
     };
 
-    useEffect(() => {
-        console.log(i18n.language);
-    }, [])
-
     const returnLangueText = () => {
         switch(i18n.language){
             case "fr":
@@ -44,7 +40,8 @@ function LangSwitcher(){
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
-                variant="outlined"
+                variant="text"
+                sx={{mr:2}}
                 style={{color: theme.palette.text.primary, borderColor: theme.palette.text.primary}}
                 startIcon={<LanguageIcon/>}
                 endIcon={<KeyboardArrowDownIcon />}
