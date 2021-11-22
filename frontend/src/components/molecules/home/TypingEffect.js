@@ -1,10 +1,31 @@
-import {useEffect, useState} from "react";
-
-const words = ["dans vos bureaux.", "en télétravail.", "dans des tiers-lieux."];
+import Typewriter from 'typewriter-effect';
+import {useTranslation} from "react-i18next";
 
 function TypingEffect(){
+
+    const { t } = useTranslation();
+
+
     return (
-        <div></div>
+        <Typewriter
+            onInit={(typewriter) => {
+                typewriter
+                    .typeString('<span style="color: #4C82D3;text-decoration: underline;">'+t('home:main.slider_at_the_office')+'</span>')
+                    .pauseFor(500)
+                    .deleteAll()
+                    .typeString('<span style="color: #4C82D3;text-decoration: underline;">'+t('home:main.slider_at_home')+'</span>')
+                    .pauseFor(500)
+                    .deleteAll()
+                    .typeString('<span style="color: #4C82D3;text-decoration: underline;">'+t('home:main.slider_at_coworking')+'</span>')
+                    .pauseFor(500)
+                    .deleteAll()
+                    .start();
+            }}
+            options={{
+                autoStart: true,
+                loop: true,
+            }}
+        />
     )
 }
 
