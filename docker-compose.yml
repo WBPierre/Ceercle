@@ -5,6 +5,8 @@ services :
     build:
       dockerfile: Dockerfile
       context: ./api
+    depends_on:
+      - postgres
     volumes:
       - /api/node_modules
       - ./api:/api
@@ -21,6 +23,8 @@ services :
     volumes:
       - /frontend/node_modules
       - ./frontend:/app
+    depends_on:
+      - api
     ports:
       - "80:3000"
 
@@ -33,7 +37,6 @@ services :
       POSTGRES_PASSWORD: "root"
       POSTGRES_DB: "spacecorner"
       PGDATA: /var/lib/postgresql/data
-    restart: always
     volumes:
       - "postgres-data:/var/lib/postgresql/data"
 
@@ -47,7 +50,6 @@ services :
       - "postgres:pgsql-server"
     ports:
       - "8000:8000"
-    restart: always
     volumes:
       - "pgadmin-data:/var/lib/pgadmin"
 
