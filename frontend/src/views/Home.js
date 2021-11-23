@@ -16,6 +16,7 @@ import {Fade, useTheme} from "@mui/material";
 import ContactImage from "../assets/images/contact/right.jpg";
 import Box from "@mui/material/Box";
 import Intro from "../components/molecules/home/Intro";
+import Operations from "../components/containers/home/Operations";
 
 function Home(){
     return(
@@ -27,9 +28,9 @@ function Home(){
             <div style={{marginTop:'5%'}}/>
             <DescriptionList/>
             <div style={{marginTop:'5%'}}/>
+            <Operations/>
+            <div style={{marginTop:'10%'}}/>
             <Demo/>
-            <div style={{marginTop:'5%'}}/>
-            <UserInterfaceList/>
             <Footer/>
         </Container>
     )

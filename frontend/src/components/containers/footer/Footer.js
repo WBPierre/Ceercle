@@ -7,54 +7,96 @@ import Essec from "../../../assets/images/footer/essec.jpg";
 import Pepites from "../../../assets/images/footer/pepites.png";
 import Paper from "@mui/material/Paper";
 import { Link } from "react-router-dom";
+import * as React from "react";
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import anaBranson from "../../../assets/images/home/anaBranson.png";
 
 function Footer(){
     const theme = useTheme();
 
     return(
-        <Box style={{backgroundColor: theme.palette.charcoal.main}} pb={3}>
+        <Box style={{backgroundColor: theme.palette.background.default}} py={3}>
             <Container maxWidth="xl">
-                <Grid container direction="column" spacing={2} mt={5} >
+                <Grid container direction={"column"}>
                     <Grid item>
-                        <Typography variant="body1" color="white" align="center">
-                            Ils nous soutiennent :
-                        </Typography>
-                    </Grid>
-                    <Grid item>
-                        <Grid container direction="row" spacing={5} justifyContent='center' alignItems="center">
-                            <Grid item xs={6} md={2}>
-                                <Paper elevation={0} style={{backgroundColor: 'transparent', backgroundImage: `url(${Essec}`, backgroundPosition:'center', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', height: '20vmin'}} />
+                        <Grid container direction="row" spacing={2}>
+                            <Grid item md={2} xs={6}>
+                                <Typography
+                                    variant="h6"
+                                    noWrap
+                                    component="div"
+                                    color="black"
+                                    style={{fontWeight:800}}
+                                >
+                                    Spacecorner
+                                </Typography>
                             </Grid>
-                            <Grid item xs={6} md={2}>
-                                <Paper elevation={0} style={{backgroundColor: 'transparent',backgroundImage: `url(${Pepites}`, backgroundPosition:'center', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', height: '20vmin'}} />
+                            <Grid item md={2} xs={6}>
+                                <Grid container direction={"column"}>
+                                    <Grid item>
+                                        <Typography variant={"h5"} style={{color:'#2F5597'}} fontWeight={500}>Contact</Typography>
+                                    </Grid>
+                                    <Grid item>
+                                        <Typography variant={"body1"} style={{color:'#7F7F7F'}}>hello@spacecorner.io</Typography>
+                                    </Grid>
+                                    <Grid item>
+                                        <Typography variant={"body1"} style={{color:'#7F7F7F'}}>Contactez-nous !</Typography>
+                                    </Grid>
+                                    <Grid item>
+                                        <LinkedInIcon style={{color:'#7F7F7F'}}/>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            <Grid item md={2} xs={6}>
+                                <Grid container direction={"column"}>
+                                    <Grid item>
+                                        <Typography variant={"h5"} style={{color:'#2F5597'}} fontWeight={500}>Le site</Typography>
+                                    </Grid>
+                                    <Grid item>
+                                        <Typography variant={"body1"} style={{color:'#7F7F7F'}}>Accueil</Typography>
+                                    </Grid>
+                                    <Grid item>
+                                        <Typography variant={"body1"} style={{color:'#7F7F7F'}}>Nos offres</Typography>
+                                    </Grid>
+                                    <Grid item>
+                                        <Typography variant={"body1"} style={{color:'#7F7F7F'}}>Demander une démo</Typography>
+                                    </Grid>
+                                    <Grid item>
+                                        <Typography variant={"body1"} style={{color:'#7F7F7F'}}>Connexion</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            <Grid item md={2} xs={6}>
+                                <Grid container direction={"column"}>
+                                    <Grid item>
+                                        <Typography variant={"h5"} style={{color:'#2F5597'}} fontWeight={500}>Légal</Typography>
+                                    </Grid>
+                                    <Grid item>
+                                        <Typography variant={"body1"} style={{color:'#7F7F7F'}}>Mentions légales</Typography>
+                                    </Grid>
+                                    <Grid item>
+                                        <Typography variant={"body1"} style={{color:'#7F7F7F'}}>Conditions générales</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            <Grid item md={4} xs={12}>
+                                <Grid container direction={"column"} justifyContent={"center"} alignItems={"center"}>
+                                    <Grid item textAlign={"center"}>
+                                        <img src={Pepites} style={{maxWidth:'40%'}} alt="contact" />
+                                    </Grid>
+                                    <Grid item textAlign={"center"}>
+                                        <img src={Essec} style={{maxWidth:'40%'}} alt="contact" />
+                                    </Grid>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Grid item>
-                        <Grid container direction="row" justifyContent="center">
-                            <Grid item xs={2}>
-                                <Typography variant={"body1"} color="white">Accueil</Typography>
-                            </Grid>
-                            <Grid item xs={2}>
-                                <Typography variant={"body1"} color="white">Pricing</Typography>
-                            </Grid>
-                            <Grid item xs={2}>
-                                <Link to="/contact">
-                                    <Button variant="default" style={{color: 'white'}}>Contact</Button>
-                                </Link>
-                            </Grid>
-                            <Grid item xs={2}>
-                                <Typography variant={"body1"} color="white">Mentions légales</Typography>
-                            </Grid>
-                            <Grid item xs={2}>
-                                <Typography variant={"body1"} color="white">Conditions générales</Typography>
-                            </Grid>
+                    <Grid item xs={12}>
+                        <Grid item align="center">
+                            <Typography variant="subtitle1" style={{color:'#2F5597'}}>
+                                &copy; SpaceCorner 2021 - All Rights Reserved
+                            </Typography>
                         </Grid>
-                    </Grid>
-                    <Grid item align="center">
-                        <Typography variant="subtitle1" color="white">
-                            &copy; SpaceCorner 2021
-                        </Typography>
                     </Grid>
                 </Grid>
             </Container>
