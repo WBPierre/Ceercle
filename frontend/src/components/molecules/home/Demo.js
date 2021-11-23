@@ -12,19 +12,25 @@ function Demo(){
     const { t } = useTranslation();
     const theme = useTheme();
     return (
-        <div>
+        <div style={{backgroundColor:'#FEF0EC'}}>
             <Container>
-                <GridModule direction="column">
-                    <Grid item>
-                        <Typography variant="h5" fontWeight={600} align="center">
-                            { t("home:demo") }
+                <Grid container direction={"row"} spacing={5} pt={5} pb={10}>
+                    <Grid item xs={12} md={8}>
+                        <Typography variant="h4" style={{color:'#2F5597'}} fontWeight={600} align="left">
+                            { t("demo:title") }
+                        </Typography>
+                        <Typography variant="body1" fontSize={24} style={{color:'#2F5597'}} align={"left"}>
+                            { t("demo:subtitle") }
                         </Typography>
                     </Grid>
-                    <Grid item align="center">
-                        <Button variant="contained"> { t("generic:demo") } </Button>
+                    <Grid item xs={12} md={4}>
+                        <Grid container style={{height:'100%'}} direction={"row"} justifyContent={"center"} alignItems={"center"}>
+                            <Grid item xs={12} textAlign={"center"}>
+                                <Button variant="contained" style={{backgroundColor:'#2F5597'}}> { t("generic:demo") } </Button>
+                            </Grid>
+                        </Grid>
                     </Grid>
-                </GridModule>
-                <Divider/>
+                </Grid>
             </Container>
         </div>
     )

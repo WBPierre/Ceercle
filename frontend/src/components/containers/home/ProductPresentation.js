@@ -34,7 +34,8 @@ function ProductPresentation({props}){
                                         <Grid item>
                                             <img src={anaBranson} style={{width:'100%'}} alt="contact" />
                                         </Grid>
-                                    </Grid>                        </Grid>
+                                    </Grid>
+                                </Grid>
                                 <Grid item md={8}>
                                     <Grid container direction={"column"} spacing={5}>
                                         <Grid item xs={12}>
@@ -147,58 +148,10 @@ function ProductPresentation({props}){
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item xs={12} style={{backgroundColor:theme.palette.background.paper}} px={10} mt={10}>
-                            <Grid container direction={"row"} spacing={5}>
+                        <Grid item xs={12} style={{backgroundColor:theme.palette.background.paper}} px={10}>
+                            <Grid container direction={"column"} spacing={5}>
                                 <Grid item xs={12}>
-                                    <Grid container direction={"column"} style={{height:'100%'}} justifyContent={"space-around"} alignItems={"center"}>
-                                        <Grid item>
-                                            <Grid container direction={"column"} spacing={3}>
-                                                <Grid item textAlign={"center"}>
-                                                    <img src={iconCalendar} style={{width:'25%'}} alt="contact" />
-                                                </Grid>
-                                                <Grid item>
-                                                    <Chip label={t('home:description_list.chip_1')} style={{backgroundColor:'#F3C6C3', color:"#A45B58", fontWeight:600}} />
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>
-                                        <Grid item>
-                                            <Grid container direction={"column"} spacing={3}>
-                                                <Grid item textAlign={"center"}>
-                                                    <img src={iconOffice} style={{width:'40%'}} alt="contact" />
-                                                </Grid>
-                                                <Grid item>
-                                                    <Chip label={t('home:description_list.chip_2')} style={{backgroundColor:'#D2EFFB', color:'#508CB1', fontWeight:600}} />
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                                <Grid item md={12}>
                                     <img src={VisuelSAAS} style={{width:'100%'}} alt="contact" />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <Grid container direction={"column"} style={{height:'100%'}} justifyContent={"space-around"} alignItems={"center"}>
-                                        <Grid item>
-                                            <Grid container direction={"column"} spacing={2}>
-                                                <Grid item textAlign={"center"}>
-                                                    <img src={iconMeeting} style={{width:'50%'}} alt="contact" />
-                                                </Grid>
-                                                <Grid item>
-                                                    <Chip label={t('home:description_list.chip_3')} style={{backgroundColor:'#FCE5B2', color:"#9A740D", fontWeight:600}} />
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>
-                                        <Grid item>
-                                            <Grid container direction={"column"} spacing={2}>
-                                                <Grid item textAlign={"center"}>
-                                                    <img src={iconPpl} style={{width:'50%'}} alt="contact" />
-                                                </Grid>
-                                                <Grid item>
-                                                    <Chip label={t('home:description_list.chip_4')} style={{backgroundColor:'#C3E4B6', color:'#6D8066', fontWeight:600}} />
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>
-                                    </Grid>
                                 </Grid>
                             </Grid>
                         </Grid>

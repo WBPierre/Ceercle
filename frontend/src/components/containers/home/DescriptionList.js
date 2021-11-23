@@ -4,18 +4,23 @@ import Typography from "@mui/material/Typography";
 import FreeBreakfastIcon from '@mui/icons-material/FreeBreakfast';
 import GridModule from "../../containers/home/GridModule";
 import SCValueElement from "../../molecules/home/SCValueElement";
-import {Chip, useTheme} from "@mui/material";
+import {Avatar, Chip, useTheme} from "@mui/material";
 import Container from "@mui/material/Container";
 import brand from "../../../assets/images/home/value/brand.png";
 import culture from "../../../assets/images/home/value/culture.png";
 import eco from "../../../assets/images/home/value/eco.png";
 import liberty from "../../../assets/images/home/value/liberty.png";
-import anaBranson from "../../../assets/images/home/anaBranson.png";
+import step_1 from "../../../assets/images/home/value/step_1.png";
+import step_2 from "../../../assets/images/home/value/step_2.png";
+import step_3 from "../../../assets/images/home/value/step_3.png";
+import step_4 from "../../../assets/images/home/value/step_4.png";
 import iconCalendar from "../../../assets/images/icons/iconCalendar.png";
 import iconOffice from "../../../assets/images/icons/iconOffice.png";
 import VisuelSAAS from "../../../assets/images/home/visuel_SAAS.png";
 import iconMeeting from "../../../assets/images/icons/iconMeeting.png";
 import iconPpl from "../../../assets/images/icons/iconPpl.png";
+import PlanningImage from "../../../assets/images/home/intro/planning.png";
+import Box from "@mui/material/Box";
 
 
 function DescriptionList(props){
@@ -26,56 +31,286 @@ function DescriptionList(props){
 
     return(
         <div>
-            <div style={{backgroundColor: theme.palette.background.paper, height:'100vh'}}>
-                <Grid container direction={"column"}>
-                    <Grid item md={12} style={{backgroundColor:theme.palette.background.default}} px={10} pb={10}>
-                        <Grid container direction={"row"} spacing={2}>
-                            <Grid item md={12}>
-                                <Grid container direction={"column"} spacing={5}>
-                                    <Grid item xs={12}>
-                                        <Typography variant="h3" h3 fontWeight={600} align="center" color="error">
-                                            { t('home:SCValue.main')}
-                                        </Typography>
+            <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+                <div style={{backgroundColor: theme.palette.background.default}}>
+                <Grid container direction={"row"}>
+                    <Grid item md={12}>
+                        <Grid container direction={"column"} spacing={5}>
+                            <Grid item xs={12}>
+                                <Typography variant="h3" h3 fontWeight={600} align="center" color="error">
+                                    { t('home:SCValue.main')}
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Typography variant="h4" fontWeight={400} align="center">
+                                    { t('home:SCValue.subtitle')}
+                                </Typography>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </div>
+                <div style={{backgroundColor: theme.palette.background.default, height:'100vh'}}>
+                <Grid container direction={"row"} style={{height:'100%', backgroundColor:'orange'}}>
+                    <Grid item md={12} style={{backgroundColor:theme.palette.background.default}}>
+                        <Grid container direction={"row"} style={{height:'100%'}}>
+                            <Grid item md={6} style={{height:'100%'}} spacing={5} px={10}>
+                                <Grid container direction={"column"} style={{height:'100%'}} justifyContent={"center"}>
+                                    <Grid item>
+                                        <Chip label={t('home:SCValue.step_1.chip_title')} style={{color:'#2F5597', backgroundColor:'#DAE3F3', fontSize:26, padding:5}}/>
                                     </Grid>
-                                    <Grid item xs={12}>
-                                        <Typography variant="h4" fontWeight={400} align="center">
-                                            { t('home:SCValue.subtitle')}
-                                        </Typography>
+                                    <Grid item pl={10} py={5}>
+                                        <Avatar style={{fontSize:18, color:'#DAE3F3', backgroundColor:'#2F5597'}}>1</Avatar>
+                                    </Grid>
+                                    <Grid item pl={10}>
+                                        <Typography h4 variant="h4" fontWeight={600}>{t('home:SCValue.step_1.title_1')} <span style={{color:'#4C82D3'}}>{t('home:SCValue.step_1.title_1_color')}.</span> </Typography>
+                                        <Typography h4 variant="h4" fontWeight={600}>{t('home:SCValue.step_1.title_2')} <span style={{color:'#9872B2'}}>{t('home:SCValue.step_1.title_2_color')}.</span> {t('home:SCValue.step_1.title_3')} <span style={{color:'#60B56D'}}>{t('home:SCValue.step_1.title_3_color')}.</span> </Typography>
+                                    </Grid>
+                                    <Grid item py={5} pl={10}>
+                                        <Typography variant="body1" fontSize={18}>{t('home:SCValue.step_1.text')}</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            <Grid item md={6} style={{height:'100%', backgroundColor: theme.palette.background.paper, borderTopLeftRadius: '10%'}}>
+                                <Grid container direction={"row"} style={{height:'100%'}} alignItems={"center"}>
+                                    <Grid item xs={12} style={{textAlign:'center'}}>
+                                        <img src={step_1} style={{height:'40%', width:'40%'}} alt="contact" />
                                     </Grid>
                                 </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Grid item md={12} style={{backgroundColor:theme.palette.background.default}} px={10}>
-                        <Chip label={t('home:SCValue.step_1.chip_title')} style={{color:'#2F5597', backgroundColor:'#DAE3F3', fontSize:18}}/>
+                </Grid>
+            </div>
+                <div style={{backgroundColor: theme.palette.background.default, height:'100vh'}}>
+                <Grid container direction={"row"} style={{height:'100%', backgroundColor:'orange'}}>
+                    <Grid item md={12} style={{backgroundColor:theme.palette.background.default}}>
+                        <Grid container direction={"row"} style={{height:'100%'}}>
+                            <Grid item md={6} style={{height:'100%'}} spacing={5} px={10}>
+                                <Grid container direction={"column"} style={{height:'100%'}} justifyContent={"center"}>
+                                    <Grid item pl={10} py={5}>
+                                        <Avatar style={{fontSize:18, color:'#DAE3F3', backgroundColor:'#2F5597'}}>2</Avatar>
+                                    </Grid>
+                                    <Grid item pl={10}>
+                                        <Typography h4 variant="h4" fontWeight={600}>{t('home:SCValue.step_2.title_1')} <span style={{color:'#C00000'}}>{t('home:SCValue.step_2.title_1_color')}</span>  {t('home:SCValue.step_2.title_2')} <span style={{color:'#0087E9'}}>{t('home:SCValue.step_2.title_2_color')}</span>.</Typography>
+                                    </Grid>
+                                    <Grid item py={5} pl={10}>
+                                        <Typography variant="body1" fontSize={18}>{t('home:SCValue.step_2.text')}</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            <Grid item md={6} style={{height:'100%', backgroundColor: theme.palette.background.paper}}>
+                                <Grid container direction={"row"} style={{height:'100%'}} alignItems={"center"}>
+                                    <Grid item xs={12} style={{textAlign:'center'}}>
+                                        <img src={step_2} style={{height:'50%', width:'50%'}} alt="contact" />
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Grid>
                     </Grid>
                 </Grid>
             </div>
-            <div>
-
-            </div>
-            <Container>
-                <GridModule direction="column">
-                    <Grid item>
-                        <Typography variant="h5" fontWeight={600} align="center">
-                            { t("home:SCValue.title")}
-                        </Typography>
-                    </Grid>
-                    <Grid item>
-                        <Typography variant="body1" align="center">
-                            { t("home:SCValue.content")}
-                        </Typography>
-                    </Grid>
-                    <Grid item>
-                        <Grid container direction="row" spacing={3} justifyContent="center">
-                            <SCValueElement title={ t("home:SCValue.sub_element_1_title") } image={brand} text={ t("home:SCValue.sub_element_1_content") }/>
-                            <SCValueElement title={ t("home:SCValue.sub_element_2_title") } image={culture} text={ t("home:SCValue.sub_element_2_content") }/>
-                            <SCValueElement title={ t("home:SCValue.sub_element_3_title") } image={eco} text={ t("home:SCValue.sub_element_3_content") }/>
-                            <SCValueElement title={ t("home:SCValue.sub_element_4_title") } image={liberty} text={ t("home:SCValue.sub_element_4_content") }/>
+                <div style={{backgroundColor: theme.palette.background.default, height:'100vh'}}>
+                <Grid container direction={"row"} style={{height:'100%', backgroundColor:'orange'}}>
+                    <Grid item md={12} style={{backgroundColor:theme.palette.background.default}}>
+                        <Grid container direction={"row"} style={{height:'100%'}}>
+                            <Grid item md={6} style={{height:'100%'}} spacing={5} px={10}>
+                                <Grid container direction={"column"} style={{height:'100%'}} justifyContent={"center"}>
+                                    <Grid item>
+                                        <Chip label={t('home:SCValue.step_1.chip_title')} style={{color:'#BA605A', backgroundColor:'#FAF1F1', fontSize:26, padding:5}}/>
+                                    </Grid>
+                                    <Grid item pl={10} py={5}>
+                                        <Avatar style={{fontSize:18, color:'#FAF1F1', backgroundColor:'#BA605A'}}>1</Avatar>
+                                    </Grid>
+                                    <Grid item pl={10}>
+                                        <Typography h4 variant="h4" fontWeight={600}><span style={{color:'#FFC000'}}>{t('home:SCValue.step_3.title_1_color')}</span>{t('home:SCValue.step_3.title_1')}.</Typography>
+                                        <Typography h4 variant="h4" fontWeight={600}><span style={{color:'#5046E5'}}>{t('home:SCValue.step_3.title_2_color')}</span>{t('home:SCValue.step_3.title_2')}.</Typography>
+                                    </Grid>
+                                    <Grid item py={5} pl={10}>
+                                        <Typography variant="body1" fontSize={18}>{t('home:SCValue.step_3.text')}</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            <Grid item md={6} style={{height:'100%', backgroundColor: theme.palette.background.paper, borderTopLeftRadius: '10%'}}>
+                                <Grid container direction={"row"} style={{height:'100%'}} alignItems={"center"}>
+                                    <Grid item xs={12} style={{textAlign:'center'}}>
+                                        <img src={step_3} style={{height:'50%', width:'50%'}} alt="contact" />
+                                    </Grid>
+                                </Grid>
+                            </Grid>
                         </Grid>
                     </Grid>
-                </GridModule>
-            </Container>
+                </Grid>
+            </div>
+                <div style={{backgroundColor: theme.palette.background.default, height:'100vh'}}>
+                <Grid container direction={"row"} style={{height:'100%'}}>
+                    <Grid item md={12} style={{backgroundColor:theme.palette.background.default}}>
+                        <Grid container direction={"row"} style={{height:'100%'}}>
+                            <Grid item md={6} style={{height:'100%'}} spacing={5} px={10}>
+                                <Grid container direction={"column"} style={{height:'100%'}} justifyContent={"center"}>
+                                    <Grid item pl={10} py={5}>
+                                        <Avatar style={{fontSize:18, color:'#FAF1F1', backgroundColor:'#BA605A'}}>2</Avatar>
+                                    </Grid>
+                                    <Grid item pl={10}>
+                                        <Typography h4 variant="h4" fontWeight={600}>{t('home:SCValue.step_4.title_1')}<span style={{color:'#60B56D'}}>{t('home:SCValue.step_4.title_1_color')}</span>.</Typography>
+                                    </Grid>
+                                    <Grid item py={5} pl={10}>
+                                        <Typography variant="body1" fontSize={18}>{t('home:SCValue.step_4.text')}</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            <Grid item md={6} style={{height:'100%', backgroundColor: theme.palette.background.paper, borderBottomLeftRadius: '10%'}}>
+                                <Grid container direction={"row"} style={{height:'100%'}} alignItems={"center"}>
+                                    <Grid item xs={12} style={{textAlign:'center'}}>
+                                        <img src={step_4} style={{height:'60%', width:'60%'}} alt="contact" />
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid item md={12} style={{backgroundColor:theme.palette.background.default}}>
+                        <Grid container direction={'row'}>
+                            <Grid item xs={6}>
+                                <Typography style={{textAlign:'center', color:'#D57670'}} h4 variant="h4" fontWeight={600}>{t('home:SCValue.and_more')}</Typography>
+                            </Grid>
+                            <Grid item xs={6}/>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </div>
+            </Box>
+            <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+                <Grid container direction={"row"}>
+                    <Grid item>
+                        <div style={{backgroundColor: theme.palette.background.default}}>
+                            <Grid container direction={"row"}>
+                                <Grid item xs={12}>
+                                    <Grid container direction={"column"} spacing={5}>
+                                        <Grid item xs={12}>
+                                            <Typography variant="h3" h3 fontWeight={600} align="center" color="error">
+                                                { t('home:SCValue.main')}
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <Typography variant="h4" fontWeight={400} align="center">
+                                                { t('home:SCValue.subtitle')}
+                                            </Typography>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </div>
+                    </Grid>
+                    <Grid item>
+                        <div style={{backgroundColor: theme.palette.background.default, height:'100vh'}}>
+                            <Grid container direction={"row"} style={{height:'100%', backgroundColor:'orange'}}>
+                                <Grid item xs={12} style={{backgroundColor:theme.palette.background.default}}>
+                                    <Grid container direction={"row"} style={{height:'100%'}}>
+                                        <Grid item xs={12} style={{height:'100%'}} spacing={5} px={10}>
+                                            <Grid container direction={"column"} style={{height:'100%'}} justifyContent={"center"}>
+                                                <Grid item>
+                                                    <Chip label={t('home:SCValue.step_1.chip_title')} style={{color:'#2F5597', backgroundColor:'#DAE3F3', fontSize:26, padding:5}}/>
+                                                </Grid>
+                                                <Grid item pl={10} py={5}>
+                                                    <Avatar style={{fontSize:18, color:'#DAE3F3', backgroundColor:'#2F5597'}}>1</Avatar>
+                                                </Grid>
+                                                <Grid item pl={10}>
+                                                    <Typography h4 variant="h4" fontWeight={600}>{t('home:SCValue.step_1.title_1')} <span style={{color:'#4C82D3'}}>{t('home:SCValue.step_1.title_1_color')}.</span> </Typography>
+                                                    <Typography h4 variant="h4" fontWeight={600}>{t('home:SCValue.step_1.title_2')} <span style={{color:'#9872B2'}}>{t('home:SCValue.step_1.title_2_color')}.</span> {t('home:SCValue.step_1.title_3')} <span style={{color:'#60B56D'}}>{t('home:SCValue.step_1.title_3_color')}.</span> </Typography>
+                                                </Grid>
+                                                <Grid item py={5} pl={10}>
+                                                    <Typography variant="body1" fontSize={18}>{t('home:SCValue.step_1.text')}</Typography>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </div>
+                    </Grid>
+                    <Grid item>
+                        <div style={{backgroundColor: theme.palette.background.default, height:'100vh'}}>
+                            <Grid container direction={"row"} style={{height:'100%', backgroundColor:'orange'}}>
+                                <Grid item xs={12} style={{backgroundColor:theme.palette.background.default}}>
+                                    <Grid container direction={"row"} style={{height:'100%'}}>
+                                        <Grid item xs={12} style={{height:'100%'}} spacing={5} px={10}>
+                                            <Grid container direction={"column"} style={{height:'100%'}} justifyContent={"center"}>
+                                                <Grid item pl={10} py={5}>
+                                                    <Avatar style={{fontSize:18, color:'#DAE3F3', backgroundColor:'#2F5597'}}>2</Avatar>
+                                                </Grid>
+                                                <Grid item pl={10}>
+                                                    <Typography h4 variant="h4" fontWeight={600}>{t('home:SCValue.step_2.title_1')} <span style={{color:'#C00000'}}>{t('home:SCValue.step_2.title_1_color')}</span>  {t('home:SCValue.step_2.title_2')} <span style={{color:'#0087E9'}}>{t('home:SCValue.step_2.title_2_color')}</span>.</Typography>
+                                                </Grid>
+                                                <Grid item py={5} pl={10}>
+                                                    <Typography variant="body1" fontSize={18}>{t('home:SCValue.step_2.text')}</Typography>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </div>
+                    </Grid>
+                    <Grid item>
+                        <div style={{backgroundColor: theme.palette.background.default, height:'100vh'}}>
+                            <Grid container direction={"row"} style={{height:'100%', backgroundColor:'orange'}}>
+                                <Grid item xs={12} style={{backgroundColor:theme.palette.background.default}}>
+                                    <Grid container direction={"row"} style={{height:'100%'}}>
+                                        <Grid item xs={12} style={{height:'100%'}} spacing={5} px={10}>
+                                            <Grid container direction={"column"} style={{height:'100%'}} justifyContent={"center"}>
+                                                <Grid item>
+                                                    <Chip label={t('home:SCValue.step_1.chip_title')} style={{color:'#BA605A', backgroundColor:'#FAF1F1', fontSize:26, padding:5}}/>
+                                                </Grid>
+                                                <Grid item pl={10} py={5}>
+                                                    <Avatar style={{fontSize:18, color:'#FAF1F1', backgroundColor:'#BA605A'}}>1</Avatar>
+                                                </Grid>
+                                                <Grid item pl={10}>
+                                                    <Typography h4 variant="h4" fontWeight={600}><span style={{color:'#FFC000'}}>{t('home:SCValue.step_3.title_1_color')}</span>{t('home:SCValue.step_3.title_1')}.</Typography>
+                                                    <Typography h4 variant="h4" fontWeight={600}><span style={{color:'#5046E5'}}>{t('home:SCValue.step_3.title_2_color')}</span>{t('home:SCValue.step_3.title_2')}.</Typography>
+                                                </Grid>
+                                                <Grid item py={5} pl={10}>
+                                                    <Typography variant="body1" fontSize={18}>{t('home:SCValue.step_3.text')}</Typography>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </div>
+                    </Grid>
+                    <Grid item>
+                        <div style={{backgroundColor: theme.palette.background.default, height:'100vh'}}>
+                            <Grid container direction={"row"} style={{height:'100%'}}>
+                                <Grid item xs={12} style={{backgroundColor:theme.palette.background.default}}>
+                                    <Grid container direction={"row"} style={{height:'100%'}}>
+                                        <Grid item xs={12} style={{height:'100%'}} spacing={5} px={10}>
+                                            <Grid container direction={"column"} style={{height:'100%'}} justifyContent={"center"}>
+                                                <Grid item pl={10} py={5}>
+                                                    <Avatar style={{fontSize:18, color:'#FAF1F1', backgroundColor:'#BA605A'}}>2</Avatar>
+                                                </Grid>
+                                                <Grid item pl={10}>
+                                                    <Typography h4 variant="h4" fontWeight={600}>{t('home:SCValue.step_4.title_1')}<span style={{color:'#60B56D'}}>{t('home:SCValue.step_4.title_1_color')}</span>.</Typography>
+                                                </Grid>
+                                                <Grid item py={5} pl={10}>
+                                                    <Typography variant="body1" fontSize={18}>{t('home:SCValue.step_4.text')}</Typography>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                                <Grid item xs={12} style={{backgroundColor:theme.palette.background.default}}>
+                                    <Grid container direction={'row'}>
+                                        <Grid item xs={12}>
+                                            <Typography style={{textAlign:'center', color:'#D57670'}} h4 variant="h4" fontWeight={600}>{t('home:SCValue.and_more')}</Typography>
+                                        </Grid>
+                                        <Grid item xs={6}/>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </div>
+                    </Grid>
+                </Grid>
+            </Box>
         </div>
     )
 }
