@@ -6,7 +6,7 @@ function SCValueElement(props){
             <Grid item xs={12} md={3} align="center">
                 <Grid container direction="column" >
                     <Grid item>
-                        <img src={props.image} alt="value image" style={{height: '20vmin', width:'100%'}}/>
+                        <img src={props.image} alt="SpaceCorner value" style={{height: '20vmin', width:'100%'}}/>
                     </Grid>
                     <Grid item>
                         <Typography variant="subtitle1" fontWeight={600}>

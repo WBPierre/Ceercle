@@ -1,15 +1,11 @@
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import {Box, useTheme} from "@mui/material";
 import Container from "@mui/material/Container";
 import Essec from "../../../assets/images/footer/essec.jpg";
 import Pepites from "../../../assets/images/footer/pepites.png";
-import Paper from "@mui/material/Paper";
-import { Link } from "react-router-dom";
 import * as React from "react";
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import anaBranson from "../../../assets/images/home/anaBranson.png";
 
 function Footer(){
     const theme = useTheme();

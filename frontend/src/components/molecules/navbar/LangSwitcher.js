@@ -1,7 +1,7 @@
 import {useTranslation} from "react-i18next";
 import {Button, Menu, useTheme} from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import LanguageIcon from '@mui/icons-material/Language';
 
