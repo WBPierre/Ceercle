@@ -7,19 +7,14 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import Grid from "@mui/material/Grid";
 import LangSwitcher from "../../molecules/navbar/LangSwitcher";
 import {useTheme} from "@mui/material";
 import {useTranslation} from "react-i18next";
-import DialogGeneric from '../generic/DialogGeneric';
-import DialogLogin from '../../molecules/navbar/DialogLogin';
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import HideOnScroll from "../../molecules/navbar/HideOnScroll";
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 
-const options = ['Français', 'English'];
 
 export default function NavBar(props) {
     

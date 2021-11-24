@@ -2,8 +2,6 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography"
 import {useEffect, useRef, useState} from "react";
 import Button from "@mui/material/Button";
-import ObserverViewPort from "../../functions/ObserverViewPort";
-import {Fade} from "@mui/material";
 
 function DescriptionElement(props){
     const [height, setHeight] = useState(0);

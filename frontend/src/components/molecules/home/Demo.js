@@ -1,16 +1,12 @@
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import GridModule from "../../containers/home/GridModule";
 import {useTranslation} from "react-i18next";
-import {useTheme} from "@mui/material";
 import Container from "@mui/material/Container";
-import Divider from "@mui/material/Divider";
 
 
 function Demo(){
     const { t } = useTranslation();
-    const theme = useTheme();
     return (
         <div style={{backgroundColor:'#FEF0EC'}}>
             <Container>
