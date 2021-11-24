@@ -40,8 +40,8 @@ function Operations({props}){
                     <Grid item xs={8} px={10}>
                         <Grid container direction={"row"} spacing={5}>
                             <Grid item md={3} xs={12}>
-                                <Fade direction={"up"}>
-                                    <Grid container py={5} direction={"column"} style={{backgroundColor:'#EAF3FE', borderRadius: '5%'}} justifyContent={"center"} alignItems={"center"}>
+                                <Fade direction={"up"} triggerOnce={true}>
+                                    <Grid container py={5} px={5} direction={"column"} style={{backgroundColor:'#EAF3FE', borderRadius: '5%'}} justifyContent={"center"} alignItems={"center"}>
                                         <Grid item mt={2}>
                                             <Avatar size={"medium"} style={{ backgroundColor:'white'}} sx={{ width: 75, height: 75 }}><GroupsIcon style={{color:'#002060'}} fontSize={"large"}/></Avatar>
                                         </Grid>
@@ -55,8 +55,8 @@ function Operations({props}){
                                 </Fade>
                             </Grid>
                             <Grid item md={3} xs={12}>
-                                <Fade direction={"up"}>
-                                    <Grid container py={5} direction={"column"} style={{backgroundColor:'#EAF3FE', borderRadius: '5%'}} justifyContent={"center"} alignItems={"center"}>
+                                <Fade direction={"up"} triggerOnce={true}>
+                                    <Grid container px={5} py={5} direction={"column"} style={{backgroundColor:'#EAF3FE', borderRadius: '5%'}} justifyContent={"center"} alignItems={"center"}>
                                         <Grid item mt={2}>
                                             <Avatar size={"medium"} style={{ backgroundColor:'white'}} sx={{ width: 75, height: 75 }}><PeopleIcon style={{color:'#002060'}} fontSize={"large"}/></Avatar>
                                         </Grid>
@@ -70,8 +70,8 @@ function Operations({props}){
                                 </Fade>
                             </Grid>
                             <Grid item md={3} xs={12}>
-                                <Fade direction={"up"}>
-                                    <Grid container py={5} direction={"column"} style={{backgroundColor:'#EAF3FE', borderRadius: '5%'}} justifyContent={"center"} alignItems={"center"}>
+                                <Fade direction={"up"} triggerOnce={true}>
+                                    <Grid container px={5} py={5} direction={"column"} style={{backgroundColor:'#EAF3FE', borderRadius: '5%'}} justifyContent={"center"} alignItems={"center"}>
                                         <Grid item mt={2}>
                                             <Avatar size={"medium"} style={{ backgroundColor:'white'}} sx={{ width: 75, height: 75 }}><CreditCardIcon style={{color:'#002060'}} fontSize={"large"}/></Avatar>
                                         </Grid>
@@ -85,8 +85,8 @@ function Operations({props}){
                                 </Fade>
                             </Grid>
                             <Grid item md={3} xs={12}>
-                                <Fade direction={"up"}>
-                                    <Grid container py={5} direction={"column"} style={{backgroundColor:'#EAF3FE', borderRadius: '5%'}} justifyContent={"center"} alignItems={"center"}>
+                                <Fade direction={"up"} triggerOnce={true}>
+                                    <Grid container px={5} py={5} direction={"column"} style={{backgroundColor:'#EAF3FE', borderRadius: '5%'}} justifyContent={"center"} alignItems={"center"}>
                                         <Grid item mt={2}>
                                             <Avatar size={"medium"} style={{ backgroundColor:'white'}} sx={{ width: 75, height: 75 }}><LightbulbIcon style={{color:'#002060'}} fontSize={"large"}/></Avatar>
                                         </Grid>

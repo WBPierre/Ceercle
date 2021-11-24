@@ -4,12 +4,15 @@
     "slider_at_the_office": "dans vos bureaux.",
     "slider_at_home": "en télétravail.",
     "slider_at_coworking": "dans des tiers lieux.",
-    "content": "Fluidifiez l’organisation de travail de vos équipes, pilotez l’usage de vos espaces et offrez à vos collaborateurs des solutions pensées pour favoriser leur bien-être et productivité. Le futur du travail, maintenant."
+    "content": "Retrouvez de la visibilité dans une organisation devenue plus complexe avec le travail à distance.",
+    "content_2": "Où travaillent mes collaborateurs ?",
+    "content_3":"Quand planifier ma prochaine réunion ?",
+    "content_4": "Le futur du travail, maintenant."
   },
   "description_list" : {
     "simply": "Simplement.",
-    "catchphrase_1" : "Vous éprouvez des difficultés à mettre en place une nouvelle organisation de travail plus flexible ?",
-    "catchphrase_2" : "Adoptez SpaceCorner, une solution tout-en-un pour vous accompagner dans vos problématiques liées au travail hybride.",
+    "catchphrase_1" : "Vous éprouvez des difficultés à organiser votre travail hybride ?",
+    "catchphrase_2" : "Adoptez SpaceCorner et facilitez la vie de vos collaborateurs, dans vos bureaux ou à distance.",
     "title_element_1" : "Personnalisez votre outil. Intégrez vos salariés. Le tour est joué.",
     "content_element_1" : "Définissez vos critères et règles de travail hybride : nombre de jours en télétravail, taux d’occupation des espaces, date limite de saisie, etc. Intégrez SpaceCorner à vos outils de travail (Slack, Outlook, Teams, etc.) et logiciels RH (Lucca, BambooHR, Payfit) existants afin d’en faciliter son déploiement. Ajoutez vos collaborateurs et offrez-leurs un cadre de travail clair et intuitif, loin des frictions rencontrées dans la mise en place du flex-office.",
     "title_element_2" : "Simplifiez la gestion du travail hybride. Renforcez la collaboration au sein des équipes.",

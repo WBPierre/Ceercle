@@ -7,6 +7,7 @@ import iconPpl from "../../../assets/images/icons/iconPpl.png";
 import iconCalendar from "../../../assets/images/icons/iconCalendar.png";
 import iconOffice from "../../../assets/images/icons/iconOffice.png";
 import anaBranson from "../../../assets/images/home/anaBranson.png";
+import seat from "../../../assets/images/home/seat.png";
 import {Chip, useTheme} from "@mui/material";
 import Box from "@mui/material/Box";
 import {Fade, Zoom} from 'react-awesome-reveal';
@@ -57,7 +58,7 @@ function ProductPresentation({props}){
                                         <Grid container flexDirection={"column"} style={{height:'100%'}} justifyContent={"flex-end"} alignItems={"center"}>
                                             <Grid item>
                                                 <Fade direction={"right"} triggerOnce={true}>
-                                                    <Chip label='Réserver un siège le Mer. 8' color={"primary"} style={{color:'white', fontWeight:600}} />
+                                                    <img src={seat} style={{width:'100%'}} alt="contact" />
                                                 </Fade>
                                             </Grid>
                                         </Grid>

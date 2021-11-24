@@ -12,10 +12,10 @@ function Demo(){
             <Container>
                 <Grid container direction={"row"} spacing={5} pt={5} pb={10}>
                     <Grid item xs={12} md={8}>
-                        <Typography variant="h4" style={{color:'#2F5597'}} fontWeight={600} align="left">
+                        <Typography variant="h4" fontSize={22} style={{color:'#2F5597'}} fontWeight={600} align="left">
                             { t("demo:title") }
                         </Typography>
-                        <Typography variant="body1" fontSize={24} style={{color:'#2F5597'}} align={"left"}>
+                        <Typography variant="body1" fontSize={18} style={{color:'#2F5597'}} align={"left"}>
                             { t("demo:subtitle") }
                         </Typography>
                     </Grid>

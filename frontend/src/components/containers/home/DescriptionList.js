@@ -38,31 +38,33 @@ function DescriptionList(props){
                         </Grid>
                     </Fade>
                 </div>
-
-                <div style={{backgroundColor: theme.palette.background.default, height:'100vh'}}>
+                <div style={{marginTop:'5%'}}/>
+                <div style={{backgroundColor: theme.palette.background.default, height:'80vh'}}>
                     <Grid container direction={"row"} style={{height:'100%', backgroundColor:'orange'}}>
                         <Grid item md={12} style={{backgroundColor:theme.palette.background.default}}>
                             <Grid container direction={"row"} style={{height:'100%'}}>
                                 <Grid item md={6} style={{height:'100%'}} px={10}>
                                     <Grid container direction={"column"} style={{height:'100%'}} justifyContent={"center"}>
                                             <Grid item>
-                                                <Fade direction={"left"}>
+                                                <Fade direction={"left"} triggerOnce={true}>
                                                     <Chip label={t('home:SCValue.step_1.chip_title')} style={{color:'#2F5597', backgroundColor:'#DAE3F3', fontSize:26, padding:5}}/>
                                                 </Fade>
                                             </Grid>
                                             <Grid item pl={10} py={5}>
-                                                <Fade direction={"left"}>
+                                                <Fade direction={"left"} triggerOnce={true}>
                                                     <Avatar style={{fontSize:18, color:'#DAE3F3', backgroundColor:'#2F5597'}}>1</Avatar>
                                                 </Fade>
                                             </Grid>
                                             <Grid item pl={10}>
-                                                <Fade direction={"left"}>
+                                                <Fade direction={"left"} triggerOnce={true}>
                                                     <Typography variant="h4" fontWeight={600}>{t('home:SCValue.step_1.title_1')} <span style={{color:'#4C82D3'}}>{t('home:SCValue.step_1.title_1_color')}.</span> </Typography>
-                                                    <Typography variant="h4" fontWeight={600}>{t('home:SCValue.step_1.title_2')} <span style={{color:'#9872B2'}}>{t('home:SCValue.step_1.title_2_color')}.</span> {t('home:SCValue.step_1.title_3')} <span style={{color:'#60B56D'}}>{t('home:SCValue.step_1.title_3_color')}.</span> </Typography>
+                                                    <Typography variant="h4" fontWeight={600}>{t('home:SCValue.step_1.title_2')} <span style={{color:'#9872B2'}}>{t('home:SCValue.step_1.title_2_color')}.</span></Typography>
+                                                    <Typography variant="h4" fontWeight={600}>{t('home:SCValue.step_1.title_3')} <span style={{color:'#60B56D'}}>{t('home:SCValue.step_1.title_3_color')}.</span></Typography>
+
                                                 </Fade>
                                             </Grid>
                                             <Grid item py={5} pl={10}>
-                                                <Fade direction={"left"}>
+                                                <Fade direction={"left"} triggerOnce={true}>
                                                     <Typography variant="body1" fontSize={18}>{t('home:SCValue.step_1.text')}</Typography>
                                                 </Fade>
                                             </Grid>
@@ -71,8 +73,8 @@ function DescriptionList(props){
                                 <Grid item md={6} style={{height:'100%', backgroundColor: theme.palette.background.paper, borderTopLeftRadius: '10%'}}>
                                     <Grid container direction={"row"} style={{height:'100%'}} alignItems={"center"}>
                                         <Grid item xs={12} style={{textAlign:'center'}}>
-                                            <Fade direction={"right"}>
-                                                <img src={step_1} style={{height:'40%', width:'40%'}} alt="contact" />
+                                            <Fade direction={"right"} triggerOnce={true}>
+                                                <img src={step_1} style={{height:'50%', width:'50%'}} alt="contact" />
                                             </Fade>
                                         </Grid>
                                     </Grid>
@@ -81,24 +83,24 @@ function DescriptionList(props){
                         </Grid>
                     </Grid>
                 </div>
-                <div style={{backgroundColor: theme.palette.background.default, height:'100vh'}}>
+                <div style={{backgroundColor: theme.palette.background.default, height:'80vh'}}>
                     <Grid container direction={"row"} style={{height:'100%', backgroundColor:'orange'}}>
                         <Grid item md={12} style={{backgroundColor:theme.palette.background.default}}>
                             <Grid container direction={"row"} style={{height:'100%'}}>
                                 <Grid item md={6} style={{height:'100%'}} px={10}>
                                     <Grid container direction={"column"} style={{height:'100%'}} justifyContent={"center"}>
                                         <Grid item pl={10} py={5}>
-                                            <Fade direction={"left"}>
+                                            <Fade direction={"left"} triggerOnce={true}>
                                                 <Avatar style={{fontSize:18, color:'#DAE3F3', backgroundColor:'#2F5597'}}>2</Avatar>
                                             </Fade>
                                         </Grid>
                                         <Grid item pl={10}>
-                                            <Fade direction={"left"}>
+                                            <Fade direction={"left"} triggerOnce={true}>
                                                 <Typography variant="h4" fontWeight={600}>{t('home:SCValue.step_2.title_1')} <span style={{color:'#C00000'}}>{t('home:SCValue.step_2.title_1_color')}</span>  {t('home:SCValue.step_2.title_2')} <span style={{color:'#0087E9'}}>{t('home:SCValue.step_2.title_2_color')}</span>.</Typography>
                                             </Fade>
                                         </Grid>
                                         <Grid item py={5} pl={10}>
-                                            <Fade direction={"left"}>
+                                            <Fade direction={"left"} triggerOnce={true}>
                                                 <Typography variant="body1" fontSize={18}>{t('home:SCValue.step_2.text')}</Typography>
                                             </Fade>
                                         </Grid>
@@ -107,8 +109,8 @@ function DescriptionList(props){
                                 <Grid item md={6} style={{height:'100%', backgroundColor: theme.palette.background.paper}}>
                                     <Grid container direction={"row"} style={{height:'100%'}} alignItems={"center"}>
                                         <Grid item xs={12} style={{textAlign:'center'}}>
-                                            <Fade direction={"right"}>
-                                                <img src={step_2} style={{height:'50%', width:'50%'}} alt="contact" />
+                                            <Fade direction={"right"} triggerOnce={true}>
+                                                <img src={step_2} style={{height:'60%', width:'60%'}} alt="contact" />
                                             </Fade>
                                         </Grid>
                                     </Grid>
@@ -117,30 +119,30 @@ function DescriptionList(props){
                         </Grid>
                     </Grid>
                 </div>
-                <div style={{backgroundColor: theme.palette.background.default, height:'100vh'}}>
+                <div style={{backgroundColor: theme.palette.background.default, height:'80vh'}}>
                     <Grid container direction={"row"} style={{height:'100%', backgroundColor:'orange'}}>
                         <Grid item md={12} style={{backgroundColor:theme.palette.background.default}}>
                             <Grid container direction={"row"} style={{height:'100%'}}>
                                 <Grid item md={6} style={{height:'100%'}} px={10}>
                                     <Grid container direction={"column"} style={{height:'100%'}} justifyContent={"center"}>
                                         <Grid item>
-                                            <Fade direction={"left"}>
+                                            <Fade direction={"left"} triggerOnce={true}>
                                                 <Chip label={t('home:SCValue.step_3.chip_title')} style={{color:'#BA605A', backgroundColor:'#FAF1F1', fontSize:26, padding:5}}/>
                                             </Fade>
                                         </Grid>
                                         <Grid item pl={10} py={5}>
-                                            <Fade direction={"left"}>
+                                            <Fade direction={"left"} triggerOnce={true}>
                                                 <Avatar style={{fontSize:18, color:'#FAF1F1', backgroundColor:'#BA605A'}}>1</Avatar>
                                             </Fade>
                                         </Grid>
                                         <Grid item pl={10}>
-                                            <Fade direction={"left"}>
+                                            <Fade direction={"left"} triggerOnce={true}>
                                                 <Typography variant="h4" fontWeight={600}><span style={{color:'#FFC000'}}>{t('home:SCValue.step_3.title_1_color')}</span>{t('home:SCValue.step_3.title_1')}.</Typography>
                                                 <Typography variant="h4" fontWeight={600}><span style={{color:'#5046E5'}}>{t('home:SCValue.step_3.title_2_color')}</span>{t('home:SCValue.step_3.title_2')}.</Typography>
                                             </Fade>
                                         </Grid>
                                         <Grid item py={5} pl={10}>
-                                            <Fade direction={"left"}>
+                                            <Fade direction={"left"} triggerOnce={true}>
                                                 <Typography variant="body1" fontSize={18}>{t('home:SCValue.step_3.text')}</Typography>
                                             </Fade>
                                         </Grid>
@@ -149,8 +151,8 @@ function DescriptionList(props){
                                 <Grid item md={6} style={{height:'100%', backgroundColor: theme.palette.background.paper, borderTopLeftRadius: '10%'}}>
                                     <Grid container direction={"row"} style={{height:'100%'}} alignItems={"center"}>
                                         <Grid item xs={12} style={{textAlign:'center'}}>
-                                            <Fade direction={"right"}>
-                                                <img src={step_3} style={{height:'50%', width:'50%'}} alt="contact" />
+                                            <Fade direction={"right"} triggerOnce={true}>
+                                                <img src={step_3} style={{height:'60%', width:'60%'}} alt="contact" />
                                             </Fade>
                                         </Grid>
                                     </Grid>
@@ -159,24 +161,24 @@ function DescriptionList(props){
                         </Grid>
                     </Grid>
                 </div>
-                <div style={{backgroundColor: theme.palette.background.default, height:'100vh'}}>
+                <div style={{backgroundColor: theme.palette.background.default, height:'80vh'}}>
                     <Grid container direction={"row"} style={{height:'100%'}}>
                         <Grid item md={12} style={{backgroundColor:theme.palette.background.default}}>
                             <Grid container direction={"row"} style={{height:'100%'}}>
                                 <Grid item md={6} style={{height:'100%'}} px={10}>
                                     <Grid container direction={"column"} style={{height:'100%'}} justifyContent={"center"}>
                                         <Grid item pl={10} py={5}>
-                                            <Fade direction={"left"}>
+                                            <Fade direction={"left"} triggerOnce={true}>
                                                 <Avatar style={{fontSize:18, color:'#FAF1F1', backgroundColor:'#BA605A'}}>2</Avatar>
                                             </Fade>
                                         </Grid>
                                         <Grid item pl={10}>
-                                            <Fade direction={"left"}>
+                                            <Fade direction={"left"} triggerOnce={true}>
                                                 <Typography variant="h4" fontWeight={600}>{t('home:SCValue.step_4.title_1')}<span style={{color:'#60B56D'}}>{t('home:SCValue.step_4.title_1_color')}</span>.</Typography>
                                             </Fade>
                                         </Grid>
                                         <Grid item py={5} pl={10}>
-                                            <Fade direction={"left"}>
+                                            <Fade direction={"left"} triggerOnce={true}>
                                                 <Typography variant="body1" fontSize={18}>{t('home:SCValue.step_4.text')}</Typography>
                                             </Fade>
                                         </Grid>
@@ -185,8 +187,8 @@ function DescriptionList(props){
                                 <Grid item md={6} style={{height:'100%', backgroundColor: theme.palette.background.paper, borderBottomLeftRadius: '10%'}}>
                                     <Grid container direction={"row"} style={{height:'100%'}} alignItems={"center"}>
                                         <Grid item xs={12} style={{textAlign:'center'}}>
-                                            <Fade direction={"right"}>
-                                                <img src={step_4} style={{height:'60%', width:'60%'}} alt="contact" />
+                                            <Fade direction={"right"} triggerOnce={true}>
+                                                <img src={step_4} style={{height:'70%', width:'70%'}} alt="contact" />
                                             </Fade>
                                         </Grid>
                                     </Grid>
@@ -196,7 +198,7 @@ function DescriptionList(props){
                         <Grid item md={12} style={{backgroundColor:theme.palette.background.default}}>
                             <Grid container direction={'row'}>
                                 <Grid item xs={6}>
-                                    <Fade direction={"left"}>
+                                    <Fade direction={"left"} triggerOnce={true}>
                                         <Typography style={{textAlign:'center', color:'#D57670'}} variant="h4" fontWeight={600}>{t('home:SCValue.and_more')}</Typography>
                                     </Fade>
                                 </Grid>
@@ -230,6 +232,7 @@ function DescriptionList(props){
                             </Grid>
                         </div>
                     </Grid>
+                    <div style={{marginTop:'5%'}}/>
                     <Grid item>
                         <div style={{backgroundColor: theme.palette.background.default, height:'100vh'}}>
                             <Grid container direction={"row"} style={{height:'100%', backgroundColor:'orange'}}>

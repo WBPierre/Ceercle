@@ -26,10 +26,10 @@ function Intro(){
                             <Fade direction={"left"} triggerOnce={true}>
                                 <Grid container direction="column" spacing={5}>
                                     <Grid item style={{textAlign:'center'}}>
-                                        <img src={OfficeImage} style={{height:'60%', width:'60%'}} alt="contact" />
+                                        <img src={OfficeImage} style={{height:'70%', width:'70%'}} alt="contact" />
                                     </Grid>
                                     <Grid item style={{textAlign:'center'}}>
-                                        <img src={PlanningImage} style={{height:'75%', width:'75%'}} alt="contact" />
+                                        <img src={PlanningImage} style={{height:'100%', width:'100%'}} alt="contact" />
                                     </Grid>
                                 </Grid>
                             </Fade>
@@ -38,16 +38,25 @@ function Intro(){
                             <Fade direction={"up"} triggerOnce={true}>
                                 <Grid container direction="column" style={{height:'100%'}} justifyContent={"center"} spacing={5}>
                                     <Grid item>
-                                        <Typography variant="h4" fontWeight={500} style={{textAlign:'center'}}>
+                                        <Typography variant="h4" fontWeight={600} style={{textAlign:'center'}}>
                                             {t('home:main.title')}
                                         </Typography>
-                                        <Typography variant="h4" fontWeight={500} style={{textAlign:'center'}}>
+                                        <Typography variant="h4" fontWeight={600} style={{textAlign:'center'}}>
                                             <TypingEffect/>
                                         </Typography>
                                     </Grid>
                                     <Grid item>
-                                        <Typography variant="h5" style={{textAlign:'center'}}>
+                                        <Typography variant="h5" fontSize={18} style={{textAlign:'center', color:'#7F7F7F'}}>
                                             {t('home:main.content')}
+                                        </Typography>
+                                        <Typography variant="h5" fontSize={18} style={{textAlign:'center', color:'#7F7F7F'}}>
+                                            {t('home:main.content_2')}
+                                        </Typography>
+                                        <Typography variant="h5" fontSize={18} style={{textAlign:'center', color:'#7F7F7F'}}>
+                                            {t('home:main.content_3')}
+                                        </Typography>
+                                        <Typography variant="h5" fontSize={18} style={{textAlign:'center', color:'#7F7F7F'}}>
+                                            {t('home:main.content_4')}
                                         </Typography>
                                     </Grid>
                                     <Grid item style={{textAlign:'center'}}>
@@ -62,10 +71,10 @@ function Intro(){
                             <Fade direction={"right"} triggerOnce={true}>
                                 <Grid container direction="column" spacing={5}>
                                     <Grid item style={{textAlign:'center'}}>
-                                        <img src={MeetingImage} style={{height:'50%', width:'50%'}} alt="contact" />
+                                        <img src={MeetingImage} style={{height:'60%', width:'60%'}} alt="contact" />
                                     </Grid>
                                     <Grid item style={{textAlign:'center'}}>
-                                        <img src={ReserveImage} style={{height:'75%', width:'75%'}} alt="contact" />
+                                        <img src={ReserveImage} style={{height:'100%', width:'100%'}} alt="contact" />
                                     </Grid>
                                 </Grid>
                             </Fade>

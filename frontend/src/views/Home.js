@@ -16,7 +16,6 @@ function Home(){
             <ProductPresentation/>
             <div style={{marginTop:'5%'}}/>
             <DescriptionList/>
-            <div style={{marginTop:'5%'}}/>
             <Operations/>
             <div style={{marginTop:'10%'}}/>
             <Demo/>

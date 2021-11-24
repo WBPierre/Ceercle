@@ -14,6 +14,7 @@ import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router-dom";
 import HideOnScroll from "../../molecules/navbar/HideOnScroll";
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import iconPlanet from "../../../assets/images/icons/iconPlanet.png";
 
 
 export default function NavBar(props) {
@@ -93,8 +94,9 @@ export default function NavBar(props) {
 
         <Box sx={{ flexGrow: 1 }}>
             <HideOnScroll {...props}>
-                <AppBar style={{backgroundColor:theme.palette.background.default}}>
+                <AppBar style={{backgroundColor:theme.palette.background.paper}} elevation={0}>
                     <Toolbar>
+                        <img src={iconPlanet} alt="logo" />
                         <Typography
                             variant="h6"
                             noWrap
@@ -102,7 +104,7 @@ export default function NavBar(props) {
                             color="black"
                             style={{fontWeight:800}}
                         >
-                            Spacecorner
+                            SpaceCorner
                         </Typography>
                         <Box sx={{ flexGrow: 1 }} />
                         <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
