@@ -14,7 +14,7 @@ function Offers2(){
             <NavBar/>
             <div style={{marginTop:'10%'}}/>
             <OffersIntro/>
-            <div style={{marginTop:'5%'}}/>
+            <div style={{marginTop:'10%'}}/>
             <divider/>
             <OfferDescription/>
             <div style={{marginTop:'5%'}}/>
