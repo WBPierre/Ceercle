@@ -28,7 +28,7 @@ function ProductPresentation({props}){
                                     <Fade direction={"left"} triggerOnce={true}>
                                         <Grid container flexDirection={"column"} style={{height:'100%'}} justifyContent={"flex-start"} alignItems={"center"}>
                                             <Grid item>
-                                                <img src={anaBranson} style={{width:'100%'}} alt="contact" />
+                                                <img src={anaBranson} style={{width:'80%'}} alt="contact" />
                                             </Grid>
                                         </Grid>
                                     </Fade>
@@ -37,7 +37,7 @@ function ProductPresentation({props}){
                                     <Zoom triggerOnce={true}>
                                         <Grid container direction={"column"} spacing={5}>
                                             <Grid item xs={12}>
-                                                <Typography variant="body1" align="center">
+                                                <Typography variant="body1" fontSize={20} align="center">
                                                     { t('home:description_list.catchphrase_1')}
                                                 </Typography>
                                             </Grid>
@@ -83,7 +83,7 @@ function ProductPresentation({props}){
                                             <Grid item>
                                                 <Grid container direction={"column"} spacing={3}>
                                                     <Grid item textAlign={"center"}>
-                                                        <img src={iconOffice} style={{width:'40%'}} alt="contact" />
+                                                        <img src={iconOffice} style={{width:'30%'}} alt="contact" />
                                                     </Grid>
                                                     <Grid item>
                                                         <Chip label="Réservation d'un bureau" style={{backgroundColor:'#D2EFFB', color:'#508CB1', fontWeight:600}} />
@@ -100,7 +100,7 @@ function ProductPresentation({props}){
                                             <Grid item>
                                                 <Grid container direction={"column"} spacing={2}>
                                                     <Grid item textAlign={"center"}>
-                                                        <img src={iconMeeting} style={{width:'50%'}} alt="contact" />
+                                                        <img src={iconMeeting} style={{width:'40%'}} alt="contact" />
                                                     </Grid>
                                                     <Grid item>
                                                         <Chip label="Organiser vos réunions" style={{backgroundColor:'#FCE5B2', color:"#9A740D", fontWeight:600}} />
@@ -110,7 +110,7 @@ function ProductPresentation({props}){
                                             <Grid item>
                                                 <Grid container direction={"column"} spacing={2}>
                                                     <Grid item textAlign={"center"}>
-                                                        <img src={iconPpl} style={{width:'50%'}} alt="contact" />
+                                                        <img src={iconPpl} style={{width:'40%'}} alt="contact" />
                                                     </Grid>
                                                     <Grid item>
                                                         <Chip label="Activité des équipes" style={{backgroundColor:'#C3E4B6', color:'#6D8066', fontWeight:600}} />
@@ -134,7 +134,7 @@ function ProductPresentation({props}){
                                     <Grid item xs={12}>
                                         <Grid container direction={"column"} spacing={5}>
                                             <Grid item xs={12}>
-                                                <Typography variant="body1" align="center">
+                                                <Typography variant="body1" fontSize={20} align="center">
                                                     { t('home:description_list.catchphrase_1')}
                                                 </Typography>
                                             </Grid>

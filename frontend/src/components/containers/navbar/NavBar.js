@@ -9,12 +9,15 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import LangSwitcher from "../../molecules/navbar/LangSwitcher";
-import {useTheme} from "@mui/material";
+import {Chip, useTheme} from "@mui/material";
 import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router-dom";
 import HideOnScroll from "../../molecules/navbar/HideOnScroll";
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import iconPlanet from "../../../assets/images/icons/iconPlanet.png";
+import {useState} from "react";
+import ModalLogin from "../../molecules/navbar/ModalLogin";
+import { Turn as Hamburger } from 'hamburger-react'
 
 
 export default function NavBar(props) {
@@ -26,20 +29,42 @@ export default function NavBar(props) {
 
 
     // For mobile
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+    const [open, setOpen] = useState(false)
+    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+    const [openConnect, setOpenConnect] = useState(false);
+
     const handleMobileMenuClose = () => {
         setMobileMoreAnchorEl(null);
+        setOpen(false)
     };
     const handleMobileMenuOpen = (event) => {
         setMobileMoreAnchorEl(event.currentTarget);
     };
+
+    const redirectToDemo = () => {
+        navigate('/demo/company');
+    }
+
+    const redirectToOffers = () => {
+        navigate('/offers');
+    }
+
+    const connectHandler = () => {
+        setMobileMoreAnchorEl(null);
+        setOpenConnect(true)
+    }
+
+    const connectHandlerClose = () => {
+        setOpenConnect(false)
+    }
+
     const mobileMenuId = 'primary-search-account-menu-mobile';
     const renderMobileMenu = (
         <Menu
             anchorEl={mobileMoreAnchorEl}
             anchorOrigin={{
-                vertical: 'top',
+                vertical: 'bottom',
                 horizontal: 'right',
             }}
             id={mobileMenuId}
@@ -52,10 +77,10 @@ export default function NavBar(props) {
             onClose={handleMobileMenuClose}
         >
             <MenuItem>
-                <Button onClick={() => navigate('/offers')} variant="text" color="inherit" size="medium" style={{fontWeight: 600}}>{ t('navbar:offers')}</Button>
+                <Button onClick={redirectToOffers} variant="text" color="inherit" size="medium" style={{fontWeight: 600}}>{ t('navbar:offers')}</Button>
             </MenuItem>
             <MenuItem>
-                <Button onClick={() => navigate('/offers')} variant="outlined" color="error" size="medium" style={{fontWeight: 600}}>{ t('navbar:ask_for_demo')}</Button>
+                <Button onClick={redirectToDemo} variant="outlined" color="error" size="medium" style={{fontWeight: 600}}>{ t('navbar:ask_for_demo')}</Button>
             </MenuItem>
             <MenuItem>
                 <Button variant="text"
@@ -64,6 +89,7 @@ export default function NavBar(props) {
                         aria-label="account of current user"
                         //onClick={handleProfileMenuOpen}
                         style={{fontWeight: 600}}
+                        onClick={connectHandler}
                 >
                     { t('navbar:connect')}
                 </Button>
@@ -71,7 +97,7 @@ export default function NavBar(props) {
             <MenuItem>
                 <LangSwitcher/>
             </MenuItem>
-            <MenuItem>
+            <MenuItem style={{display:'none'}}>
                 <IconButton style={{color:'black'}} aria-label="add to shopping cart" sx={{mr:2}}>
                     <WbSunnyIcon />
                 </IconButton>
@@ -79,14 +105,6 @@ export default function NavBar(props) {
         </Menu>
     );
 
-    //  Dialog logic
-    const [dialog_open, setDialogOpen] = React.useState(false);
-    const createProfileOpen = (event) => {
-        setDialogOpen(true);
-    };
-    const createProfileClose = (event) => {
-        setDialogOpen(false);
-    };
 
 
     // Return
@@ -96,7 +114,7 @@ export default function NavBar(props) {
             <HideOnScroll {...props}>
                 <AppBar style={{backgroundColor:theme.palette.background.paper}} elevation={0}>
                     <Toolbar>
-                        <img src={iconPlanet} alt="logo" />
+                        <img src={iconPlanet} alt="logo" onClick={() => { navigate('/')}} style={{cursor:'pointer'}}/>
                         <Typography
                             variant="h6"
                             noWrap
@@ -112,41 +130,44 @@ export default function NavBar(props) {
                                 size="medium"
                                 aria-label="account of current user"
                                 color="primary"
+                                onClick={redirectToOffers}
                             >
                                 { t('navbar:offers')}
                             </Button>
                         </Box>
                         <Box sx={{ flexGrow: 10 }} />
                         <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                            <IconButton style={{color:'black'}} aria-label="add to shopping cart" sx={{mr:2}}>
+                            <IconButton style={{color:'black', display:'none'}} aria-label="add to shopping cart" sx={{mr:2}}>
                                 <WbSunnyIcon />
                             </IconButton>
                             <LangSwitcher/>
-                            <Button variant="outlined"
+                            <Chip variant="outlined"
                                     aria-label="account of current user"
-                                    onClick={createProfileOpen}
+                                    onClick={redirectToDemo}
                                     color="error"
+                                    style={{fontSize: 18}}
                                     sx={{mr:2}}
-                            >
-                                { t('navbar:ask_for_demo')}
-                            </Button>
+                                    label={t('navbar:ask_for_demo')}
+                            />
                             <Button variant="text"
                                     aria-label="account of current user"
-                                    onClick={createProfileOpen}
+                                    onClick={connectHandler}
                                     color="primary"
                             >
                                 { t('navbar:connect')}
                             </Button>
+                            <ModalLogin open={openConnect} handleClose={connectHandlerClose}/>
                         </Box>
                         <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                             <IconButton
                                 size="large"
                                 aria-label="show more"
+                                aria-controls={mobileMenuId}
                                 aria-haspopup="true"
-                                style={{color:'black'}}
                                 onClick={handleMobileMenuOpen}
+                                color="inherit"
                             >
-                                <MoreIcon />
+                                <Hamburger toggled={open} toggle={setOpen} color={"black"}/>
                             </IconButton>
                         </Box>
                     </Toolbar>

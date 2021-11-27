@@ -6,6 +6,9 @@ import Essec from "../../../assets/images/footer/essec.jpg";
 import Pepites from "../../../assets/images/footer/pepites.png";
 import * as React from "react";
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import iconPlanet from "../../../assets/images/icons/iconPlanet.png";
+import Button from "@mui/material/Button";
+import {Link} from "react-router-dom";
 
 function Footer(){
     const theme = useTheme();
@@ -24,48 +27,55 @@ function Footer(){
                                     color="black"
                                     style={{fontWeight:800}}
                                 >
-                                    Spacecorner
+                                    SpaceCorner
                                 </Typography>
                             </Grid>
                             <Grid item md={2} xs={6}>
-                                <Grid container direction={"column"}>
+                                <Grid container direction={"column"} spacing={1}>
                                     <Grid item>
-                                        <Typography variant={"h5"} style={{color:'#2F5597'}} fontWeight={500}>Contact</Typography>
+                                        <Typography variant={"h5"} style={{color:'#2F5597'}} fontSize={20} fontWeight={500}>Contact</Typography>
                                     </Grid>
                                     <Grid item>
-                                        <Typography variant={"body1"} style={{color:'#7F7F7F'}}>hello@spacecorner.io</Typography>
+                                        <a href={'mailto:d.pierrebox@gmail.com'} style={{textDecoration:'none'}}>
+                                            <Typography variant={"body1"} style={{color:'#7F7F7F'}}>hello@spacecorner.io</Typography>
+                                        </a>
                                     </Grid>
                                     <Grid item>
                                         <Typography variant={"body1"} style={{color:'#7F7F7F'}}>Contactez-nous !</Typography>
                                     </Grid>
                                     <Grid item>
-                                        <LinkedInIcon style={{color:'#7F7F7F'}}/>
+                                        <a href={'https://linkedin.com'} style={{textDecoration:'none'}}>
+                                            <LinkedInIcon style={{color:'#7F7F7F'}}/>
+                                        </a>
                                     </Grid>
                                 </Grid>
                             </Grid>
                             <Grid item md={2} xs={6}>
-                                <Grid container direction={"column"}>
+                                <Grid container direction={"column"} spacing={1}>
                                     <Grid item>
-                                        <Typography variant={"h5"} style={{color:'#2F5597'}} fontWeight={500}>Le site</Typography>
+                                        <Typography variant={"h5"} style={{color:'#2F5597'}} fontSize={20} fontWeight={500}>Le site</Typography>
                                     </Grid>
                                     <Grid item>
-                                        <Typography variant={"body1"} style={{color:'#7F7F7F'}}>Accueil</Typography>
+                                        <Link to={"/"} style={{textDecoration:'none'}}>
+                                            <Typography variant={"body1"} style={{color:'#7F7F7F'}}>Accueil</Typography>
+                                        </Link>
                                     </Grid>
                                     <Grid item>
-                                        <Typography variant={"body1"} style={{color:'#7F7F7F'}}>Nos offres</Typography>
+                                        <Link to={"/offers"} style={{textDecoration:'none'}}>
+                                            <Typography variant={"body1"} style={{color:'#7F7F7F'}}>Nos offres</Typography>
+                                        </Link>
                                     </Grid>
                                     <Grid item>
-                                        <Typography variant={"body1"} style={{color:'#7F7F7F'}}>Demander une démo</Typography>
-                                    </Grid>
-                                    <Grid item>
-                                        <Typography variant={"body1"} style={{color:'#7F7F7F'}}>Connexion</Typography>
+                                        <Link to={"/demo/company"} style={{textDecoration:'none'}}>
+                                            <Typography variant={"body1"} style={{color:'#7F7F7F'}}>Demander une démo</Typography>
+                                        </Link>
                                     </Grid>
                                 </Grid>
                             </Grid>
                             <Grid item md={2} xs={6}>
-                                <Grid container direction={"column"}>
+                                <Grid container direction={"column"} spacing={1}>
                                     <Grid item>
-                                        <Typography variant={"h5"} style={{color:'#2F5597'}} fontWeight={500}>Légal</Typography>
+                                        <Typography variant={"h5"} style={{color:'#2F5597'}} fontSize={20} fontWeight={500}>Légal</Typography>
                                     </Grid>
                                     <Grid item>
                                         <Typography variant={"body1"} style={{color:'#7F7F7F'}}>Mentions légales</Typography>

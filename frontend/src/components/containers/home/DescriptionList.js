@@ -29,7 +29,7 @@ function DescriptionList(props){
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <Typography variant="h4" fontWeight={400} align="center">
+                                        <Typography variant="h4" style={{color:'#7F7F7F'}} fontWeight={400} align="center">
                                             { t('home:SCValue.subtitle')}
                                         </Typography>
                                     </Grid>

@@ -7,21 +7,22 @@ import ReserveImage from "../../../assets/images/home/intro/reserve.png";
 import PlanningImage from "../../../assets/images/home/intro/planning.png";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import {useTheme} from "@mui/material";
+import {Chip, useTheme} from "@mui/material";
 import {useTranslation} from "react-i18next";
 import TypingEffect from "./TypingEffect";
 import {Fade} from 'react-awesome-reveal';
+import {useNavigate} from "react-router-dom";
 
 function Intro(){
     const { t } = useTranslation();
     const theme = useTheme();
-
+    let navigate = useNavigate();
 
     return(
         <div>
             <Box sx={{ display: { xs: 'none', md: 'flex' }, backgroundColor: theme.palette.background.paper }}>
                 <Container style={{backgroundColor: theme.palette.background.paper, height:'100vh'}}>
-                    <Grid container style={{marginTop:'10%'}} spacing={2} direction="row">
+                    <Grid container style={{marginTop:'20vh'}} spacing={2} direction="row">
                         <Grid item md={4}  style={{height:'100%'}}>
                             <Fade direction={"left"} triggerOnce={true}>
                                 <Grid container direction="column" spacing={5}>
@@ -60,9 +61,7 @@ function Intro(){
                                         </Typography>
                                     </Grid>
                                     <Grid item style={{textAlign:'center'}}>
-                                        <Button variant="contained" >
-                                            {t('generic:demo')}
-                                        </Button>
+                                        <Chip variant="contained" style={{color:'white',backgroundColor:'#2F5597', fontSize: 18}} label={ t("generic:demo") } onClick={() => navigate('/demo/company')}/>
                                     </Grid>
                                 </Grid>
                             </Fade>
@@ -84,7 +83,7 @@ function Intro(){
             </Box>
             <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                 <Container style={{backgroundColor: theme.palette.background.paper, height:'100vh'}}>
-                    <Grid container style={{marginTop:'20%'}} direction="row">
+                    <Grid container style={{marginTop:'20vh'}} direction="row">
                         <Grid item xs={12}>
                             <Fade top>
                                 <Grid container direction="row" style={{height:'100%'}} justifyContent={"center"} spacing={5}>
@@ -102,9 +101,7 @@ function Intro(){
                                         </Typography>
                                     </Grid>
                                     <Grid item style={{textAlign:'center'}}>
-                                        <Button variant="contained" >
-                                            {t('generic:demo')}
-                                        </Button>
+                                        <Chip variant="contained" style={{color:'white',backgroundColor:'#2F5597', fontSize: 18}} label={ t("generic:demo") } onClick={() => navigate('/demo/company')}/>
                                     </Grid>
                                 </Grid>
                             </Fade>
