@@ -52,6 +52,7 @@ export default function NavBar(props) {
 
     const connectHandler = () => {
         setMobileMoreAnchorEl(null);
+        setOpen(false);
         setOpenConnect(true)
     }
 
