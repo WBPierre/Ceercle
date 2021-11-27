@@ -22,6 +22,10 @@ deploy_stage:
       cd ~/app
       && git status
       && docker-compose stop
+      && rm frontend/package-lock.json
       && git pull
+      && cd frontend
+      && npm i
+      && cd ..
       && docker-compose up -d --build
       '
