@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid";
 import {useTranslation} from "react-i18next";
 import Typography from "@mui/material/Typography"
-import {Avatar, useTheme} from "@mui/material";
+import {Avatar, Icon, useTheme} from "@mui/material";
 import GroupsIcon from '@mui/icons-material/Groups';
 import PeopleIcon from '@mui/icons-material/People';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
@@ -15,7 +15,7 @@ function Operations({props}){
 
     return(
         <div>
-            <div style={{backgroundColor: theme.palette.background.default}}>
+            <div style={{backgroundColor: theme.palette.background.default, paddingBottom:'5%'}}>
                 <Grid container direction={"column"} style={{height:'100%'}} alignItems={"space-around"}>
                     <Grid item xs={12} px={10}  mb={10}>
                         <Grid container direction={"row"} spacing={2}>
@@ -43,10 +43,10 @@ function Operations({props}){
                                 <Fade direction={"up"} triggerOnce={true}>
                                     <Grid container py={5} px={5} direction={"column"} style={{backgroundColor:'#EAF3FE', borderRadius: '5%'}} justifyContent={"center"} alignItems={"center"}>
                                         <Grid item mt={2}>
-                                            <Avatar size={"medium"} style={{ backgroundColor:'white'}} sx={{ width: 75, height: 75 }}><GroupsIcon style={{color:'#002060'}} fontSize={"large"}/></Avatar>
+                                            <Avatar size={"medium"} style={{ backgroundColor:'white'}} sx={{ width: 75, height: 75 }}><Icon style={{color:'#002060', fontSize:36}}>groups</Icon></Avatar>
                                         </Grid>
                                         <Grid item my={5}>
-                                            <Typography textAlign={"center"} variant="h4" style={{color:'#2F5597'}} fontWeight={500}>{t('home:operations.card_1.title')}</Typography>
+                                            <Typography textAlign={"center"} variant="h4" style={{color:'#2F5597'}} fontSize={28} fontWeight={500}>{t('home:operations.card_1.title')}</Typography>
                                         </Grid>
                                         <Grid item>
                                             <Typography textAlign={"center"} style={{color:'#002060'}} fontSize={18}>{t('home:operations.card_1.text')}</Typography>
@@ -58,10 +58,10 @@ function Operations({props}){
                                 <Fade direction={"up"} triggerOnce={true}>
                                     <Grid container px={5} py={5} direction={"column"} style={{backgroundColor:'#EAF3FE', borderRadius: '5%'}} justifyContent={"center"} alignItems={"center"}>
                                         <Grid item mt={2}>
-                                            <Avatar size={"medium"} style={{ backgroundColor:'white'}} sx={{ width: 75, height: 75 }}><PeopleIcon style={{color:'#002060'}} fontSize={"large"}/></Avatar>
+                                            <Avatar size={"medium"} style={{ backgroundColor:'white'}} sx={{ width: 75, height: 75 }}><Icon style={{color:'#002060', fontSize:36}}>manage_accounts</Icon></Avatar>
                                         </Grid>
                                         <Grid item my={5}>
-                                            <Typography textAlign={"center"} variant="h4" style={{color:'#2F5597'}} fontWeight={500}>{t('home:operations.card_2.title')}</Typography>
+                                            <Typography textAlign={"center"} variant="h4" style={{color:'#2F5597'}} fontSize={28} fontWeight={500}>{t('home:operations.card_2.title')}</Typography>
                                         </Grid>
                                         <Grid item>
                                             <Typography textAlign={"center"} style={{color:'#002060'}} fontSize={18}>{t('home:operations.card_2.text')}</Typography>
@@ -73,10 +73,10 @@ function Operations({props}){
                                 <Fade direction={"up"} triggerOnce={true}>
                                     <Grid container px={5} py={5} direction={"column"} style={{backgroundColor:'#EAF3FE', borderRadius: '5%'}} justifyContent={"center"} alignItems={"center"}>
                                         <Grid item mt={2}>
-                                            <Avatar size={"medium"} style={{ backgroundColor:'white'}} sx={{ width: 75, height: 75 }}><CreditCardIcon style={{color:'#002060'}} fontSize={"large"}/></Avatar>
+                                            <Avatar size={"medium"} style={{ backgroundColor:'white'}} sx={{ width: 75, height: 75 }}><Icon style={{color:'#002060', fontSize:36}}>credit_card</Icon></Avatar>
                                         </Grid>
                                         <Grid item my={5}>
-                                            <Typography textAlign={"center"} variant="h4" style={{color:'#2F5597'}} fontWeight={500}>{t('home:operations.card_3.title')}</Typography>
+                                            <Typography textAlign={"center"} variant="h4" style={{color:'#2F5597'}} fontSize={28} fontWeight={500}>{t('home:operations.card_3.title')}</Typography>
                                         </Grid>
                                         <Grid item>
                                             <Typography textAlign={"center"} style={{color:'#002060'}} fontSize={18}>{t('home:operations.card_3.text')}</Typography>
@@ -88,10 +88,10 @@ function Operations({props}){
                                 <Fade direction={"up"} triggerOnce={true}>
                                     <Grid container px={5} py={5} direction={"column"} style={{backgroundColor:'#EAF3FE', borderRadius: '5%'}} justifyContent={"center"} alignItems={"center"}>
                                         <Grid item mt={2}>
-                                            <Avatar size={"medium"} style={{ backgroundColor:'white'}} sx={{ width: 75, height: 75 }}><LightbulbIcon style={{color:'#002060'}} fontSize={"large"}/></Avatar>
+                                            <Avatar size={"medium"} style={{ backgroundColor:'white'}} sx={{ width: 75, height: 75 }}><Icon style={{color:'#002060', fontSize:36}}>health_and_safety</Icon></Avatar>
                                         </Grid>
                                         <Grid item my={5}>
-                                            <Typography textAlign={"center"} variant="h4" style={{color:'#2F5597'}} fontWeight={500}>{t('home:operations.card_4.title')}</Typography>
+                                            <Typography textAlign={"center"} variant="h4" style={{color:'#2F5597'}} fontSize={28} fontWeight={500}>{t('home:operations.card_4.title')}</Typography>
                                         </Grid>
                                         <Grid item>
                                             <Typography textAlign={"center"} style={{color:'#002060'}} fontSize={18}>{t('home:operations.card_4.text')}</Typography>

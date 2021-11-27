@@ -7,7 +7,6 @@ import Typography from "@mui/material/Typography"
 import {useEffect, useRef, useState} from "react";
 import Divider from "@mui/material/Divider";
 import Footer from "../components/containers/footer/Footer";
-import TypingEffect from "../components/molecules/home/TypingEffect";
 import {
     Card,
     CardContent,
@@ -20,6 +19,8 @@ import {
 } from "@mui/material";
 import {useParams} from "react-router-dom";
 import {CheckCircle} from "@mui/icons-material";
+import {Fade} from 'react-awesome-reveal';
+
 
 function Demo(){
     const { t } = useTranslation();
@@ -47,142 +48,146 @@ function Demo(){
                 <Container style={{minHeight:'100vh', display:'flex', paddingTop: 100}}>
                     <Grid container spacing={2} style={{flex:1}} direction="row" justifyContent="center" alignItems="center">
                         <Grid item xs={12} md={4} ref={textRef}>
-                            <Grid container spacing={3} direction="column">
-                                <Grid item>
-                                    <Typography variant="h3" component="h3" align="left" fontWeight={600}>
-                                        { t('demo:title') } <TypingEffect/>
-                                    </Typography>
+                            <Fade direction={"left"} triggerOnce={true}>
+                                <Grid container spacing={3} direction="column">
+                                    <Grid item>
+                                        <Typography variant="h3" component="h3" align="left" fontWeight={600}>
+                                            { t('demo:title') }
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item>
+                                        <Typography variant="body1" align="left" style={{color:'#7F7F7F'}} fontSize={20}>
+                                            { t('demo:subtitle') }
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item>
+                                        <List>
+                                            <ListItem>
+                                                <ListItemIcon>
+                                                    <CheckCircle color="primary"/>
+                                                </ListItemIcon>
+                                                <ListItemText primary={t('demo:check_1')} />
+                                            </ListItem>
+                                            <ListItem>
+                                                <ListItemIcon>
+                                                    <CheckCircle color="primary"/>
+                                                </ListItemIcon>
+                                                <ListItemText primary={t('demo:check_2')} />
+                                            </ListItem>
+                                            <ListItem>
+                                                <ListItemIcon>
+                                                    <CheckCircle color="primary"/>
+                                                </ListItemIcon>
+                                                <ListItemText primary={t('demo:check_3')} />
+                                            </ListItem>
+                                        </List>
+                                    </Grid>
                                 </Grid>
-                                <Grid item>
-                                    <Typography variant="body1" align="left" fontSize={20}>
-                                        { t('demo:subtitle') }
-                                    </Typography>
-                                </Grid>
-                                <Grid item>
-                                    <List>
-                                        <ListItem>
-                                            <ListItemIcon>
-                                                <CheckCircle color="primary"/>
-                                            </ListItemIcon>
-                                            <ListItemText primary={t('demo:check_1')} />
-                                        </ListItem>
-                                        <ListItem>
-                                            <ListItemIcon>
-                                                <CheckCircle color="primary"/>
-                                            </ListItemIcon>
-                                            <ListItemText primary={t('demo:check_2')} />
-                                        </ListItem>
-                                        <ListItem>
-                                            <ListItemIcon>
-                                                <CheckCircle color="primary"/>
-                                            </ListItemIcon>
-                                            <ListItemText primary={t('demo:check_3')} />
-                                        </ListItem>
-                                    </List>
-                                </Grid>
-                            </Grid>
+                            </Fade>
                         </Grid>
                         <Grid item md={1}/>
                         <Grid item xs={12} md={7}>
-                            <Card>
-                                <CardContent>
-                                    <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                                        <Tab label={t('demo:coworking.title')} id="tab-coworking" aria-controls="tabpanel-0" style={{width:'50%'}} />
-                                        <Tab label={t('demo:company.title')} id="tab-company" aria-controls="tabpanel-1" style={{width:'50%'}}/>
-                                    </Tabs>
-                                    <Divider/>
-                                    <div
-                                        role="tabpanel"
-                                        hidden={value !== 0}
-                                        id="tabpanel-0"
-                                        aria-labelledby="tab-coworking">
-                                        <Grid container direction="column" spacing={5} mt={1}>
-                                            <Grid item>
-                                                <Grid container direction="row" spacing={5}>
-                                                    <Grid item xs={12} md={6}>
-                                                        <TextField id="outlined-basic" label={t('generic:firstname')} variant="outlined" />
-                                                    </Grid>
-                                                    <Grid item xs={12} md={6}>
-                                                        <TextField id="outlined-basic" label={t('generic:name')} variant="outlined" />
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                            <Grid item>
-                                                <Grid container direction="row" spacing={5}>
-                                                    <Grid item xs={12} md={6}>
-                                                        <TextField id="outlined-basic" label={t('demo:coworking.name')} variant="outlined" />
-                                                    </Grid>
-                                                    <Grid item xs={12} md={6}>
-                                                        <TextField id="outlined-basic" label={t('generic:email')} variant="outlined" />
+                            <Fade direction={"right"} triggerOnce={true}>
+                                <Card>
+                                    <CardContent>
+                                        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                                            <Tab label={t('demo:coworking.title')} id="tab-coworking" aria-controls="tabpanel-0" style={{width:'50%'}} />
+                                            <Tab label={t('demo:company.title')} id="tab-company" aria-controls="tabpanel-1" style={{width:'50%'}}/>
+                                        </Tabs>
+                                        <Divider/>
+                                        <div
+                                            role="tabpanel"
+                                            hidden={value !== 0}
+                                            id="tabpanel-0"
+                                            aria-labelledby="tab-coworking">
+                                            <Grid container direction="column" spacing={5} mt={1}>
+                                                <Grid item>
+                                                    <Grid container direction="row" spacing={5} mx={2}>
+                                                        <Grid item xs={12} md={6}>
+                                                            <TextField id="outlined-basic" label={t('generic:firstname')} variant="standard" />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={6}>
+                                                            <TextField id="outlined-basic" label={t('generic:name')} variant="standard" />
+                                                        </Grid>
                                                     </Grid>
                                                 </Grid>
-                                            </Grid>
-                                            <Grid item>
-                                                <Grid container direction="row" spacing={5}>
-                                                    <Grid item xs={12} md={6}>
-                                                        <TextField id="outlined-basic" label={t('generic:phone')} variant="outlined" />
-                                                    </Grid>
-                                                    <Grid item xs={12} md={6}>
-                                                        <TextField id="outlined-basic" label={t('generic:zip_code')} variant="outlined" />
+                                                <Grid item>
+                                                    <Grid container direction="row" spacing={5} mx={2}>
+                                                        <Grid item xs={12} md={6}>
+                                                            <TextField id="outlined-basic" label={t('demo:coworking.name')} variant="standard" />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={6}>
+                                                            <TextField id="outlined-basic" label={t('generic:email')} variant="standard" />
+                                                        </Grid>
                                                     </Grid>
                                                 </Grid>
+                                                <Grid item>
+                                                    <Grid container direction="row" spacing={5} mx={2}>
+                                                        <Grid item xs={12} md={6}>
+                                                            <TextField id="outlined-basic" label={t('generic:phone')} variant="standard" />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={6}>
+                                                            <TextField id="outlined-basic" label={t('generic:zip_code')} variant="standard" />
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid item style={{textAlign:'center'}}>
+                                                    <Button style={{width:'50%'}} variant="contained">Valider</Button>
+                                                </Grid>
                                             </Grid>
-                                            <Grid item>
-                                                <Button style={{width:'100%'}} variant="contained">Valider</Button>
-                                            </Grid>
-                                        </Grid>
-                                    </div>
+                                        </div>
 
-                                    <div
-                                        role="tabpanel"
-                                        hidden={value !== 1}
-                                        id="tabpanel-1"
-                                        aria-labelledby="tab-company">
-                                        <Grid container direction="column" spacing={5} mt={1}>
-                                            <Grid item>
-                                                <Grid container direction="row" spacing={5}>
-                                                    <Grid item xs={12} md={6}>
-                                                        <TextField id="outlined-basic" label={t('generic:firstname')} variant="outlined" />
-                                                    </Grid>
-                                                    <Grid item xs={12} md={6}>
-                                                        <TextField id="outlined-basic" label={t('generic:name')} variant="outlined" />
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                            <Grid item>
-                                                <Grid container direction="row" spacing={5}>
-                                                    <Grid item xs={12} md={6}>
-                                                        <TextField id="outlined-basic" label={t('demo:company.name')} variant="outlined" />
-                                                    </Grid>
-                                                    <Grid item xs={12} md={6}>
-                                                        <TextField id="outlined-basic" label={t('demo:company.function')} variant="outlined" />
+                                        <div
+                                            role="tabpanel"
+                                            hidden={value !== 1}
+                                            id="tabpanel-1"
+                                            aria-labelledby="tab-company">
+                                            <Grid container direction="column" spacing={5} mt={1}>
+                                                <Grid item>
+                                                    <Grid container direction="row" spacing={5} mx={2}>
+                                                        <Grid item xs={12} md={6}>
+                                                            <TextField id="outlined-basic" label={t('generic:firstname')} variant="standard" />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={6}>
+                                                            <TextField id="outlined-basic" label={t('generic:name')} variant="standard" />
+                                                        </Grid>
                                                     </Grid>
                                                 </Grid>
-                                            </Grid>
-                                            <Grid item>
-                                                <Grid container direction="row" spacing={5}>
-                                                    <Grid item xs={12} md={6}>
-                                                        <TextField id="outlined-basic" label={t('generic:professional_email')} variant="outlined" />
-                                                    </Grid>
-                                                    <Grid item xs={12} md={6}>
-                                                        <TextField id="outlined-basic" label={t('generic:phone')} variant="outlined" />
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                            <Grid item>
-                                                <Grid container direction="row" spacing={5}>
-                                                    <Grid item xs={12} md={6}>
-                                                        <TextField id="outlined-basic" label={t('generic:zip_code')} variant="outlined" />
+                                                <Grid item>
+                                                    <Grid container direction="row" spacing={5} mx={2}>
+                                                        <Grid item xs={12} md={6}>
+                                                            <TextField id="outlined-basic" label={t('demo:company.name')} variant="standard" />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={6}>
+                                                            <TextField id="outlined-basic" label={t('demo:company.function')} variant="standard" />
+                                                        </Grid>
                                                     </Grid>
                                                 </Grid>
+                                                <Grid item>
+                                                    <Grid container direction="row" spacing={5} mx={2}>
+                                                        <Grid item xs={12} md={6}>
+                                                            <TextField id="outlined-basic" label={t('generic:professional_email')} variant="standard" />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={6}>
+                                                            <TextField id="outlined-basic" label={t('generic:phone')} variant="standard" />
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid item>
+                                                    <Grid container direction="row" spacing={5} mx={2}>
+                                                        <Grid item xs={12} md={6}>
+                                                            <TextField id="outlined-basic" label={t('generic:zip_code')} variant="standard" />
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid item style={{textAlign:'center'}}>
+                                                    <Button style={{width:'50%'}} variant="contained">Valider</Button>
+                                                </Grid>
                                             </Grid>
-                                            <Grid item>
-                                                <Button style={{width:'100%'}} variant="contained">Valider</Button>
-                                            </Grid>
-                                        </Grid>
-                                    </div>
-                                </CardContent>
-                            </Card>
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            </Fade>
                         </Grid>
                     </Grid>
                 </Container>
