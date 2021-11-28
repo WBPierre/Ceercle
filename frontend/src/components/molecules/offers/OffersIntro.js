@@ -5,6 +5,7 @@ import {Chip, useTheme} from "@mui/material";
 import Box from "@mui/material/Box";
 import iconPlanet from "../../../assets/images/icons/iconPlanet.png";
 import PublicIcon from '@mui/icons-material/Public';
+import {Fade, Zoom} from 'react-awesome-reveal';
 
 function OffersIntro({props}){
     const { t } = useTranslation();
@@ -41,7 +42,9 @@ function OffersIntro({props}){
                                 </Grid> 
                                 
                                 <Grid item xs={12} align="center">
-                                        <PublicIcon sx={{ color:"#0572F5", fontSize:70}}></PublicIcon>
+                                    <Zoom>
+                                        <PublicIcon sx={{ color:"#0572F5", fontSize:100}}></PublicIcon>
+                                    </Zoom>
                                 </Grid>    
                             </Grid>
                         </Grid>

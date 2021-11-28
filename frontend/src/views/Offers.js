@@ -5,7 +5,7 @@ import DescriptionList from "../components/containers/home/DescriptionList";
 import Demo from "../components/molecules/home/Demo";
 import Footer from "../components/containers/footer/Footer";
 import OffersIntro from "../components/molecules/offers/OffersIntro";
-import Operations from "../components/containers/home/Operations";
+import OffersPerks from "../components/molecules/offers/OffersPerks";
 import OfferDescription from "../components/containers/offers/OfferDescription";
 
 function Offers(){
@@ -17,6 +17,8 @@ function Offers(){
             <div style={{marginTop:'5%'}}/>
             <divider/>
             <OfferDescription/>
+            <div style={{marginTop:'5%'}}/>
+            <OffersPerks/>
             <div style={{marginTop:'5%'}}/>
             <Footer/>
         </Container>
