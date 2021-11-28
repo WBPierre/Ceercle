@@ -1,0 +1,15 @@
+{
+  "offers": "Nos offres",
+  "connect": "Connexion",
+  "connect_to_account": "Me connecter",
+  "ask_for_demo": "Demander une démo",
+  "connect_modal": {
+    "title": "Mon espace",
+    "google": "Continuer avec Google",
+    "teams": "Continuer avec Microsoft",
+    "slack":"Continuer avec Slack",
+    "remember_me": "Se souvenir de moi",
+    "connect": "Se connecter",
+    "forgot_password": "Mot de passe oublié ?"
+  }
+}

@@ -1,4 +1,3 @@
-import './App.css';
 import Rooter from "./navigation/Rooter";
 
 function App() {

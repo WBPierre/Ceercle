@@ -5,12 +5,10 @@ import detector from "i18next-browser-languagedetector";
 import generic_en from "./en/generic.json";
 import generic_fr from "./fr/generic.json";
 import header_en from "./en/header.json";
-import header_fr from "./fr/header.json";
-import home_fr from "./fr/home.json";
-import navbar_fr from "./fr/navbar.json";
-import offers_fr from "./fr/offers.json";
-import demo_fr from "./fr/demo.json";
-import contact_fr from "./fr/contact.json";
+import home_fr from "./fr/public/home.json";
+import navbar_fr from "./fr/public/navbar.json";
+import offers_fr from "./fr/public/offers.json";
+import demo_fr from "./fr/public/demo.json";
 
 const resources = {
     en: {
@@ -20,12 +18,10 @@ const resources = {
     },
     fr:{
         generic: generic_fr,
-        header: header_fr,
         home : home_fr,
         navbar : navbar_fr,
         offers : offers_fr,
-        demo: demo_fr,
-        contact: contact_fr
+        demo: demo_fr
     }
 };
 

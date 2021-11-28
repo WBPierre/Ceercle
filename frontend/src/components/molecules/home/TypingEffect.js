@@ -10,13 +10,13 @@ function TypingEffect(){
         <Typewriter
             onInit={(typewriter) => {
                 typewriter
-                    .typeString('<span style="color: #4C82D3;text-decoration: underline;">'+t('home:main.slider_at_the_office')+'</span>')
+                    .typeString('<span style="color: #4C82D3;text-decoration: underline;">'+t('home:intro.slider_at_the_office')+'</span>')
                     .pauseFor(500)
                     .deleteAll()
-                    .typeString('<span style="color: #4C82D3;text-decoration: underline;">'+t('home:main.slider_at_home')+'</span>')
+                    .typeString('<span style="color: #4C82D3;text-decoration: underline;">'+t('home:intro.slider_at_home')+'</span>')
                     .pauseFor(500)
                     .deleteAll()
-                    .typeString('<span style="color: #4C82D3;text-decoration: underline;">'+t('home:main.slider_at_coworking')+'</span>')
+                    .typeString('<span style="color: #4C82D3;text-decoration: underline;">'+t('home:intro.slider_at_coworking')+'</span>')
                     .pauseFor(500)
                     .deleteAll()
                     .start();

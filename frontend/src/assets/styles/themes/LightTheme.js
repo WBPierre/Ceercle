@@ -18,10 +18,13 @@ const theme = createTheme({
     },
     typography: {
         button:{
-            fontFamily: 'Nunito'
+            fontFamily: 'SF Pro Display',
+            fontWeight: 600
         },
-        fontFamily: 'Nunito'
-    }
+        fontFamily: 'SF Pro Display',
+        fontSize: 14,
+        htmlFontSize: 16
+    },
 })
 
 export default theme
