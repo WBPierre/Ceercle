@@ -1,12 +1,9 @@
-import NavBar from "../components/containers/navbar/NavBar"
+import NavBar from "../../components/containers/public/navbar/NavBar"
 import Container from "@mui/material/Container";
-import ProductPresentation from "../components/containers/home/ProductPresentation";
-import DescriptionList from "../components/containers/home/DescriptionList";
-import Demo from "../components/molecules/home/Demo";
-import Footer from "../components/containers/footer/Footer";
-import OffersIntro from "../components/molecules/offers/OffersIntro";
-import OffersPerks from "../components/molecules/offers/OffersPerks";
-import OfferDescription from "../components/containers/offers/OfferDescription";
+import Footer from "../../components/containers/public/footer/Footer";
+import OffersIntro from "../../components/containers/public/offers/OffersIntro";
+import OffersPerks from "../../components/containers/public/offers/OffersPerks";
+import OfferDescription from "../../components/containers/public/offers/OfferDescription";
 
 function Offers(){
     return(

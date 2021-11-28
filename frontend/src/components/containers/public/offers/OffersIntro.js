@@ -3,7 +3,7 @@ import {useTranslation} from "react-i18next";
 import Typography from "@mui/material/Typography"
 import {Chip, useTheme} from "@mui/material";
 import Box from "@mui/material/Box";
-import iconPlanet from "../../../assets/images/icons/iconPlanet.png";
+import iconPlanet from "../../../../assets/images/icons/iconPlanet.png";
 import PublicIcon from '@mui/icons-material/Public';
 import {Fade, Zoom} from 'react-awesome-reveal';
 
