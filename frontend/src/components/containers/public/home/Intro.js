@@ -88,7 +88,7 @@ function Intro(){
                                 <Grid container direction="row" style={{height:'100%'}} justifyContent={"center"} spacing={5}>
                                     <Grid item>
                                         <Typography variant="h4" fontWeight={500} style={{textAlign:'center'}}>
-                                            {t('home:main.title')}
+                                            {t('home:intro.title')}
                                         </Typography>
                                         <Typography variant="h4" fontWeight={500} style={{textAlign:'center'}}>
                                             <TypingEffect/>
@@ -96,7 +96,7 @@ function Intro(){
                                     </Grid>
                                     <Grid item>
                                         <Typography variant="h5" style={{textAlign:'center'}}>
-                                            {t('home:main.content')}
+                                            {t('home:intro.content')}
                                         </Typography>
                                     </Grid>
                                     <Grid item style={{textAlign:'center'}}>

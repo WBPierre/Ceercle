@@ -282,7 +282,7 @@ function OfferDescription(props){
                                                 </Grid>
                                                 <Grid item pl={10}>
                                                     <Fade direction={"left"}>
-                                                        <Typography variant="h4" fontWeight={600}>{t('home:offer_description.step_2.title_1')} <span style={{color:'#C00000'}}>{t('home:SCValue.step_2.title_1_color')}</span>  {t('home:SCValue.step_2.title_2')} <span style={{color:'#0087E9'}}>{t('home:SCValue.step_2.title_2_color')}</span>.</Typography>
+                                                        <Typography variant="h4" fontWeight={600}>{t('home:offer_description.step_2.title_1')} <span style={{color:'#C00000'}}>{t('home:offer_description.step_2.title_1_color')}</span>  {t('home:offer_description.step_2.title_2')} <span style={{color:'#0087E9'}}>{t('home:offer_description.step_2.title_2_color')}</span>.</Typography>
                                                     </Fade>
                                                 </Grid>
                                                 <Grid item py={5} pl={10}>

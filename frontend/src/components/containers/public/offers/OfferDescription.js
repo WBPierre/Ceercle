@@ -31,14 +31,13 @@ function OfferDescription({props}){
             <Grid item xs={12} px={10}>
                 <Grid container direction={"row"} justifyContent={"space-around"} mb={7} alignItems="stretch"> 
                     
-                    <Grid item md={4} xs={12} mt={7}>
+                    <Grid item md={4} xs={12} mt={7} style={{width:'100%'}}>
                         <Grid container direction={"row"}>
-                            
                             <Grid item md={11} xs={12}>
                                 <Fade direction={"left"} triggerOnce={true}>
                                 <Card style={{ border: '3px solid #5B5654', borderRadius: '5%', backgroundColor: "#FFFFFF"}}>
                                     <CardHeader disableTypography={false}
-                                        title={<Typography style={{color: "#5B5654", fontWeight:50, fontSize: 30}} > 
+                                        title={<Typography style={{color: "#5B5654", fontWeight:50, fontSize: 30}}>
                                         {t('offers:offer_1.title')}
                                         </Typography>}
                                         subheader={<Typography style={{color: "#5B5654"}} >
