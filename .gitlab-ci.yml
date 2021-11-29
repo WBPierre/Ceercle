@@ -23,6 +23,7 @@ deploy_stage:
       && git status
       && docker-compose stop
       && git pull
+      && echo ${PATH}
       && cd frontend
       && npm install
       && cd ..
