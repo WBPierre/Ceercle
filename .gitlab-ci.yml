@@ -22,10 +22,10 @@ deploy_stage:
       cd ~/app
       && git status
       && docker-compose stop
-      && rm frontend/package-lock.json
       && git pull
+      && export PATH="$PATH:/home/ubuntu/.nvm/versions/node/v17.0.1/bin"
       && cd frontend
-      && npm i
+      && npm install
       && cd ..
-      && docker-compose up -d --build
+      && docker-compose up -d
       '
