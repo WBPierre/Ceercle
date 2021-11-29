@@ -83,13 +83,13 @@ function Footer(){
                                     </Grid>
                                 </Grid>
                             </Grid>
-                            <Grid item md={4} xs={12}>
+                            <Grid item md={4} xs={12} mt={-2}>
                                 <Grid container direction={"column"} justifyContent={"center"} alignItems={"center"}>
                                     <Grid item textAlign={"center"}>
-                                        <img src={Pepites} style={{maxWidth:'40%'}} alt="contact" />
+                                        <img src={Pepites} style={{maxWidth:'30%'}} alt="contact" />
                                     </Grid>
-                                    <Grid item textAlign={"center"}>
-                                        <img src={Essec} style={{maxWidth:'40%'}} alt="contact" />
+                                    <Grid item textAlign={"center"} mt={-2}>
+                                        <img src={Essec} style={{maxWidth:'30%'}} alt="contact" />
                                     </Grid>
                                 </Grid>
                             </Grid>
