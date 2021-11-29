@@ -24,7 +24,7 @@ deploy_stage:
       && docker-compose stop
       && git pull
       && cd frontend
-      && npm i
+      && npm install
       && cd ..
       && docker-compose up -d
       '
