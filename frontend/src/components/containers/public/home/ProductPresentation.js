@@ -22,7 +22,7 @@ function ProductPresentation({props}){
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                 <div style={{backgroundColor: theme.palette.background.paper, height:'100vh'}}>
                     <Grid container direction={"column"}>
-                        <Grid item md={12} style={{backgroundColor:theme.palette.background.default}} px={10} pb={10}>
+                        <Grid item md={12} style={{backgroundColor: '#2F5597'}} px={10} pb={10} pt={5}>
                             <Grid container direction={"row"} spacing={2}>
                                 <Grid item md={2}>
                                     <Fade direction={"left"} triggerOnce={true}>
@@ -37,17 +37,17 @@ function ProductPresentation({props}){
                                     <Zoom triggerOnce={true}>
                                         <Grid container direction={"column"} spacing={5}>
                                             <Grid item xs={12}>
-                                                <Typography variant="body1" fontSize={20} align="center">
+                                                <Typography variant="body1" fontSize={20} align="center" color={"white"}>
                                                     { t('home:product_presentation.catchphrase_1')}
                                                 </Typography>
                                             </Grid>
                                             <Grid item xs={12}>
-                                                <Typography variant="h4" fontWeight={600} align="center">
+                                                <Typography variant="h4" fontWeight={600} align="center" color={"white"}>
                                                     { t('home:product_presentation.catchphrase_2')}
                                                 </Typography>
                                             </Grid>
                                             <Grid item xs={12}>
-                                                <Typography variant="h4" fontWeight={600} align="center" style={{color:'#4C82D3'}}>
+                                                <Typography variant="h4" fontWeight={600} align="center" style={{color:'#B4C7E7'}}>
                                                     { t('home:product_presentation.simply')}
                                                 </Typography>
                                             </Grid>
@@ -100,7 +100,7 @@ function ProductPresentation({props}){
                                             <Grid item>
                                                 <Grid container direction={"column"} spacing={2}>
                                                     <Grid item textAlign={"center"}>
-                                                        <img src={iconMeeting} style={{width:'40%'}} alt="contact" />
+                                                        <img src={iconMeeting} style={{width:'30%'}} alt="contact" />
                                                     </Grid>
                                                     <Grid item>
                                                         <Chip label={ t('home:product_presentation.chip_3')} style={{backgroundColor:'#FCE5B2', color:"#9A740D", fontWeight:600}} />
@@ -110,7 +110,7 @@ function ProductPresentation({props}){
                                             <Grid item>
                                                 <Grid container direction={"column"} spacing={2}>
                                                     <Grid item textAlign={"center"}>
-                                                        <img src={iconPpl} style={{width:'40%'}} alt="contact" />
+                                                        <img src={iconPpl} style={{width:'30%'}} alt="contact" />
                                                     </Grid>
                                                     <Grid item>
                                                         <Chip label={ t('home:product_presentation.chip_4')} style={{backgroundColor:'#C3E4B6', color:'#6D8066', fontWeight:600}} />
@@ -128,23 +128,23 @@ function ProductPresentation({props}){
             <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                 <div style={{backgroundColor: theme.palette.background.paper, height:'100vh'}}>
                     <Grid container direction={"column"}>
-                        <Grid item xs={12} style={{backgroundColor:theme.palette.background.default}} px={10} pb={10}>
+                        <Grid item xs={12} style={{backgroundColor: '#2F5597'}} px={10} pb={10} pt={5}>
                             <Zoom triggerOnce={true}>
                                 <Grid container direction={"row"} spacing={2}>
                                     <Grid item xs={12}>
                                         <Grid container direction={"column"} spacing={5}>
                                             <Grid item xs={12}>
-                                                <Typography variant="body1" fontSize={20} align="center">
+                                                <Typography variant="body1" fontSize={20} align="center" color={"white"}>
                                                     { t('home:product_presentation.catchphrase_1')}
                                                 </Typography>
                                             </Grid>
                                             <Grid item xs={12}>
-                                                <Typography variant="h4" fontWeight={600} align="center">
+                                                <Typography variant="h4" fontWeight={600} align="center" color={"white"}>
                                                     { t('home:product_presentation.catchphrase_2')}
                                                 </Typography>
                                             </Grid>
                                             <Grid item xs={12}>
-                                                <Typography variant="h4" fontWeight={600} align="center" style={{color:'#4C82D3'}}>
+                                                <Typography variant="h4" fontWeight={600} align="center" style={{color:'#B4C7E7'}}>
                                                     { t('home:product_presentation.simply')}
                                                 </Typography>
                                             </Grid>

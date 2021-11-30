@@ -16,7 +16,7 @@ function Demo(){
                         <Typography variant="h4" fontSize={22} color={"primary"} fontWeight={600} align="left">
                             { t("demo:title") }
                         </Typography>
-                        <Typography variant="body1" fontSize={18} color={"primary"} align={"left"}>
+                        <Typography variant="body1" fontSize={18} color={"primary"} align={"left"} mt={2}>
                             { t("demo:subtitle") }
                         </Typography>
                     </Grid>

@@ -17,18 +17,18 @@ function Operations({props}){
         <div>
             <div style={{backgroundColor: theme.palette.background.default, paddingBottom:'5%'}}>
                 <Grid container direction={"column"} style={{height:'100%'}} alignItems={"space-around"}>
-                    <Grid item xs={12} px={10}  mb={10}>
+                    <Grid item xs={12} px={10} py={5} mb={10} style={{backgroundColor: '#FEF0EC'}}>
                         <Grid container direction={"row"} spacing={2}>
                             <Grid item md={2}/>
                             <Grid item md={8} xs={12}>
                                 <Grid container direction={"column"} spacing={5}>
                                     <Grid item xs={12}>
-                                        <Typography variant="h4" align="center" fontWeight={600}>
+                                        <Typography variant="h4" align="center" fontWeight={600} style={{color:'#B5645E'}}>
                                             { t('home:operations.title')}
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <Typography variant="h4" fontWeight={600} style={{color:'#D57670'}}  align="center">
+                                        <Typography variant="h4" fontWeight={600} style={{color:'#2F5597'}}  align="center">
                                             { t('home:operations.subtitle')}
                                         </Typography>
                                     </Grid>
@@ -46,7 +46,7 @@ function Operations({props}){
                                             <Avatar size={"medium"} style={{ backgroundColor:'white'}} sx={{ width: 75, height: 75 }}><Icon style={{color:'#002060', fontSize:36}}>groups</Icon></Avatar>
                                         </Grid>
                                         <Grid item my={5}>
-                                            <Typography textAlign={"center"} variant="h4" style={{color:'#2F5597'}} fontSize={28} fontWeight={500}>{t('home:operations.card_1.title')}</Typography>
+                                            <Typography textAlign={"center"} variant="h4" style={{color:'#2F5597'}} fontSize={28}>{t('home:operations.card_1.title')}</Typography>
                                         </Grid>
                                         <Grid item>
                                             <Typography textAlign={"center"} style={{color:'#002060'}} fontSize={18}>{t('home:operations.card_1.text')}</Typography>

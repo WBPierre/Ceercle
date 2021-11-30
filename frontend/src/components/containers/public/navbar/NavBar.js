@@ -114,16 +114,18 @@ export default function NavBar(props) {
             <HideOnScroll {...props}>
                 <AppBar style={{backgroundColor:theme.palette.background.paper}} elevation={0}>
                     <Toolbar>
-                        <img src={iconPlanet} alt="logo" onClick={() => { navigate('/')}} style={{cursor:'pointer'}}/>
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            component="div"
-                            color="black"
-                            style={{fontWeight:800}}
-                        >
-                            SpaceCorner
-                        </Typography>
+                        <Button style={{textTransform: 'capitalize'}} startIcon={<img src={iconPlanet} height={40} alt="logo"/>} onClick={() => { navigate('/')}}>
+                            <Typography
+                                variant="h6"
+                                noWrap
+                                component="div"
+                                color="black"
+                                style={{fontWeight:500}}
+                                fontSize={24}
+                            >
+                                SpaceCorner
+                            </Typography>
+                        </Button>
                         <Box sx={{ flexGrow: 1 }} />
                         <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                             <Button
@@ -131,6 +133,7 @@ export default function NavBar(props) {
                                 aria-label="account of current user"
                                 color="primary"
                                 onClick={redirectToOffers}
+                                style={{fontWeight:500, textTransform: 'capitalize', fontSize: 18}}
                             >
                                 { t('navbar:offers')}
                             </Button>
@@ -141,18 +144,22 @@ export default function NavBar(props) {
                                 <WbSunnyIcon />
                             </IconButton>
                             <LangSwitcher/>
-                            <Chip variant="outlined"
-                                    aria-label="account of current user"
-                                    onClick={redirectToDemo}
-                                    color="error"
-                                    style={{fontSize: 18}}
-                                    sx={{mr:2}}
-                                    label={t('navbar:ask_for_demo')}
-                            />
+                            <Button style={{textTransform:'capitalize'}}>
+                                <Chip variant="outlined"
+                                      aria-label="account of current user"
+                                      onClick={redirectToDemo}
+                                      color="error"
+                                      style={{fontSize: 16, fontWeight:500}}
+                                      sx={{mr:2}}
+                                      label={t('navbar:ask_for_demo')}
+
+                                />
+                            </Button>
                             <Button variant="text"
                                     aria-label="account of current user"
                                     onClick={connectHandler}
                                     color="primary"
+                                    style={{fontWeight:500, textTransform: 'capitalize', fontSize: 18}}
                             >
                                 { t('navbar:connect')}
                             </Button>

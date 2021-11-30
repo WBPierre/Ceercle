@@ -42,7 +42,7 @@ function LangSwitcher(){
                 onClick={handleClick}
                 variant="text"
                 sx={{mr:2}}
-                style={{color: theme.palette.text.primary, borderColor: theme.palette.text.primary}}
+                style={{color: theme.palette.text.primary, borderColor: theme.palette.text.primary, fontWeight:500, textTransform: 'capitalize', fontSize: 18}}
                 startIcon={<LanguageIcon/>}
                 endIcon={<KeyboardArrowDownIcon />}
             >

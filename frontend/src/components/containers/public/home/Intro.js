@@ -20,9 +20,9 @@ function Intro(){
     return(
         <div>
             <Box sx={{ display: { xs: 'none', md: 'flex' }, backgroundColor: theme.palette.background.paper }}>
-                <Container style={{backgroundColor: theme.palette.background.paper, height:'100vh'}}>
-                    <Grid container style={{marginTop:'20vh'}} spacing={2} direction="row">
-                        <Grid item md={4}  style={{height:'100%'}}>
+                <Container maxWidth={true} style={{backgroundColor: theme.palette.background.paper, height:'100vh'}}>
+                    <Grid container style={{marginTop:'20vh', width:'80%', marginLeft:'10%'}} spacing={2} direction="row">
+                        <Grid item md={3}  style={{height:'100%'}}>
                             <Fade direction={"left"} triggerOnce={true}>
                                 <Grid container direction="column" spacing={5}>
                                     <Grid item style={{textAlign:'center'}}>
@@ -34,7 +34,7 @@ function Intro(){
                                 </Grid>
                             </Fade>
                         </Grid>
-                        <Grid item md={4}>
+                        <Grid item md={6}>
                             <Fade direction={"up"} triggerOnce={true}>
                                 <Grid container direction="column" style={{height:'100%'}} justifyContent={"center"} spacing={5}>
                                     <Grid item>
@@ -65,7 +65,7 @@ function Intro(){
                                 </Grid>
                             </Fade>
                         </Grid>
-                        <Grid item md={4} style={{height:'100%'}}>
+                        <Grid item md={3} style={{height:'100%'}}>
                             <Fade direction={"right"} triggerOnce={true}>
                                 <Grid container direction="column" spacing={5}>
                                     <Grid item style={{textAlign:'center'}}>

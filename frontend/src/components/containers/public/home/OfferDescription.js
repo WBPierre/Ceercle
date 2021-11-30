@@ -24,12 +24,12 @@ function OfferDescription(props){
                             <Grid item md={12}>
                                 <Grid container direction={"column"} spacing={5}>
                                     <Grid item xs={12}>
-                                        <Typography variant="h3" fontWeight={600} align="center" color="error">
+                                        <Typography variant="h3" fontWeight={600} fontSize={52} align="center" color="error">
                                             { t('home:offer_description.main.title')}
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <Typography variant="h4" style={{color:'#7F7F7F'}} fontWeight={400} align="center">
+                                        <Typography variant="h4" style={{color:'#7F7F7F'}} fontSize={28} fontWeight={400} align="center">
                                             { t('home:offer_description.main.subtitle')}
                                         </Typography>
                                     </Grid>
@@ -217,12 +217,12 @@ function OfferDescription(props){
                                     <Fade triggerOnce={true}>
                                         <Grid container direction={"column"} spacing={5}>
                                             <Grid item xs={12}>
-                                                <Typography variant="h3" fontWeight={600} align="center" color="error">
+                                                <Typography variant="h3" fontWeight={600} fontSize={52} align="center" color="error">
                                                     { t('home:offer_description.main.title')}
                                                 </Typography>
                                             </Grid>
                                             <Grid item xs={12}>
-                                                <Typography variant="h4" fontWeight={400} align="center">
+                                                <Typography variant="h4" fontWeight={400} fontSize={28} align="center">
                                                     { t('home:offer_description.main.subtitle')}
                                                 </Typography>
                                             </Grid>
