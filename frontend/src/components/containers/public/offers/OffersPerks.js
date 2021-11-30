@@ -19,12 +19,12 @@ function OffersPerks({props}){
 
     return(
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                <Grid container direction={"column"} style={{backgroundColor:"#5B5654"}} pb={1} pt={1}>
+                <Grid container direction={"column"} style={{backgroundColor:"#2F5597"}} pb={1} pt={1}>
                     <Grid container direction={"row"}>
                         <Grid item md={3} xs={12}>
                             <Grid container py={5} direction={"column"} justifyContent={"center"} alignItems={"center"} spacing={2}> 
                                 <Grid item md={6}>
-                                    <RedeemIcon style={{color:'#FFFFFF', fontSize:90}}/>
+                                    <RedeemIcon style={{color:'#FFFFFF', fontSize:70}}/>
                                 </Grid>
                                 <Grid item md={6}>
                                     <Typography textAlign={"center"} variant="h5" style={{color:'#FFFFFF'}} fontWeight={300}>1er mois offert</Typography>
@@ -35,7 +35,7 @@ function OffersPerks({props}){
                         <Grid item md={3} xs={12}>
                             <Grid container py={5} direction={"column"} justifyContent={"center"} alignItems={"center"} spacing={2}>
                                 <Grid item md={6}>
-                                    <BoltIcon style={{color:'#FFFFFF', fontSize:90}}/>
+                                    <BoltIcon style={{color:'#FFFFFF', fontSize:70}}/>
                                 </Grid>
                                 <Grid item md={6}>
                                     <Grid container direction={"row"}>
@@ -52,7 +52,7 @@ function OffersPerks({props}){
                         <Grid item md={3} xs={12}>
                             <Grid container py={5} direction={"column"} justifyContent={"center"} alignItems={"center"} spacing={2}>
                                 <Grid item md={6}>
-                                    <AddShoppingCartIcon style={{color:'#FFFFFF', fontSize:90}}/>
+                                    <AddShoppingCartIcon style={{color:'#FFFFFF', fontSize:70}}/>
                                 </Grid>
                                 <Grid item md={6}>
                                     <Grid container direction={"row"}>
@@ -69,7 +69,7 @@ function OffersPerks({props}){
                         <Grid item md={3} xs={12}>
                             <Grid container py={5} direction={"column"} justifyContent={"center"} alignItems={"center"} spacing={2}>
                                 <Grid item md={6}>
-                                    <HeadsetMicIcon style={{color:'#FFFFFF', fontSize:90}}/>
+                                    <HeadsetMicIcon style={{color:'#FFFFFF', fontSize:70}}/>
                                 </Grid>
                                 <Grid item md={6}>
                                     <Grid container direction={"row"}>

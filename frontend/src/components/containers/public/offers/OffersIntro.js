@@ -20,9 +20,9 @@ function OffersIntro({props}){
                             <Grid container direction={"column"} spacing={5}>
                                 <Grid item xs={12}>
                                     <Typography variant="h4" fontWeight={600} align="center">
-                                        <span style={{color:'#0572F5'}}>Du temps économisé. </span> 
-                                        <span style={{color:'#0572F5'}}>Une productivité boostée. </span> 
-                                        <span style={{color:'#0572F5'}}>Une hausse du bien-être pour l'ensemble de vos collaborateurs.</span> 
+                                        <span style={{color:"#2F5597"}}>Du temps économisé. </span> 
+                                        <span style={{color:'#2F5597'}}>Une productivité boostée. </span> 
+                                        <span style={{color:'#2F5597'}}>Une hausse du bien-être pour l'ensemble de vos collaborateurs.</span> 
                                     </Typography>
                                 </Grid>
                                 
@@ -39,12 +39,6 @@ function OffersIntro({props}){
                                             </Typography>
                                         </Grid>
                                     </Grid>
-                                </Grid> 
-                                
-                                <Grid item xs={12} align="center">
-                                    <Zoom>
-                                        <PublicIcon sx={{ color:"#0572F5", fontSize:100}}></PublicIcon>
-                                    </Zoom>
                                 </Grid>    
                             </Grid>
                         </Grid>
