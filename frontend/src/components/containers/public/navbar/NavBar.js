@@ -42,7 +42,7 @@ export default function NavBar(props) {
     };
 
     const redirectToDemo = () => {
-        navigate('/demo/company');
+        navigate('/demo');
     }
 
     const redirectToOffers = () => {
@@ -114,7 +114,7 @@ export default function NavBar(props) {
             <HideOnScroll {...props}>
                 <AppBar style={{backgroundColor:theme.palette.background.paper}} elevation={0}>
                     <Toolbar>
-                        <Button style={{textTransform: 'capitalize'}} startIcon={<img src={iconPlanet} height={40} alt="logo"/>} onClick={() => { navigate('/')}}>
+                        <Button style={{textTransform: 'capitalize', backgroundColor:'transparent'}} disableRipple={true} startIcon={<img src={iconPlanet} height={40} alt="logo"/>} onClick={() => { navigate('/')}}>
                             <Typography
                                 variant="h6"
                                 noWrap
@@ -144,7 +144,7 @@ export default function NavBar(props) {
                                 <WbSunnyIcon />
                             </IconButton>
                             <LangSwitcher/>
-                            <Button style={{textTransform:'capitalize'}}>
+                            <Button style={{textTransform: 'none'}}>
                                 <Chip variant="outlined"
                                       aria-label="account of current user"
                                       onClick={redirectToDemo}
@@ -152,7 +152,6 @@ export default function NavBar(props) {
                                       style={{fontSize: 16, fontWeight:500}}
                                       sx={{mr:2}}
                                       label={t('navbar:ask_for_demo')}
-
                                 />
                             </Button>
                             <Button variant="text"

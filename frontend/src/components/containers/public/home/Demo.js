@@ -4,10 +4,12 @@ import Button from "@mui/material/Button";
 import {useTranslation} from "react-i18next";
 import Container from "@mui/material/Container";
 import {Chip} from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
 
 function Demo(){
     const { t } = useTranslation();
+    let navigate = useNavigate();
     return (
         <div style={{backgroundColor:'#FEF0EC'}}>
             <Container>
@@ -23,7 +25,7 @@ function Demo(){
                     <Grid item xs={12} md={4}>
                         <Grid container style={{height:'100%'}} direction={"row"} justifyContent={"center"} alignItems={"center"}>
                             <Grid item xs={12} textAlign={"center"}>
-                                <Chip variant="outlined" style={{color:'white',backgroundColor:'#2F5597', fontSize: 18}} label={ t("generic:demo") } onClick={() => console.log("toto")}/>
+                                <Chip variant="outlined" style={{color:'white',backgroundColor:'#2F5597', fontSize: 18}} label={ t("generic:demo") } onClick={() => navigate('/demo')}/>
                             </Grid>
                         </Grid>
                     </Grid>

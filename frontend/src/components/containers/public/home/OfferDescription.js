@@ -148,7 +148,7 @@ function OfferDescription(props){
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                <Grid item md={6} style={{height:'100%', backgroundColor: theme.palette.background.paper, borderTopLeftRadius: '10%'}}>
+                                <Grid item md={6} style={{height:'100%', backgroundColor: theme.palette.background.paper}}>
                                     <Grid container direction={"row"} style={{height:'100%'}} alignItems={"center"}>
                                         <Grid item xs={12} style={{textAlign:'center'}}>
                                             <Fade direction={"right"} triggerOnce={true}>

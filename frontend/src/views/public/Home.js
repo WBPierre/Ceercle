@@ -12,7 +12,6 @@ function Home(){
         <Container maxWidth={false} disableGutters={true}>
             <NavBar/>
             <Intro/>
-            <div style={{marginTop:'5%'}}/>
             <ProductPresentation/>
             <div style={{marginTop:'5%'}}/>
             <OfferDescription/>

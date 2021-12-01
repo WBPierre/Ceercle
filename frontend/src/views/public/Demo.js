@@ -27,20 +27,6 @@ function Demo(){
     const { t } = useTranslation();
     const theme = useTheme();
     const textRef = useRef(null);
-    let params = useParams();
-    const [value, setValue] = useState(0);
-
-    useEffect( () => {
-        if(params.type === "space"){
-            setValue(0);
-        }else{
-            setValue(1);
-        }
-    }, [params.type])
-
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
 
     return(
         <Container maxWidth={false} disableGutters={true} style={{backgroundColor: theme.palette.background.default}}>

@@ -60,7 +60,7 @@ function Intro(){
                                         </Typography>
                                     </Grid>
                                     <Grid item style={{textAlign:'center'}}>
-                                        <Chip variant="contained" style={{color:'white',backgroundColor:'#2F5597', fontSize: 18}} label={ t("generic:demo") } onClick={() => navigate('/demo/company')}/>
+                                        <Chip variant="contained" style={{color:'white',backgroundColor:'#2F5597', fontSize: 18}} label={ t("generic:demo") } onClick={() => navigate('/demo')}/>
                                     </Grid>
                                 </Grid>
                             </Fade>
