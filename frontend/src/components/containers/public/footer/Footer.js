@@ -14,7 +14,7 @@ function Footer(){
     return(
         <Box style={{backgroundColor: theme.palette.background.default}} py={3}>
             <Container maxWidth="xl">
-                <Grid container direction={"column"}>
+                <Grid container direction={"column"} spacing={2}>
                     <Grid item>
                         <Grid container direction="row" spacing={2}>
                             <Grid item md={2} xs={6}>
@@ -64,7 +64,7 @@ function Footer(){
                                         </Link>
                                     </Grid>
                                     <Grid item>
-                                        <Link to={"/demo/company"} style={{textDecoration:'none'}}>
+                                        <Link to={"/demo"} style={{textDecoration:'none'}}>
                                             <Typography variant={"body1"} style={{color:'#7F7F7F'}}>Demander une démo</Typography>
                                         </Link>
                                     </Grid>
