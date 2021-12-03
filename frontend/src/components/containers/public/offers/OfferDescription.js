@@ -70,12 +70,12 @@ function OfferDescription({props}){
                         <Grid container direction={"row"}>
                             <Grid item md={12} xs={12}>
                                 <Fade direction={"left"} triggerOnce={true}>
-                                <Card style={{ border: '2px solid #A8A09D', borderRadius: '5%', backgroundColor: "#FFFFFF"}}>
+                                <Card style={{ border: '2px solid #548235', borderRadius: '5%', backgroundColor: "#FFFFFF"}}>
                                     <CardHeader disableTypography={false}
                                         title={
                                             <Grid container direction="column" alignItems="center"> 
                                                 <Grid item md={12} mt={1}>
-                                                    <Chip pt={5} style={{backgroundColor: "#F2E7E0", color: "#954F35", fontWeight:500, fontSize: 40, height:'5%'}}
+                                                    <Chip pt={5} style={{backgroundColor: "#F8FBF5", color: "#548235", fontWeight:500, fontSize: 40, height:'5%'}}
                                                     label={t('offers:offer_1.title')}>
                                                     </Chip>
                                                 </Grid>
@@ -90,7 +90,7 @@ function OfferDescription({props}){
                                                 <span style={{fontWeight:50, fontSize: 17, color:"#5B5654"}}> par collaborateur</span>
                                             </Grid>
                                             <Grid item md={6} mt={2}>
-                                                <Typography textAlign={"center"} style={{color:'#2F5597'}} fontSize={17} fontWeight={100}>
+                                                <Typography textAlign={"center"} style={{color:'#2F5597'}} fontSize={19} fontWeight={100}>
                                                     La solution phare incluant l'ensemble de nos offres.
                                                 </Typography>
                                             </Grid>
@@ -103,33 +103,33 @@ function OfferDescription({props}){
                                         <List alignItems="flex-start">
                                             <ListItem disableGutters> 
                                                 <ListItemIcon style={{minWidth: '30px'}}>
-                                                    <Check sx={{color: "#2F5597"}}/>
+                                                    <Check sx={{color: "#548235"}}/>
                                                 </ListItemIcon>
-                                                <ListItemText primaryTypographyProps={{fontSize:17}} primary="Déclaration de planning de présence et calendrier collaboratif" />
+                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary="Déclaration de planning de présence et calendrier collaboratif" />
                                             </ListItem>
                                             <ListItem disableGutters>
                                                 <ListItemIcon style={{minWidth: '30px'}}>
-                                                    <Check sx={{color: "#2F5597"}}/>
+                                                    <Check sx={{color: "#548235"}}/>
                                                 </ListItemIcon>
-                                                <ListItemText primaryTypographyProps={{fontSize:17}} primary={t('offers:offer_1.services.service_2')} />
+                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary={t('offers:offer_1.services.service_2')} />
                                             </ListItem>
                                             <ListItem disableGutters> 
                                                 <ListItemIcon style={{minWidth: '30px'}}>
-                                                    <Check sx={{color: "#2F5597"}}/>
+                                                    <Check sx={{color: "#548235"}}/>
                                                 </ListItemIcon>
-                                                <ListItemText primaryTypographyProps={{fontSize:17}} primary="Intégration avec votre SIRH et avec vos outils (Slack, Teams, ...)"/>
+                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary="Intégration avec votre SIRH et avec vos outils (Slack, Teams, ...)"/>
                                             </ListItem>
                                             <ListItem disableGutters>
                                                 <ListItemIcon style={{minWidth: '30px'}}>
-                                                    <Check sx={{color: "#2F5597"}}/>
+                                                    <Check sx={{color: "#548235"}}/>
                                                 </ListItemIcon>
-                                                <ListItemText primaryTypographyProps={{fontSize:17}} primary={t('offers:offer_1.services.service_6')} />
+                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary={t('offers:offer_1.services.service_6')} />
                                             </ListItem>
                                             <ListItem disableGutters>
                                                 <ListItemIcon style={{minWidth: '30px'}}>
-                                                    <Check sx={{color: "#2F5597"}}/>
+                                                    <Check sx={{color: "#548235"}}/>
                                                 </ListItemIcon>
-                                                <ListItemText primaryTypographyProps={{fontSize:17}} primary={t('offers:offer_1.services.max_users')} />
+                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary={t('offers:offer_1.services.max_users')} />
                                             </ListItem>
                                         </List> 
                                     </CardContent>
@@ -154,7 +154,7 @@ function OfferDescription({props}){
                         <Grid container direction={"row"}>
                             <Grid item md={12} xs={12}>
                                 <Fade direction={"right"} triggerOnce={true}>
-                                <Card style={{ border: '2px solid #A8A09D', borderRadius: '5%', backgroundColor: "#FFFFFF"}}>
+                                <Card style={{ border: '2px solid #954F35', borderRadius: '5%', backgroundColor: "#FFFFFF"}}>
                                     <CardHeader disableTypography={false}
                                         title={
                                             <Grid container direction="column" alignItems="center"> 
@@ -172,7 +172,7 @@ function OfferDescription({props}){
                                                 <span style={{fontWeight:50, fontSize: 27, color:"#FFFFFF"}}></span>
                                             </Grid>
                                             <Grid item md={6} mt={3}>
-                                                <Typography textAlign={"center"} style={{color:'#2F5597'}} fontSize={17} fontWeight={100}>
+                                                <Typography textAlign={"center"} style={{color:'#2F5597'}} fontSize={19} fontWeight={100}>
                                                     La solution sur-mesure destinée aux grands comptes.
                                                 </Typography>
                                             </Grid>
@@ -185,33 +185,33 @@ function OfferDescription({props}){
                                         <List alignItems="flex-start">
                                             <ListItem disableGutters> 
                                                 <ListItemIcon style={{minWidth: '30px'}}>
-                                                    <Check sx={{color: "#2F5597"}}/>
+                                                    <Check sx={{color: "#954F35"}}/>
                                                 </ListItemIcon>
-                                                <ListItemText primaryTypographyProps={{fontSize:17}} primary="Personnalisation de la plateforme" />
+                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary="Personnalisation de la plateforme" />
                                             </ListItem>
                                             <ListItem disableGutters>
                                                 <ListItemIcon style={{minWidth: '30px'}}>
-                                                    <Check sx={{color: "#2F5597"}}/>
+                                                    <Check sx={{color: "#954F35"}}/>
                                                 </ListItemIcon>
-                                                <ListItemText primaryTypographyProps={{fontSize:17}} primary="Support prioritaire dédié" />
+                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary="Support prioritaire dédié" />
                                             </ListItem>
                                             <ListItem disableGutters> 
                                                 <ListItemIcon style={{minWidth: '30px'}}>
-                                                    <Check sx={{color: "#2F5597"}}/>
+                                                    <Check sx={{color: "#954F35"}}/>
                                                 </ListItemIcon>
-                                                <ListItemText primaryTypographyProps={{fontSize:17}} primary="Single Sign-On (SSO)"/>
+                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary="Single Sign-On (SSO)"/>
                                             </ListItem>
                                             <ListItem disableGutters>
                                                 <ListItemIcon style={{minWidth: '30px'}}>
-                                                    <Check sx={{color: "#2F5597"}}/>
+                                                    <Check sx={{color: "#954F35"}}/>
                                                 </ListItemIcon>
-                                                <ListItemText primaryTypographyProps={{fontSize:17}} primary="Tarification sur-mesure" />
+                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary="Tarification sur-mesure" />
                                             </ListItem>
                                             <ListItem disableGutters>
                                                 <ListItemIcon style={{minWidth: '30px'}}>
-                                                    <Check sx={{color: "#2F5597"}}/>
+                                                    <Check sx={{color: "#954F35"}}/>
                                                 </ListItemIcon>
-                                                <ListItemText primaryTypographyProps={{fontSize:17}} primary="Plus de 300 collaborateurs" />
+                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary="Plus de 300 collaborateurs" />
                                             </ListItem>
                                         </List> 
                                     </CardContent>
