@@ -1,5 +1,5 @@
 import server from "./config/server.js";
-import sequelize from "./config/database.js";
+import db from "./config/database.js";
 
 const PORT = process.env.PORT || 8080;
 server.listen(PORT, () => {

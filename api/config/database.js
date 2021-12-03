@@ -1,6 +1,6 @@
 import {Sequelize} from "sequelize";
 
-const sequelize = new Sequelize('postgres://admin:root@0.0.0.0:5432/spacecorner',
+const db = new Sequelize('postgres://admin:root@postgres:5432/spacecorner',
     {
         logging: console.log,
         define: {
@@ -9,14 +9,14 @@ const sequelize = new Sequelize('postgres://admin:root@0.0.0.0:5432/spacecorner'
     })
 
 try {
-    await sequelize.authenticate();
+    await db.authenticate();
     console.log('Connection to the database has been established successfully.');
 } catch (error) {
     console.error('Unable to connect to the database:', error);
 }
 
-await sequelize.sync({ force: true });
+await db.sync({ force: true });
 console.log("All models were synchronized successfully.");
 
 
-export default sequelize;
+export default db;

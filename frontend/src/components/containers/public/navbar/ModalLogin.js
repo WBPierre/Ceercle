@@ -9,15 +9,25 @@ import Grid from "@mui/material/Grid";
 import GoogleIcon from "../../../molecules/icons/GoogleIcon";
 import MicrosoftIcon from "../../../molecules/icons/MicrosoftIcon";
 import SlackIcon from "../../../molecules/icons/SlackIcon";
+import UserService from "../../../../services/admin/user.service";
 
 function ModalLogin(props){
     const { t } = useTranslation();
+
+    const getAllUsers = async () => {
+        console.log(await UserService.getAllUsers());
+    }
+
+    const createDefaultUser = async () => {
+        console.log(await UserService.createUser());
+    }
+
     return(
         <ModalGeneric open={props.open} handleClose={props.handleClose} title={t('navbar:connect_modal.title')} fullWidth={true} maxWidth={"sm"}>
             <div>
                 <Grid container direction={"column"} spacing={1}>
                     <Grid item xs={12}>
-                        <Button variant="outlined" style={{width:'100%'}}>
+                        <Button variant="outlined" style={{width:'100%'}} onClick={getAllUsers}>
                             <GoogleIcon/>
                             <span>&nbsp;&nbsp;&nbsp;</span>
                             {t('navbar:connect_modal.google')}
@@ -25,7 +35,7 @@ function ModalLogin(props){
                     </Grid>
                     <Grid item xs={12}>
                         <Grid item xs={12}>
-                            <Button variant="outlined" style={{width:'100%'}}>
+                            <Button variant="outlined" style={{width:'100%'}} onClick={createDefaultUser}>
                                 <MicrosoftIcon/>
                                 <span>&nbsp;&nbsp;&nbsp;</span>
                                 {t('navbar:connect_modal.teams')}
