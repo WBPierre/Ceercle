@@ -9,7 +9,7 @@ function Offers(){
     return(
         <Container maxWidth={false} disableGutters={true}>
             <NavBar/>
-            <div style={{marginTop:'10%'}}/>
+            <div style={{marginTop:'5%'}}/>
             <OffersIntro/>
             <div style={{marginTop:'5%'}}/>
             <OfferDescription/>
