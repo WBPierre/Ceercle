@@ -16,10 +16,10 @@ function Demo(){
                 <Grid container direction={"row"} spacing={5} pt={5} pb={10}>
                     <Grid item xs={12} md={8}>
                         <Typography variant="h4" fontSize={22} color={"primary"} fontWeight={600} align="left">
-                            { t("demo:title") }
+                            { t("public:demo:title") }
                         </Typography>
                         <Typography variant="body1" fontSize={18} color={"primary"} align={"left"} mt={2}>
-                            { t("demo:subtitle") }
+                            { t("public:demo:subtitle") }
                         </Typography>
                     </Grid>
                     <Grid item xs={12} md={4}>

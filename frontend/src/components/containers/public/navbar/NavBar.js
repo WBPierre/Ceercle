@@ -77,10 +77,10 @@ export default function NavBar(props) {
             onClose={handleMobileMenuClose}
         >
             <MenuItem>
-                <Button onClick={redirectToOffers} variant="text" color="inherit" size="medium" style={{fontWeight: 600}}>{ t('navbar:offers')}</Button>
+                <Button onClick={redirectToOffers} variant="text" color="inherit" size="medium" style={{fontWeight: 600}}>{ t('public:navbar:offers')}</Button>
             </MenuItem>
             <MenuItem>
-                <Button onClick={redirectToDemo} variant="outlined" color="error" size="medium" style={{fontWeight: 600}}>{ t('navbar:ask_for_demo')}</Button>
+                <Button onClick={redirectToDemo} variant="outlined" color="error" size="medium" style={{fontWeight: 600}}>{ t('public:navbar:ask_for_demo')}</Button>
             </MenuItem>
             <MenuItem>
                 <Button variant="text"
@@ -91,7 +91,7 @@ export default function NavBar(props) {
                         style={{fontWeight: 600}}
                         onClick={connectHandler}
                 >
-                    { t('navbar:connect')}
+                    { t('public:navbar:connect')}
                 </Button>
             </MenuItem>
             <MenuItem>
@@ -135,7 +135,7 @@ export default function NavBar(props) {
                                 onClick={redirectToOffers}
                                 style={{fontWeight:500, textTransform: 'capitalize', fontSize: 18}}
                             >
-                                { t('navbar:offers')}
+                                { t('public:navbar:offers')}
                             </Button>
                         </Box>
                         <Box sx={{ flexGrow: 10 }} />
@@ -151,7 +151,7 @@ export default function NavBar(props) {
                                       color="error"
                                       style={{fontSize: 16, fontWeight:500}}
                                       sx={{mr:2}}
-                                      label={t('navbar:ask_for_demo')}
+                                      label={t('public:navbar:ask_for_demo')}
                                 />
                             </Button>
                             <Button variant="text"
@@ -160,7 +160,7 @@ export default function NavBar(props) {
                                     color="primary"
                                     style={{fontWeight:500, textTransform: 'capitalize', fontSize: 18}}
                             >
-                                { t('navbar:connect')}
+                                { t('public:navbar:connect')}
                             </Button>
                             <ModalLogin open={openConnect} handleClose={connectHandlerClose}/>
                         </Box>

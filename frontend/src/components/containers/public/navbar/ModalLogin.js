@@ -23,14 +23,14 @@ function ModalLogin(props){
     }
 
     return(
-        <ModalGeneric open={props.open} handleClose={props.handleClose} title={t('navbar:connect_modal.title')} fullWidth={true} maxWidth={"sm"}>
+        <ModalGeneric open={props.open} handleClose={props.handleClose} title={t('public:navbar:connect_modal.title')} fullWidth={true} maxWidth={"sm"}>
             <div>
                 <Grid container direction={"column"} spacing={1}>
                     <Grid item xs={12}>
                         <Button variant="outlined" style={{width:'100%'}} onClick={getAllUsers}>
                             <GoogleIcon/>
                             <span>&nbsp;&nbsp;&nbsp;</span>
-                            {t('navbar:connect_modal.google')}
+                            {t('public:navbar:connect_modal.google')}
                         </Button>
                     </Grid>
                     <Grid item xs={12}>
@@ -38,7 +38,7 @@ function ModalLogin(props){
                             <Button variant="outlined" style={{width:'100%'}} onClick={createDefaultUser}>
                                 <MicrosoftIcon/>
                                 <span>&nbsp;&nbsp;&nbsp;</span>
-                                {t('navbar:connect_modal.teams')}
+                                {t('public:navbar:connect_modal.teams')}
                             </Button>
                         </Grid>
                     </Grid>
@@ -47,7 +47,7 @@ function ModalLogin(props){
                             <Button variant="outlined" style={{width:'100%'}}>
                                 <SlackIcon/>
                                 <span>&nbsp;&nbsp;&nbsp;</span>
-                                {t('navbar:connect_modal.slack')}
+                                {t('public:navbar:connect_modal.slack')}
                             </Button>
                         </Grid>
                     </Grid>

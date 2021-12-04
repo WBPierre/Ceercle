@@ -7,9 +7,11 @@ import Pepites from "../../../../assets/images/footer/pepites.png";
 import * as React from "react";
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import {Link} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 function Footer(){
     const theme = useTheme();
+    const { t } = useTranslation();
 
     return(
         <Box style={{backgroundColor: theme.palette.background.default}} py={3}>
@@ -31,7 +33,7 @@ function Footer(){
                             <Grid item md={2} xs={6}>
                                 <Grid container direction={"column"} spacing={1}>
                                     <Grid item>
-                                        <Typography variant={"h5"} color={"primary"} fontSize={20} fontWeight={500}>Contact</Typography>
+                                        <Typography variant={"h5"} color={"primary"} fontSize={20} fontWeight={500}>{t('public:footer:contact')}</Typography>
                                     </Grid>
                                     <Grid item>
                                         <a href={'mailto:d.pierrebox@gmail.com'} style={{textDecoration:'none'}}>
@@ -39,7 +41,7 @@ function Footer(){
                                         </a>
                                     </Grid>
                                     <Grid item>
-                                        <Typography variant={"body1"} style={{color:'#7F7F7F'}}>Contactez-nous !</Typography>
+                                        <Typography variant={"body1"} style={{color:'#7F7F7F'}}>{t('public:footer:contact_us')}</Typography>
                                     </Grid>
                                     <Grid item>
                                         <a href={'https://linkedin.com'} style={{textDecoration:'none'}}>
@@ -51,21 +53,21 @@ function Footer(){
                             <Grid item md={2} xs={6}>
                                 <Grid container direction={"column"} spacing={1}>
                                     <Grid item>
-                                        <Typography variant={"h5"} color={"primary"} fontSize={20} fontWeight={500}>Le site</Typography>
+                                        <Typography variant={"h5"} color={"primary"} fontSize={20} fontWeight={500}>{t('public:footer:the_website')}</Typography>
                                     </Grid>
                                     <Grid item>
                                         <Link to={"/"} style={{textDecoration:'none'}}>
-                                            <Typography variant={"body1"} style={{color:'#7F7F7F'}}>Accueil</Typography>
+                                            <Typography variant={"body1"} style={{color:'#7F7F7F'}}>{t('public:footer:home')}</Typography>
                                         </Link>
                                     </Grid>
                                     <Grid item>
                                         <Link to={"/offers"} style={{textDecoration:'none'}}>
-                                            <Typography variant={"body1"} style={{color:'#7F7F7F'}}>Nos offres</Typography>
+                                            <Typography variant={"body1"} style={{color:'#7F7F7F'}}>{t('public:footer:our_offers')}</Typography>
                                         </Link>
                                     </Grid>
                                     <Grid item>
                                         <Link to={"/demo"} style={{textDecoration:'none'}}>
-                                            <Typography variant={"body1"} style={{color:'#7F7F7F'}}>Demander une démo</Typography>
+                                            <Typography variant={"body1"} style={{color:'#7F7F7F'}}>{t('public:footer:ask_for_demo')}</Typography>
                                         </Link>
                                     </Grid>
                                 </Grid>
@@ -73,13 +75,13 @@ function Footer(){
                             <Grid item md={2} xs={6}>
                                 <Grid container direction={"column"} spacing={1}>
                                     <Grid item>
-                                        <Typography variant={"h5"} color={"primary"} fontSize={20} fontWeight={500}>Légal</Typography>
+                                        <Typography variant={"h5"} color={"primary"} fontSize={20} fontWeight={500}>{t('public:footer:legal')}</Typography>
                                     </Grid>
                                     <Grid item>
-                                        <Typography variant={"body1"} style={{color:'#7F7F7F'}}>Mentions légales</Typography>
+                                        <Typography variant={"body1"} style={{color:'#7F7F7F'}}>{t('public:footer:special_mentions')}</Typography>
                                     </Grid>
                                     <Grid item>
-                                        <Typography variant={"body1"} style={{color:'#7F7F7F'}}>Conditions générales</Typography>
+                                        <Typography variant={"body1"} style={{color:'#7F7F7F'}}>{t('public:footer:general_conditions')}</Typography>
                                     </Grid>
                                 </Grid>
                             </Grid>

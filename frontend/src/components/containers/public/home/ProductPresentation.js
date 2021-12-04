@@ -38,17 +38,17 @@ function ProductPresentation({props}){
                                         <Grid container direction={"column"} spacing={5}>
                                             <Grid item xs={12}>
                                                 <Typography variant="body1" fontSize={20} align="center" color={"white"}>
-                                                    { t('home:product_presentation.catchphrase_1')}
+                                                    { t('public:home:product_presentation.catchphrase_1')}
                                                 </Typography>
                                             </Grid>
                                             <Grid item xs={12}>
                                                 <Typography variant="h4" fontWeight={600} align="center" color={"white"}>
-                                                    { t('home:product_presentation.catchphrase_2')}
+                                                    { t('public:home:product_presentation.catchphrase_2')}
                                                 </Typography>
                                             </Grid>
                                             <Grid item xs={12}>
                                                 <Typography variant="h4" fontWeight={600} align="center" style={{color:'#B4C7E7'}}>
-                                                    { t('home:product_presentation.simply')}
+                                                    { t('public:home:product_presentation.simply')}
                                                 </Typography>
                                             </Grid>
                                         </Grid>
@@ -76,7 +76,7 @@ function ProductPresentation({props}){
                                                         <img src={iconCalendar} style={{width:'25%'}} alt="contact" />
                                                     </Grid>
                                                     <Grid item>
-                                                        <Chip label={ t('home:product_presentation.chip_1')} style={{backgroundColor:'#F3C6C3', color:"#A45B58", fontWeight:600}} />
+                                                        <Chip label={ t('public:home:product_presentation.chip_1')} style={{backgroundColor:'#F3C6C3', color:"#A45B58", fontWeight:600}} />
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -86,7 +86,7 @@ function ProductPresentation({props}){
                                                         <img src={iconOffice} style={{width:'30%'}} alt="contact" />
                                                     </Grid>
                                                     <Grid item>
-                                                        <Chip label={ t('home:product_presentation.chip_2')} style={{backgroundColor:'#D2EFFB', color:'#508CB1', fontWeight:600}} />
+                                                        <Chip label={ t('public:home:product_presentation.chip_2')} style={{backgroundColor:'#D2EFFB', color:'#508CB1', fontWeight:600}} />
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -103,7 +103,7 @@ function ProductPresentation({props}){
                                                         <img src={iconMeeting} style={{width:'30%'}} alt="contact" />
                                                     </Grid>
                                                     <Grid item>
-                                                        <Chip label={ t('home:product_presentation.chip_3')} style={{backgroundColor:'#FCE5B2', color:"#9A740D", fontWeight:600}} />
+                                                        <Chip label={ t('public:home:product_presentation.chip_3')} style={{backgroundColor:'#FCE5B2', color:"#9A740D", fontWeight:600}} />
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -113,7 +113,7 @@ function ProductPresentation({props}){
                                                         <img src={iconPpl} style={{width:'30%'}} alt="contact" />
                                                     </Grid>
                                                     <Grid item>
-                                                        <Chip label={ t('home:product_presentation.chip_4')} style={{backgroundColor:'#C3E4B6', color:'#6D8066', fontWeight:600}} />
+                                                        <Chip label={ t('public:home:product_presentation.chip_4')} style={{backgroundColor:'#C3E4B6', color:'#6D8066', fontWeight:600}} />
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -135,17 +135,17 @@ function ProductPresentation({props}){
                                         <Grid container direction={"column"} spacing={5}>
                                             <Grid item xs={12}>
                                                 <Typography variant="body1" fontSize={20} align="center" color={"white"}>
-                                                    { t('home:product_presentation.catchphrase_1')}
+                                                    { t('public:home:product_presentation.catchphrase_1')}
                                                 </Typography>
                                             </Grid>
                                             <Grid item xs={12}>
                                                 <Typography variant="h4" fontWeight={600} align="center" color={"white"}>
-                                                    { t('home:product_presentation.catchphrase_2')}
+                                                    { t('public:home:product_presentation.catchphrase_2')}
                                                 </Typography>
                                             </Grid>
                                             <Grid item xs={12}>
                                                 <Typography variant="h4" fontWeight={600} align="center" style={{color:'#B4C7E7'}}>
-                                                    { t('home:product_presentation.simply')}
+                                                    { t('public:home:product_presentation.simply')}
                                                 </Typography>
                                             </Grid>
                                         </Grid>
