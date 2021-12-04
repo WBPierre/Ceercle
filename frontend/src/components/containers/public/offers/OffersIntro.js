@@ -32,12 +32,12 @@ function OffersIntro({props}){
                                     <Grid container direction={"column"} spacing={2}>
                                         <Grid item xs={12}>
                                             <Typography variant="h4" align="center" fontWeight={600} fontSize={30} style={{color:'#FFC4C0'}}>
-                                                { t('offers:main.sub_title_1') }
+                                                { t('public:offers:main.sub_title_1') }
                                             </Typography>
                                         </Grid>
                                         <Grid item xs={12}>
                                             <Typography variant="h4" align="center" fontWeight={600} fontSize={30} style={{color:'#FFC4C0'}}>
-                                                { t('offers:main.sub_title_2') }
+                                                { t('public:offers:main.sub_title_2') }
                                             </Typography>
                                         </Grid>
                                         <Grid item xs={12}>

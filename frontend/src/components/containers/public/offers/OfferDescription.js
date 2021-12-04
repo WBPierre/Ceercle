@@ -76,7 +76,7 @@ function OfferDescription({props}){
                                             <Grid container direction="column" alignItems="center"> 
                                                 <Grid item md={12} mt={1}>
                                                     <Chip pt={5} style={{backgroundColor: "#F8FBF5", color: "#548235", fontWeight:500, fontSize: 40, height:'5%'}}
-                                                    label={t('offers:offer_1.title')}>
+                                                    label={t('public:offers:offer_1.title')}>
                                                     </Chip>
                                                 </Grid>
                                             </Grid>}
@@ -111,7 +111,7 @@ function OfferDescription({props}){
                                                 <ListItemIcon style={{minWidth: '30px'}}>
                                                     <Check sx={{color: "#548235"}}/>
                                                 </ListItemIcon>
-                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary={t('offers:offer_1.services.service_2')} />
+                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary={t('public:offers:offer_1.services.service_2')} />
                                             </ListItem>
                                             <ListItem disableGutters> 
                                                 <ListItemIcon style={{minWidth: '30px'}}>
@@ -123,13 +123,13 @@ function OfferDescription({props}){
                                                 <ListItemIcon style={{minWidth: '30px'}}>
                                                     <Check sx={{color: "#548235"}}/>
                                                 </ListItemIcon>
-                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary={t('offers:offer_1.services.service_6')} />
+                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary={t('public:offers:offer_1.services.service_6')} />
                                             </ListItem>
                                             <ListItem disableGutters>
                                                 <ListItemIcon style={{minWidth: '30px'}}>
                                                     <Check sx={{color: "#548235"}}/>
                                                 </ListItemIcon>
-                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary={t('offers:offer_1.services.max_users')} />
+                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary={t('public:offers:offer_1.services.max_users')} />
                                             </ListItem>
                                         </List> 
                                     </CardContent>
@@ -140,7 +140,7 @@ function OfferDescription({props}){
                                             mb: 2,
                                             backgroundColor: "#FEFCFD"
                                             }}>
-                                        <Chip variant="contained" style={{color:'white',backgroundColor:'#2F5597', fontSize: 21, fontWeight: 400}} label="Choisir cette offre" onClick={() => navigate('/demo/company')}/>
+                                        <Chip variant="contained" style={{color:'white',backgroundColor:'#2F5597', fontSize: 21, fontWeight: 400}} label="Choisir cette offre" onClick={() => navigate('/demo')}/>
                                     </CardActions>
                                 </Card>
                                 </Fade>
@@ -222,7 +222,7 @@ function OfferDescription({props}){
                                             mb: 2,
                                             backgroundColor: "#FEFCFD"
                                             }}>
-                                        <Chip variant="contained" style={{color:'white',backgroundColor:'#2F5597', fontSize: 21}} label="Choisir cette offre" onClick={() => navigate('/demo/company')}/>
+                                        <Chip variant="contained" style={{color:'white',backgroundColor:'#2F5597', fontSize: 21}} label="Choisir cette offre" onClick={() => navigate('/demo')}/>
                                     </CardActions>
                                 </Card>
                                 </Fade>
