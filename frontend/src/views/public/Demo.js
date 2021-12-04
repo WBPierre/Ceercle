@@ -40,12 +40,12 @@ function Demo(){
                             <Grid container spacing={3} direction="column">
                                 <Grid item>
                                     <Typography variant="h4" component="h4" align="left" fontWeight={600} fontSize={45} color="primary">
-                                        { t('demo:title') }
+                                        { t('public:demo:title') }
                                     </Typography>
                                 </Grid>
                                 <Grid item>
                                     <Typography variant="body1" align="left" style={{color:'#7F7F7F'}} fontSize={20}>
-                                        { t('demo:subtitle') }
+                                        { t('public:demo:subtitle') }
                                     </Typography>
                                 </Grid>
                                 <Grid item>
@@ -54,13 +54,13 @@ function Demo(){
                                             <ListItemIcon>
                                                 <Check color="primary"/>
                                             </ListItemIcon>
-                                            <ListItemText style={{color:'#7F7F7F'}} primary={t('demo:check_1')} />
+                                            <ListItemText style={{color:'#7F7F7F'}} primary={t('public:demo:check_1')} />
                                         </ListItem>
                                         <ListItem>
                                             <ListItemIcon>
                                                 <Check color="primary"/>
                                             </ListItemIcon>
-                                            <ListItemText style={{color:'#7F7F7F'}} primary={t('demo:check_3')} />
+                                            <ListItemText style={{color:'#7F7F7F'}} primary={t('public:demo:check_3')} />
                                         </ListItem>
                                     </List>
                                 </Grid>
@@ -97,10 +97,10 @@ function Demo(){
                                         <Grid item>
                                             <Grid container direction="row" spacing={5} mx={2}>
                                                 <Grid item xs={12} md={6}>
-                                                    <TextField id="outlined-basic" label={t('demo:company.name')} variant="standard" />
+                                                    <TextField id="outlined-basic" label={t('public:demo:company.name')} variant="standard" />
                                                 </Grid>
                                                 <Grid item xs={12} md={6}>
-                                                    <TextField id="outlined-basic" label={t('demo:company.function')} variant="standard" />
+                                                    <TextField id="outlined-basic" label={t('public:demo:company.function')} variant="standard" />
                                                 </Grid>
                                             </Grid>
                                         </Grid>
