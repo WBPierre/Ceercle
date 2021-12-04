@@ -50,9 +50,10 @@ export default function NavBar(props) {
     }
 
     const connectHandler = () => {
-        setMobileMoreAnchorEl(null);
-        setOpen(false);
-        setOpenConnect(true)
+        // setMobileMoreAnchorEl(null);
+        // setOpen(false);
+        // setOpenConnect(true)
+        window.open('/app/login');
     }
 
     const connectHandlerClose = () => {
