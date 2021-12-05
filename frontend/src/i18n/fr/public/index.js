@@ -4,6 +4,7 @@ import offers_fr from "./offers.json";
 import demo_fr from "./demo.json";
 import footer_fr from "./footer.json";
 import login_fr from "./login.json";
+import legal_fr from "./legal.json";
 
 const resources = {
     home : home_fr,
@@ -11,7 +12,8 @@ const resources = {
     offers : offers_fr,
     demo: demo_fr,
     footer: footer_fr,
-    login: login_fr
+    login: login_fr,
+    legal: legal_fr
 }
 
 export default resources;
