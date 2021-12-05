@@ -15,12 +15,11 @@ import {
 } from "@mui/material";
 import {Check} from "@mui/icons-material";
 import Divider from '@mui/material/Divider';
-import {Fade, Zoom} from 'react-awesome-reveal';
+import {Fade} from 'react-awesome-reveal';
 import {useNavigate} from "react-router-dom";
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Box from '@mui/material/Box';
-import {useEffect, useRef, useState} from "react";
 import {useParams} from "react-router-dom";
 
 
@@ -34,7 +33,9 @@ function OfferDescription({props}){
     
     const [alignment, setAlignment] = React.useState("yearly");
     const handleChange = (event, newAlignment) => {
-        setAlignment(newAlignment);
+        if (newAlignment !== null) {
+            setAlignment(newAlignment);
+        }
       };
 
 
@@ -56,8 +57,8 @@ function OfferDescription({props}){
                             style={{ backgroundColor: "#FFFFFF", border: '1px solid #F2E7E0'}}
                             alignItems="center"
                         >
-                            <ToggleButton value="monthly" style={{fontWeight: 600, fontSize: 17, color:"#2F5597"}}>Mensuel</ToggleButton>
-                            <ToggleButton value="yearly" style={{fontWeight: 600, fontSize: 17, color:"#2F5597"}}>Annuel</ToggleButton>
+                            <ToggleButton value="monthly" disableRipple={true} style={{fontWeight: 600, fontSize: 17, color:"#2F5597"}}>{ t('public:offers:monthly') }</ToggleButton>
+                            <ToggleButton value="yearly" disableRipple={true} style={{fontWeight: 600, fontSize: 17, color:"#2F5597"}}>{ t('public:offers:yearly') }</ToggleButton>
                         </ToggleButtonGroup>
                     </Box>
                 
@@ -76,22 +77,22 @@ function OfferDescription({props}){
                                             <Grid container direction="column" alignItems="center"> 
                                                 <Grid item md={12} mt={1}>
                                                     <Chip pt={5} style={{backgroundColor: "#F8FBF5", color: "#548235", fontWeight:500, fontSize: 40, height:'5%'}}
-                                                    label={t('public:offers:offer_1.title')}>
+                                                    label={ t('public:offers:offer_1.title') }>
                                                     </Chip>
                                                 </Grid>
                                             </Grid>}
                                         subheader={<Grid container direction="column" alignItems="center" spacing={0}> 
                                             <Grid item md={3} mt={2}>
-                                                <span style={{fontWeight:500, fontSize: 50, color: "#2F5597"}} hidden={alignment!=="yearly"}> 3€ </span>
-                                                <span style={{fontWeight:500, fontSize: 50, color: "#2F5597"}} hidden={alignment!=="monthly"}> 3,5€ </span>
-                                                <span style={{fontWeight:300, fontSize: 25, color:"#5B5654"}}> /mois</span>
+                                                <span style={{fontWeight:500, fontSize: 50, color: "#2F5597"}} hidden={alignment!=="yearly"}> { t('public:offers:offer_1.price_yearly') } </span>
+                                                <span style={{fontWeight:500, fontSize: 50, color: "#2F5597"}} hidden={alignment!=="monthly"}> { t('public:offers:offer_1.price_monthly') } </span>
+                                                <span style={{fontWeight:300, fontSize: 25, color:"#5B5654"}}> { t('public:offers:offer_1.per_month') }</span>
                                             </Grid>
                                             <Grid item md={3} mt={-1}>
-                                                <span style={{fontWeight:50, fontSize: 17, color:"#5B5654"}}> par collaborateur</span>
+                                                <span style={{fontWeight:50, fontSize: 17, color:"#5B5654"}}>{ t('public:offers:offer_1.per_user') }</span>
                                             </Grid>
                                             <Grid item md={6} mt={2}>
                                                 <Typography textAlign={"center"} style={{color:'#2F5597'}} fontSize={19} fontWeight={100}>
-                                                    La solution phare incluant l'ensemble de nos offres.
+                                                    { t('public:offers:offer_1.description') }
                                                 </Typography>
                                             </Grid>
                                         </Grid>}>
@@ -105,31 +106,31 @@ function OfferDescription({props}){
                                                 <ListItemIcon style={{minWidth: '30px'}}>
                                                     <Check sx={{color: "#548235"}}/>
                                                 </ListItemIcon>
-                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary="Déclaration de planning de présence et calendrier collaboratif" />
+                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary={ t('public:offers:offer_1.services.service_1') } />
                                             </ListItem>
                                             <ListItem disableGutters>
                                                 <ListItemIcon style={{minWidth: '30px'}}>
                                                     <Check sx={{color: "#548235"}}/>
                                                 </ListItemIcon>
-                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary={t('public:offers:offer_1.services.service_2')} />
+                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary={ t('public:offers:offer_1.services.service_2') } />
                                             </ListItem>
                                             <ListItem disableGutters> 
                                                 <ListItemIcon style={{minWidth: '30px'}}>
                                                     <Check sx={{color: "#548235"}}/>
                                                 </ListItemIcon>
-                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary="Intégration avec votre SIRH et avec vos outils (Slack, Teams, ...)"/>
+                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary={ t('public:offers:offer_1.services.service_3') }/>
                                             </ListItem>
                                             <ListItem disableGutters>
                                                 <ListItemIcon style={{minWidth: '30px'}}>
                                                     <Check sx={{color: "#548235"}}/>
                                                 </ListItemIcon>
-                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary={t('public:offers:offer_1.services.service_6')} />
+                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary={ t('public:offers:offer_1.services.service_4') } />
                                             </ListItem>
                                             <ListItem disableGutters>
                                                 <ListItemIcon style={{minWidth: '30px'}}>
                                                     <Check sx={{color: "#548235"}}/>
                                                 </ListItemIcon>
-                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary={t('public:offers:offer_1.services.max_users')} />
+                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary={ t('public:offers:offer_1.services.max_users') } />
                                             </ListItem>
                                         </List> 
                                     </CardContent>
@@ -140,7 +141,7 @@ function OfferDescription({props}){
                                             mb: 2,
                                             backgroundColor: "#FEFCFD"
                                             }}>
-                                        <Chip variant="contained" style={{color:'white',backgroundColor:'#2F5597', fontSize: 21, fontWeight: 400}} label="Choisir cette offre" onClick={() => navigate('/demo')}/>
+                                        <Chip variant="contained" style={{color:'white',backgroundColor:'#2F5597', fontSize: 21, fontWeight: 400}} label={ t('public:offers:choose_this_offer') } onClick={() => navigate('/demo')}/>
                                     </CardActions>
                                 </Card>
                                 </Fade>
@@ -160,20 +161,20 @@ function OfferDescription({props}){
                                             <Grid container direction="column" alignItems="center"> 
                                                 <Grid item md={12} mt={1}>
                                                     <Chip mb={5} style={{backgroundColor: "#F1E0EB", color: "#954F35", fontWeight:500, fontSize: 40, height:'5%'}}
-                                                    label="Sur-Mesure">
+                                                    label={ t('public:offers:offer_2.title') }>
                                                     </Chip>
                                                 </Grid>
                                             </Grid>}
                                         subheader={<Grid container direction="column" alignItems="center"> 
                                             <Grid item md={3} mt={5}>
-                                                <span style={{fontWeight:500, fontSize: 40, color: "#2F5597"}}> Nous contacter </span>
+                                                <span style={{fontWeight:500, fontSize: 40, color: "#2F5597"}}> { t('public:offers:offer_2.contact_us') } </span>
                                             </Grid>
                                             <Grid item md={3}>
                                                 <span style={{fontWeight:50, fontSize: 27, color:"#FFFFFF"}}></span>
                                             </Grid>
                                             <Grid item md={6} mt={3}>
                                                 <Typography textAlign={"center"} style={{color:'#2F5597'}} fontSize={19} fontWeight={100}>
-                                                    La solution sur-mesure destinée aux grands comptes.
+                                                    { t('public:offers:offer_2.description') }
                                                 </Typography>
                                             </Grid>
                                         </Grid>}>
@@ -187,31 +188,31 @@ function OfferDescription({props}){
                                                 <ListItemIcon style={{minWidth: '30px'}}>
                                                     <Check sx={{color: "#954F35"}}/>
                                                 </ListItemIcon>
-                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary="Personnalisation de la plateforme" />
+                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary={ t('public:offers:offer_2.services.service_1') } />
                                             </ListItem>
                                             <ListItem disableGutters>
                                                 <ListItemIcon style={{minWidth: '30px'}}>
                                                     <Check sx={{color: "#954F35"}}/>
                                                 </ListItemIcon>
-                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary="Support prioritaire dédié" />
+                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary={ t('public:offers:offer_2.services.service_2') } />
                                             </ListItem>
                                             <ListItem disableGutters> 
                                                 <ListItemIcon style={{minWidth: '30px'}}>
                                                     <Check sx={{color: "#954F35"}}/>
                                                 </ListItemIcon>
-                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary="Single Sign-On (SSO)"/>
+                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary={ t('public:offers:offer_2.services.service_3') }/>
                                             </ListItem>
                                             <ListItem disableGutters>
                                                 <ListItemIcon style={{minWidth: '30px'}}>
                                                     <Check sx={{color: "#954F35"}}/>
                                                 </ListItemIcon>
-                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary="Tarification sur-mesure" />
+                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary={ t('public:offers:offer_2.services.service_4') } />
                                             </ListItem>
                                             <ListItem disableGutters>
                                                 <ListItemIcon style={{minWidth: '30px'}}>
                                                     <Check sx={{color: "#954F35"}}/>
                                                 </ListItemIcon>
-                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary="Plus de 300 collaborateurs" />
+                                                <ListItemText primaryTypographyProps={{fontSize:17, color:"#5B5654"}} primary={ t('public:offers:offer_2.services.max_users') } />
                                             </ListItem>
                                         </List> 
                                     </CardContent>
@@ -222,7 +223,7 @@ function OfferDescription({props}){
                                             mb: 2,
                                             backgroundColor: "#FEFCFD"
                                             }}>
-                                        <Chip variant="contained" style={{color:'white',backgroundColor:'#2F5597', fontSize: 21}} label="Choisir cette offre" onClick={() => navigate('/demo')}/>
+                                        <Chip variant="contained" style={{color:'white',backgroundColor:'#2F5597', fontSize: 21}} label={ t('public:offers:choose_this_offer') } onClick={() => navigate('/demo')}/>
                                     </CardActions>
                                 </Card>
                                 </Fade>

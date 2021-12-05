@@ -1,40 +1,24 @@
+import * as React from 'react';
 import {useTranslation} from "react-i18next";
 import NavBar from "../../components/containers/public/navbar/NavBar"
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography"
-import {useEffect, useRef, useState} from "react";
-import Divider from "@mui/material/Divider";
 import Footer from "../../components/containers/public/footer/Footer";
 import {
-    Card,
-    CardHeader,
-    CardContent,
     List,
     ListItem,
     ListItemIcon,
-    ListItemText, Tab, Tabs,
+    ListItemText,
     TextField,
     useTheme
 } from "@mui/material";
-import {useParams} from "react-router-dom";
-import {Check, CheckCircle} from "@mui/icons-material";
+import {Check} from "@mui/icons-material";
 import {Fade} from 'react-awesome-reveal';
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
-import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import GroupAddIcon from '@mui/icons-material/GroupAdd';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {useNavigate} from "react-router-dom";
-import iconPlanet from "../../assets/images/generic/iconPlanet.png";
-import ScreenSearchDesktopIcon from '@mui/icons-material/ScreenSearchDesktop';
-import { red } from '@mui/material/colors';
 
 
 
@@ -67,12 +51,12 @@ function Demo(){
                             <Grid container spacing={5} direction="column">
                                 <Grid item sx={{mx: 5}} mb={3}>
                                     <Typography variant="h4" component="h4" align="left" fontWeight={600} fontSize={40} color="#2F5597">
-                                        Prêt à sauter le pas ? Dites-nous en plus sur votre entreprise.
+                                        { t('public:demo:title') }
                                     </Typography>
                                 </Grid>
                                 <Grid item sx={{mx: 5}}>
                                     <Typography variant="body1" align="left" style={{color:'#999595'}} fontSize={25}>
-                                        Découvrez l'ensemble de notre solution en 15 minutes, et profitez du premier mois offert !
+                                        { t('public:demo:subtitle') }
                                     </Typography>
                                 </Grid>
                                 <Grid item sx={{mx: 5}}>
@@ -81,13 +65,13 @@ function Demo(){
                                             <ListItemIcon>
                                                 <Check sx={{color:"#2F5597"}}/>
                                             </ListItemIcon>
-                                            <ListItemText style={{color:'#999595'}} primaryTypographyProps={{fontSize:25}} primary={t('public:demo:check_1')} />
+                                            <ListItemText style={{color:'#999595'}} primaryTypographyProps={{fontSize:25}} primary={ t('public:demo:check_1') } />
                                         </ListItem>
                                         <ListItem>
                                             <ListItemIcon>
                                                 <Check sx={{color:"#2F5597"}}/>
                                             </ListItemIcon>
-                                            <ListItemText style={{color:'#999595'}} primaryTypographyProps={{fontSize:25}} primary={t('public:demo:check_3')} />
+                                            <ListItemText style={{color:'#999595'}} primaryTypographyProps={{fontSize:25}} primary={ t('public:demo:check_2') } />
                                         </ListItem>
                                     </List>
                                 </Grid>
@@ -107,7 +91,7 @@ function Demo(){
                         >
                             
                             <Typography variant="body1" align="left" style={{color:'#2F5597'}} fontSize={35} fontWeight={400} mb={6}>
-                                Me contacter
+                                { t('public:demo:title_left_panel') }
                             </Typography>
                             
                             
@@ -119,14 +103,14 @@ function Demo(){
                                         name="firstName"
                                         fullWidth
                                         id="firstName"
-                                        label="Prénom"
+                                        label={ t('generic:firstname') }
                                         />
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
                                         <TextField
                                         fullWidth
                                         id="lastName"
-                                        label="Nom de famille"
+                                        label={ t('generic:name') }
                                         name="lastName"
                                         autoComplete="family-name"
                                         />
@@ -135,7 +119,7 @@ function Demo(){
                                         <TextField
                                         fullWidth
                                         id="company"
-                                        label="Nom de l'entreprise"
+                                        label={ t('public:demo:company_name') }
                                         name="company"
                                         />
                                     </Grid>
@@ -144,14 +128,14 @@ function Demo(){
                                         name="position"
                                         fullWidth
                                         id="position"
-                                        label="Position dans l'entreprise"
+                                        label={ t('public:demo:function') }
                                         />
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
                                         <TextField
                                         fullWidth
                                         id="zipCode"
-                                        label="Code postal"
+                                        label={ t('generic:zip_code') }
                                         name="zipCode"
                                         autoComplete="postal-code"
                                         />
@@ -160,7 +144,7 @@ function Demo(){
                                         <TextField
                                         fullWidth
                                         id="email"
-                                        label="Adresse Email"
+                                        label={ t('generic:professional_email') }
                                         name="email"
                                         autoComplete="email"
                                         />
@@ -169,7 +153,7 @@ function Demo(){
                                         <TextField
                                         fullWidth
                                         id="phoneNumber"
-                                        label="Numéro de téléphone"
+                                        label={ t('generic:phone') }
                                         name="phoneNumber"
                                         autoComplete="phone-number"
                                         />
@@ -177,13 +161,13 @@ function Demo(){
                                 </Grid>
 
                                 <Button type="submit" fullWidth variant="contained" sx={{ mt: 7, backgroundColor: "#2F5597"}}>
-                                    Envoyer
+                                    { t('generic:send') }
                                 </Button>
 
                                 <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 1 }}>
                                 {'Copyright © '}
                                 <Link color="inherit" onClick={() => { navigate('/')}}>
-                                    spacecorner.io
+                                    { t('generic:website_url') }
                                 </Link>{' '}
                                 {new Date().getFullYear()}
                                 {'.'}
