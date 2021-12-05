@@ -1,3 +1,4 @@
+import * as React from 'react';
 import {useTranslation} from "react-i18next";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -6,14 +7,11 @@ import {
     TextField,
     useTheme
 } from "@mui/material";
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import {useNavigate} from "react-router-dom";
 import iconPlanet from "../../assets/images/generic/iconPlanet.png";
 import GoogleIcon from "../../components/molecules/icons/GoogleIcon";
@@ -46,7 +44,7 @@ function Login(){
                             style={{fontWeight:500}}
                             fontSize={24}
                         >
-                            Bienvenue sur SpaceCorner !
+                            { t('public:login:welcome')}
                         </Typography>
                     </Grid>
                     
@@ -63,7 +61,7 @@ function Login(){
                         >
                             <Grid container direction="row"  alignItems="center" justifyContent="center" spacing={1} mb={1}>
                                 <Grid item md={1}>
-                                    <Tooltip title="Se connecter avec Google" placement="top">
+                                    <Tooltip title={ t('public:login:connect_with_google') } placement="top">
                                         <IconButton sx={{mr:2}}>
                                             <GoogleIcon />
                                         </IconButton>    
@@ -71,7 +69,7 @@ function Login(){
                                 </Grid>
 
                                 <Grid item md={1}>
-                                    <Tooltip title="Se connecter avec Microsoft" placement="top">
+                                    <Tooltip title={ t('public:login:connect_with_microsoft') } placement="top">
                                         <IconButton sx={{mr:2}}>
                                             <MicrosoftIcon />
                                         </IconButton>                     
@@ -79,7 +77,7 @@ function Login(){
                                 </Grid>
 
                                 <Grid item md={1}>
-                                    <Tooltip title="Se connecter avec Slack" placement="top">
+                                    <Tooltip title={ t('public:login:connect_with_slack') } placement="top">
                                         <IconButton sx={{mr:2}}>
                                             <SlackIcon />
                                         </IconButton>                     
@@ -88,7 +86,7 @@ function Login(){
                             </Grid>
 
                             <Typography component="h1" variant="h5" color="#2F5597">
-                                Mon compte
+                                { t('public:login:my_account') }
                             </Typography>
 
                             <Box component="form" noValidate sx={{ mt: 1 }}>
@@ -97,7 +95,7 @@ function Login(){
                                 required
                                 fullWidth
                                 id="email"
-                                label="Adresse Email"
+                                label={ t('generic:email') }
                                 name="email"
                                 autoComplete="email"
                                 />
@@ -106,14 +104,14 @@ function Login(){
                                 required
                                 fullWidth
                                 name="password"
-                                label="Mot de passe"
+                                label={ t('generic:password') }
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
                                 />
                                 <FormControlLabel
                                 control={<Checkbox value="remember" sx={{color:"#363535"}} />}
-                                label="Rester connecté(e)"
+                                label={ t('public:login:stay_connected') }
                                 />
                                 <Button
                                 type="submit"
@@ -121,12 +119,12 @@ function Login(){
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
                                 >
-                                    Me connecter
+                                    { t('public:login:connect_my_self') }
                                 </Button>
                             </Box>
                             
                             <Link href="#" variant="body2">
-                                Mot de passe oublié ?
+                                { t('public:login:password_forgotten') }
                             </Link>
                         </Box>
                     </Grid>

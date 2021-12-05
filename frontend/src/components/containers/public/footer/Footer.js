@@ -78,7 +78,9 @@ function Footer(){
                                         <Typography variant={"h5"} color={"primary"} fontSize={20} fontWeight={500}>{t('public:footer:legal')}</Typography>
                                     </Grid>
                                     <Grid item>
-                                        <Typography variant={"body1"} style={{color:'#7F7F7F'}}>{t('public:footer:special_mentions')}</Typography>
+                                        <Link to={"/legal"} style={{textDecoration:'none'}}>
+                                            <Typography variant={"body1"} style={{color:'#7F7F7F'}}>{t('public:footer:special_mentions')}</Typography>
+                                        </Link>
                                     </Grid>
                                     <Grid item>
                                         <Typography variant={"body1"} style={{color:'#7F7F7F'}}>{t('public:footer:general_conditions')}</Typography>

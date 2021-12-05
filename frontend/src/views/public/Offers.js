@@ -13,9 +13,8 @@ function Offers(){
             <OffersIntro/>
             <div style={{marginTop:'5%'}}/>
             <OfferDescription/>
-            <div style={{marginTop:'5%'}}/>
             <OffersPerks/>
-            <div style={{marginTop:'5%'}}/>
+            <div style={{marginTop:'2%'}}/>
             <Footer/>
         </Container>
     )
