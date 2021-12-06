@@ -15,7 +15,7 @@ function OffersPerks({props}){
 
     return(
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                <Grid container direction={"column"} style={{backgroundColor: theme.palette.background.paper}}>
+                <Grid container direction={"column"} style={{backgroundColor: "#DDDDDD"}}>
                     <Grid container direction={"row"}>
                         <Grid item md={3} xs={12}>
                             <Grid container py={5} direction={"column"} justifyContent={"center"} alignItems={"center"} spacing={2}> 

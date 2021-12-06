@@ -5,6 +5,7 @@ import demo_fr from "./demo.json";
 import footer_fr from "./footer.json";
 import login_fr from "./login.json";
 import legal_fr from "./legal.json";
+import cgu_fr from "./cgu.json";
 
 const resources = {
     home : home_fr,
@@ -13,7 +14,8 @@ const resources = {
     demo: demo_fr,
     footer: footer_fr,
     login: login_fr,
-    legal: legal_fr
+    legal: legal_fr,
+    cgu: cgu_fr
 }
 
 export default resources;
