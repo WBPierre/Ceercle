@@ -1,0 +1,78 @@
+{
+  "intro" : {
+    "title": "Optimize your hybrid work environment and let your employees thrive.",
+    "slider_at_the_office": "in your offices.",
+    "slider_at_home": "in remote working.",
+    "slider_at_coworking": "in coworking spaces.",
+    "content": "Gain visibility in an organization that has become more complex with remote work.",
+    "content_2": "Where do my work colleagues work today?",
+    "content_3":"When will be my next meeting?",
+    "content_4": "The future of work, now."
+  },
+  "product_presentation" : {
+    "simply": "Simple.",
+    "catchphrase_1" : "Having trouble organizing your hybrid work?",
+    "catchphrase_2" : "Get SpaceCorner and make life easier for your employees, in your office or anywhere else.",
+    "chip_1": "Fill in your planning",
+    "chip_2": "Book a desk",
+    "chip_3": "Manage your meetings",
+    "chip_4": "Activity of your teams"
+  },
+  "offer_description" : {
+    "main": {
+      "title": "Productivity. Collaboration. Simplicity.",
+      "subtitle": "Offer your employees a complete solution that supports them in their daily organization."
+    },
+    "step_1": {
+      "chip_title": "HR",
+      "title_1": "Customize your ",
+      "title_1_color": "tool",
+      "title_2": "Onboard your",
+      "title_2_color": "colleagues",
+      "title_3": "And that's ",
+      "title_3_color": "it",
+      "text": "Define your hybrid work criteria and rules and seamlessly plug SpaceCorner with your favorite HR software and work tools."
+    },
+    "step_2": {
+      "title_1": "Get relevant insights on ",
+      "title_1_color": "your teams ",
+      "title_2": "and ",
+      "title_2_color": "the use of your office spaces ",
+      "text": "Track the organization of your teams with a complete dashboard. Analyze the use of your office spaces and keep an eye on your teams' well-being."
+    },
+    "step_3": {
+      "chip_title": "Managers & Employees",
+      "title_1_color": "Improve ",
+      "title_1": "the management of your teams",
+      "title_2_color": "Foster ",
+      "title_2": "their collaboration",
+      "text": "With SpaceCorner, your employees fill in a shared weekly attendance schedule within the company. Say goodbye to lost information."
+    },
+    "step_4": {
+      "title_1": "Book a desk in your office ",
+      "title_1_color": "in one click",
+      "text": "Your employees can now book a desk alongside the employees of their choice and come to work in the best conditions."
+    },
+    "and_more": "And many others."
+  },
+  "operations": {
+    "title": "SpaceCorner enables all business departments to optimize their daily operations.",
+    "subtitle": "And let everyone benefit.",
+    "card_1": {
+      "title": "Employees",
+      "text": "Your employees now have the tools to handle hybrid work with peace of mind"
+    },
+    "card_2": {
+      "title": "HR",
+      "text": "Stimulate your employees' sense of belonging by encouraging their interaction"
+    },
+    "card_3": {
+      "title": "Finance",
+      "text": "Study your office spaces usage and make informed real estate decisions accordingly"
+    },
+    "card_4": {
+      "title": "Environment",
+      "text": "Promote a way of working that significantly reduces your company's carbon emissions"
+    }
+  }
+}

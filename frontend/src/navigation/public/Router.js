@@ -5,6 +5,7 @@ import Offers from "../../views/public/Offers";
 import Demo from "../../views/public/Demo";
 import Login from "../../views/public/Login";
 import Legal from "../../views/public/Legal";
+import Cgu from "../../views/public/Cgu";
 
 
 function Rooter(){
@@ -14,6 +15,7 @@ function Rooter(){
             <Route exact path={Public_Routes.OFFERS} element={<Offers/>}/>
             <Route exact path={Public_Routes.DEMO} element={<Demo/>}/>
             <Route exact path={Public_Routes.LOGIN} element={<Login/>}/>
+            <Route exact path={Public_Routes.CGU} element={<Cgu/>}/>
             <Route exact path={Public_Routes.LEGAL} element={<Legal/>}/>
         </Routes>
     )

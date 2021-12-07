@@ -12,9 +12,9 @@ function OffersIntro({props}){
     return(
             <Box sx={{ backgroundColor:"#2F5597", display: { xs: 'none', md: 'flex' } }}>
                 <Grid container direction={"column"}>
-                    <Grid item md={12} px={10} mt={8} mb={8}>
+                    <Grid item md={12} px={10} mt={6} mb={4}>
                         <Grid item md={12}>
-                            <Grid container direction={"column"} spacing={1}>
+                            <Grid container direction={"column"}>
                                 <Grid item xs={12}>
                                     <Typography variant="h4" fontWeight={400} fontSize={36} align="center">
                                         <span style={{color:"#FFFFFF"}}>
@@ -23,7 +23,7 @@ function OffersIntro({props}){
                                     </Typography>
                                 </Grid>
 
-                                <Grid item xs={12} mb={3}>
+                                <Grid item xs={12} mb={6}>
                                     <Typography variant="h4" fontWeight={400} fontSize={36} align="center">
                                         <span style={{color:"#FFFFFF"}}>
                                             { t('public:offers:main.sub_title_1') }
@@ -31,7 +31,7 @@ function OffersIntro({props}){
                                     </Typography>
                                 </Grid>
 
-                                <Grid item xs={12} mb={3}>
+                                <Grid item xs={12} mb={6}>
                                     <Typography variant="h4" fontWeight={600} fontSize={36} align="center">
                                         <span style={{color:"#FFC4C0"}}>
                                             { t('public:offers:main.sub_title_2') }

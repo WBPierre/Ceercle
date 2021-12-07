@@ -15,15 +15,15 @@ function OffersPerks({props}){
 
     return(
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                <Grid container direction={"column"} style={{backgroundColor: theme.palette.background.paper}}>
+                <Grid container direction={"column"} style={{backgroundColor: "#2F5597"}}>
                     <Grid container direction={"row"}>
                         <Grid item md={3} xs={12}>
                             <Grid container py={5} direction={"column"} justifyContent={"center"} alignItems={"center"} spacing={2}> 
                                 <Grid item md={6}>
-                                    <RedeemIcon style={{color:'#2F5597', fontSize:70}}/>
+                                    <RedeemIcon style={{color:'#FFFFFF', fontSize:70}}/>
                                 </Grid>
                                 <Grid item md={6}>
-                                    <Typography textAlign={"center"} variant="h5" style={{color:'#2F5597'}} fontWeight={300}>{ t('public:offers:perks.perk_1') }</Typography>
+                                    <Typography textAlign={"center"} variant="h5" style={{color:'#FFFFFF'}} fontWeight={300}>{ t('public:offers:perks.perk_1') }</Typography>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -31,13 +31,13 @@ function OffersPerks({props}){
                         <Grid item md={3} xs={12}>
                             <Grid container py={5} direction={"column"} justifyContent={"center"} alignItems={"center"} spacing={2}>
                                 <Grid item md={6}>
-                                    <BoltIcon style={{color:'#2F5597', fontSize:70}}/>
+                                    <BoltIcon style={{color:'#FFFFFF', fontSize:70}}/>
                                 </Grid>
                                 <Grid item md={6}>
                                     <Grid container direction={"row"}>
                                         <Grid item md={1} xs={12}/>
                                         <Grid item md={10} xs={12}>
-                                            <Typography textAlign={"center"} variant="h5" style={{color:'#2F5597'}} fontWeight={300}>{ t('public:offers:perks.perk_2') }</Typography>
+                                            <Typography textAlign={"center"} variant="h5" style={{color:'#FFFFFF'}} fontWeight={300}>{ t('public:offers:perks.perk_2') }</Typography>
                                         </Grid>
                                         <Grid item md={1} xs={12}/>
                                     </Grid>
@@ -48,13 +48,13 @@ function OffersPerks({props}){
                         <Grid item md={3} xs={12}>
                             <Grid container py={5} direction={"column"} justifyContent={"center"} alignItems={"center"} spacing={2}>
                                 <Grid item md={6}>
-                                    <AddShoppingCartIcon style={{color:'#2F5597', fontSize:70}}/>
+                                    <AddShoppingCartIcon style={{color:'#FFFFFF', fontSize:70}}/>
                                 </Grid>
                                 <Grid item md={6}>
                                     <Grid container direction={"row"}>
                                         <Grid item md={1} xs={12}/>
                                         <Grid item md={10} xs={12}>
-                                            <Typography textAlign={"center"} variant="h5" style={{color:'#2F5597'}} fontWeight={300}>{ t('public:offers:perks.perk_3') }</Typography>
+                                            <Typography textAlign={"center"} variant="h5" style={{color:'#FFFFFF'}} fontWeight={300}>{ t('public:offers:perks.perk_3') }</Typography>
                                         </Grid>
                                         <Grid item md={1} xs={12}/>
                                     </Grid>
@@ -65,13 +65,13 @@ function OffersPerks({props}){
                         <Grid item md={3} xs={12}>
                             <Grid container py={5} direction={"column"} justifyContent={"center"} alignItems={"center"} spacing={2}>
                                 <Grid item md={6}>
-                                    <HeadsetMicIcon style={{color:'#2F5597', fontSize:70}}/>
+                                    <HeadsetMicIcon style={{color:'#FFFFFF', fontSize:70}}/>
                                 </Grid>
                                 <Grid item md={6}>
                                     <Grid container direction={"row"}>
                                         <Grid item md={1} xs={12}/>
                                         <Grid item md={10} xs={12}>
-                                            <Typography textAlign={"center"} variant="h5" style={{color:'#2F5597'}} fontWeight={300}>{ t('public:offers:perks.perk_4') }</Typography>
+                                            <Typography textAlign={"center"} variant="h5" style={{color:'#FFFFFF'}} fontWeight={300}>{ t('public:offers:perks.perk_4') }</Typography>
                                         </Grid>
                                         <Grid item md={1} xs={12}/>
                                     </Grid>

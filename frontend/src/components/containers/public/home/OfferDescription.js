@@ -17,19 +17,18 @@ function OfferDescription(props){
 
     return(
         <div>
-            <Box sx={{ display: { xs: 'none', md: 'block' } }}>
-                <div style={{backgroundColor: theme.palette.background.default}}>
+            <Box sx={{ display: { xs: 'none', md: 'block' }, backgroundColor: "#2F5597" }} pt={10}>
                     <Fade triggerOnce={true}>
                         <Grid container direction={"row"}>
                             <Grid item md={12}>
                                 <Grid container direction={"column"} spacing={5}>
                                     <Grid item xs={12}>
-                                        <Typography variant="h3" fontWeight={600} fontSize={52} align="center" color="error">
+                                        <Typography variant="h3" fontWeight={600} fontSize={52} align="center" color="white">
                                             { t('public:home:offer_description.main.title')}
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <Typography variant="h4" style={{color:'#7F7F7F'}} fontSize={28} fontWeight={400} align="center">
+                                        <Typography variant="h4" fontSize={28} fontWeight={400} align="center" style={{color:'#B4C7E7'}}>
                                             { t('public:home:offer_description.main.subtitle')}
                                         </Typography>
                                     </Grid>
@@ -37,7 +36,6 @@ function OfferDescription(props){
                             </Grid>
                         </Grid>
                     </Fade>
-                </div>
                 <div style={{marginTop:'5%'}}/>
                 <div style={{backgroundColor: theme.palette.background.default, height:'80vh'}}>
                     <Grid container direction={"row"} style={{height:'100%', backgroundColor:'orange'}}>

@@ -1,4 +1,5 @@
 {
+  "website_url": "spacecorner.io",
   "continue": "Continue",
   "yes": "Yes",
   "all": "All",
@@ -11,10 +12,21 @@
   "add": "Add",
   "delete": "Delete",
   "search": "Search",
-  "name": "Name",
+  "firstname": "First name",
+  "name": "Surname",
   "import": "Import",
   "export": "Export",
   "description": "Description",
   "type": "Type",
-  "loading": "Loading... Please wait"
+  "loading": "Loading...",
+  "more": "More",
+  "demo": "Request demo",
+  "email": "Email address",
+  "password" : "Password",
+  "login" : "Log in",
+  "phone": "Phone",
+  "zip_code": "Zip Code",
+  "professional_email": "Professional email",
+  "send": "Send",
+  "subject": "Subject"
 }

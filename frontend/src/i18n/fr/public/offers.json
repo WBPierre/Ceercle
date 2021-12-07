@@ -12,7 +12,7 @@
     "title": "Business",
     "price_yearly": "3€",
     "price_monthly": "3,5€",
-    "per_month": "/mois",
+    "per_month": "HT/mois",
     "per_user": "par collaborateur",
     "description": "La solution phare incluant l'ensemble de nos offres.",
     "services" : {
@@ -26,7 +26,7 @@
   "offer_2" : {
     "title": "Sur-mesure",
     "contact_us": "Nous contacter",
-    "description": "La solution sur-mesure destinées aux grands comptes",
+    "description": "La solution sur-mesure destinées aux grands comptes.",
     "services" : {
       "service_1": "Personnalisation de la plateforme",
       "service_2": "Support prioritaire dédié",

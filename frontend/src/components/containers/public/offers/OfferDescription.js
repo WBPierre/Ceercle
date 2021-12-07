@@ -141,7 +141,7 @@ function OfferDescription({props}){
                                             mb: 2,
                                             backgroundColor: "#FEFCFD"
                                             }}>
-                                        <Chip variant="contained" style={{color:'white',backgroundColor:'#2F5597', fontSize: 21, fontWeight: 400}} label={ t('public:offers:choose_this_offer') } onClick={() => navigate('/demo')}/>
+                                        <Chip variant="contained" style={{color:'white',backgroundColor:'#2F5597', fontSize: 17, fontWeight: 400}} label={ t('public:offers:choose_this_offer') } onClick={() => navigate('/demo')}/>
                                     </CardActions>
                                 </Card>
                                 </Fade>
@@ -223,7 +223,7 @@ function OfferDescription({props}){
                                             mb: 2,
                                             backgroundColor: "#FEFCFD"
                                             }}>
-                                        <Chip variant="contained" style={{color:'white',backgroundColor:'#2F5597', fontSize: 21}} label={ t('public:offers:choose_this_offer') } onClick={() => navigate('/demo')}/>
+                                        <Chip variant="contained" style={{color:'white',backgroundColor:'#2F5597', fontSize: 17}} label={ t('public:offers:choose_this_offer') } onClick={() => navigate('/demo')}/>
                                     </CardActions>
                                 </Card>
                                 </Fade>
