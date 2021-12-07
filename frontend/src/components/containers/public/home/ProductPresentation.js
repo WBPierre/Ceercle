@@ -65,7 +65,7 @@ function ProductPresentation({props}){
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item md={12} style={{backgroundColor:theme.palette.background.paper}} px={10} mt={10}>
+                        <Grid item md={12} style={{backgroundColor:theme.palette.background.paper}} px={10} pt={6} pb={10}>
                             <Zoom triggerOnce={true}>
                                 <Grid container direction={"row"} spacing={5}>
                                     <Grid item md={3}>
