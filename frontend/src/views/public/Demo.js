@@ -19,6 +19,10 @@ import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import {useNavigate} from "react-router-dom";
+import {useState} from "react";
+import { Fade as Fader } from '@mui/material';
+import LoadingIcons from 'react-loading-icons'
+import axios from "axios";
 
 
 
@@ -27,6 +31,32 @@ function Demo(){
     const { t } = useTranslation();
     const theme = useTheme();
     let navigate = useNavigate();
+    const [send, setSend] = useState(false);
+    const [awaitingResponse, setAwaitingResponse] = useState(true);
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [companyName, setCompanyName] = useState('');
+    const [fonction, setFonction] = useState('');
+    const [zipCode, setZipCode] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+
+    const sendInformation = () => {
+        setSend(true);
+        const resources = {
+            "firstName": firstName,
+            "lastName":lastName,
+            "companyName":companyName,
+            "fonction": fonction,
+            "zipCode":zipCode,
+            "email":email,
+            "phone":phone
+        };
+        axios.post('/api/contact', resources).then((res) => {
+            setAwaitingResponse(false);
+            console.log(res.data);
+        })
+    }
 
     return(
         <Container maxWidth={false} disableGutters={true} >
@@ -82,90 +112,115 @@ function Demo(){
                             alignItems: 'center'
                             }}
                         >
-                            
-                            <Typography variant="body1" align="left" style={{color:'#2F5597'}} fontSize={35} fontWeight={400} mb={6}>
+                            <Typography variant="body1" textAlign="left" style={{color:'#2F5597'}} fontSize={35} fontWeight={400} mb={6}>
                                 { t('public:demo:title_left_panel') }
                             </Typography>
-                            
-                            
-                            <Box component="form" noValidate sx={{ mt: 1 }}>
-                                <Grid container spacing={2}>
-                                    <Grid item xs={12} sm={6}>
-                                        <TextField
-                                        autoComplete="given-name"
-                                        name="firstName"
-                                        fullWidth
-                                        id="firstName"
-                                        label={ t('generic:firstname') }
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <TextField
-                                        fullWidth
-                                        id="lastName"
-                                        label={ t('generic:name') }
-                                        name="lastName"
-                                        autoComplete="family-name"
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <TextField
-                                        fullWidth
-                                        id="company"
-                                        label={ t('public:demo:company_name') }
-                                        name="company"
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <TextField
-                                        name="position"
-                                        fullWidth
-                                        id="position"
-                                        label={ t('public:demo:function') }
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <TextField
-                                        fullWidth
-                                        id="zipCode"
-                                        label={ t('generic:zip_code') }
-                                        name="zipCode"
-                                        autoComplete="postal-code"
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <TextField
-                                        fullWidth
-                                        id="email"
-                                        label={ t('generic:professional_email') }
-                                        name="email"
-                                        autoComplete="email"
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <TextField
-                                        fullWidth
-                                        id="phoneNumber"
-                                        label={ t('generic:phone') }
-                                        name="phoneNumber"
-                                        autoComplete="phone-number"
-                                        />
-                                    </Grid>
-                                </Grid>
-
-                                <Button type="submit" fullWidth variant="contained" sx={{ mt: 7, backgroundColor: "#2F5597"}}>
-                                    { t('generic:send') }
-                                </Button>
-
-                                <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 1 }}>
-                                {'Copyright © '}
-                                <Link color="inherit" onClick={() => { navigate('/')}}>
-                                    { t('generic:website_url') }
-                                </Link>{' '}
-                                {new Date().getFullYear()}
-                                {'.'}
+                            <Fader in={!awaitingResponse} timeout={{ appear: 1000, enter: 1000, exit: 0 }}>
+                                <Typography variant={"body1"} textAlign={"left"} style={{color: awaitingResponse ? 'transparent' : '#2F5597'}}>
+                                    {!send ? 'emptyString' : 'Merci pour votre message. Nos équipes y répondront au plus vite !' }
                                 </Typography>
-                            </Box>
+                            </Fader>
+                            <Fader in={awaitingResponse} timeout={{ appear: 0, enter: 0, exit: 1000 }} unmountOnExit={false}>
+                                <Box component="form" noValidate sx={{ mt: 1 }}>
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={12} sm={6}>
+                                            <TextField
+                                                autoComplete="given-name"
+                                                name="firstName"
+                                                fullWidth
+                                                id="firstName"
+                                                label={ t('generic:firstname') }
+                                                disabled={send}
+                                                value={firstName}
+                                                onChange={(e) => setFirstName(e.target.value)}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                            <TextField
+                                                fullWidth
+                                                id="lastName"
+                                                label={ t('generic:name') }
+                                                name="lastName"
+                                                autoComplete="family-name"
+                                                disabled={send}
+                                                value={lastName}
+                                                onChange={(e) => setLastName(e.target.value)}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <TextField
+                                                fullWidth
+                                                id="company"
+                                                label={ t('public:demo:company_name') }
+                                                name="companyName"
+                                                disabled={send}
+                                                value={companyName}
+                                                onChange={(e) => setCompanyName(e.target.value)}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                            <TextField
+                                                name="fonction"
+                                                fullWidth
+                                                id="position"
+                                                label={ t('public:demo:function') }
+                                                disabled={send}
+                                                value={fonction}
+                                                onChange={(e) => setFonction(e.target.value)}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                            <TextField
+                                                fullWidth
+                                                id="zipCode"
+                                                label={ t('generic:zip_code') }
+                                                name="zipCode"
+                                                autoComplete="postal-code"
+                                                disabled={send}
+                                                value={zipCode}
+                                                onChange={(e) => setZipCode(e.target.value)}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <TextField
+                                                fullWidth
+                                                id="email"
+                                                label={ t('generic:professional_email') }
+                                                name="email"
+                                                autoComplete="email"
+                                                disabled={send}
+                                                value={email}
+                                                onChange={(e) => setEmail(e.target.value)}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <TextField
+                                                fullWidth
+                                                id="phone"
+                                                label={ t('generic:phone') }
+                                                name="phone"
+                                                autoComplete="phone-number"
+                                                disabled={send}
+                                                value={phone}
+                                                onChange={(e) => setPhone(e.target.value)}
+                                            />
+                                        </Grid>
+                                    </Grid>
+
+                                    <Button disabled={send} onClick={() => sendInformation()} fullWidth variant="contained" sx={{ mt: 7, backgroundColor: "#2F5597"}}>
+                                        {!send ?  t('generic:send') : <LoadingIcons.Puff height={25}/>}
+                                    </Button>
+
+                                    <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 1 }}>
+                                        {'Copyright © '}
+                                        <Link color="inherit" onClick={() => { navigate('/')}}>
+                                            { t('generic:website_url') }
+                                        </Link>{' '}
+                                        {new Date().getFullYear()}
+                                        {'.'}
+                                    </Typography>
+                                </Box>
+                            </Fader>
                         </Box>
                     </Grid>
                 </Grid>
