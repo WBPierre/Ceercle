@@ -21,7 +21,7 @@ function Intro(){
         <div>
             <Box sx={{ display: { xs: 'none', md: 'flex' }, backgroundColor: theme.palette.background.paper }}>
                 <Container style={{backgroundColor: theme.palette.background.paper, height:'100vh'}}>
-                    <Grid container style={{marginTop:'20vh'}} spacing={2} direction="row">
+                    <Grid container style={{marginTop:'10vh'}} spacing={2} direction="row">
                         <Grid item md={4}  style={{height:'100%'}}>
                             <Fade direction={"left"} triggerOnce={true}>
                                 <Grid container direction="column" spacing={5}>
@@ -82,7 +82,7 @@ function Intro(){
             </Box>
             <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                 <Container style={{backgroundColor: theme.palette.background.paper, height:'100vh'}}>
-                    <Grid container style={{marginTop:'20vh'}} direction="row">
+                    <Grid container style={{marginTop:'10vh'}} direction="row">
                         <Grid item xs={12}>
                             <Fade top>
                                 <Grid container direction="row" style={{height:'100%'}} justifyContent={"center"} spacing={5}>

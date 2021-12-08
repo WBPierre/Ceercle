@@ -10,7 +10,7 @@ function OffersIntro({props}){
 
 
     return(
-            <Box sx={{ backgroundColor:"#2F5597", display: { xs: 'none', md: 'flex' } }}>
+            <Box sx={{ backgroundColor:"#2F5597"}}>
                 <Grid container direction={"column"}>
                     <Grid item md={12} px={10} mt={6} mb={4}>
                         <Grid item md={12}>

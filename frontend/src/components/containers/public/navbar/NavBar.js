@@ -77,20 +77,19 @@ export default function NavBar(props) {
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
         >
-            <MenuItem>
-                <Button onClick={redirectToOffers} variant="text" color="inherit" size="medium" style={{fontWeight: 600}}>{ t('public:navbar:offers')}</Button>
+            <MenuItem onClick={redirectToOffers}>
+                <Button  variant="text" color="inherit" size="medium" style={{fontWeight: 600}}>{ t('public:navbar:offers')}</Button>
             </MenuItem>
-            <MenuItem>
-                <Button onClick={redirectToDemo} variant="outlined" color="error" size="medium" style={{fontWeight: 600}}>{ t('public:navbar:ask_for_demo')}</Button>
+            <MenuItem onClick={redirectToDemo}>
+                <Button  variant="outlined" color="error" size="medium" style={{fontWeight: 600}}>{ t('public:navbar:ask_for_demo')}</Button>
             </MenuItem>
-            <MenuItem>
+            <MenuItem onClick={connectHandler}>
                 <Button variant="text"
                         color="inherit"
                         size="medium"
                         aria-label="account of current user"
                         //onClick={handleProfileMenuOpen}
                         style={{fontWeight: 600}}
-                        onClick={connectHandler}
                 >
                     { t('public:navbar:connect')}
                 </Button>
@@ -144,7 +143,6 @@ export default function NavBar(props) {
                             <IconButton style={{color:'black', display:'none'}} aria-label="add to shopping cart" sx={{mr:2}}>
                                 <WbSunnyIcon />
                             </IconButton>
-                            <LangSwitcher/>
                             <Button style={{textTransform: 'none'}}>
                                 <Chip variant="outlined"
                                       aria-label="account of current user"
@@ -163,7 +161,7 @@ export default function NavBar(props) {
                             >
                                 { t('public:navbar:connect')}
                             </Button>
-                            <ModalLogin open={openConnect} handleClose={connectHandlerClose}/>
+                            <LangSwitcher/>
                         </Box>
                         <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                             <IconButton
@@ -181,6 +179,7 @@ export default function NavBar(props) {
                 </AppBar>
             </HideOnScroll>
             {renderMobileMenu}
+            <Toolbar />
         </Box>
     );
 }

@@ -126,7 +126,7 @@ function ProductPresentation({props}){
                 </div>
             </Box>
             <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-                <div style={{backgroundColor: theme.palette.background.paper, height:'100vh'}}>
+                <div style={{backgroundColor: theme.palette.background.paper, minHeight:'100vh'}}>
                     <Grid container direction={"column"}>
                         <Grid item xs={12} style={{backgroundColor: '#2F5597'}} px={10} pb={10} pt={5}>
                             <Zoom triggerOnce={true}>
@@ -153,7 +153,7 @@ function ProductPresentation({props}){
                                 </Grid>
                             </Zoom>
                         </Grid>
-                        <Grid item xs={12} style={{backgroundColor:theme.palette.background.paper}} px={10}>
+                        <Grid item xs={12} style={{backgroundColor:theme.palette.background.paper}} px={1} py={10}>
                             <Zoom triggerOnce={true}>
                                 <Grid container direction={"column"} spacing={5}>
                                     <Grid item xs={12}>
