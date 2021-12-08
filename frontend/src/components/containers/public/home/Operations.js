@@ -38,7 +38,7 @@ function Operations({props}){
                         </Grid>
                     </Grid>
                     <Grid item xs={8}>
-                        <Grid container direction={"row"} spacing={1}>
+                        <Grid container direction={"row"} spacing={5}>
                             <Grid item md={3} xs={12}>
                                 <Fade direction={"up"} triggerOnce={true}>
                                     <Grid container py={1} px={3} direction={"column"} justifyContent={"center"} alignItems={"center"}>
@@ -93,7 +93,7 @@ function Operations({props}){
                                         <Grid item mt={1}>
                                             <Avatar style={{ backgroundColor:'#2F5597'}} sx={{ width: 75, height: 75 }}><Icon style={{color:'#FFFFFF', fontSize:60}}>health_and_safety</Icon></Avatar>
                                         </Grid>
-                                        <Grid item>
+                                        <Grid item mb={5}>
                                             <Typography textAlign={"center"} style={{color:'#FFFFFF'}} fontSize={18}>{t('public:home:operations.card_4.text')}</Typography>
                                         </Grid>
                                     </Grid>

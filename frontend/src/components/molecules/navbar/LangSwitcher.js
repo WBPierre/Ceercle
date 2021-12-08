@@ -4,6 +4,7 @@ import MenuItem from "@mui/material/MenuItem";
 import {useState} from "react";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import LanguageIcon from '@mui/icons-material/Language';
+import {useLocation} from "react-router-dom";
 
 function LangSwitcher(){
 
@@ -22,13 +23,14 @@ function LangSwitcher(){
     const returnLangueText = () => {
         switch(i18n.language){
             case "fr":
-                return "Français";
+                return "FR";
             default:
-                return "English";
+                return "EN";
         }
     }
 
     const changeLangue = (lang) => {
+        setAnchorEl(null);
         i18n.changeLanguage(lang);
     }
 
@@ -43,7 +45,6 @@ function LangSwitcher(){
                 variant="text"
                 sx={{mr:2}}
                 style={{color: theme.palette.text.primary, borderColor: theme.palette.text.primary, fontWeight:500, textTransform: 'capitalize', fontSize: 18}}
-                startIcon={<LanguageIcon/>}
                 endIcon={<KeyboardArrowDownIcon />}
             >
                 {returnLangueText()}
@@ -59,10 +60,10 @@ function LangSwitcher(){
                 style={{color: theme.palette.text.primary}}
             >
                 {i18n.language !== "fr-FR" && i18n.language !== "fr" &&
-                    <MenuItem onClick={() => changeLangue("fr")} style={{color: theme.palette.text.primary}}>Français</MenuItem>
+                    <MenuItem onClick={() => changeLangue("fr")} style={{color: theme.palette.text.primary}}>FR</MenuItem>
                 }
                 {i18n.language !== "en-EN" && i18n.language !== "en" &&
-                    <MenuItem onClick={() => changeLangue("en")} style={{color: theme.palette.text.primary}}>English</MenuItem>
+                    <MenuItem onClick={() => changeLangue("en")} style={{color: theme.palette.text.primary}}>EN</MenuItem>
                 }
             </Menu>
         </div>
