@@ -12,7 +12,7 @@
     "title": "Business",
     "price_yearly": "3€",
     "price_monthly": "3,5€",
-    "per_month": "/month",
+    "per_month": "excl. taxes/month",
     "per_user": "per user",
     "description": "Our flagship solution including all the features.",
     "services" : {
