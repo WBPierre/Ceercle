@@ -17,15 +17,15 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import iconPlanet from "../../../../assets/images/generic/iconPlanet.png";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import LangSwitcher from "../../../molecules/navbar/LangSwitcher";
-import {Chip, Drawer, ListItemButton, Tooltip} from "@mui/material";
+import { Chip, Drawer, ListItemButton, Tooltip } from "@mui/material";
 import Button from "@mui/material/Button";
 import ModalLogin from "../../public/navbar/ModalLogin";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 import PanToolIcon from '@mui/icons-material/PanTool';
-import {ArrowRight, Home, Settings} from "@mui/icons-material";
+import { ArrowRight, Home, Settings } from "@mui/icons-material";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 import LightModeIcon from '@mui/icons-material/LightMode';
@@ -83,7 +83,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     justifyContent: 'center',
 }));
 
-export default function NavBar() {
+export default function NavBarOld() {
     const theme = useTheme();
     let navigate = useNavigate();
     const { t } = useTranslation();
@@ -99,10 +99,10 @@ export default function NavBar() {
 
     return (
         <Box sx={{ display: 'flex' }}>
-            <AppBar position="fixed" open={open} style={{backgroundColor:theme.palette.background.paper}}>
-                <Toolbar style={{backgroundColor:"#F1B2AD", justifyContent:"center"}} >
+            <AppBar position="fixed" open={open} style={{ backgroundColor: theme.palette.background.paper }}>
+                <Toolbar style={{ backgroundColor: "#F1B2AD", justifyContent: "center" }} >
                     <IconButton
-                        style={{color:'black'}}
+                        style={{ color: 'black' }}
                         aria-label="open drawer"
                         onClick={handleDrawerOpen}
                         edge="start"
@@ -111,28 +111,28 @@ export default function NavBar() {
                         <MenuIcon />
                     </IconButton>
 
-                    <Typography 
+                    <Typography
                         mr={3}
                         variant="h6"
                         noWrap
                         component="div"
                         color="white"
-                        style={{fontWeight:200}}
+                        style={{ fontWeight: 200 }}
                         fontSize={25}
                         align='center'
                     >
                         Lundi 06 décembre 2021
                     </Typography>
 
-                    <LightModeIcon sx={{ fontSize: 28 }}/>
+                    <LightModeIcon sx={{ fontSize: 28 }} />
 
-                    <Typography 
+                    <Typography
                         mr={3}
                         variant="h6"
                         noWrap
                         component="div"
                         color="white"
-                        style={{fontWeight:100}}
+                        style={{ fontWeight: 100 }}
                         fontSize={25}
                         align='center'
                     >
@@ -141,7 +141,7 @@ export default function NavBar() {
 
                 </Toolbar>
             </AppBar>
-            
+
             <Drawer
                 sx={{
                     width: drawerWidth,
@@ -156,22 +156,22 @@ export default function NavBar() {
                 open={open}
             >
                 <DrawerHeader>
-                    <Button style={{textTransform: 'capitalize', backgroundColor:'transparent'}} disableRipple={true} startIcon={<img src={iconPlanet} height={40} alt="logo"/>} onClick={() => { navigate('/app/')}}>
+                    <Button style={{ textTransform: 'capitalize', backgroundColor: 'transparent' }} disableRipple={true} startIcon={<img src={iconPlanet} height={40} alt="logo" />} onClick={() => { navigate('/app/') }}>
                         <Typography
                             variant="h6"
                             noWrap
                             component="div"
                             color="black"
-                            style={{fontWeight:500}}
+                            style={{ fontWeight: 500 }}
                             fontSize={24}
                         >
                             SpaceCorner
                         </Typography>
                     </Button>
                 </DrawerHeader>
-                
+
                 <Divider />
-                
+
                 <List mb={5}>
                     <ListItem component="div" disablePadding>
                         <ListItemButton sx={{ height: 56 }}>
@@ -191,7 +191,7 @@ export default function NavBar() {
                                     fontWeight: 200,
                                     fontSize: 21,
                                     variant: 'body2',
-                                    textAlign:'center'
+                                    textAlign: 'center'
                                 }}
                             />
                         </ListItemButton>
@@ -199,16 +199,16 @@ export default function NavBar() {
                             size="small"
                             onClick={handleDrawerClose}
                         >
-                            <ArrowBackIosIcon/>
+                            <ArrowBackIosIcon />
                         </IconButton>
                     </ListItem>
                 </List>
                 <List alignItems="flex-start">
                     <ListItem button>
                         <ListItemIcon>
-                            <DashboardIcon color="primary" sx={{ fontSize: 30 }}/>
+                            <DashboardIcon color="primary" sx={{ fontSize: 30 }} />
                         </ListItemIcon>
-                        <ListItemText 
+                        <ListItemText
                             primaryTypographyProps={{
                                 color: 'primary',
                                 fontWeight: 500,
@@ -221,11 +221,11 @@ export default function NavBar() {
                     </ListItem>
                     <ListItem button>
                         <ListItemIcon>
-                            <EventIcon sx={{ fontSize: 30 }}/>
+                            <EventIcon sx={{ fontSize: 30 }} />
                         </ListItemIcon>
-                        <ListItemText 
+                        <ListItemText
                             primaryTypographyProps={{
-                                color:"#535454",
+                                color: "#535454",
                                 fontWeight: 200,
                                 fontSize: 22,
                                 variant: 'body2',
@@ -236,26 +236,26 @@ export default function NavBar() {
                     </ListItem>
                     <ListItem button>
                         <ListItemIcon>
-                            <ScreenSearchDesktopIcon sx={{ fontSize: 30 }}/>
+                            <ScreenSearchDesktopIcon sx={{ fontSize: 30 }} />
                         </ListItemIcon>
-                        <ListItemText 
+                        <ListItemText
                             primaryTypographyProps={{
-                                color:"#535454",
+                                color: "#535454",
                                 fontWeight: 200,
                                 fontSize: 22,
                                 variant: 'body2',
                                 textAlign: 'left'
                             }}
                             primary={t('app:navbar:marketplace')}
-                            />
+                        />
                     </ListItem>
                     <ListItem button>
                         <ListItemIcon>
-                            <PeopleIcon sx={{ fontSize: 30 }}/>
+                            <PeopleIcon sx={{ fontSize: 30 }} />
                         </ListItemIcon>
-                        <ListItemText 
+                        <ListItemText
                             primaryTypographyProps={{
-                                color:"#535454",
+                                color: "#535454",
                                 fontWeight: 200,
                                 fontSize: 22,
                                 variant: 'body2',
@@ -269,11 +269,11 @@ export default function NavBar() {
                 <List>
                     <ListItem button>
                         <ListItemIcon>
-                            <ManageAccountsIcon sx={{ color: red[700], fontSize: 30 }}/>
+                            <ManageAccountsIcon sx={{ color: red[700], fontSize: 30 }} />
                         </ListItemIcon>
-                        <ListItemText 
+                        <ListItemText
                             primaryTypographyProps={{
-                                color:"#d32f2f",
+                                color: "#d32f2f",
                                 fontWeight: 200,
                                 fontSize: 22,
                                 variant: 'body2',
