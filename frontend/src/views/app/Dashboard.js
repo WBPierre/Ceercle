@@ -73,15 +73,15 @@ export default function Dashboard(props) {
                 </Grid>
                 <Grid item xs={12} mb={2}>
                     <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"}>
-                        <Grid item xs={5}>
+                        <Grid item xs={4}>
                             <Divider/>
                         </Grid>
-                        <Grid item xs={2} textAlign={"center"}>
+                        <Grid item xs={4} textAlign={"center"}>
                             <Button variant="text" endIcon={<ExpandMoreIcon />}>
                                 Aujourd'hui
                             </Button>
                         </Grid>
-                        <Grid item xs={5}>
+                        <Grid item xs={4}>
                             <Divider/>
                         </Grid>
                     </Grid>
