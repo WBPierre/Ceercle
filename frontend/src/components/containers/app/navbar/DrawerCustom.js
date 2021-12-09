@@ -47,19 +47,10 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     justifyContent: 'center',
 }));
 
-export default function DrawerCustom() {
+export default function DrawerCustom(props) {
     const theme = useTheme();
     let navigate = useNavigate();
     const { t } = useTranslation();
-    const [open, setOpen] = React.useState(window.innerWidth > 900 ? true : false);
-
-    const handleDrawerOpen = () => {
-        setOpen(true);
-    };
-
-    const handleDrawerClose = () => {
-        setOpen(false);
-    };
 
     return (
         <Drawer
@@ -73,7 +64,7 @@ export default function DrawerCustom() {
             }}
             variant="persistent"
             anchor="left"
-            open={open}
+            open={props.open}
         >
             <DrawerHeader>
                 <Button style={{ textTransform: 'capitalize', backgroundColor: 'transparent' }} disableRipple={true} startIcon={<img src={iconPlanet} height={40} alt="logo" />} onClick={() => { navigate('/app/') }}>
@@ -117,7 +108,7 @@ export default function DrawerCustom() {
                     </ListItemButton>
                     <IconButton
                         size="small"
-                        onClick={handleDrawerClose}
+                        onClick={props.handleDrawerClose}
                     >
                         <ArrowBackIosIcon />
                     </IconButton>

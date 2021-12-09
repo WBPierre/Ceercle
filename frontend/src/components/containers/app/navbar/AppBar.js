@@ -28,29 +28,20 @@ const AppBarStyle = styled(MuiAppBar, {
     }),
 }));
 
-export default function AppBar() {
+export default function AppBar(props) {
     const theme = useTheme();
     let navigate = useNavigate();
     const { t } = useTranslation();
-    const [open, setOpen] = React.useState(window.innerWidth > 900 ? true : false);
-
-    const handleDrawerOpen = () => {
-        setOpen(true);
-    };
-
-    const handleDrawerClose = () => {
-        setOpen(false);
-    };
 
     return (
-        <AppBarStyle position="fixed" open={open} style={{ backgroundColor: theme.palette.background.paper }}>
+        <AppBarStyle position="fixed" open={props.open} style={{ backgroundColor: theme.palette.background.paper }}>
             <Toolbar style={{ backgroundColor: "#F1B2AD", justifyContent: "center" }} >
                 <IconButton
                     style={{ color: 'black' }}
                     aria-label="open drawer"
-                    onClick={handleDrawerOpen}
+                    onClick={props.handleDrawerOpen}
                     edge="start"
-                    sx={{ mr: 2, ...(open && { display: 'none' }) }}
+                    sx={{ mr: 2, ...(props.open && { display: 'none' }) }}
                 >
                     <MenuIcon />
                 </IconButton>
