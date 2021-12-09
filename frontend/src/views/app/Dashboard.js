@@ -54,7 +54,7 @@ export default function Dashboard(props) {
                                                 <PlanningElement from={"office"} day={"Mer."} dayNumber={8} current={true} past={false}/>
                                             </Grid>
                                             <Grid item>
-                                                <PlanningElement from={"remote"} day={"Jeu."} dayNumber={9} current={false} past={false}/>
+                                                <PlanningElement day={"Jeu."} dayNumber={9} current={false} past={false}/>
                                             </Grid>
                                             <Grid item>
                                                 <PlanningElement from={"move"} day={"Ven."} dayNumber={10} current={false} past={false}/>
