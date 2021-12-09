@@ -1,2 +1,2 @@
 const DEFAULT = "/app"
-export const SAAS = DEFAULT + "/"
+export const DASHBOARD = DEFAULT + "/"

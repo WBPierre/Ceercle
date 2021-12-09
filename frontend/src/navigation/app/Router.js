@@ -1,11 +1,11 @@
 import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
 import * as App_Routes from "./Routes";
-import Saas from "../../views/app/Saas";
+import Dashboard from "../../views/app/Dashboard";
 
 function Rooter() {
     return (
         <Routes>
-            <Route exact path={App_Routes.SAAS} element={<Saas />} />
+            <Route exact path={App_Routes.DASHBOARD} element={<Dashboard />} />
         </Routes>
     )
 }

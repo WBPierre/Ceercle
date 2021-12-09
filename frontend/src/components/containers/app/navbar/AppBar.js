@@ -8,6 +8,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import LightModeIcon from '@mui/icons-material/LightMode';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import {Badge} from "@mui/material";
 
 const drawerWidth = 240;
 
@@ -28,32 +30,25 @@ const AppBarStyle = styled(MuiAppBar, {
     }),
 }));
 
-export default function AppBar() {
+export default function AppBar(props) {
     const theme = useTheme();
     let navigate = useNavigate();
     const { t } = useTranslation();
-    const [open, setOpen] = React.useState(window.innerWidth > 900 ? true : false);
-
-    const handleDrawerOpen = () => {
-        setOpen(true);
-    };
-
-    const handleDrawerClose = () => {
-        setOpen(false);
-    };
 
     return (
-        <AppBarStyle position="fixed" open={open} style={{ backgroundColor: theme.palette.background.paper }}>
+        <AppBarStyle position="fixed" open={props.open} style={{ backgroundColor: theme.palette.background.paper }}>
             <Toolbar style={{ backgroundColor: "#F1B2AD", justifyContent: "center" }} >
                 <IconButton
                     style={{ color: 'black' }}
                     aria-label="open drawer"
-                    onClick={handleDrawerOpen}
+                    onClick={props.handleDrawerOpen}
                     edge="start"
-                    sx={{ mr: 2, ...(open && { display: 'none' }) }}
+                    sx={{ mr: 2, ...(props.open && { display: 'none' }) }}
                 >
                     <MenuIcon />
                 </IconButton>
+
+                <div style={{flexGrow: 1}}/>
 
                 <Typography
                     mr={3}
@@ -82,6 +77,14 @@ export default function AppBar() {
                 >
                     | 12°
                 </Typography>
+
+                <div style={{flexGrow: 1}}/>
+
+                <IconButton aria-label="openNotif">
+                    <Badge badgeContent={4} color="error">
+                        <NotificationsIcon/>
+                    </Badge>
+                </IconButton>
 
             </Toolbar>
         </AppBarStyle>
