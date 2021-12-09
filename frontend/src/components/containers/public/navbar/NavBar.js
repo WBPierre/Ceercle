@@ -8,19 +8,19 @@ import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import LangSwitcher from "../../../molecules/navbar/LangSwitcher";
-import {Chip, useTheme} from "@mui/material";
-import {useTranslation} from "react-i18next";
-import {useNavigate} from "react-router-dom";
+import { Chip, useTheme } from "@mui/material";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import HideOnScroll from "../../../molecules/navbar/HideOnScroll";
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import iconPlanet from "../../../../assets/images/generic/iconPlanet.png";
-import {useState} from "react";
+import { useState } from "react";
 import ModalLogin from "./ModalLogin";
 import { Turn as Hamburger } from 'hamburger-react'
 
 
 export default function NavBar(props) {
-    
+
     // Overall const
     const { t } = useTranslation();
     const theme = useTheme();
@@ -78,27 +78,27 @@ export default function NavBar(props) {
             onClose={handleMobileMenuClose}
         >
             <MenuItem onClick={redirectToOffers}>
-                <Button  variant="text" color="inherit" size="medium" style={{fontWeight: 600}}>{ t('public:navbar:offers')}</Button>
+                <Button variant="text" color="inherit" size="medium" style={{ fontWeight: 600 }}>{t('public:navbar:offers')}</Button>
             </MenuItem>
             <MenuItem onClick={redirectToDemo}>
-                <Button  variant="outlined" color="error" size="medium" style={{fontWeight: 600}}>{ t('public:navbar:ask_for_demo')}</Button>
+                <Button variant="outlined" color="error" size="medium" style={{ fontWeight: 600 }}>{t('public:navbar:ask_for_demo')}</Button>
             </MenuItem>
             <MenuItem onClick={connectHandler}>
                 <Button variant="text"
-                        color="inherit"
-                        size="medium"
-                        aria-label="account of current user"
-                        //onClick={handleProfileMenuOpen}
-                        style={{fontWeight: 600}}
+                    color="inherit"
+                    size="medium"
+                    aria-label="account of current user"
+                    //onClick={handleProfileMenuOpen}
+                    style={{ fontWeight: 600 }}
                 >
-                    { t('public:navbar:connect')}
+                    {t('public:navbar:connect')}
                 </Button>
             </MenuItem>
             <MenuItem>
-                <LangSwitcher/>
+                <LangSwitcher />
             </MenuItem>
-            <MenuItem style={{display:'none'}}>
-                <IconButton style={{color:'black'}} aria-label="add to shopping cart" sx={{mr:2}}>
+            <MenuItem style={{ display: 'none' }}>
+                <IconButton style={{ color: 'black' }} aria-label="add to shopping cart" sx={{ mr: 2 }}>
                     <WbSunnyIcon />
                 </IconButton>
             </MenuItem>
@@ -112,15 +112,15 @@ export default function NavBar(props) {
 
         <Box sx={{ flexGrow: 1 }}>
             <HideOnScroll {...props}>
-                <AppBar style={{backgroundColor:theme.palette.background.paper}} elevation={0}>
+                <AppBar style={{ backgroundColor: "#FFFFFF" }} elevation={1}>
                     <Toolbar>
-                        <Button style={{textTransform: 'capitalize', backgroundColor:'transparent'}} disableRipple={true} startIcon={<img src={iconPlanet} height={40} alt="logo"/>} onClick={() => { navigate('/')}}>
+                        <Button style={{ textTransform: 'capitalize', backgroundColor: 'transparent' }} disableRipple={true} startIcon={<img src={iconPlanet} height={40} alt="logo" />} onClick={() => { navigate('/') }}>
                             <Typography
                                 variant="h6"
                                 noWrap
                                 component="div"
                                 color="black"
-                                style={{fontWeight:500}}
+                                style={{ fontWeight: 800 }}
                                 fontSize={24}
                             >
                                 SpaceCorner
@@ -133,35 +133,35 @@ export default function NavBar(props) {
                                 aria-label="account of current user"
                                 color="primary"
                                 onClick={redirectToOffers}
-                                style={{fontWeight:500, textTransform: 'capitalize', fontSize: 18}}
+                                style={{ fontWeight: 500, textTransform: 'capitalize', fontSize: 18 }}
                             >
-                                { t('public:navbar:offers')}
+                                {t('public:navbar:offers')}
                             </Button>
                         </Box>
                         <Box sx={{ flexGrow: 10 }} />
                         <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                            <IconButton style={{color:'black', display:'none'}} aria-label="add to shopping cart" sx={{mr:2}}>
+                            <IconButton style={{ color: 'black', display: 'none' }} aria-label="add to shopping cart" sx={{ mr: 2 }}>
                                 <WbSunnyIcon />
                             </IconButton>
-                            <Button style={{textTransform: 'none'}}>
+                            <Button style={{ textTransform: 'none' }}>
                                 <Chip variant="outlined"
-                                      aria-label="account of current user"
-                                      onClick={redirectToDemo}
-                                      color="error"
-                                      style={{fontSize: 16, fontWeight:500}}
-                                      sx={{mr:2}}
-                                      label={t('public:navbar:ask_for_demo')}
+                                    aria-label="account of current user"
+                                    onClick={redirectToDemo}
+                                    color="error"
+                                    style={{ fontSize: 16, fontWeight: 500 }}
+                                    sx={{ mr: 2 }}
+                                    label={t('public:navbar:ask_for_demo')}
                                 />
                             </Button>
                             <Button variant="text"
-                                    aria-label="account of current user"
-                                    onClick={connectHandler}
-                                    color="primary"
-                                    style={{fontWeight:500, textTransform: 'capitalize', fontSize: 18}}
+                                aria-label="account of current user"
+                                onClick={connectHandler}
+                                color="primary"
+                                style={{ fontWeight: 500, textTransform: 'capitalize', fontSize: 18 }}
                             >
-                                { t('public:navbar:connect')}
+                                {t('public:navbar:connect')}
                             </Button>
-                            <LangSwitcher/>
+                            <LangSwitcher />
                         </Box>
                         <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                             <IconButton
@@ -172,7 +172,7 @@ export default function NavBar(props) {
                                 onClick={handleMobileMenuOpen}
                                 color="inherit"
                             >
-                                <Hamburger toggled={open} toggle={setOpen} color={"black"}/>
+                                <Hamburger toggled={open} toggle={setOpen} color={"black"} />
                             </IconButton>
                         </Box>
                     </Toolbar>

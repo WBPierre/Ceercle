@@ -8,6 +8,7 @@ import * as React from "react";
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { grey } from '@mui/material/colors';
 
 function Footer() {
     const theme = useTheme();
