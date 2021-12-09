@@ -8,6 +8,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import LightModeIcon from '@mui/icons-material/LightMode';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import {Badge} from "@mui/material";
 
 const drawerWidth = 240;
 
@@ -46,6 +48,8 @@ export default function AppBar(props) {
                     <MenuIcon />
                 </IconButton>
 
+                <div style={{flexGrow: 1}}/>
+
                 <Typography
                     mr={3}
                     variant="h6"
@@ -73,6 +77,14 @@ export default function AppBar(props) {
                 >
                     | 12°
                 </Typography>
+
+                <div style={{flexGrow: 1}}/>
+
+                <IconButton aria-label="openNotif">
+                    <Badge badgeContent={4} color="error">
+                        <NotificationsIcon/>
+                    </Badge>
+                </IconButton>
 
             </Toolbar>
         </AppBarStyle>
