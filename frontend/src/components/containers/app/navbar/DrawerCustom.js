@@ -115,7 +115,7 @@ export default function DrawerCustom(props) {
                 </ListItem>
             </List>
             <List alignItems="flex-start">
-                <ListItem button>
+                <ListItem button onClick={() => navigate('/app')}>
                     <ListItemIcon>
                         <DashboardIcon color="primary" sx={{ fontSize: 30 }} />
                     </ListItemIcon>
@@ -160,7 +160,7 @@ export default function DrawerCustom(props) {
                         primary={t('app:navbar:marketplace')}
                     />
                 </ListItem>
-                <ListItem button>
+                <ListItem button onClick={() => navigate('/glossary')}>
                     <ListItemIcon>
                         <PeopleIcon sx={{ fontSize: 30 }} />
                     </ListItemIcon>
