@@ -71,7 +71,7 @@ export default function Dashboard(props) {
                         </Grid>
                     </Paper>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} mb={2}>
                     <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"}>
                         <Grid item xs={5}>
                             <Divider/>
