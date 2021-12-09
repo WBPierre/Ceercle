@@ -13,7 +13,6 @@ function Home(){
             <NavBar/>
             <Intro/>
             <ProductPresentation/>
-            <div style={{marginTop:'4%'}}/>
             <OfferDescription/>
             <Operations/>
             <Demo/>
