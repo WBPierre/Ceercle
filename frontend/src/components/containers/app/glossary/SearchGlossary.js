@@ -3,71 +3,65 @@ import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import Autocomplete from '@mui/material/Autocomplete';
+import Grid from "@mui/material/Grid";
+import SearchIcon from '@mui/icons-material/Search';
+import InputAdornment from '@mui/material/InputAdornment';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
 
-import TextField from '@mui/material/TextField';
+import GlossaryList from "./GlossaryList";
+
 
 export default function SearchGlossary(props) {
     const theme = useTheme();
     let navigate = useNavigate();
     const { t } = useTranslation();
 
-    const top100Films = [
-        { title: 'The Shawshank Redemption', year: 1994 },
-        { title: 'The Godfather', year: 1972 },
-        { title: 'The Godfather: Part II', year: 1974 },
-        { title: 'The Dark Knight', year: 2008 },
-        { title: '12 Angry Men', year: 1957 },
-        { title: "Schindler's List", year: 1993 },
-        { title: 'Pulp Fiction', year: 1994 },
-        {
-            title: 'The Lord of the Rings: The Return of the King',
-            year: 2003,
-        },
-        { title: 'The Good, the Bad and the Ugly', year: 1966 },
-        { title: 'Fight Club', year: 1999 },
-        {
-            title: 'The Lord of the Rings: The Fellowship of the Ring',
-            year: 2001,
-        },
-        {
-            title: 'Star Wars: Episode V - The Empire Strikes Back',
-            year: 1980,
-        },
-        { title: 'Forrest Gump', year: 1994 },
-        { title: 'Inception', year: 2010 },
-        {
-            title: 'The Lord of the Rings: The Two Towers',
-            year: 2002,
-        }
-    ]
+    const [value, setValue] = React.useState('');
 
-    const options = top100Films.map((option) => {
-        const firstLetter = option.title[0].toUpperCase();
-        return {
-            firstLetter: /[0-9]/.test(firstLetter) ? '0-9' : firstLetter,
-            ...option,
-        };
-    });
+
+    const handleChange = (event) => {
+        setValue(event.target.value);
+    };
 
     return (
-        <div>
-            <Typography variant="h4" fontWeight={600}>
-                Annuaire
-            </Typography>
+        <Grid container direction="column" spacing={1}>
+            <Grid item>
+                <Typography variant="h4" fontWeight={600} style={{ color: '#414040' }}>
+                    Annuaire
+                </Typography>
+            </Grid>
 
-            <Typography variant="body" fontWeight={300} fontSize={20}>
-                Rechercher parmi les 1399 employés
-            </Typography>
+            <Grid item>
+                <Typography variant="body" fontWeight={100} fontSize={18} style={{ color: '#7F7F7F' }}>
+                    Rechercher parmi les 1399 employés
+                </Typography>
+            </Grid>
 
-            <Autocomplete
-                id="grouped-demo"
-                options={options.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
-                groupBy={(option) => option.firstLetter}
-                getOptionLabel={(option) => option.title}
-                sx={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} label="Collègues de travail" />}
-            />
-        </div >
+            <Grid item mt={3}>
+                <FormControl sx={{ width: '80%' }} variant="outlined">
+                    <InputLabel htmlFor="outlined-adornment-password">Rechercher</InputLabel>
+                    <OutlinedInput
+                        id="outlined-adornment-password"
+                        value={value}
+                        onChange={handleChange}
+                        endAdornment={
+                            <InputAdornment position="end">
+                                <SearchIcon />
+                            </InputAdornment>
+                        }
+                        label="Password"
+                    />
+                </FormControl>
+            </Grid>
+
+            <Grid item mt={3}>
+                <GlossaryList searchValue={value} newUserToDisplay={props.newUserToDisplay} />
+            </Grid>
+        </Grid >
     );
 }
+
+//variable d'état sur le textfield (useState, set state) uis onchange = "handlechange"
+//zindex, absolute, 
