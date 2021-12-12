@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import LightModeIcon from '@mui/icons-material/LightMode';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import {Badge} from "@mui/material";
+import LangSwitcher from "../../../molecules/navbar/LangSwitcher";
 
 const drawerWidth = 240;
 
@@ -80,6 +81,7 @@ export default function AppBar(props) {
 
                 <div style={{flexGrow: 1}}/>
 
+                <LangSwitcher />
                 <IconButton aria-label="openNotif">
                     <Badge badgeContent={4} color="error">
                         <NotificationsIcon/>
