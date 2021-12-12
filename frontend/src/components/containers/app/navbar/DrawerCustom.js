@@ -114,7 +114,7 @@ export default function DrawerCustom(props) {
                     </IconButton>
                 </ListItem>
             </List>
-            <List alignItems="flex-start">
+            <List>
                 <ListItem button>
                     <ListItemIcon>
                         <DashboardIcon color="primary" sx={{ fontSize: 30 }} />
