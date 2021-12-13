@@ -49,7 +49,7 @@ function Operations({ props }) {
                                             <Typography textAlign={"center"} variant="h4" style={{ color: '#AC4944' }} fontSize={28} fontWeight={600}>{t('public:home:operations.card_1.title')}</Typography>
                                         </Grid>
                                         <Grid item>
-                                            <Typography textAlign={"center"} style={{ color: '#2F5597' }} fontSize={16} fontWeight={400}>{t('public:home:operations.card_1.text')}</Typography>
+                                            <Typography textAlign={"center"} style={{ color: '#7F7F7F' }} fontSize={16} fontWeight={400}>{t('public:home:operations.card_1.text')}</Typography>
                                         </Grid>
                                     </Grid>
                                 </Fade>
@@ -64,7 +64,7 @@ function Operations({ props }) {
                                             <Typography textAlign={"center"} variant="h4" style={{ color: '#AC4944' }} fontSize={28} fontWeight={600}>{t('public:home:operations.card_2.title')}</Typography>
                                         </Grid>
                                         <Grid item>
-                                            <Typography textAlign={"center"} style={{ color: '#2F5597' }} fontSize={16} fontWeight={400}>{t('public:home:operations.card_2.text')}</Typography>
+                                            <Typography textAlign={"center"} style={{ color: '#7F7F7F' }} fontSize={16} fontWeight={400}>{t('public:home:operations.card_2.text')}</Typography>
                                         </Grid>
                                     </Grid>
                                 </Fade>
@@ -79,7 +79,7 @@ function Operations({ props }) {
                                             <Typography textAlign={"center"} variant="h4" style={{ color: '#AC4944' }} fontSize={28} fontWeight={600}>{t('public:home:operations.card_3.title')}</Typography>
                                         </Grid>
                                         <Grid item>
-                                            <Typography textAlign={"center"} style={{ color: '#2F5597' }} fontSize={16} fontWeight={400}>{t('public:home:operations.card_3.text')}</Typography>
+                                            <Typography textAlign={"center"} style={{ color: '#7F7F7F' }} fontSize={16} fontWeight={400}>{t('public:home:operations.card_3.text')}</Typography>
                                         </Grid>
                                     </Grid>
                                 </Fade>
@@ -94,7 +94,7 @@ function Operations({ props }) {
                                             <Typography textAlign={"center"} variant="h4" style={{ color: '#AC4944' }} fontSize={28} fontWeight={600}>{t('public:home:operations.card_4.title')}</Typography>
                                         </Grid>
                                         <Grid item>
-                                            <Typography textAlign={"center"} style={{ color: '#2F5597' }} fontSize={16} fontWeight={400}>{t('public:home:operations.card_4.text')}</Typography>
+                                            <Typography textAlign={"center"} style={{ color: '#7F7F7F' }} fontSize={16} fontWeight={400}>{t('public:home:operations.card_4.text')}</Typography>
                                         </Grid>
                                     </Grid>
                                 </Fade>

@@ -11,7 +11,7 @@ function Demo() {
     const { t } = useTranslation();
     let navigate = useNavigate();
     return (
-        <div style={{ backgroundColor: '#2F5597' }}>
+        <div style={{ backgroundColor: '#AC4944' }}>
             <Container>
                 <Grid container direction={"row"} spacing={5} pt={1} pb={4}>
                     <Grid item xs={12} md={8}>

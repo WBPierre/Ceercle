@@ -60,15 +60,15 @@ function OfferDescription(props) {
                                         </Grid>
                                         <Grid item pl={10}>
                                             <Fade direction={"left"} triggerOnce={true}>
-                                                <Typography variant="h4" fontWeight={600}>{t('public:home:offer_description.step_1.title_1')} <span style={{ color: '#4C82D3' }}>{t('public:home:offer_description.step_1.title_1_color')}.</span> </Typography>
-                                                <Typography variant="h4" fontWeight={600}>{t('public:home:offer_description.step_1.title_2')} <span style={{ color: '#9872B2' }}>{t('public:home:offer_description.step_1.title_2_color')}.</span></Typography>
-                                                <Typography variant="h4" fontWeight={600}>{t('public:home:offer_description.step_1.title_3')} <span style={{ color: '#60B56D' }}>{t('public:home:offer_description.step_1.title_3_color')}.</span></Typography>
+                                                <Typography variant="h4" fontWeight={600}>{t('public:home:offer_description.step_1.title_1')} <span style={{ color: '#4C82D3' }}>{t('public:home:offer_description.step_1.title_1_color')}</span> </Typography>
+                                                <Typography variant="h4" fontWeight={600}>{t('public:home:offer_description.step_1.title_2')} <span style={{ color: '#9872B2' }}>{t('public:home:offer_description.step_1.title_2_color')}</span></Typography>
+                                                <Typography variant="h4" fontWeight={600}>{t('public:home:offer_description.step_1.title_3')} <span style={{ color: '#60B56D' }}>{t('public:home:offer_description.step_1.title_3_color')}</span></Typography>
 
                                             </Fade>
                                         </Grid>
                                         <Grid item py={5} pl={10}>
                                             <Fade direction={"left"} triggerOnce={true}>
-                                                <Typography variant="body1" fontSize={18}>{t('public:home:offer_description.step_1.text')}</Typography>
+                                                <Typography variant="body1" style={{color: '#7F7F7F'}} fontSize={18}>{t('public:home:offer_description.step_1.text')}</Typography>
                                             </Fade>
                                         </Grid>
                                     </Grid>
@@ -99,12 +99,12 @@ function OfferDescription(props) {
                                         </Grid>
                                         <Grid item pl={10}>
                                             <Fade direction={"left"} triggerOnce={true}>
-                                                <Typography variant="h4" fontWeight={600}>{t('public:home:offer_description.step_2.title_1')} <span style={{ color: '#C00000' }}>{t('public:home:offer_description.step_2.title_1_color')}</span>  {t('public:home:offer_description.step_2.title_2')} <span style={{ color: '#0087E9' }}>{t('public:home:offer_description.step_2.title_2_color')}</span>.</Typography>
+                                                <Typography variant="h4" fontWeight={600}>{t('public:home:offer_description.step_2.title_1')} <span style={{ color: '#C00000' }}>{t('public:home:offer_description.step_2.title_1_color')}</span>  {t('public:home:offer_description.step_2.title_2')} <span style={{ color: '#0087E9' }}>{t('public:home:offer_description.step_2.title_2_color')}</span></Typography>
                                             </Fade>
                                         </Grid>
                                         <Grid item py={5} pl={10}>
                                             <Fade direction={"left"} triggerOnce={true}>
-                                                <Typography variant="body1" fontSize={18}>{t('public:home:offer_description.step_2.text')}</Typography>
+                                                <Typography variant="body1" style={{color: '#7F7F7F'}} fontSize={18}>{t('public:home:offer_description.step_2.text')}</Typography>
                                             </Fade>
                                         </Grid>
                                     </Grid>
@@ -147,13 +147,13 @@ function OfferDescription(props) {
                                         </Grid>
                                         <Grid item pl={10}>
                                             <Fade direction={"left"} triggerOnce={true}>
-                                                <Typography variant="h4" fontWeight={600}><span style={{ color: '#FFC000' }}>{t('public:home:offer_description.step_3.title_1_color')}</span>{t('public:home:offer_description.step_3.title_1')}.</Typography>
-                                                <Typography variant="h4" fontWeight={600}><span style={{ color: '#5046E5' }}>{t('public:home:offer_description.step_3.title_2_color')}</span>{t('public:home:offer_description.step_3.title_2')}.</Typography>
+                                                <Typography variant="h4" fontWeight={600}><span style={{ color: '#FFC000' }}>{t('public:home:offer_description.step_3.title_1_color')}</span>{t('public:home:offer_description.step_3.title_1')}</Typography>
+                                                <Typography variant="h4" fontWeight={600}><span style={{ color: '#5046E5' }}>{t('public:home:offer_description.step_3.title_2_color')}</span>{t('public:home:offer_description.step_3.title_2')}</Typography>
                                             </Fade>
                                         </Grid>
                                         <Grid item py={5} pl={10}>
                                             <Fade direction={"left"} triggerOnce={true}>
-                                                <Typography variant="body1" fontSize={18}>{t('public:home:offer_description.step_3.text')}</Typography>
+                                                <Typography variant="body1" style={{color: '#7F7F7F'}} fontSize={18}>{t('public:home:offer_description.step_3.text')}</Typography>
                                             </Fade>
                                         </Grid>
                                     </Grid>
@@ -184,12 +184,12 @@ function OfferDescription(props) {
                                         </Grid>
                                         <Grid item pl={10}>
                                             <Fade direction={"left"} triggerOnce={true}>
-                                                <Typography variant="h4" fontWeight={600}>{t('public:home:offer_description.step_4.title_1')}<span style={{ color: '#60B56D' }}>{t('public:home:offer_description.step_4.title_1_color')}</span>.</Typography>
+                                                <Typography variant="h4" fontWeight={600}>{t('public:home:offer_description.step_4.title_1')}<span style={{ color: '#60B56D' }}>{t('public:home:offer_description.step_4.title_1_color')}</span></Typography>
                                             </Fade>
                                         </Grid>
                                         <Grid item py={5} pl={10}>
                                             <Fade direction={"left"} triggerOnce={true}>
-                                                <Typography variant="body1" fontSize={18}>{t('public:home:offer_description.step_4.text')}</Typography>
+                                                <Typography variant="body1" style={{color: '#7F7F7F'}} fontSize={18}>{t('public:home:offer_description.step_4.text')}</Typography>
                                             </Fade>
                                         </Grid>
                                     </Grid>
@@ -252,13 +252,13 @@ function OfferDescription(props) {
                                                 </Grid>
                                                 <Grid item pl={5}>
                                                     <Fade direction={"left"} triggerOnce={true}>
-                                                        <Typography variant="h4" fontWeight={600}>{t('public:home:offer_description.step_1.title_1')} <span style={{ color: '#4C82D3' }}>{t('public:home:offer_description.step_1.title_1_color')}.</span> </Typography>
-                                                        <Typography variant="h4" fontWeight={600}>{t('public:home:offer_description.step_1.title_2')} <span style={{ color: '#9872B2' }}>{t('public:home:offer_description.step_1.title_2_color')}.</span> {t('public:home:offer_description.step_1.title_3')} <span style={{ color: '#60B56D' }}>{t('public:home:offer_description.step_1.title_3_color')}.</span> </Typography>
+                                                        <Typography variant="h4" fontWeight={600}>{t('public:home:offer_description.step_1.title_1')} <span style={{ color: '#4C82D3' }}>{t('public:home:offer_description.step_1.title_1_color')}</span> </Typography>
+                                                        <Typography variant="h4" fontWeight={600}>{t('public:home:offer_description.step_1.title_2')} <span style={{ color: '#9872B2' }}>{t('public:home:offer_description.step_1.title_2_color')}</span> {t('public:home:offer_description.step_1.title_3')} <span style={{ color: '#60B56D' }}>{t('public:home:offer_description.step_1.title_3_color')}</span> </Typography>
                                                     </Fade>
                                                 </Grid>
                                                 <Grid item py={5} pl={5}>
                                                     <Fade direction={"left"} triggerOnce={true}>
-                                                        <Typography variant="body1" fontSize={18}>{t('public:home:offer_description.step_1.text')}</Typography>
+                                                        <Typography variant="body1" style={{color: '#7F7F7F'}} fontSize={18}>{t('public:home:offer_description.step_1.text')}</Typography>
                                                     </Fade>
                                                 </Grid>
                                             </Grid>
@@ -282,12 +282,12 @@ function OfferDescription(props) {
                                                 </Grid>
                                                 <Grid item pl={5}>
                                                     <Fade direction={"left"} triggerOnce={true}>
-                                                        <Typography variant="h4" fontWeight={600}>{t('public:home:offer_description.step_2.title_1')} <span style={{ color: '#C00000' }}>{t('public:home:offer_description.step_2.title_1_color')}</span>  {t('public:home:offer_description.step_2.title_2')} <span style={{ color: '#0087E9' }}>{t('public:home:offer_description.step_2.title_2_color')}</span>.</Typography>
+                                                        <Typography variant="h4" fontWeight={600}>{t('public:home:offer_description.step_2.title_1')} <span style={{ color: '#C00000' }}>{t('public:home:offer_description.step_2.title_1_color')}</span>  {t('public:home:offer_description.step_2.title_2')} <span style={{ color: '#0087E9' }}>{t('public:home:offer_description.step_2.title_2_color')}</span></Typography>
                                                     </Fade>
                                                 </Grid>
                                                 <Grid item py={5} pl={5}>
                                                     <Fade direction={"left"} triggerOnce={true}>
-                                                        <Typography variant="body1" fontSize={18}>{t('public:home:offer_description.step_2.text')}</Typography>
+                                                        <Typography variant="body1" style={{color: '#7F7F7F'}} fontSize={18}>{t('public:home:offer_description.step_2.text')}</Typography>
                                                     </Fade>
                                                 </Grid>
                                             </Grid>
@@ -316,13 +316,13 @@ function OfferDescription(props) {
                                                 </Grid>
                                                 <Grid item pl={5}>
                                                     <Fade direction={"left"} triggerOnce={true}>
-                                                        <Typography variant="h4" fontWeight={600}><span style={{ color: '#FFC000' }}>{t('public:home:offer_description.step_3.title_1_color')}</span>{t('public:home:offer_description.step_3.title_1')}.</Typography>
-                                                        <Typography variant="h4" fontWeight={600}><span style={{ color: '#5046E5' }}>{t('public:home:offer_description.step_3.title_2_color')}</span>{t('public:home:offer_description.step_3.title_2')}.</Typography>
+                                                        <Typography variant="h4" fontWeight={600}><span style={{ color: '#FFC000' }}>{t('public:home:offer_description.step_3.title_1_color')}</span>{t('public:home:offer_description.step_3.title_1')}</Typography>
+                                                        <Typography variant="h4" fontWeight={600}><span style={{ color: '#5046E5' }}>{t('public:home:offer_description.step_3.title_2_color')}</span>{t('public:home:offer_description.step_3.title_2')}</Typography>
                                                     </Fade>
                                                 </Grid>
                                                 <Grid item py={5} pl={5}>
                                                     <Fade direction={"left"} triggerOnce={true}>
-                                                        <Typography variant="body1" fontSize={18}>{t('public:home:offer_description.step_3.text')}</Typography>
+                                                        <Typography variant="body1" style={{color: '#7F7F7F'}} fontSize={18}>{t('public:home:offer_description.step_3.text')}</Typography>
                                                     </Fade>
                                                 </Grid>
                                             </Grid>
@@ -346,12 +346,12 @@ function OfferDescription(props) {
                                                 </Grid>
                                                 <Grid item pl={5}>
                                                     <Fade direction={"left"} triggerOnce={true}>
-                                                        <Typography variant="h4" fontWeight={600}>{t('public:home:offer_description.step_4.title_1')}<span style={{ color: '#60B56D' }}>{t('public:home:offer_description.step_4.title_1_color')}</span>.</Typography>
+                                                        <Typography variant="h4" fontWeight={600}>{t('public:home:offer_description.step_4.title_1')}<span style={{ color: '#60B56D' }}>{t('public:home:offer_description.step_4.title_1_color')}</span></Typography>
                                                     </Fade>
                                                 </Grid>
                                                 <Grid item py={5} pl={5}>
                                                     <Fade direction={"left"} triggerOnce={true}>
-                                                        <Typography variant="body1" fontSize={18}>{t('public:home:offer_description.step_4.text')}</Typography>
+                                                        <Typography variant="body1" style={{color: '#7F7F7F'}} fontSize={18}>{t('public:home:offer_description.step_4.text')}</Typography>
                                                     </Fade>
                                                 </Grid>
                                             </Grid>
