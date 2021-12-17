@@ -1,7 +1,7 @@
 const {Sequelize} = require('sequelize');
 const {initDatabase} = require("./init/database");
 
-const db = new Sequelize('postgres://admin:root@localhost:5432/spacecorner',
+const db = new Sequelize('postgres://admin:root@postgres:5432/spacecorner',
     {
         logging: false,
         define: {

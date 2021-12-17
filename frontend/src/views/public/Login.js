@@ -25,6 +25,10 @@ function Login(){
     const theme = useTheme();
     let navigate = useNavigate();
 
+    const handleConnectTest = () => {
+        console.log('tt')
+    }
+
     return(
 
         <Container style={{minHeight:'100vh', display:'flex', minWidth:'100%', backgroundColor: theme.palette.background.paper}}>
@@ -62,7 +66,7 @@ function Login(){
                             <Grid container direction="row"  alignItems="center" justifyContent="center" spacing={1} mb={1}>
                                 <Grid item md={1}>
                                     <Tooltip title={ t('public:login:connect_with_google') } placement="top">
-                                        <IconButton sx={{mr:2}}>
+                                        <IconButton sx={{mr:2}} onClick={() => handleConnectTest()}>
                                             <GoogleIcon />
                                         </IconButton>    
                                     </Tooltip>
