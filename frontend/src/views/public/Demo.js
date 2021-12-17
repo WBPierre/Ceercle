@@ -50,7 +50,7 @@ function Demo(){
             "fonction": fonction,
             "zipCode":zipCode,
             "email":email,
-            "phone":phone
+            "phoneNumber":phone
         };
         axios.post('/api/contact', resources).then((res) => {
             setAwaitingResponse(false);

@@ -1,6 +1,9 @@
-import ContactController from "../../src/controllers/ContactController.js";
+const express = require("express");
+const router = express.Router();
+const ContactController = require("../../src/controllers/ContactController");
 
-export default function(server){
-    server.post('/api/contact',
-        ContactController.sendContact);
-};
+router.post('/', ContactController.validate('contactRequest'), ContactController.sendContact);
+router.get('/',  ContactController.listAllContacts);
+router.get('/:id',  ContactController.validate('getContact'), ContactController.getContact);
+
+module.exports = router;

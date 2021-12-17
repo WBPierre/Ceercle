@@ -1,5 +1,5 @@
-import DataTypes from "sequelize";
-import db from "./../../config/database.js";
+const {DataTypes} = require('sequelize');
+const {db} =  require("./../../config/database");
 
 const Contact = db.define('contact', {
     // Model attributes are defined here
@@ -37,6 +37,4 @@ const Contact = db.define('contact', {
     freezeTableName: true
 });
 
-await Contact.sync({ force: true });
-
-export default Contact;
+module.exports = Contact;

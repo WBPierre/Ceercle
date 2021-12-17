@@ -1,22 +1,26 @@
-import {Sequelize} from "sequelize";
+const {Sequelize} = require('sequelize');
+const {initDatabase} = require("./init/database");
 
-const db = new Sequelize('postgres://admin:root@postgres:5432/spacecorner',
+const db = new Sequelize('postgres://admin:root@localhost:5432/spacecorner',
     {
-        logging: console.log,
+        logging: false,
         define: {
             freezeTableName: true
         }
     })
 
-try {
-    await db.authenticate();
-    console.log('Connection to the database has been established successfully.');
-} catch (error) {
-    console.error('Unable to connect to the database:', error);
+
+async function verifyDatabase(){
+    try {
+        await db.authenticate();
+        console.log('Connection to the database has been established successfully.');
+        console.log('Database synchronizing...');
+        await db.sync({ alter: true });
+        console.log('Database synchronized');
+        return true;
+    } catch (error) {
+        console.error('Unable to connect to the database:', error);
+    }
 }
 
-await db.sync({ force: true });
-console.log("All models were synchronized successfully.");
-
-
-export default db;
+module.exports = {db, verifyDatabase};
