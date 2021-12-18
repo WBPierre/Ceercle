@@ -7,18 +7,6 @@ class ApiService {
         })
     }
 
-    addAuthorization(url, config) {
-        this.instance.interceptors.request.use(
-            request => {
-                /* SECURITY RULES - NOT IMPLEMENTED YET ON API SERVER
-                if(!url.startsWith("/config") && !url.startsWith("/auth/signin") && !url.startsWith("/health")){
-                    request.headers["Authorization"] = `Bearer `+Cookie.get("token");
-                }*/
-                return request;
-            }
-        )
-    }
-
     setHeader(token) {
         this.instance.defaults.headers.common.Authorization = `Token ${token}`
     }
@@ -28,6 +16,7 @@ class ApiService {
     }
 
     request(method, url, data = {}, config = {}) {
+
         return this.instance({
             method,
             url,

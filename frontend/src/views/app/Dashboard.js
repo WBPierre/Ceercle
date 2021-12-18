@@ -19,7 +19,8 @@ import Team from "../../components/containers/app/dashboard/Team";
 import Favorites from "../../components/containers/app/dashboard/Favorites";
 import CustomContainer from "../../components/containers/app/CustomContainer";
 import Fade from 'react-reveal/Fade';
-import {useState} from "react";
+import {useContext, useState} from "react";
+import {UserContext} from "../../components/context/auth/AuthProvider";
 
 export default function Dashboard(props) {
 
