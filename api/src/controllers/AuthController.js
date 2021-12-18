@@ -24,20 +24,25 @@ exports.login = async function (req, res, next) {
                 res.status(404);
                 res.send();
             }else{
-                if(Security.verifyPassword(password, record.password)){
-                    jwt.sign({
-                        user: {
-                            id: record.id,
-                            firstName: record.firstName,
-                            lastName: record.lastName,
-                            email: record.email,
-                            companyId: record.companyId,
-                            active: record.active,
-                            isAdmin: record.isAdmin
-                        }}, config.secrets.jwt_key, {expiresIn: '7 days'}, (err, token) => {
-                        if(err) res.send(err);
-                        res.json({token});
-                    });
+                if(record.active){
+                    if(Security.verifyPassword(password, record.password)){
+                        jwt.sign({
+                            user: {
+                                id: record.id,
+                                firstName: record.firstName,
+                                lastName: record.lastName,
+                                email: record.email,
+                                companyId: record.companyId,
+                                active: record.active,
+                                isAdmin: record.isAdmin
+                            }}, config.secrets.jwt_key, {expiresIn: '7 days'}, (err, token) => {
+                            if(err) res.send(err);
+                            res.json({token});
+                        });
+                    }else{
+                        res.status(403);
+                        res.send();
+                    }
                 }else{
                     res.status(403);
                     res.send();
@@ -46,6 +51,23 @@ exports.login = async function (req, res, next) {
         });
     } catch(err) {
         return next(err)
+    }
+}
+
+exports.verify = function (req, res, next) {
+    const authHeader = req.headers.authorization;
+
+    if(!authHeader) {
+        return res.sendStatus(400);
+    } else {
+        jwt.verify(authHeader.split(' ')[1], config.secrets.jwt_key, (err, authData) => {
+            if(err) return res.status(403).json(err);
+            res.status(200).json({
+                firstName: authData.user.firstName,
+                lastName: authData.user.lastName,
+                email: authData.user.email
+            });
+        });
     }
 }
 

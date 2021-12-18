@@ -4,8 +4,10 @@ module.exports = function(server) {
     const CompanyRoutes = require('./routes/CompanyRoutes');
     const AuthRoutes = require('./routes/AuthRoutes');
 
-    server.use("/users", UserRoutes);
-    server.use("/contact", ContactRoutes);
-    server.use("/company", CompanyRoutes);
-    server.use("/auth", AuthRoutes);
+    const baseUrl = "/api"
+
+    server.use(baseUrl+"/users", UserRoutes);
+    server.use(baseUrl+"/contact", ContactRoutes);
+    server.use(baseUrl+"/company", CompanyRoutes);
+    server.use(baseUrl+"/auth", AuthRoutes);
 }

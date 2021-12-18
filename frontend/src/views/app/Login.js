@@ -19,11 +19,47 @@ import MicrosoftIcon from "../../components/molecules/icons/MicrosoftIcon";
 import SlackIcon from "../../components/molecules/icons/SlackIcon";
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
+import {useRef, useState} from "react";
+import AuthService from "../../services/app/auth.service";
+import ApiService from "../../services/api.service";
+import { useCookies } from 'react-cookie';
 
 function Login(){
     const { t } = useTranslation();
     const theme = useTheme();
     let navigate = useNavigate();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [cookies, setCookie] = useCookies(['token']);
+
+    const handleConnectTest = () => {
+        setEmail('test@test.com');
+        setPassword('test');
+    }
+
+    const handleChange = (event) => {
+        if(event.target.name === "email"){
+            setEmail(event.target.value);
+        }else{
+            setPassword(event.target.value);
+        }
+    }
+
+    const login = async () => {
+        const resources = {
+            email: email,
+            password: password
+        }
+        await AuthService.login(resources).then( (res) => {
+            if(res.status !== 200){
+                console.log("Error to handle")
+            }else{
+                setCookie('token', res.data.token);
+                ApiService.setHeader(res.data.token)
+                navigate('/app/')
+            }
+        });
+    }
 
     return(
 
@@ -62,7 +98,7 @@ function Login(){
                             <Grid container direction="row"  alignItems="center" justifyContent="center" spacing={1} mb={1}>
                                 <Grid item md={1}>
                                     <Tooltip title={ t('public:login:connect_with_google') } placement="top">
-                                        <IconButton sx={{mr:2}}>
+                                        <IconButton sx={{mr:2}} onClick={() => handleConnectTest()}>
                                             <GoogleIcon />
                                         </IconButton>    
                                     </Tooltip>
@@ -98,6 +134,8 @@ function Login(){
                                 label={ t('generic:email') }
                                 name="email"
                                 autoComplete="email"
+                                value={email}
+                                onChange={handleChange}
                                 />
                                 <TextField
                                 margin="normal"
@@ -108,14 +146,17 @@ function Login(){
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
+                                value={password}
+                                onChange={handleChange}
                                 />
                                 <FormControlLabel
                                 control={<Checkbox value="remember" sx={{color:"#363535"}} />}
                                 label={ t('public:login:stay_connected') }
                                 />
                                 <Button
-                                type="submit"
+                                type="button"
                                 fullWidth
+                                onClick={() => login()}
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
                                 >

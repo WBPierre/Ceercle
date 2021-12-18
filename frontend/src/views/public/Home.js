@@ -6,8 +6,11 @@ import Demo from "../../components/containers/public/home/Demo";
 import Footer from "../../components/containers/public/footer/Footer";
 import Intro from "../../components/containers/public/home/Intro";
 import Operations from "../../components/containers/public/home/Operations";
+import {useContext} from "react";
+import {UserContext} from "../../components/context/auth/AuthProvider";
 
 function Home(){
+
     return(
         <Container maxWidth={false} disableGutters={true}>
             <NavBar/>
