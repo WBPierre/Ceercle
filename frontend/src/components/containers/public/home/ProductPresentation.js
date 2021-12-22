@@ -8,12 +8,15 @@ import iconCalendar from "../../../../assets/images/icons/iconCalendar.png";
 import iconOffice from "../../../../assets/images/icons/iconOffice.png";
 import anaBranson from "../../../../assets/images/home/productPresentation/anaBranson.png";
 import seat from "../../../../assets/images/home/productPresentation/seat.png";
+import seat_en from "../../../../assets/images/home/productPresentation/seat_en.png";
 import { Chip, useTheme } from "@mui/material";
 import Box from "@mui/material/Box";
 import { Fade, Zoom } from 'react-awesome-reveal';
+import step_3 from "../../../../assets/images/home/value/step_3.png";
+import step_3_en from "../../../../assets/images/home/value/step_3_en.png";
 
 function ProductPresentation({ props }) {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const theme = useTheme();
 
 
@@ -58,7 +61,7 @@ function ProductPresentation({ props }) {
                                     <Grid container flexDirection={"column"} style={{ height: '100%' }} justifyContent={"flex-end"} alignItems={"center"}>
                                         <Grid item>
                                             <Fade direction={"right"} triggerOnce={true}>
-                                                <img src={seat} style={{ width: '100%' }} alt="contact" />
+                                                <img src={i18n.language === "fr" ? seat : seat_en} style={{ width: '100%' }} alt="contact" />
                                             </Fade>
                                         </Grid>
                                     </Grid>
