@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useTranslation } from "react-i18next";
 import Container from "@mui/material/Container";
-import { Chip } from "@mui/material";
+import {Chip, Paper} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 
@@ -11,8 +11,9 @@ function Demo() {
     const { t } = useTranslation();
     let navigate = useNavigate();
     return (
-        <div style={{ backgroundColor: '#AC4944' }}>
-            <Container>
+        <div>
+            <Container style={{marginBottom: '1%'}} >
+                <Paper style={{ backgroundColor: '#AC4944', borderRadius: '25px', paddingLeft: '25px' }} elevation={3}>
                 <Grid container direction={"row"} spacing={5} pt={1} pb={4}>
                     <Grid item xs={12} md={8}>
                         <Typography variant="h4" fontSize={22} color="#FFFFFF" fontWeight={600} align="left">
@@ -30,7 +31,8 @@ function Demo() {
                         </Grid>
                     </Grid>
                 </Grid>
-            </Container>
+            </Paper>
+        </Container>
         </div>
     )
 

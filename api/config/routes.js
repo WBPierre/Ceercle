@@ -3,6 +3,7 @@ module.exports = function(server) {
     const ContactRoutes = require('./routes/ContactRoutes');
     const CompanyRoutes = require('./routes/CompanyRoutes');
     const AuthRoutes = require('./routes/AuthRoutes');
+    const TimeSheetRoutes = require('./routes/TimeSheetRoutes');
 
     const baseUrl = "/api"
 
@@ -10,4 +11,5 @@ module.exports = function(server) {
     server.use(baseUrl+"/contact", ContactRoutes);
     server.use(baseUrl+"/company", CompanyRoutes);
     server.use(baseUrl+"/auth", AuthRoutes);
+    server.use(baseUrl+"/time", TimeSheetRoutes);
 }

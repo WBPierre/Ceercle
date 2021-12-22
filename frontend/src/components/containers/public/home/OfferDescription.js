@@ -6,6 +6,10 @@ import step_1 from "../../../../assets/images/home/value/step_1.png";
 import step_2 from "../../../../assets/images/home/value/step_2.png";
 import step_3 from "../../../../assets/images/home/value/step_3.png";
 import step_4 from "../../../../assets/images/home/value/step_4.png";
+import step_1_en from "../../../../assets/images/home/value/step_1_en.png";
+import step_2_en from "../../../../assets/images/home/value/step_2_en.png";
+import step_3_en from "../../../../assets/images/home/value/step_3_en.png";
+import step_4_en from "../../../../assets/images/home/value/step_4_en.png";
 import step_1_2 from "../../../../assets/images/home/value/step_1_2.png";
 import step_2_2 from "../../../../assets/images/home/value/step_2_2.png";
 import step_3_2 from "../../../../assets/images/home/value/step_3_2.png";
@@ -13,10 +17,14 @@ import step_3_3 from "../../../../assets/images/home/value/step_3_3.png";
 import step_4_2 from "../../../../assets/images/home/value/step_4_2.png";
 import Box from "@mui/material/Box";
 import { Fade } from 'react-awesome-reveal';
+import IconButton from "@mui/material/IconButton";
+import AddIcon from '@mui/icons-material/Add';
+import PlanningImage from "../../../../assets/images/home/intro/planning.png";
+import PlanningImageEN from "../../../../assets/images/home/intro/planning_en.png";
 
 function OfferDescription(props) {
 
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const theme = useTheme();
 
 
@@ -77,7 +85,7 @@ function OfferDescription(props) {
                                     <Grid container direction={"row"} style={{ height: '100%' }} alignItems={"center"}>
                                         <Grid item xs={12} style={{ textAlign: 'center' }}>
                                             <Fade direction={"right"} triggerOnce={true}>
-                                                <img src={step_1} style={{ height: '50%', width: '50%' }} alt="contact" />
+                                                <img src={i18n.language === "fr" ? step_1 : step_1_en} style={{ height: '50%', width: '50%' }} alt="contact" />
                                             </Fade>
                                         </Grid>
                                     </Grid>
@@ -92,7 +100,7 @@ function OfferDescription(props) {
                             <Grid container direction={"row"} style={{ height: '100%' }}>
                                 <Grid item md={6} style={{ height: '100%' }} px={10}>
                                     <Grid container direction={"column"} style={{ height: '100%' }} justifyContent={"center"}>
-                                        <Grid item pl={10} py={5}>
+                                        <Grid item pl={10}>
                                             <Fade direction={"left"} triggerOnce={true}>
                                                 <img src={step_2_2} style={{ height: '30%', width: '30%' }} alt="contact" />
                                             </Fade>
@@ -113,7 +121,7 @@ function OfferDescription(props) {
                                     <Grid container direction={"row"} style={{ height: '100%' }} alignItems={"center"}>
                                         <Grid item xs={12} style={{ textAlign: 'center' }}>
                                             <Fade direction={"right"} triggerOnce={true}>
-                                                <img src={step_2} style={{ height: '60%', width: '60%' }} alt="contact" />
+                                                <img src={i18n.language === "fr" ? step_2 : step_2_en} style={{ height: '60%', width: '60%' }} alt="contact" />
                                             </Fade>
                                         </Grid>
                                     </Grid>
@@ -136,10 +144,17 @@ function OfferDescription(props) {
                                         <Grid item pl={10} py={5}>
                                             <Fade direction={"left"} triggerOnce={true}>
                                                 <Grid container direction={"row"}>
-                                                    <Grid item md={3}>
+                                                    <Grid item md={3} textAlign={"center"}>
                                                         <img src={step_3_2} style={{ height: '100%', width: '80%' }} alt="contact" />
                                                     </Grid>
-                                                    <Grid item md={3}>
+                                                    <Grid item md={1}>
+                                                        <Grid container style={{height:'100%'}} justifyContent={"center"} alignItems={"center"} direction={"column"}>
+                                                            <Grid item>
+                                                                <AddIcon style={{fontSize: 50}} />
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Grid>
+                                                    <Grid item md={3} textAlign={"center"}>
                                                         <img src={step_3_3} style={{ height: '100%', width: '80%' }} alt="contact" />
                                                     </Grid>
                                                 </Grid>
@@ -162,7 +177,7 @@ function OfferDescription(props) {
                                     <Grid container direction={"row"} style={{ height: '100%' }} alignItems={"center"}>
                                         <Grid item xs={12} style={{ textAlign: 'center' }}>
                                             <Fade direction={"right"} triggerOnce={true}>
-                                                <img src={step_3} style={{ height: '60%', width: '60%' }} alt="contact" />
+                                                <img src={i18n.language === "fr" ? step_3 : step_3_en} style={{ height: '60%', width: '60%' }} alt="contact" />
                                             </Fade>
                                         </Grid>
                                     </Grid>
@@ -177,7 +192,7 @@ function OfferDescription(props) {
                             <Grid container direction={"row"} style={{ height: '100%' }}>
                                 <Grid item md={6} style={{ height: '100%' }} px={10}>
                                     <Grid container direction={"column"} style={{ height: '100%' }} justifyContent={"center"}>
-                                        <Grid item pl={10} py={5}>
+                                        <Grid item pl={10}>
                                             <Fade direction={"left"} triggerOnce={true}>
                                                 <img src={step_4_2} style={{ height: '30%', width: '30%' }} alt="contact" />
                                             </Fade>
@@ -198,7 +213,7 @@ function OfferDescription(props) {
                                     <Grid container direction={"row"} style={{ height: '100%' }} alignItems={"center"}>
                                         <Grid item xs={12} style={{ textAlign: 'center' }}>
                                             <Fade direction={"right"} triggerOnce={true}>
-                                                <img src={step_4} style={{ height: '70%', width: '70%' }} alt="contact" />
+                                                <img src={i18n.language === "fr" ? step_4 : step_4_en} style={{ height: '70%', width: '70%' }} alt="contact" />
                                             </Fade>
                                         </Grid>
                                     </Grid>
