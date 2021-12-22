@@ -37,8 +37,8 @@ function Footer() {
                                         <Typography variant={"h5"} color={"primary"} fontSize={20} fontWeight={500}>{t('public:footer:contact')}</Typography>
                                     </Grid>
                                     <Grid item>
-                                        <a href={'mailto:d.pierrebox@gmail.com'} style={{ textDecoration: 'none' }}>
-                                            <Typography variant={"body1"} style={{ color: '#7F7F7F' }}>hello@spacecorner.io</Typography>
+                                        <a href={'mailto:contact@spacecorner.io'} style={{ textDecoration: 'none' }}>
+                                            <Typography variant={"body1"} style={{ color: '#7F7F7F' }}>contact@spacecorner.io</Typography>
                                         </a>
                                     </Grid>
                                     <Grid item>

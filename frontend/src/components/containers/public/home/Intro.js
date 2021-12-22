@@ -5,6 +5,10 @@ import OfficeImage from "../../../../assets/images/home/intro/office.png";
 import MeetingImage from "../../../../assets/images/home/intro/meeting.png";
 import ReserveImage from "../../../../assets/images/home/intro/reserve.png";
 import PlanningImage from "../../../../assets/images/home/intro/planning.png";
+import OfficeImageEN from "../../../../assets/images/home/intro/office_en.png";
+import MeetingImageEN from "../../../../assets/images/home/intro/meeting_en.png";
+import ReserveImageEN from "../../../../assets/images/home/intro/reserve_en.png";
+import PlanningImageEN from "../../../../assets/images/home/intro/planning_en.png";
 import Typography from "@mui/material/Typography";
 import {Chip, useTheme} from "@mui/material";
 import {useTranslation} from "react-i18next";
@@ -13,7 +17,7 @@ import {Fade} from 'react-awesome-reveal';
 import {useNavigate} from "react-router-dom";
 
 function Intro(){
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const theme = useTheme();
     let navigate = useNavigate();
 
@@ -26,10 +30,10 @@ function Intro(){
                             <Fade direction={"left"} triggerOnce={true}>
                                 <Grid container direction="column" spacing={5}>
                                     <Grid item style={{textAlign:'center'}}>
-                                        <img src={OfficeImage} style={{height:'70%', width:'70%'}} alt="contact" />
+                                        <img src={i18n.language === "fr" ? OfficeImage : OfficeImageEN} style={{height:'70%', width:'70%'}} alt="contact" />
                                     </Grid>
                                     <Grid item style={{textAlign:'center'}}>
-                                        <img src={PlanningImage} style={{height:'100%', width:'100%'}} alt="contact" />
+                                        <img src={i18n.language === "fr" ? PlanningImage : PlanningImageEN} style={{height:'100%', width:'100%'}} alt="contact" />
                                     </Grid>
                                 </Grid>
                             </Fade>
@@ -69,10 +73,10 @@ function Intro(){
                             <Fade direction={"right"} triggerOnce={true}>
                                 <Grid container direction="column" spacing={5}>
                                     <Grid item style={{textAlign:'center'}}>
-                                        <img src={MeetingImage} style={{height:'60%', width:'60%'}} alt="contact" />
+                                        <img src={i18n.language === "fr" ? MeetingImage : MeetingImageEN} style={{height:'60%', width:'60%'}} alt="contact" />
                                     </Grid>
                                     <Grid item style={{textAlign:'center'}}>
-                                        <img src={ReserveImage} style={{height:'100%', width:'100%'}} alt="contact" />
+                                        <img src={i18n.language === "fr" ? ReserveImage : ReserveImageEN} style={{height:'100%', width:'100%'}} alt="contact" />
                                     </Grid>
                                 </Grid>
                             </Fade>
