@@ -1,2 +1,2 @@
-const DEFAULT = "/admin"
-export const DASHBOARD = DEFAULT+"/"
+export const DEFAULT = "/admin"
+export const DASHBOARD = "/"

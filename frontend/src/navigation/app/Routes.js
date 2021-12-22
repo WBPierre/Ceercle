@@ -1,4 +1,4 @@
-const DEFAULT = "/app"
-export const DASHBOARD = DEFAULT + "/"
-export const LOGIN = DEFAULT + "/login"
-export const GLOSSARY = DEFAULT + "/glossary"
+export const DEFAULT = "/app"
+export const DASHBOARD = "/"
+export const LOGIN = "/login"
+export const GLOSSARY = "/glossary"

@@ -154,7 +154,7 @@ function OfferDescription(props) {
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
-                                                    <Grid item md={3} textAlign={"center"}>
+                                                    <Grid item md={3} textAlign={"right"}>
                                                         <img src={step_3_3} style={{ height: '100%', width: '80%' }} alt="contact" />
                                                     </Grid>
                                                 </Grid>

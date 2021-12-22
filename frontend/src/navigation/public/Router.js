@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
 import * as Public_Routes from "./Routes";
 import Home from "../../views/public/Home";
 import Offers from "../../views/public/Offers";
@@ -15,6 +15,7 @@ function Rooter(){
             <Route exact path={Public_Routes.DEMO} element={<Demo/>}/>
             <Route exact path={Public_Routes.CGU} element={<Cgu/>}/>
             <Route exact path={Public_Routes.LEGAL} element={<Legal/>}/>
+            <Route path={"*"} element={<Navigate to="/" />} />
         </Routes>
     )
 }
