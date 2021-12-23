@@ -4,4 +4,5 @@ COPY package.json ./
 COPY package-lock.json ./
 COPY ./ ./
 RUN npm install
-CMD ["/api/tools/run.sh"]
+CMD ["npm", "install", "bcrypt"]
+CMD ["npm", "run", "start"]
