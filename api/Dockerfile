@@ -3,11 +3,10 @@ WORKDIR /api
 COPY package.json ./
 COPY package-lock.json ./
 COPY ./ ./
-RUN apk add build-essential \
-    apk add python
+RUN apk --no-cache add --virtual builds-deps build-base python
+RUN npm config set python /usr/bin/python
 RUN npm install -g npm@latest
-RUN npm install -g node-gyp && \
-    node-gyp clean \
-    npm install bcrypt -g
 RUN npm i
+RUN npm rebuild bcrypt --build-from-source
+RUN apk del builds-deps
 CMD ["npm", "run", "start"]
