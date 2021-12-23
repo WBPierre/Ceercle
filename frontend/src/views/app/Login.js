@@ -56,7 +56,7 @@ function Login(){
             }else{
                 setCookie('token', res.data.token);
                 ApiService.setHeader(res.data.token)
-                navigate('/app/')
+                navigate('/app')
             }
         });
     }
