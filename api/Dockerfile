@@ -4,8 +4,8 @@ COPY package.json ./
 COPY package-lock.json ./
 COPY ./ ./
 RUN npm install -g npm@latest
-RUN npm i
-RUN npm install node-gyp -g
-RUN npm install bcrypt -g
-RUN npm install bcrypt -save
+RUN apk add –no-cache make gcc g++ python && \
+npm install && \
+npm rebuild bcrypt –build-from-source && \
+apk del make gcc g++ python
 CMD ["npm", "run", "start"]
