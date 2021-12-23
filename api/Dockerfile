@@ -3,9 +3,8 @@ WORKDIR /api
 COPY package.json ./
 COPY package-lock.json ./
 COPY ./ ./
-RUN apt-get update \
-    apt-get install -y build-essential \
-    apt-get install -y python
+RUN apk add build-essential \
+    apk add python
 RUN npm install -g npm@latest
 RUN npm install -g node-gyp && \
     node-gyp clean \
