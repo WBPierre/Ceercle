@@ -25,7 +25,7 @@ deploy_stage:
       && git pull
       && export PATH="$PATH:/home/ubuntu/.nvm/versions/node/v17.0.1/bin"
       && cd frontend
-      && yarn install
+      && yarn install --ignore-engines
       && cd ..
       && docker-compose up -d
       '
