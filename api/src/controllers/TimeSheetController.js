@@ -53,8 +53,21 @@ exports.setTimeSheet = async function (req, res, next){
             return;
         }
         req.body.userId = res.locals.auth.user.id
-        const timesheet = await TimeSheet.create(req.body)
-        res.json(timesheet);
+        await TimeSheet.findOne({
+            where:{
+                day: req.body.day,
+                userId: res.locals.auth.user.id
+            }
+        }).then(async (record)=> {
+            if(!record){
+                const timesheet = await TimeSheet.create(req.body)
+                res.json(timesheet);
+            }else{
+                record.update({morning: req.body.morning, afternoon: req.body.afternoon}).then((updated) => {
+                    res.json(updated);
+                })
+            }
+        })
     } catch(err) {
         return next(err)
     }
