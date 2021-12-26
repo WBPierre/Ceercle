@@ -1,3 +1,3 @@
 echo "Starting specific packages install"
-yarn install
+yarn install --ignore-engines
 npm run start
