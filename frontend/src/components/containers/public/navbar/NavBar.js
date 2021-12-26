@@ -17,6 +17,7 @@ import iconPlanet from "../../../../assets/images/generic/iconPlanet.png";
 import { useState } from "react";
 import ModalLogin from "./ModalLogin";
 import { Turn as Hamburger } from 'hamburger-react'
+import useAuth from "../../../context/auth/AuthHelper";
 
 
 export default function NavBar(props) {
@@ -25,7 +26,6 @@ export default function NavBar(props) {
     const { t } = useTranslation();
     const theme = useTheme();
     let navigate = useNavigate();
-
 
     // For mobile
     const [open, setOpen] = useState(false)
