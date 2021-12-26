@@ -20,6 +20,7 @@ exports.getTimeSheet = async function(req, res, next) {
             return;
         }
         const week = Utils.getCurrentWeek(req.params.index);
+        console.log(week);
         await TimeSheet.findAll({
             where:{
                 day:{
