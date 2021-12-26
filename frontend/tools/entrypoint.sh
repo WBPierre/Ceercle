@@ -1,3 +1,3 @@
 echo "Starting specific packages install"
-npm install
+yarn install
 npm run start
