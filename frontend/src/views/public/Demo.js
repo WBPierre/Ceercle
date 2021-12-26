@@ -34,28 +34,113 @@ function Demo(){
     const [send, setSend] = useState(false);
     const [awaitingResponse, setAwaitingResponse] = useState(true);
     const [firstName, setFirstName] = useState('');
+    const [errorFirstName, setErrorFirstName] = useState(false);
     const [lastName, setLastName] = useState('');
+    const [errorLastName, setErrorLastName] = useState(false);
     const [companyName, setCompanyName] = useState('');
+    const [errorCompany, setErrorCompany] = useState(false);
     const [fonction, setFonction] = useState('');
+    const [errorFonction, setErrorFonction] = useState(false);
     const [zipCode, setZipCode] = useState('');
+    const [errorZipCode, setErrorZipCode] = useState(false);
     const [email, setEmail] = useState('');
+    const [errorEmail, setErrorEmail] = useState(false);
     const [phone, setPhone] = useState('');
+    const [errorPhone, setErrorPhone] = useState(false);
 
     const sendInformation = () => {
-        setSend(true);
-        const resources = {
-            "firstName": firstName,
-            "lastName":lastName,
-            "companyName":companyName,
-            "fonction": fonction,
-            "zipCode":zipCode,
-            "email":email,
-            "phoneNumber":phone
-        };
-        axios.post('/api/contact', resources).then((res) => {
-            setAwaitingResponse(false);
-            console.log(res.data);
-        })
+        if(validate()){
+            setSend(true);
+            const resources = {
+                "firstName": firstName,
+                "lastName":lastName,
+                "companyName":companyName,
+                "fonction": fonction,
+                "zipCode":zipCode,
+                "email":email,
+                "phoneNumber":phone
+            };
+            axios.post('/api/contact', resources).then((res) => {
+                setAwaitingResponse(false);
+            })
+        }
+    }
+
+    const validate = () => {
+        let valid = true;
+        if(firstName.length === 0) {
+            valid = false;
+            setErrorFirstName(true)
+        }
+        if(lastName.length === 0) {
+            valid = false;
+            setErrorLastName(true)
+        }
+        if(companyName.length === 0) {
+            valid = false;
+            setErrorCompany(true)
+        }
+        if(fonction.length === 0) {
+            valid = false;
+            setErrorFonction(true)
+        }
+        if(zipCode.length === 0 || zipCode.length !== 5) {
+            valid = false;
+            setErrorZipCode(true)
+        }
+        if(email.length === 0 || !ValidateEmail(email)) {
+            valid = false;
+            setErrorEmail(true)
+        }
+        if(email.phone === 0 || phone.length < 10) {
+            valid = false;
+            setErrorPhone(true);
+        }
+        return valid
+    }
+
+    function ValidateEmail(mail)
+    {
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
+        {
+            return (true)
+        }
+        return (false)
+    }
+
+    const handleChange = (e) => {
+        switch(e.target.name) {
+            case 'firstName':
+                setFirstName(e.target.value);
+                setErrorFirstName(false);
+                break;
+            case 'lastName':
+                setLastName(e.target.value);
+                setErrorLastName(false);
+                break;
+            case 'companyName':
+                setCompanyName(e.target.value);
+                setErrorCompany(false);
+                break;
+            case 'fonction':
+                setFonction(e.target.value);
+                setErrorFonction(false);
+                break;
+            case 'zipCode':
+                setZipCode(e.target.value);
+                setErrorZipCode(false);
+                break;
+            case 'email':
+                setEmail(e.target.value);
+                setErrorEmail(false);
+                break;
+            case 'phone':
+                setPhone(e.target.value);
+                setErrorPhone(false);
+                break;
+            default:
+                return;
+        }
     }
 
     return(
@@ -125,14 +210,16 @@ function Demo(){
                                     <Grid container spacing={2}>
                                         <Grid item xs={12} sm={6}>
                                             <TextField
-                                                autoComplete="given-name"
                                                 name="firstName"
+                                                error={errorFirstName}
                                                 fullWidth
                                                 id="firstName"
+                                                autoComplete="given-name"
                                                 label={ t('generic:firstname') }
                                                 disabled={send}
                                                 value={firstName}
-                                                onChange={(e) => setFirstName(e.target.value)}
+                                                helperText={errorFirstName && t('generic:invalid_field')}
+                                                onChange={handleChange}
                                             />
                                         </Grid>
                                         <Grid item xs={12} sm={6}>
@@ -144,7 +231,9 @@ function Demo(){
                                                 autoComplete="family-name"
                                                 disabled={send}
                                                 value={lastName}
-                                                onChange={(e) => setLastName(e.target.value)}
+                                                error={errorLastName}
+                                                helperText={errorLastName && t('generic:invalid_field')}
+                                                onChange={handleChange}
                                             />
                                         </Grid>
                                         <Grid item xs={12}>
@@ -155,8 +244,9 @@ function Demo(){
                                                 name="companyName"
                                                 disabled={send}
                                                 value={companyName}
-                                                onChange={(e) => setCompanyName(e.target.value)}
-                                            />
+                                                error={errorCompany}
+                                                helperText={errorCompany && t('generic:invalid_field')}
+                                                onChange={handleChange}                                            />
                                         </Grid>
                                         <Grid item xs={12} sm={6}>
                                             <TextField
@@ -166,8 +256,9 @@ function Demo(){
                                                 label={ t('public:demo:function') }
                                                 disabled={send}
                                                 value={fonction}
-                                                onChange={(e) => setFonction(e.target.value)}
-                                            />
+                                                error={errorFonction}
+                                                helperText={ errorFonction && t('generic:invalid_field')}
+                                                onChange={handleChange}                                            />
                                         </Grid>
                                         <Grid item xs={12} sm={6}>
                                             <TextField
@@ -178,8 +269,9 @@ function Demo(){
                                                 autoComplete="postal-code"
                                                 disabled={send}
                                                 value={zipCode}
-                                                onChange={(e) => setZipCode(e.target.value)}
-                                            />
+                                                error={errorZipCode}
+                                                helperText={errorZipCode && t('generic:invalid_field')}
+                                                onChange={handleChange}                                            />
                                         </Grid>
                                         <Grid item xs={12}>
                                             <TextField
@@ -190,8 +282,9 @@ function Demo(){
                                                 autoComplete="email"
                                                 disabled={send}
                                                 value={email}
-                                                onChange={(e) => setEmail(e.target.value)}
-                                            />
+                                                error={errorEmail}
+                                                helperText={errorEmail && t('generic:invalid_field')}
+                                                onChange={handleChange}                                            />
                                         </Grid>
                                         <Grid item xs={12}>
                                             <TextField
@@ -202,8 +295,9 @@ function Demo(){
                                                 autoComplete="phone-number"
                                                 disabled={send}
                                                 value={phone}
-                                                onChange={(e) => setPhone(e.target.value)}
-                                            />
+                                                error={errorPhone}
+                                                helperText={errorPhone && t('generic:invalid_field')}
+                                                onChange={handleChange}                                            />
                                         </Grid>
                                     </Grid>
 

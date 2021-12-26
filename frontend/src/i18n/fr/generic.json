@@ -28,5 +28,6 @@
   "zip_code": "Code postal",
   "professional_email": "Email professionnel",
   "send": "Envoyer",
-  "subject": "Sujet"
+  "subject": "Sujet",
+  "invalid_field": "Champ invalide"
 }

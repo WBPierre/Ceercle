@@ -6,4 +6,9 @@ server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
 
+// To remove
+server.set('views', __dirname + '/views');
+server.set('view engine', 'html');
+server.engine('html', require('hogan-express'))
+
 
