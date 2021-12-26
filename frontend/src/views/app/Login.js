@@ -19,10 +19,11 @@ import MicrosoftIcon from "../../components/molecules/icons/MicrosoftIcon";
 import SlackIcon from "../../components/molecules/icons/SlackIcon";
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import AuthService from "../../services/app/auth.service";
 import ApiService from "../../services/api.service";
 import { useCookies } from 'react-cookie';
+import useAuth from "../../components/context/auth/AuthHelper";
 
 function Login(){
     const { t } = useTranslation();
@@ -31,6 +32,13 @@ function Login(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [cookies, setCookie] = useCookies(['token']);
+    const context = useAuth();
+
+    useEffect(() => {
+        if(context.isAuth){
+            navigate('/app')
+        }
+    }, []);
 
     const handleConnectTest = () => {
         setEmail('test@test.com');
