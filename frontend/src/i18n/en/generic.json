@@ -28,5 +28,6 @@
   "zip_code": "Zip Code",
   "professional_email": "Professional email",
   "send": "Send",
-  "subject": "Subject"
+  "subject": "Subject",
+  "invalid_field": "Invalid field"
 }
