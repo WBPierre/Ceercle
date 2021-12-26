@@ -8,6 +8,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import {useState} from "react";
 import {ContentPaste} from "@mui/icons-material";
+import ToDefineIcon from "../../../molecules/icons/ToDefineIcon";
+import moment from "moment";
 
 function PlanningElement(props) {
 
@@ -21,7 +23,7 @@ function PlanningElement(props) {
     };
 
     const modifyChoice = (name) => {
-        props.modify(name)
+        props.modify(props.date, name)
         handleClose();
     }
     const handleClose = () => {
@@ -29,75 +31,7 @@ function PlanningElement(props) {
     };
 
     switch (props.from) {
-        case "remote":
-            return (
-                <div>
-                    <Button disableRipple={true} style={{
-                        textTransform: 'none',
-                        backgroundColor: !props.past ? '' : 'transparent',
-                        cursor: !props.past ? 'pointer' : 'default'
-                    }} id="basic-button"
-                            aria-controls="basic-menu"
-                            aria-haspopup="true"
-                            aria-expanded={open ? 'true' : undefined}
-                            onClick={handleClick}>
-                        <Grid container direction={"column"} spacing={1} alignItems={"center"}>
-                            <Grid item xs={12}>
-                                <Typography textAlign={"center"} style={{color: props.current ? '#8BCCEE' : '#d32f2f'}}
-                                            fontSize={props.current ? 24 : 22}
-                                            fontWeight={props.current ? 600 : 500}>{props.day}</Typography>
-                                <Typography textAlign={"center"} style={{color: props.current ? '#8BCCEE' : '#2F5597'}}
-                                            fontSize={props.current ? 24 : 22}
-                                            fontWeight={props.current ? 600 : 500}>{props.dayNumber}</Typography>
-                            </Grid>
-                            <Grid item>
-                                <Avatar sx={{width: 75, height: 75}}
-                                        style={{
-                                            border: props.current ? '3px solid #8BCCEE' : 'none',
-                                            backgroundColor: props.past ? '#D3D3D3' : props.current ? '#DAEFFA' : '#DAEFFA'
-                                        }}>
-                                    <ManWorkingIcon sx={{width: 50, height: 50}}/>
-                                </Avatar>
-                            </Grid>
-                            <Grid item>
-                                <Typography textAlign={"center"}
-                                            style={{color: props.past ? '#D3D3D3' : props.current ? '#8BCCEE' : '#2F5597'}}
-                                            fontSize={props.current ? 24 : 22}
-                                            fontWeight={props.current ? 600 : 500}>Télétravail</Typography>
-                            </Grid>
-                        </Grid>
-                    </Button>
-                    <Menu
-                        id="basic-menu"
-                        anchorEl={anchorEl}
-                        open={open}
-                        onClose={handleClose}
-                        MenuListProps={{
-                            'aria-labelledby': 'basic-button',
-                        }}
-                    >
-                        <MenuItem onClick={() => modifyChoice("office")}>
-                            <ListItemIcon>
-                                <OfficeIcon/>
-                            </ListItemIcon>
-                            <ListItemText>Au bureau</ListItemText>
-                        </MenuItem>
-                        <MenuItem onClick={() => modifyChoice("remote")}>
-                            <ListItemIcon>
-                                <ManWorkingIcon/>
-                            </ListItemIcon>
-                            <ListItemText>Télétravail</ListItemText>
-                        </MenuItem>
-                        <MenuItem onClick={() => modifyChoice("move")}>
-                            <ListItemIcon>
-                                <PlaneTakeOffIcon/>
-                            </ListItemIcon>
-                            <ListItemText>Déplacement</ListItemText>
-                        </MenuItem>
-                    </Menu>
-                </div>
-            );
-        case "office":
+        case 1:
             return (
                 <div>
                     <Button disableRipple={true} style={{
@@ -116,7 +50,7 @@ function PlanningElement(props) {
                                             fontWeight={props.current ? 600 : 500}>{props.day}</Typography>
                                 <Typography textAlign={"center"} style={{color: props.current ? '#95E59A' : '#2F5597'}}
                                             fontSize={props.current ? 24 : 22}
-                                            fontWeight={props.current ? 600 : 500}>{props.dayNumber}</Typography>
+                                            fontWeight={props.current ? 600 : 500}>{moment(props.date, 'YYYY-MM-DD').date()}</Typography>
                             </Grid>
                             <Grid item>
                                 <Avatar sx={{width: 75, height: 75}}
@@ -144,19 +78,25 @@ function PlanningElement(props) {
                             'aria-labelledby': 'basic-button',
                         }}
                     >
-                        <MenuItem onClick={() => modifyChoice("office")}>
+                        <MenuItem onClick={() => modifyChoice(0)}>
+                            <ListItemIcon>
+                                <ToDefineIcon/>
+                            </ListItemIcon>
+                            <ListItemText>A définir</ListItemText>
+                        </MenuItem>
+                        <MenuItem onClick={() => modifyChoice(1)}>
                             <ListItemIcon>
                                 <OfficeIcon/>
                             </ListItemIcon>
                             <ListItemText>Au bureau</ListItemText>
                         </MenuItem>
-                        <MenuItem onClick={() => modifyChoice("remote")}>
+                        <MenuItem onClick={() => modifyChoice(2)}>
                             <ListItemIcon>
                                 <ManWorkingIcon/>
                             </ListItemIcon>
                             <ListItemText>Télétravail</ListItemText>
                         </MenuItem>
-                        <MenuItem onClick={() => modifyChoice("move")}>
+                        <MenuItem onClick={() => modifyChoice(3)}>
                             <ListItemIcon>
                                 <PlaneTakeOffIcon/>
                             </ListItemIcon>
@@ -165,7 +105,81 @@ function PlanningElement(props) {
                     </Menu>
                 </div>
             );
-        case "move":
+        case 2:
+            return (
+                <div>
+                    <Button disableRipple={true} style={{
+                        textTransform: 'none',
+                        backgroundColor: !props.past ? '' : 'transparent',
+                        cursor: !props.past ? 'pointer' : 'default'
+                    }} id="basic-button"
+                            aria-controls="basic-menu"
+                            aria-haspopup="true"
+                            aria-expanded={open ? 'true' : undefined}
+                            onClick={handleClick}>
+                        <Grid container direction={"column"} spacing={1} alignItems={"center"}>
+                            <Grid item xs={12}>
+                                <Typography textAlign={"center"} style={{color: props.current ? '#8BCCEE' : '#d32f2f'}}
+                                            fontSize={props.current ? 24 : 22}
+                                            fontWeight={props.current ? 600 : 500}>{props.day}</Typography>
+                                <Typography textAlign={"center"} style={{color: props.current ? '#8BCCEE' : '#2F5597'}}
+                                            fontSize={props.current ? 24 : 22}
+                                            fontWeight={props.current ? 600 : 500}>{moment(props.date, 'YYYY-MM-DD').date()}</Typography>
+                            </Grid>
+                            <Grid item>
+                                <Avatar sx={{width: 75, height: 75}}
+                                        style={{
+                                            border: props.current ? '3px solid #8BCCEE' : 'none',
+                                            backgroundColor: props.past ? '#D3D3D3' : props.current ? '#DAEFFA' : '#DAEFFA'
+                                        }}>
+                                    <ManWorkingIcon sx={{width: 50, height: 50}}/>
+                                </Avatar>
+                            </Grid>
+                            <Grid item>
+                                <Typography textAlign={"center"}
+                                            style={{color: props.past ? '#D3D3D3' : props.current ? '#8BCCEE' : '#2F5597'}}
+                                            fontSize={props.current ? 24 : 22}
+                                            fontWeight={props.current ? 600 : 500}>Télétravail</Typography>
+                            </Grid>
+                        </Grid>
+                    </Button>
+                    <Menu
+                        id="basic-menu"
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={handleClose}
+                        MenuListProps={{
+                            'aria-labelledby': 'basic-button',
+                        }}
+                    >
+                        <MenuItem onClick={() => modifyChoice(0)}>
+                            <ListItemIcon>
+                                <ToDefineIcon/>
+                            </ListItemIcon>
+                            <ListItemText>A définir</ListItemText>
+                        </MenuItem>
+                        <MenuItem onClick={() => modifyChoice(1)}>
+                            <ListItemIcon>
+                                <OfficeIcon/>
+                            </ListItemIcon>
+                            <ListItemText>Au bureau</ListItemText>
+                        </MenuItem>
+                        <MenuItem onClick={() => modifyChoice(2)}>
+                            <ListItemIcon>
+                                <ManWorkingIcon/>
+                            </ListItemIcon>
+                            <ListItemText>Télétravail</ListItemText>
+                        </MenuItem>
+                        <MenuItem onClick={() => modifyChoice(3)}>
+                            <ListItemIcon>
+                                <PlaneTakeOffIcon/>
+                            </ListItemIcon>
+                            <ListItemText>Déplacement</ListItemText>
+                        </MenuItem>
+                    </Menu>
+                </div>
+            );
+        case 3:
             return (
                 <div>
                     <Button disableRipple={true} style={{
@@ -184,7 +198,7 @@ function PlanningElement(props) {
                                             fontWeight={props.current ? 600 : 500}>{props.day}</Typography>
                                 <Typography textAlign={"center"} style={{color: props.current ? '#C7B3DA' : '#2F5597'}}
                                             fontSize={props.current ? 24 : 22}
-                                            fontWeight={props.current ? 600 : 500}>{props.dayNumber}</Typography>
+                                            fontWeight={props.current ? 600 : 500}>{moment(props.date, 'YYYY-MM-DD').date()}</Typography>
                             </Grid>
                             <Grid item>
                                 <Avatar sx={{width: 75, height: 75}}
@@ -212,19 +226,25 @@ function PlanningElement(props) {
                             'aria-labelledby': 'basic-button',
                         }}
                     >
-                        <MenuItem onClick={() => modifyChoice("office")}>
+                        <MenuItem onClick={() => modifyChoice(0)}>
+                            <ListItemIcon>
+                                <ToDefineIcon/>
+                            </ListItemIcon>
+                            <ListItemText>A définir</ListItemText>
+                        </MenuItem>
+                        <MenuItem onClick={() => modifyChoice(1)}>
                             <ListItemIcon>
                                 <OfficeIcon/>
                             </ListItemIcon>
                             <ListItemText>Au bureau</ListItemText>
                         </MenuItem>
-                        <MenuItem onClick={() => modifyChoice("remote")}>
+                        <MenuItem onClick={() => modifyChoice(2)}>
                             <ListItemIcon>
                                 <ManWorkingIcon/>
                             </ListItemIcon>
                             <ListItemText>Télétravail</ListItemText>
                         </MenuItem>
-                        <MenuItem onClick={() => modifyChoice("move")}>
+                        <MenuItem onClick={() => modifyChoice(3)}>
                             <ListItemIcon>
                                 <PlaneTakeOffIcon/>
                             </ListItemIcon>
@@ -252,7 +272,7 @@ function PlanningElement(props) {
                                             fontWeight={props.current ? 600 : 500}>{props.day}</Typography>
                                 <Typography textAlign={"center"} style={{color: props.current ? '#2F5597' : '#2F5597'}}
                                             fontSize={props.current ? 24 : 22}
-                                            fontWeight={props.current ? 600 : 500}>{props.dayNumber}</Typography>
+                                            fontWeight={props.current ? 600 : 500}>{moment(props.date, 'YYYY-MM-DD').date()}</Typography>
                             </Grid>
                             <Grid item>
                                 <Avatar sx={{width: 75, height: 75}}
@@ -266,8 +286,7 @@ function PlanningElement(props) {
                             <Grid item>
                                 <Typography textAlign={"center"}
                                             style={{color: props.past ? '#D3D3D3' : props.current ? '#d32f2f' : '#d32f2f'}}
-                                            fontSize={props.current ? 24 : 22} fontWeight={props.current ? 600 : 500}>A
-                                    définir</Typography>
+                                            fontSize={props.current ? 24 : 22} fontWeight={props.current ? 600 : 500}>{props.past ? 'Non déclaré' : 'A définir'}</Typography>
                             </Grid>
                         </Grid>
                     </Button>
@@ -280,19 +299,19 @@ function PlanningElement(props) {
                             'aria-labelledby': 'basic-button',
                         }}
                     >
-                        <MenuItem onClick={() => modifyChoice("office")}>
+                        <MenuItem onClick={() => modifyChoice(1)}>
                             <ListItemIcon>
                                 <OfficeIcon/>
                             </ListItemIcon>
                             <ListItemText>Au bureau</ListItemText>
                         </MenuItem>
-                        <MenuItem onClick={() => modifyChoice("remote")}>
+                        <MenuItem onClick={() => modifyChoice(2)}>
                             <ListItemIcon>
                                 <ManWorkingIcon/>
                             </ListItemIcon>
                             <ListItemText>Télétravail</ListItemText>
                         </MenuItem>
-                        <MenuItem onClick={() => modifyChoice("move")}>
+                        <MenuItem onClick={() => modifyChoice(3)}>
                             <ListItemIcon>
                                 <PlaneTakeOffIcon/>
                             </ListItemIcon>

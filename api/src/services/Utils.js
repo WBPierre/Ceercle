@@ -22,16 +22,27 @@ exports.getDurationInMilliseconds = function (start) {
 
 exports.getCurrentWeek = function(index) {
     const now = Moment().tz('Europe/Paris');
+    if(now.day() === 0){
+        now.add(1, 'days');
+    }else if(now.day() === 6){
+        now.add(2, 'days');
+    }
     let weekStart = now.clone().startOf('isoWeek');
     let weekEnd = now.clone().endOf('isoWeek');
+
+
+    const currentDay = Moment().tz('Europe/Paris').format("YYYY-MM-DD");
 
     let days = [];
 
     for (let i = 0; i <= 4; i++) {
+        const day = Moment(weekStart).add(i+(7*index), 'days').format("YYYY-MM-DD")
         let obj = {
-            day : Moment(weekStart).add(i+(7*index), 'days').format("YYYY-MM-DD"),
+            day : day,
             morning : 0,
             afternoon : 0,
+            current: currentDay === day ? true : false,
+            past: currentDay > Moment(weekStart).add(i+(7*index), 'days').format("YYYY-MM-DD")
         }
         days.push(obj)
     }
