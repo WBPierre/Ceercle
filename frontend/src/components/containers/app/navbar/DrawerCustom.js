@@ -17,7 +17,7 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import iconPlanet from "../../../../assets/images/generic/iconPlanet.png";
-import { useNavigate } from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import LangSwitcher from "../../../molecules/navbar/LangSwitcher";
 import { Chip, Drawer, ListItemButton, Tooltip } from "@mui/material";
@@ -51,6 +51,9 @@ export default function DrawerCustom(props) {
     const theme = useTheme();
     let navigate = useNavigate();
     const { t } = useTranslation();
+    const location = useLocation();
+
+    const activeRoutes = location.pathname.split('/');
 
     return (
         <Drawer
@@ -117,12 +120,12 @@ export default function DrawerCustom(props) {
             <List>
                 <ListItem button onClick={() => navigate('/app')}>
                     <ListItemIcon>
-                        <DashboardIcon color="primary" sx={{ fontSize: 30 }} />
+                        <DashboardIcon color={activeRoutes[activeRoutes.length -1]=== "app" ? "primary" : "inherit"} sx={{ fontSize: 30 }} />
                     </ListItemIcon>
                     <ListItemText
                         primaryTypographyProps={{
-                            color: 'primary',
-                            fontWeight: 500,
+                            color: activeRoutes[activeRoutes.length -1] === "app" ? 'primary' : "#535454",
+                            fontWeight: activeRoutes[activeRoutes.length -1] === "app" ? 500 : 200,
                             fontSize: 22,
                             variant: 'body2',
                             textAlign: 'left'
@@ -130,14 +133,14 @@ export default function DrawerCustom(props) {
                         primary={t('app:navbar:dashboard')}
                     />
                 </ListItem>
-                <ListItem button>
+                <ListItem button button onClick={() => navigate('/app/calendar')}>
                     <ListItemIcon>
-                        <EventIcon sx={{ fontSize: 30 }} />
+                        <EventIcon color={activeRoutes[activeRoutes.length -1] === "calendar" ? "primary" : "inherit"} sx={{ fontSize: 30 }} />
                     </ListItemIcon>
                     <ListItemText
                         primaryTypographyProps={{
-                            color: "#535454",
-                            fontWeight: 200,
+                            color: activeRoutes[activeRoutes.length -1] === "calendar" ? 'primary' : "#535454",
+                            fontWeight: activeRoutes[activeRoutes.length -1] === "calendar" ? 500 : 200,
                             fontSize: 22,
                             variant: 'body2',
                             textAlign: 'left'
@@ -145,14 +148,14 @@ export default function DrawerCustom(props) {
                         primary={t('app:navbar:calendar')}
                     />
                 </ListItem>
-                <ListItem button>
+                <ListItem button disabled>
                     <ListItemIcon>
-                        <ScreenSearchDesktopIcon sx={{ fontSize: 30 }} />
+                        <ScreenSearchDesktopIcon color={activeRoutes[activeRoutes.length -1]=== "marketplace" ? "primary" : "inherit"} sx={{ fontSize: 30 }} />
                     </ListItemIcon>
                     <ListItemText
                         primaryTypographyProps={{
-                            color: "#535454",
-                            fontWeight: 200,
+                            color: activeRoutes[activeRoutes.length -1] === "marketplace" ? 'primary' : "#535454",
+                            fontWeight: activeRoutes[activeRoutes.length -1] === "marketplace" ? 500 : 200,
                             fontSize: 22,
                             variant: 'body2',
                             textAlign: 'left'
@@ -162,12 +165,12 @@ export default function DrawerCustom(props) {
                 </ListItem>
                 <ListItem button onClick={() => navigate('/app/glossary')}>
                     <ListItemIcon>
-                        <PeopleIcon sx={{ fontSize: 30 }} />
+                        <PeopleIcon color={activeRoutes[activeRoutes.length -1] === "glossary" ? "primary" : "inherit"} sx={{ fontSize: 30 }} />
                     </ListItemIcon>
                     <ListItemText
                         primaryTypographyProps={{
-                            color: "#535454",
-                            fontWeight: 200,
+                            color: activeRoutes[activeRoutes.length -1] === "glossary" ? 'primary' : "#535454",
+                            fontWeight: activeRoutes[activeRoutes.length -1] === "glossary" ? 500 : 200,
                             fontSize: 22,
                             variant: 'body2',
                             textAlign: 'left'
