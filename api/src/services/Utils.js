@@ -48,3 +48,33 @@ exports.getCurrentWeek = function(index) {
     }
     return days
 }
+
+exports.getUsersWeekTimeSheets = function(index) {
+    const now = Moment().tz('Europe/Paris');
+    if(now.day() === 0){
+        now.add(1, 'days');
+    }else if(now.day() === 6){
+        now.add(2, 'days');
+    }
+    let weekStart = now.clone().startOf('isoWeek');
+    let weekEnd = now.clone().endOf('isoWeek');
+
+
+    const currentDay = Moment().tz('Europe/Paris').format("YYYY-MM-DD");
+
+    let days = [];
+    for (let i = 0; i <= 4; i++) {
+        const day = Moment(weekStart).add(i+(7*index), 'days').format("YYYY-MM-DD")
+        let obj = {
+            day : day,
+            type:{
+                0:[],
+                1:[],
+                2:[],
+                3:[]
+            }
+        }
+        days.push(obj)
+    }
+    return days
+}

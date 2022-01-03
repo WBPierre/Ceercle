@@ -5,7 +5,7 @@ import FormControl from '@mui/material/FormControl';
 import ListItemText from '@mui/material/ListItemText';
 import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Grid from "@mui/material/Grid";
 import {TextField} from "@mui/material";
 import Paper from "@mui/material/Paper";
@@ -13,44 +13,29 @@ import * as React from "react";
 import SearchIcon from '@mui/icons-material/Search';
 import Box from "@mui/material/Box";
 
-function FilterBar(){
-    const names = [
-        'Toutes les équipes',
-        'RH',
-        'Comptabilité',
-        'Marketing',
-        'Tech'
-    ];
+function FilterBar(props){
 
-    const types = [
-        'Partout',
-        'Au bureau',
-        'En télétravail',
-        'En déplacement'
-    ]
+    const [team, setTeam] = useState(0);
+    const [type, setType] = useState(-1);
+    const [search, setSearch] = useState('');
 
-    const [teamName, setTeamName] = useState(['Toutes les équipes']);
-    const [typeName, setTypeName] = useState(['Partout']);
-
-    const handleChangeTeam = (event) => {
-        const {
-            target: { value },
-        } = event;
-        setTeamName(
-            // On autofill we get a stringified value.
-            typeof value === 'string' ? value.split(',') : value,
-        );
+    const handleChange = (event) => {
+        setTeam(event.target.value);
     };
 
     const handleChangeType = (event) => {
-        const {
-            target: { value },
-        } = event;
-        setTypeName(
-            // On autofill we get a stringified value.
-            typeof value === 'string' ? value.split(',') : value,
-        );
-    };
+        setType(event.target.value);
+    }
+
+    const handleChangeSearch = (e) => {
+        setSearch(e.target.value);
+    }
+
+    useEffect(() => {
+        props.handleFilters({search: search, team: team, type: type});
+    }, [search, team, type]);
+
+
 
     return(
         <Paper>
@@ -58,50 +43,45 @@ function FilterBar(){
                 <Grid item>
                     <FormControl sx={{ m: 1, width: 300 }}>
                         <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-                            <TextField id="input-with-sx" label="Search" variant="standard" fullWidth/>
+                            <TextField id="input-with-sx" label="Recherche" variant="standard" onChange={handleChangeSearch} fullWidth value={search}/>
                             <SearchIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
                         </Box>
                     </FormControl>
                 </Grid>
                 <Grid item>
-                    <FormControl sx={{ m: 1, width: 300 }}>
-                        <InputLabel id="demo-multiple-checkbox-label">Teams</InputLabel>
+                    <FormControl fullWidth sx={{ m: 1, width: 300 }}>
+                        <InputLabel id="demo-simple-select-label">Team</InputLabel>
                         <Select
-                            labelId="demo-multiple-checkbox-label"
-                            id="demo-multiple-checkbox"
-                            multiple
-                            value={teamName}
-                            onChange={handleChangeTeam}
-                            input={<OutlinedInput label="Teams" />}
-                            renderValue={(selected) => selected.join(', ')}
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={team}
+                            label="Team"
+                            onChange={handleChange}
+                            disabled
                         >
-                            {names.map((name) => (
-                                <MenuItem key={name} value={name}>
-                                    <Checkbox checked={teamName.indexOf(name) > -1} />
-                                    <ListItemText primary={name} />
-                                </MenuItem>
-                            ))}
+                            <MenuItem value={0}>Toutes les équipes</MenuItem>
+                            <MenuItem value={1}>RH</MenuItem>
+                            <MenuItem value={2}>Comptabilité</MenuItem>
+                            <MenuItem value={3}>Tech</MenuItem>
+                            <MenuItem value={4}>Opérations</MenuItem>
                         </Select>
                     </FormControl>
                 </Grid>
                 <Grid item>
-                    <FormControl sx={{ m: 1, width: 300 }}>
-                        <InputLabel id="demo-multiple-checkbox-label">Depuis</InputLabel>
+                    <FormControl fullWidth sx={{ m: 1, width: 300 }}>
+                        <InputLabel id="demo-simple-select-label">Depuis</InputLabel>
                         <Select
-                            labelId="demo-multiple-checkbox-label"
-                            id="demo-multiple-checkbox"
-                            multiple
-                            value={typeName}
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={type}
+                            label="Depuis"
                             onChange={handleChangeType}
-                            input={<OutlinedInput label="Teams" />}
-                            renderValue={(selected) => selected.join(', ')}
                         >
-                            {types.map((name) => (
-                                <MenuItem key={name} value={name}>
-                                    <Checkbox checked={typeName.indexOf(name) > -1} />
-                                    <ListItemText primary={name} />
-                                </MenuItem>
-                            ))}
+                            <MenuItem value={-1}>Partout</MenuItem>
+                            <MenuItem value={1}>Au bureau</MenuItem>
+                            <MenuItem value={2}>Télétravail</MenuItem>
+                            <MenuItem value={3}>En déplacement</MenuItem>
+                            <MenuItem value={0}>Non déclaré</MenuItem>
                         </Select>
                     </FormControl>
                 </Grid>

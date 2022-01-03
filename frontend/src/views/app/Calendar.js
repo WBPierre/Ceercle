@@ -32,15 +32,24 @@ export default function Calendar(props) {
     const theme = useTheme();
     let navigate = useNavigate();
     const { t } = useTranslation();
+    const [filters, setFilers] = useState({
+        search: '',
+        team: 0,
+        type: -1
+    })
+
+    const handleFilters = (obj) =>{
+        setFilers(obj);
+    }
 
     return (
         <CustomContainer>
             <Grid wrap={"nowrap"} container direction={"column"} spacing={3} marginTop={"1%"}>
                 <Grid item>
-                    <FilterBar/>
+                    <FilterBar handleFilters={handleFilters}/>
                 </Grid>
                 <Grid item>
-                    <CalendarDisplay/>
+                    <CalendarDisplay filters={filters}/>
                 </Grid>
             </Grid>
         </CustomContainer>

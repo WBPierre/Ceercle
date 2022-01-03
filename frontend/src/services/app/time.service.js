@@ -12,6 +12,10 @@ class TimeService {
     async setTimeSheet(resources) {
         return this.request.post('/time', resources);
     }
+
+    async getAllTimeSheet(index) {
+        return this.request.get('/time/all/'+index);
+    }
 }
 
 export default new TimeService();
