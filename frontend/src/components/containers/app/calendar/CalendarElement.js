@@ -1,28 +1,19 @@
-import Grid from "@mui/material/Grid";
-import {Typography} from "@mui/material";
-import moment from "moment";
+import List from "@mui/material/List";
+import CalendarListElement from "./CalendarListElement";
+import {useEffect, useState} from "react";
 
-function CalendarElement(props) {
 
-    const GetDay = () => {
-        switch(props.dayKey){
-            case 0: return ('Lun.');
-            case 1: return ('Mar.');
-            case 2: return ('Mer.');
-            case 3: return ('Jeu.');
-            case 4: return ('Ven.');
-        }
-    }
+function CalendarElement(props){
 
     return(
-        <Grid container direction={"column"}>
-            <Grid item textAlign={"center"}>
-                <Typography>{<GetDay/>}</Typography>
-            </Grid>
-            <Grid item textAlign={"center"}>
-                <Typography>{moment(props.date.day, 'YYYY-MM-DD').date()}</Typography>
-            </Grid>
-        </Grid>
+        <div style={{width:'95%', paddingLeft: '2.5%'}}>
+            <List  aria-label="main mailbox folders" dense={false}>
+                {props.data.type[1].length !== 0 && (props.filters.type === -1 || props.filters.type === 1) && <CalendarListElement type={1} data={props.data.type[1].filter(x => x.fullName.toLowerCase().includes(props.filters.search.toLowerCase()))} total={props.data.totalUsers}/>}
+                {props.data.type[2].length !== 0 && (props.filters.type === -1 || props.filters.type === 2) && <CalendarListElement type={2} data={props.data.type[2].filter(x => x.fullName.toLowerCase().includes(props.filters.search.toLowerCase()))} total={props.data.totalUsers}/>}
+                {props.data.type[3].length !== 0 && (props.filters.type === -1 || props.filters.type === 3) && <CalendarListElement type={3} data={props.data.type[3].filter(x => x.fullName.toLowerCase().includes(props.filters.search.toLowerCase()))} total={props.data.totalUsers}/>}
+                {props.data.type[0].length !== 0 && (props.filters.type === -1 || props.filters.type === 0) && <CalendarListElement type={0} data={props.data.type[0].filter(x => x.fullName.toLowerCase().includes(props.filters.search.toLowerCase()))} total={props.data.totalUsers}/>}
+            </List>
+        </div>
     )
 }
 
