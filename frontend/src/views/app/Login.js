@@ -35,6 +35,7 @@ function Login(){
     const context = useAuth();
 
     useEffect(() => {
+        console.log(context);
         if(context.isAuth){
             navigate('/app')
         }
@@ -58,13 +59,23 @@ function Login(){
             email: email,
             password: password
         }
-        await AuthService.login(resources).then( (res) => {
+        await AuthService.login(resources).then( async (res) => {
             if(res.status !== 200){
                 console.log("Error to handle")
             }else{
-                setCookie('token', res.data.token);
-                ApiService.setHeader(res.data.token)
+                await setAuth(res.data.token);
                 navigate('/app')
+            }
+        });
+    }
+
+    const setAuth = async (token) => {
+        setCookie('token', token);
+        ApiService.setHeader(token);
+        await AuthService.verify().then((res) => {
+            if(res.status === 200){
+                context.updateAuth(true);
+                context.updateUser(res.data);
             }
         });
     }

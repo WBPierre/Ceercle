@@ -6,7 +6,7 @@ import * as App_Routes from "./Routes";
 
 function ProtectedRoute ({children}) {
     const context = useAuth();
-    return context.isAuth ? children : <Navigate to={App_Routes.LOGIN} />;
+    return context.isAuth ? children : <Navigate to={'/app'+App_Routes.LOGIN} />;
 };
 
 export default ProtectedRoute;
