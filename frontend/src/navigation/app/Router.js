@@ -13,7 +13,7 @@ function Rooter() {
             <Route exact path={App_Routes.DASHBOARD} element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
             <Route exact path={App_Routes.GLOSSARY} element={<ProtectedRoute><Glossary /></ProtectedRoute>} />
             <Route exact path={App_Routes.CALENDAR} element={<ProtectedRoute><Calendar /></ProtectedRoute>} />
-            <Route path={"*"} element={<Navigate to="/" />} />
+            <Route path={"*"} element={<Navigate to={'/app'+App_Routes.LOGIN} />} />
         </Routes>
     )
 }
