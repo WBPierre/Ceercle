@@ -4,12 +4,14 @@ module.exports = function(server) {
     const CompanyRoutes = require('./routes/CompanyRoutes');
     const AuthRoutes = require('./routes/AuthRoutes');
     const TimeSheetRoutes = require('./routes/TimeSheetRoutes');
+    const TeamRoutes = require('./routes/TeamRoutes');
 
     const baseUrl = "/api"
 
     server.use(baseUrl+"/users", UserRoutes);
     server.use(baseUrl+"/contact", ContactRoutes);
     server.use(baseUrl+"/company", CompanyRoutes);
+    server.use(baseUrl+"/team", TeamRoutes);
     server.use(baseUrl+"/auth", AuthRoutes);
     server.use(baseUrl+"/time", TimeSheetRoutes);
 }

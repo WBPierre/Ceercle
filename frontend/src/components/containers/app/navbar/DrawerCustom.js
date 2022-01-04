@@ -22,7 +22,6 @@ import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import LangSwitcher from "../../../molecules/navbar/LangSwitcher";
 import { Chip, Drawer, ListItemButton, Tooltip } from "@mui/material";
 import Button from "@mui/material/Button";
-import ModalLogin from "../../public/navbar/ModalLogin";
 import { useTranslation } from "react-i18next";
 import PanToolIcon from '@mui/icons-material/PanTool';
 import { ArrowRight, Home, Settings } from "@mui/icons-material";

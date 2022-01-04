@@ -1,17 +1,17 @@
 const {DataTypes} = require('sequelize');
 const {db} =  require("./../../config/database");
 const User = require('./User');
-const Team = require('./Team');
+const Company = require('./Company');
 
-const Company = db.define('company', {
+const Team = db.define('team', {
     // Model attributes are defined here
     name: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    activeOfficeHandler:{
-        type: DataTypes.BOOLEAN,
-        defaultValue: false
+    color:{
+        type: DataTypes.STRING,
+        allowNull: false
     },
     remoteMinimum: {
         type: DataTypes.INTEGER,
@@ -20,10 +20,6 @@ const Company = db.define('company', {
     remoteMaximum: {
         type: DataTypes.INTEGER,
         defaultValue: 3,
-    },
-    maxCapacity: {
-        type: DataTypes.INTEGER,
-        defaultValue: 100
     },
     mondayMandatoryStatus:{
         type: DataTypes.INTEGER,
@@ -45,14 +41,12 @@ const Company = db.define('company', {
         type: DataTypes.INTEGER,
         defaultValue: 0,
     }
-
 }, {
     timestamps: true,
     freezeTableName: true
 });
-Company.hasMany(User);
-User.belongsTo(Company);
-Company.hasMany(Team);
-Team.belongsTo(Company);
 
-module.exports = Company;
+Team.hasMany(User);
+User.belongsTo(Team);
+
+module.exports = Team;

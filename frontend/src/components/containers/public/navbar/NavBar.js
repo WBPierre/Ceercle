@@ -15,7 +15,6 @@ import HideOnScroll from "../../../molecules/navbar/HideOnScroll";
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import iconPlanet from "../../../../assets/images/generic/iconPlanet.png";
 import { useState } from "react";
-import ModalLogin from "./ModalLogin";
 import { Turn as Hamburger } from 'hamburger-react'
 import useAuth from "../../../context/auth/AuthHelper";
 
