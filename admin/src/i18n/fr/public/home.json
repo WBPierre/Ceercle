@@ -1,0 +1,78 @@
+{
+  "intro" : {
+    "title": "Optimisez la gestion du travail hybride de vos collaborateurs",
+    "slider_at_the_office": "dans vos bureaux.",
+    "slider_at_home": "en télétravail.",
+    "slider_at_coworking": "dans des tiers-lieux.",
+    "content": "Retrouvez de la visibilité dans une organisation devenue plus complexe avec le travail à distance.",
+    "content_2": "Où travaillent mes collaborateurs ?",
+    "content_3":"Quand planifier ma prochaine réunion ?",
+    "content_4": "Le futur du travail, maintenant."
+  },
+  "product_presentation" : {
+    "simply": "Simplement.",
+    "catchphrase_1" : "Vous éprouvez des difficultés à organiser votre travail hybride ?",
+    "catchphrase_2" : "Adoptez SpaceCorner et facilitez la vie de vos collaborateurs, dans vos bureaux ou à distance.",
+    "chip_1": "Renseignement de planning",
+    "chip_2": "Réservation d'un bureau",
+    "chip_3": "Organisation de réunions",
+    "chip_4": "Activité des équipes"
+  },
+  "offer_description" : {
+    "main": {
+      "title": "Productivité. Collaboration. Simplicité.",
+      "subtitle": "Offrez à vos collaborateurs une solution complète pour les accompagner dans leur organisation quotidienne."
+    },
+    "step_1": {
+      "chip_title": "Ressources humaines",
+      "title_1": "Personnalisez votre ",
+      "title_1_color": "outil.",
+      "title_2": "Intégrez vos ",
+      "title_2_color": "salariés.",
+      "title_3": "Le tour est ",
+      "title_3_color": "joué.",
+      "text": "Définissez vos critères et règles de travail hybride et intégrez simplement SpaceCorner à vos outils de travail et logiciels RH existants."
+    },
+    "step_2": {
+      "title_1": "Obtenez des informations sur ",
+      "title_1_color": "vos équipes ",
+      "title_2": "et ",
+      "title_2_color": "l'utilisation de vos bureaux.",
+      "text": "Suivez l’organisation de vos équipes grâce à un dashboard complet. Analysez l’occupation de vos espaces et gardez un œil sur le moral de vos équipes."
+    },
+    "step_3": {
+      "chip_title": "Managers & Salariés",
+      "title_1_color": "Fluidifiez ",
+      "title_1": "l'organisation des équipes.",
+      "title_2_color": "Favorisez ",
+      "title_2": "leur collaboration.",
+      "text": "Avec SpaceCorner, vos salariés renseignent chaque semaine un planning de présence partagé au sein de l’entreprise."
+    },
+    "step_4": {
+      "title_1": "Facilitez la réservation de ",
+      "title_1_color": "poste de travail.",
+      "text": "Vos salariés peuvent réserver un poste de travail aux côtés des collaborateurs de leur choix et se rendre au travail l’esprit léger."
+    },
+    "and_more": "Et tant d'autres."
+  },
+  "operations": {
+    "title": "SpaceCorner permet à l'ensemble des directions d’entreprise d’optimiser leurs opérations quotidiennes.",
+    "subtitle": "Et d'en faire profiter tout le monde.",
+    "card_1": {
+      "title": "Salariés",
+      "text": "Vos collaborateurs disposent désormais des outils pour appréhender sereinement le travail hybride"
+    },
+    "card_2": {
+      "title": "Ressources humaines",
+      "text": "Stimulez le sentiment d’appartenance de vos collaborateurs en favorisant leur interaction"
+    },
+    "card_3": {
+      "title": "Finance",
+      "text": "Etudiez l’usage de vos bureaux et prenez des décisions immobilières éclairées en conséquence"
+    },
+    "card_4": {
+      "title": "Environnement",
+      "text": "Favorisez un mode de travail réduisant significativement les émissions carbones de votre entreprise"
+    }
+  }
+}

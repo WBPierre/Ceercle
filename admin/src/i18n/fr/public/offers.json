@@ -1,0 +1,44 @@
+{
+  "main" : {
+    "title": "Du temps économisé. Un gain de clarté, de productivité et de bien-être.",
+    "sub_title_1": "Et bien d'autres.",
+    "sub_title_2": "En une solution.",
+    "content": "Choisissez la formule qui vous convient le mieux."
+  },
+  "monthly": "Mensuel",
+  "yearly": "Annuel",
+  "choose_this_offer": "Choisir cette offre",
+  "offer_1" : {
+    "title": "Business",
+    "price_yearly": "3€",
+    "price_monthly": "3,5€",
+    "per_month": "HT/mois",
+    "per_user": "par collaborateur",
+    "description": "La solution phare incluant l'ensemble de nos offres.",
+    "services" : {
+      "service_1": "Déclaration de planning de présence et calendrier collaboratif",
+      "service_2": "Réservation de poste de travail interne",
+      "service_3": "Intégration avec votre SIRH et avec vos outils (Slack, Teams, ...)",
+      "service_4": "Dashboard de suivi de présence et analytics",
+      "max_users": "Jusqu'à 300 collaborateurs"
+    }
+  },
+  "offer_2" : {
+    "title": "Sur-mesure",
+    "contact_us": "Nous contacter",
+    "description": "La solution sur-mesure destinées aux grands comptes.",
+    "services" : {
+      "service_1": "Personnalisation de la plateforme",
+      "service_2": "Support prioritaire dédié",
+      "service_3": "Single Sign-On (SSO)",
+      "service_4": "Tarification sur-mesure ",
+      "max_users": "Plus de 300 collaborateurs"
+    }
+  },
+  "perks" : {
+    "perk_1": "1er mois offert",
+    "perk_2": "Déploiement en quelques minutes",
+    "perk_3": "Sans frais de mise en place",
+    "perk_4": "Support intégré 7j/7"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "offers": "Our offers",
+  "connect": "Log in",
+  "connect_to_account": "Log in",
+  "ask_for_demo": "Request demo",
+  "connect_modal": {
+    "title": "My space",
+    "google": "Synchro with Google",
+    "teams": "Synchro with Microsoft",
+    "slack":"Synchro with Slack",
+    "remember_me": "Remember me",
+    "connect": "Connect",
+    "forgot_password": "Forgot password"
+  }
+}
