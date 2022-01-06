@@ -26,6 +26,7 @@ import { useTranslation } from "react-i18next";
 import PanToolIcon from '@mui/icons-material/PanTool';
 import { ArrowRight, Home, Settings } from "@mui/icons-material";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';
 
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -33,6 +34,7 @@ import EventIcon from '@mui/icons-material/Event';
 import ScreenSearchDesktopIcon from '@mui/icons-material/ScreenSearchDesktop';
 import PeopleIcon from '@mui/icons-material/People';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import RuleIcon from '@mui/icons-material/Rule';
 import { red } from '@mui/material/colors';
 
 const drawerWidth = 240;
@@ -119,13 +121,13 @@ export default function DrawerCustom(props) {
             <List>
                 <ListItem button onClick={() => navigate('/app')}>
                     <ListItemIcon>
-                        <DashboardIcon color={activeRoutes[activeRoutes.length - 1] === "app" ? "primary" : "inherit"} sx={{ fontSize: 30 }} />
+                        <DashboardIcon color={activeRoutes[activeRoutes.length - 1] === "app" ? "primary" : "inherit"} sx={{ fontSize: 22 }} />
                     </ListItemIcon>
                     <ListItemText
                         primaryTypographyProps={{
                             color: activeRoutes[activeRoutes.length - 1] === "app" ? 'primary' : "#535454",
                             fontWeight: activeRoutes[activeRoutes.length - 1] === "app" ? 500 : 200,
-                            fontSize: 22,
+                            fontSize: 18,
                             variant: 'body2',
                             textAlign: 'left'
                         }}
@@ -134,13 +136,13 @@ export default function DrawerCustom(props) {
                 </ListItem>
                 <ListItem button button onClick={() => navigate('/app/calendar')}>
                     <ListItemIcon>
-                        <EventIcon color={activeRoutes[activeRoutes.length - 1] === "calendar" ? "primary" : "inherit"} sx={{ fontSize: 30 }} />
+                        <EventIcon color={activeRoutes[activeRoutes.length - 1] === "calendar" ? "primary" : "inherit"} sx={{ fontSize: 22 }} />
                     </ListItemIcon>
                     <ListItemText
                         primaryTypographyProps={{
                             color: activeRoutes[activeRoutes.length - 1] === "calendar" ? 'primary' : "#535454",
                             fontWeight: activeRoutes[activeRoutes.length - 1] === "calendar" ? 500 : 200,
-                            fontSize: 22,
+                            fontSize: 18,
                             variant: 'body2',
                             textAlign: 'left'
                         }}
@@ -149,13 +151,13 @@ export default function DrawerCustom(props) {
                 </ListItem>
                 <ListItem button disabled>
                     <ListItemIcon>
-                        <ScreenSearchDesktopIcon color={activeRoutes[activeRoutes.length - 1] === "marketplace" ? "primary" : "inherit"} sx={{ fontSize: 30 }} />
+                        <ScreenSearchDesktopIcon color={activeRoutes[activeRoutes.length - 1] === "marketplace" ? "primary" : "inherit"} sx={{ fontSize: 22 }} />
                     </ListItemIcon>
                     <ListItemText
                         primaryTypographyProps={{
                             color: activeRoutes[activeRoutes.length - 1] === "marketplace" ? 'primary' : "#535454",
                             fontWeight: activeRoutes[activeRoutes.length - 1] === "marketplace" ? 500 : 200,
-                            fontSize: 22,
+                            fontSize: 18,
                             variant: 'body2',
                             textAlign: 'left'
                         }}
@@ -164,31 +166,76 @@ export default function DrawerCustom(props) {
                 </ListItem>
                 <ListItem button onClick={() => navigate('/app/glossary')}>
                     <ListItemIcon>
-                        <PeopleIcon color={activeRoutes[activeRoutes.length - 1] === "glossary" ? "primary" : "inherit"} sx={{ fontSize: 30 }} />
+                        <PeopleIcon color={activeRoutes[activeRoutes.length - 1] === "glossary" ? "primary" : "inherit"} sx={{ fontSize: 22 }} />
                     </ListItemIcon>
                     <ListItemText
                         primaryTypographyProps={{
                             color: activeRoutes[activeRoutes.length - 1] === "glossary" ? 'primary' : "#535454",
                             fontWeight: activeRoutes[activeRoutes.length - 1] === "glossary" ? 500 : 200,
-                            fontSize: 22,
+                            fontSize: 18,
                             variant: 'body2',
                             textAlign: 'left'
                         }}
                         primary={t('app:navbar:glossary')}
                     />
                 </ListItem>
+                <Divider style={{ marginTop: 20 }} />
+                <ListItem>
+                    <ListItemText
+                        primaryTypographyProps={{
+                            color: "#535454",
+                            fontWeight: 200,
+                            fontSize: 15,
+                            variant: 'body2',
+                            textAlign: 'center',
+                            fontStyle: "italic"
+                        }}
+                        primary="Paramètres RH"
+                    />
+                </ListItem>
+                <ListItem button onClick={() => navigate('/app/workpolicy')}>
+                    <ListItemIcon>
+                        <RuleIcon color={activeRoutes[activeRoutes.length - 1] === "workpolicy" ? "primary" : "inherit"} sx={{ fontSize: 22 }} />
+                    </ListItemIcon>
+                    <ListItemText
+                        primaryTypographyProps={{
+                            color: activeRoutes[activeRoutes.length - 1] === "workpolicy" ? 'primary' : "#535454",
+                            fontWeight: activeRoutes[activeRoutes.length - 1] === "workpolicy" ? 500 : 200,
+                            fontSize: 18,
+                            variant: 'body2',
+                            textAlign: 'left'
+                        }}
+                        primary="Travail hybride"
+                    />
+                </ListItem>
+                <ListItem button onClick={() => navigate('/app/teams')}>
+                    <ListItemIcon>
+                        <ConnectWithoutContactIcon color={activeRoutes[activeRoutes.length - 1] === "teams" ? "primary" : "inherit"} sx={{ fontSize: 22 }} />
+                    </ListItemIcon>
+                    <ListItemText
+                        primaryTypographyProps={{
+                            color: activeRoutes[activeRoutes.length - 1] === "teams" ? 'primary' : "#535454",
+                            fontWeight: activeRoutes[activeRoutes.length - 1] === "teams" ? 500 : 200,
+                            fontSize: 18,
+                            variant: 'body2',
+                            textAlign: 'left'
+                        }}
+                        primary="Equipes"
+                    />
+                </ListItem>
             </List>
             <Box sx={{ flexGrow: 1 }} />
+            <Divider />
             <List>
                 <ListItem button onClick={() => navigate('/app/myaccount')}>
                     <ListItemIcon>
-                        <ManageAccountsIcon color={activeRoutes[activeRoutes.length - 1] === "myaccount" ? "primary" : "inherit"} sx={{ fontSize: 30 }} />
+                        <ManageAccountsIcon color={activeRoutes[activeRoutes.length - 1] === "myaccount" ? "primary" : "inherit"} sx={{ fontSize: 22 }} />
                     </ListItemIcon>
                     <ListItemText
                         primaryTypographyProps={{
                             color: activeRoutes[activeRoutes.length - 1] === "myaccount" ? 'primary' : "#535454",
                             fontWeight: activeRoutes[activeRoutes.length - 1] === "myaccount" ? 500 : 200,
-                            fontSize: 22,
+                            fontSize: 18,
                             variant: 'body2',
                             textAlign: 'left'
                         }}

@@ -6,6 +6,9 @@ import Login from "../../views/app/Login";
 import ProtectedRoute from "./ProtectedRoute";
 import Calendar from "../../views/app/Calendar";
 import Account from '../../views/app/Account';
+import WorkPolicy from '../../views/app/WorkPolicy';
+import Teams from '../../views/app/Teams';
+import TeamSetting from '../../views/app/TeamSetting';
 
 function Rooter() {
     return (
@@ -15,6 +18,9 @@ function Rooter() {
             <Route exact path={App_Routes.GLOSSARY} element={<ProtectedRoute><Glossary /></ProtectedRoute>} />
             <Route exact path={App_Routes.CALENDAR} element={<ProtectedRoute><Calendar /></ProtectedRoute>} />
             <Route exact path={App_Routes.ACCOUNT} element={<ProtectedRoute><Account /></ProtectedRoute>} />
+            <Route exact path={App_Routes.WORKPOLICY} element={<ProtectedRoute><WorkPolicy /></ProtectedRoute>} />
+            <Route exact path={App_Routes.TEAMS} element={<ProtectedRoute><Teams /></ProtectedRoute>} />
+            <Route exact path={App_Routes.TEAMSETTING} element={<ProtectedRoute><TeamSetting /></ProtectedRoute>} />
             <Route path={"*"} element={<Navigate to={'/app' + App_Routes.LOGIN} />} />
         </Routes>
     )
