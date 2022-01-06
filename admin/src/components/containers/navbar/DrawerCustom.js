@@ -76,39 +76,19 @@ function DrawerCustom(props){
                     {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                 </IconButton>
             </DrawerHeader>
-            <Divider />
-
-
-            <Typography
-                variant="body-1"
-                noWrap
-                component="div"
-                color="black"
-                style={{fontWeight:100, fontSize:20}}
-                align="left"
-                mt={2}
-                ml={0.5}
-            >
-                Demandes externes
-            </Typography>
-
-            <List>
-                {['Demande de démo', "Demande d'inscription"].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>
-                            {index % 2 === 0 ? <OndemandVideoIcon /> : <AppRegistrationIcon />}
-                        </ListItemIcon>
-                        <ListItemText style={{color: "#7F7F7F"}} primary={text} />
-                    </ListItem>
-                ))}
-            </List>
 
             <Divider />
             <ListItem button onClick={() => navigate(Admin_Routes.COMPANY_LIST)}>
                 <ListItemIcon>
                     <AppRegistrationIcon />
                 </ListItemIcon>
-                <ListItemText style={{color: "#7F7F7F"}} primary={"Sociétés"} />
+                <ListItemText style={{color: "#7F7F7F"}} primary={"Companies"} />
+            </ListItem>
+            <ListItem button disabled>
+                <ListItemIcon>
+                    <AppRegistrationIcon />
+                </ListItemIcon>
+                <ListItemText style={{color: "#7F7F7F"}} primary={"Users"} />
             </ListItem>
         </Drawer>
     )

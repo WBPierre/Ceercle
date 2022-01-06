@@ -16,7 +16,6 @@ class ApiService {
     }
 
     request(method, url, data = {}, config = {}) {
-
         return this.instance({
             method,
             url,

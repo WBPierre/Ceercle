@@ -2,7 +2,7 @@ import CustomContainer from "../components/containers/CustomContainer";
 import {useEffect, useState} from "react";
 import CompanyService from "../services/admin/company.service";
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
-import {Button} from "@mui/material";
+import {Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 
 function CompanyList(){
@@ -16,14 +16,6 @@ function CompanyList(){
     }, [])
 
 
-    const columns: GridColDef[] = [
-        { field: 'id', headerName: '#ID', width: 100 },
-        { field: 'name', headerName: 'Name', width: 150 },
-        { field:'action', headerName: 'Actions', width:150, renderCell: (params) => {
-                return <Button onClick={() => navigate('/company/'+params.row.id)}>Gérer</Button>;
-            }}
-    ];
-
 
 
     if(list.length === 0) {
@@ -31,9 +23,45 @@ function CompanyList(){
     }
     return(
         <CustomContainer>
-            <div style={{ height: 300, width: '100%' }}>
-                <DataGrid rows={list} columns={columns} />
-            </div>
+            <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>ID</TableCell>
+                            <TableCell align="left">Nom</TableCell>
+                            <TableCell align="center"></TableCell>
+                        </TableRow>
+                    </TableHead>
+                    {list.length === 0 ? (
+                        <TableBody>
+                            <TableRow
+                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
+                                <TableCell>
+                                    No data
+                                </TableCell>
+                            </TableRow>
+
+                        </TableBody>
+                    ):(
+                        <TableBody>
+
+                            {list.map((row) => (
+                                <TableRow
+                                    key={row.name}
+                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                >
+                                    <TableCell component="th" scope="row">
+                                        {row.id}
+                                    </TableCell>
+                                    <TableCell align="left">{row.name}</TableCell>
+                                    <TableCell align="center"><Button variant={"contained"} onClick={() => navigate('/company/'+row.id)}>Modify</Button></TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    )}
+                </Table>
+            </TableContainer>
         </CustomContainer>
     )
 }

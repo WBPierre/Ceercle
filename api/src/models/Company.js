@@ -2,6 +2,7 @@ const {DataTypes} = require('sequelize');
 const {db} =  require("./../../config/database");
 const User = require('./User');
 const Team = require('./Team');
+const Office = require('./Office');
 
 const Company = db.define('company', {
     // Model attributes are defined here
@@ -52,7 +53,11 @@ const Company = db.define('company', {
 });
 Company.hasMany(User);
 User.belongsTo(Company);
+
 Company.hasMany(Team);
 Team.belongsTo(Company);
+
+Company.hasMany(Office);
+Office.belongsTo(Company);
 
 module.exports = Company;

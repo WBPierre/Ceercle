@@ -1,4 +1,5 @@
 const Moment = require("moment");
+const {add} = require("nodemon/lib/rules");
 exports.dateFormater = function(date, format){
     const map = {
         mm: date.getMonth()+1,
@@ -77,4 +78,25 @@ exports.getUsersWeekTimeSheets = function(index) {
         days.push(obj)
     }
     return days
+}
+
+
+
+exports.generateTree = function (list) {
+    let map = {}, node, roots = [], i;
+
+    for (i = 0; i < list.length; i += 1) {
+        map[list[i].id] = i; // initialize the map
+    }
+
+    for (i = 0; i < list.length; i += 1) {
+        node = list[i];
+        if (node.parentId !== null) {
+            // if you have dangling branches check that map[node.parentId] exists
+            list[map[node.parentId]].elements.push(node);
+        } else {
+            roots.push(node);
+        }
+    }
+    return roots;
 }
