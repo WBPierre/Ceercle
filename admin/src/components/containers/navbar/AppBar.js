@@ -34,7 +34,7 @@ export default function AppBar(props) {
 
     return (
         <AppBarStyle position="fixed" open={props.open} style={{ backgroundColor: theme.palette.background.paper }}>
-            <Toolbar style={{ backgroundColor: "#F1B2AD", justifyContent: "center" }} >
+            <Toolbar style={{ backgroundColor: "#2F5597", justifyContent: "center" }} >
                 <IconButton
                     style={{ color: 'black' }}
                     aria-label="open drawer"

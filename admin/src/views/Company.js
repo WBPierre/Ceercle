@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import CompanyService from "../services/admin/company.service";
 import Grid from "@mui/material/Grid";
 import {
-    Button,
+    Button, Divider,
     FormControl,
     FormControlLabel,
     FormGroup,
@@ -151,30 +151,6 @@ function Company(){
                     </Grid>
                 </Grid>
                 <Grid item>
-                    <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"}>
-                        <Grid item md={2} textAlign={"center"}>
-                            <Typography variant={"h5"}>Office handler</Typography>
-                        </Grid>
-                        <Grid item md={10}>
-                            <FormGroup>
-                                <FormControlLabel control={<Switch checked={activeOffice} onChange={handleChangeSwitch} />} label={activeOffice ? 'on' : 'off'} />
-                            </FormGroup>
-                        </Grid>
-                    </Grid>
-                </Grid>
-                { activeOffice &&
-                    <Grid item>
-                        <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"}>
-                            <Grid item md={2} textAlign={"center"}>
-                                <Typography variant={"h5"}>Max office capacity</Typography>
-                            </Grid>
-                            <Grid item md={10}>
-                                <TextField fullWidth label="Capacity (%)" id="fullWidth" name={"maxCapacity"} value={maxCapacity} onChange={handleChange}/>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                }
-                <Grid item>
                     <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} spacing={1}>
                         <Grid item md={2} textAlign={"center"}>
                             <Typography variant={"h5"}>Remote days</Typography>
@@ -279,6 +255,43 @@ function Company(){
                         </Grid>
                     </Grid>
                 </Grid>
+                <Grid item>
+                    <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"}>
+                        <Grid item md={2} textAlign={"center"}>
+                            <Typography variant={"h5"}>Office handler</Typography>
+                        </Grid>
+                        <Grid item md={10}>
+                            <FormGroup>
+                                <FormControlLabel control={<Switch checked={activeOffice} onChange={handleChangeSwitch} />} label={activeOffice ? 'on' : 'off'} />
+                            </FormGroup>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                { activeOffice &&
+                <Grid item>
+                    <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"}>
+                        <Grid item md={2} textAlign={"center"}>
+                            <Typography variant={"h5"}>Max office capacity</Typography>
+                        </Grid>
+                        <Grid item md={10}>
+                            <TextField fullWidth label="Capacity (%)" id="fullWidth" name={"maxCapacity"} value={maxCapacity} onChange={handleChange}/>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                }
+                {activeOffice  &&
+                <Grid item >
+                    <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"}>
+                        <Grid item md={2} textAlign={"center"}>
+                            <Typography variant={"h5"}>Office management</Typography>
+                        </Grid>
+                        <Grid item md={10}>
+                            <Typography>Please verify the office is well set before saving !</Typography>
+                            <Button fullWidth variant={"contained"} onClick={() => navigate('/company/'+id+'/office')}>Go to office</Button>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                }
                 <Grid item>
                     <Button variant={"contained"} onClick={() => updateCompany()} fullWidth>Save</Button>
                 </Grid>

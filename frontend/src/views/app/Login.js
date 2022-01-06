@@ -35,7 +35,6 @@ function Login(){
     const context = useAuth();
 
     useEffect(() => {
-        console.log(context);
         if(context.isAuth){
             navigate('/app')
         }
