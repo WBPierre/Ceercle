@@ -17,7 +17,7 @@ const AuthProvider  = (props) => {
     const [user, setUser] = useState(null);
     const [isAuth, setIsAuth] = useState(false);
     const [loadingInitial, setLoadingInitial] = useState(true);
-    const [cookies, setCookie] = useCookies(['token']);
+    const [cookies, setCookie, removeCookie] = useCookies(['token']);
 
     useEffect(async () => {
         if(cookies.token !== undefined) {
@@ -27,6 +27,8 @@ const AuthProvider  = (props) => {
                     setIsAuth(true);
                     setUser(res.data);
                 }
+            }).catch((err) => {
+                removeCookie('token');
             });
         }
         setLoadingInitial(false);
