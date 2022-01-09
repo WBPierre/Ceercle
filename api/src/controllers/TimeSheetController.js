@@ -21,7 +21,7 @@ exports.getUsersTimeSheet = async function(req, res, next) {
         const week = Utils.getUsersWeekTimeSheets(req.params.index);
         const users = await User.findAll({
             where:{
-                companyId: res.locals.auth.user.companyId,
+                companyId: res.locals.auth.user.company.id,
             }
         } );
         //                id: {[Op.ne]:res.locals.auth.user.id}
@@ -63,7 +63,6 @@ exports.getUsersTimeSheet = async function(req, res, next) {
                                 if(record[i].morning !== record[i].afternoon){
                                     week[j].type[record[i].afternoon].push(obj);
                                 }
-                                console.log(record[i].morning);
                             }
                         }
                         if(!found){

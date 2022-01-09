@@ -120,7 +120,7 @@ exports.login = async function (req, res, next) {
                 where:{
                     email:email
                 }
-            }).then((record) => {
+            }).then(async (record) => {
             if (!record) {
                 res.status(404);
                 res.send();
@@ -133,9 +133,9 @@ exports.login = async function (req, res, next) {
                                 firstName: record.firstName,
                                 lastName: record.lastName,
                                 email: record.email,
-                                companyId: record.companyId,
+                                company: await record.getCompany(),
                                 active: record.active,
-                                isAdmin: record.isAdmin
+                                isAdmin: record.isAdmin,
                             }}, config.secrets.jwt_key, {expiresIn: '7 days'}, (err, token) => {
                             if(err) res.send(err);
                             res.json({token});
@@ -166,7 +166,8 @@ exports.verify = function (req, res, next) {
             res.status(200).json({
                 firstName: authData.user.firstName,
                 lastName: authData.user.lastName,
-                email: authData.user.email
+                email: authData.user.email,
+                company: authData.user.company
             });
         });
     }

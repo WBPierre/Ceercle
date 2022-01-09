@@ -18,11 +18,11 @@ import Container from "@mui/material/Container";
 import Team from "../../components/containers/app/dashboard/Team";
 import Favorites from "../../components/containers/app/dashboard/Favorites";
 import CustomContainer from "../../components/containers/app/CustomContainer";
-import Fade from 'react-reveal/Fade';
 import {useContext, useEffect, useState} from "react";
 import {UserContext} from "../../components/context/auth/AuthProvider";
 import PlanningBoard from "../../components/containers/app/dashboard/PlanningBoard";
 import TimeService from "../../services/app/time.service";
+import useAuth from "../../components/context/auth/AuthHelper";
 
 export default function Dashboard(props) {
 
@@ -30,6 +30,8 @@ export default function Dashboard(props) {
     const theme = useTheme();
     let navigate = useNavigate();
     const { t } = useTranslation();
+    const context = useAuth();
+    console.log(context);
 
     return (
         <CustomContainer>
@@ -54,13 +56,15 @@ export default function Dashboard(props) {
                 </Grid>
                 <Grid item xs={12}>
                     <Grid container direction={"row"} spacing={3}>
-                        <Grid item xs={12} md={4} mt={2}>
-                            <Office/>
-                        </Grid>
-                        <Grid item xs={12} md={4}>
+                        {context.user.company.activeOfficeHandler &&
+                            <Grid item xs={12} md={4} mt={2}>
+                                <Office/>
+                            </Grid>
+                        }
+                        <Grid item xs={12} md={context.user.company.activeOfficeHandler ? 4 : 6}>
                             <Team/>
                         </Grid>
-                        <Grid item xs={12} md={4}>
+                        <Grid item xs={12} md={context.user.company.activeOfficeHandler ? 4 : 6}>
                             <Favorites/>
                         </Grid>
                     </Grid>

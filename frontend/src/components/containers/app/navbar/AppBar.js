@@ -11,8 +11,13 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import {Badge} from "@mui/material";
 import LangSwitcher from "../../../molecules/navbar/LangSwitcher";
+import WeatherService from "../../../../services/app/weather.service";
+import {useEffect, useState} from "react";
+import moment from "moment";
+import "moment/min/locales";
 
 const drawerWidth = 240;
+
 
 const AppBarStyle = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
@@ -35,6 +40,17 @@ export default function AppBar(props) {
     const theme = useTheme();
     let navigate = useNavigate();
     const { t } = useTranslation();
+    const [temp, setTemp] = useState(0);
+    const [weatherIcon, setWeatherIcon] = useState('');
+    const day = moment().tz("Europe/London").locale('fr');
+
+    useEffect(async () => {
+        await WeatherService.getWeather("Paris").then((res) => {
+            setTemp(res.data.current.temp_c);
+            setWeatherIcon(res.data.current.condition.icon);
+        });
+    }, []);
+
 
     return (
         <AppBarStyle position="fixed" open={props.open} style={{ backgroundColor: theme.palette.background.paper }}>
@@ -57,14 +73,14 @@ export default function AppBar(props) {
                     noWrap
                     component="div"
                     color="white"
-                    style={{ fontWeight: 200 }}
+                    style={{ fontWeight: 200, textTransform:'capitalize'}}
                     fontSize={25}
                     align='center'
                 >
-                    Lundi 06 décembre 2021
+                    {day.format('dddd')} {day.format('DD')} {day.format('MMMM')} {day.format('YYYY')}
                 </Typography>
 
-                <LightModeIcon sx={{ fontSize: 28 }} />
+                <img src={weatherIcon}/>
 
                 <Typography
                     mr={3}
@@ -76,7 +92,7 @@ export default function AppBar(props) {
                     fontSize={25}
                     align='center'
                 >
-                    | 12°
+                    | {temp}°
                 </Typography>
 
                 <div style={{flexGrow: 1}}/>

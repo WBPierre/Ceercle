@@ -61,6 +61,7 @@ function Login(){
         await AuthService.login(resources).then( async (res) => {
             if(res.status !== 200){
                 console.log("Error to handle")
+                ;
             }else{
                 await setAuth(res.data.token);
                 navigate('/app')

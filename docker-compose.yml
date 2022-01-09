@@ -32,9 +32,6 @@ services :
       - "80:3000"
 
   admin:
-    stdin_open: true
-    environment:
-      CHOKIDAR_USEPOLLING: "true"
     build:
       dockerfile: Dockerfile
       context: ./admin
@@ -44,7 +41,7 @@ services :
     depends_on:
       - api
     ports:
-      - "81:3000"
+      - "81:2000"
 
   postgres:
     image: postgres:14.0

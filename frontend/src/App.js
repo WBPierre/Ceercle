@@ -1,5 +1,6 @@
 import Rooter from "./navigation/Rooter";
 import { SnackbarProvider } from "notistack";
+import "./config/ignoreWarnings.js";
 
 function App() {
   return (
