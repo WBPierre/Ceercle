@@ -36,6 +36,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import RuleIcon from '@mui/icons-material/Rule';
 import { red } from '@mui/material/colors';
+import useAuth from "../../../context/auth/AuthHelper";
 
 const drawerWidth = 240;
 
@@ -53,6 +54,7 @@ export default function DrawerCustom(props) {
     let navigate = useNavigate();
     const { t } = useTranslation();
     const location = useLocation();
+    const context = useAuth();
 
     const activeRoutes = location.pathname.split('/');
 
@@ -101,7 +103,7 @@ export default function DrawerCustom(props) {
                             }}
                         />
                         <ListItemText
-                            primary="Léa !"
+                            primary={`${context.user.firstName} !`}
                             primaryTypographyProps={{
                                 fontWeight: 200,
                                 fontSize: 21,
