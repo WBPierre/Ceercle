@@ -1,8 +1,11 @@
 import Rooter from "./navigation/Rooter";
+import { SnackbarProvider } from "notistack";
 
 function App() {
   return (
-    <Rooter/>
+    <SnackbarProvider maxSnack={3} anchorOrigin={{ horizontal: 'right', vertical: 'top' }}>
+      <Rooter />
+    </SnackbarProvider>
   );
 }
 
