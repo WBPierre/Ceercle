@@ -1,5 +1,6 @@
 const {DataTypes} = require('sequelize');
 const {db} =  require("./../../config/database");
+const OfficeBooking = require("./OfficeBooking");
 
 const OfficeElement = db.define('office_element', {
     // Model attributes are defined here
@@ -27,5 +28,8 @@ OfficeElement.hasMany(OfficeElement, {
         name: 'parentId'
     }
 });
+
+OfficeElement.hasMany(OfficeBooking);
+OfficeBooking.belongsTo(OfficeElement);
 
 module.exports = OfficeElement;

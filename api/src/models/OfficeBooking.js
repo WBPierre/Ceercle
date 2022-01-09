@@ -24,4 +24,6 @@ const OfficeBooking = db.define('office_booking', {
 User.hasMany(OfficeBooking);
 OfficeBooking.belongsTo(User);
 
+
+
 module.exports = OfficeBooking;
