@@ -6,7 +6,6 @@ const Team = require("../models/Team");
 exports.getOffices = async function(req, res, next){
     try {
         const errors = validationResult(req);
-        console.log(errors);
         if (!errors.isEmpty()) {
             res.status(422).json({errors: errors.array()});
         }

@@ -36,6 +36,15 @@ const AppBarStyle = styled(MuiAppBar, {
     }),
 }));
 
+
+/*
+<IconButton aria-label="openNotif">
+                    <Badge badgeContent={4} color="error">
+                        <NotificationsIcon/>
+                    </Badge>
+                </IconButton>
+ */
+
 export default function AppBar(props) {
     const theme = useTheme();
     let navigate = useNavigate();
@@ -98,11 +107,6 @@ export default function AppBar(props) {
                 <div style={{flexGrow: 1}}/>
 
                 <LangSwitcher />
-                <IconButton aria-label="openNotif">
-                    <Badge badgeContent={4} color="error">
-                        <NotificationsIcon/>
-                    </Badge>
-                </IconButton>
 
             </Toolbar>
         </AppBarStyle>

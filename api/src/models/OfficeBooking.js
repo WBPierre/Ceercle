@@ -9,11 +9,11 @@ const OfficeBooking = db.define('office_booking', {
         allowNull: false
     },
     morning:{
-        type: DataTypes.INTEGER,
+        type: DataTypes.BOOLEAN,
         allowNull: false
     },
     afternoon:{
-        type: DataTypes.INTEGER,
+        type: DataTypes.BOOLEAN,
         allowNull: false
     }
 }, {

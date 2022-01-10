@@ -2,6 +2,7 @@ const OfficeElement = require('../models/OfficeElement');
 const {validationResult, param, body} = require("express-validator");
 const Team = require("../models/Team");
 const Utils = require("../services/Utils");
+const OfficeBooking = require('../models/OfficeBooking');
 
 
 exports.getOfficeElements = async function(req, res, next){
@@ -34,33 +35,47 @@ exports.getOfficeElements = async function(req, res, next){
             arr.push(obj);
         }
         const array = Utils.generateTree(arr);
-        /*
-        while(result.length > 0){
-            for(let i = 0; i < result.length; i++){
-                let obj = {
-                    id: result[i].id,
-                    name: result[i].name,
-                    type: result[i].type,
-                    color: result[i].color,
-                    capacity: result[i].capacity,
-                    parentId: result[i].parentId,
-                    officeId: result[i].officeId,
-                    elements: []
-                };
-                if(result[i].parentId === null){
-                    arr.push(obj);
-                    result.slice(i, 1);
-                }else{
-                    for(let j = 0; j < arr.length; j++){
-                        if(arr[j].id === obj.parentId){
-                            arr[j]['elements'].push(obj);
-                            result.slice(i,1);
-                            break;
-                        }
-                    }
-                }
-            }
-        }*/
+        res.json(array);
+    } catch(err) {
+        return next(err)
+    }
+}
+
+exports.getOfficeElementsWithCapacity = async function(req, res, next){
+    try {
+        const errors = validationResult(req);
+        console.log(errors);
+        if (!errors.isEmpty()) {
+            res.status(422).json({errors: errors.array()});
+        }
+        const id = req.params.id;
+        let result = await OfficeElement.findAll({
+            where:{
+                officeId: id
+            },
+            order:[['id', 'ASC']]
+        });
+
+        let arr = [];
+        for(let i = 0; i < result.length; i++){
+            let obj = {
+                id: result[i].id,
+                name: result[i].name,
+                type: result[i].type,
+                color: result[i].color,
+                capacity: result[i].capacity,
+                used: await OfficeBooking.count({where:{day:req.params.day, officeElementId: result[i].id}}),
+                parentId: result[i].parentId,
+                officeId: result[i].officeId,
+                elements: []
+            };
+            arr.push(obj);
+        }
+
+        const array = Utils.generateTree(arr);
+        for(let i = 0; i < array.length; i++){
+            Utils.calculateTreeSum(array[i])
+        }
         res.json(array);
     } catch(err) {
         return next(err)

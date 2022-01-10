@@ -16,7 +16,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Office from "../../components/containers/app/dashboard/Office";
 import Container from "@mui/material/Container";
 import Team from "../../components/containers/app/dashboard/Team";
-import Favorites from "../../components/containers/app/dashboard/Favorites";
+import Mood from "../../components/containers/app/dashboard/Mood";
 import CustomContainer from "../../components/containers/app/CustomContainer";
 import Fade from 'react-reveal/Fade';
 import {useContext, useEffect, useState} from "react";

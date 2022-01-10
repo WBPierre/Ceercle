@@ -16,13 +16,14 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Office from "../../components/containers/app/dashboard/Office";
 import Container from "@mui/material/Container";
 import Team from "../../components/containers/app/dashboard/Team";
-import Favorites from "../../components/containers/app/dashboard/Favorites";
+import Mood from "../../components/containers/app/dashboard/Mood";
 import CustomContainer from "../../components/containers/app/CustomContainer";
 import {useContext, useEffect, useState} from "react";
 import {UserContext} from "../../components/context/auth/AuthProvider";
 import PlanningBoard from "../../components/containers/app/dashboard/PlanningBoard";
 import TimeService from "../../services/app/time.service";
 import useAuth from "../../components/context/auth/AuthHelper";
+import moment from "moment";
 
 export default function Dashboard(props) {
 
@@ -31,7 +32,14 @@ export default function Dashboard(props) {
     let navigate = useNavigate();
     const { t } = useTranslation();
     const context = useAuth();
-    console.log(context);
+    const day = moment().tz("Europe/Paris");
+    if(day.day() === 0){
+        day.add(1, 'days');
+    }else if(day.day() === 6){
+        day.add(2, 'days');
+    }
+    const [daySelected, setDaySelected] = useState(day.format('YYYY-MM-DD'));
+
 
     return (
         <CustomContainer>
@@ -55,17 +63,17 @@ export default function Dashboard(props) {
                     </Grid>
                 </Grid>
                 <Grid item xs={12}>
-                    <Grid container direction={"row"} spacing={3}>
+                    <Grid container direction={"row"} spacing={3} alignItems={"stretch"}>
                         {context.user.company.activeOfficeHandler &&
                             <Grid item xs={12} md={4} mt={2}>
-                                <Office/>
+                                <Office day={daySelected}/>
                             </Grid>
                         }
                         <Grid item xs={12} md={context.user.company.activeOfficeHandler ? 4 : 6}>
                             <Team/>
                         </Grid>
                         <Grid item xs={12} md={context.user.company.activeOfficeHandler ? 4 : 6}>
-                            <Favorites/>
+                            <Mood day={daySelected}/>
                         </Grid>
                     </Grid>
                 </Grid>
