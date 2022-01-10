@@ -16,8 +16,8 @@ function CalendarDateElement(props) {
 
     if(moment().format("YYYY-MM-DD") === props.date.day){
         return(
-            <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"}>
-                <Grid item style={{backgroundColor :'#2F5597', borderRadius: '25px'}} px={1} >
+            <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} style={{backgroundColor:'#2F5597'}}>
+                <Grid item px={1} >
                     <Grid container direction={"column"} px={1}>
                         <Grid item textAlign={"center"}>
                             <Typography style={{color:'white'}}>{<GetDay/>}</Typography>

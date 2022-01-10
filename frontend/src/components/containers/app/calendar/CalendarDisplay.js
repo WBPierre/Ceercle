@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Grid";
-import {Button, Divider, Paper} from "@mui/material";
+import {Button, Divider, Paper, Typography} from "@mui/material";
 import CalendarDateElement from "./CalendarDateElement";
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -8,6 +8,8 @@ import {useEffect, useState} from "react";
 import TimeService from "../../../../services/app/time.service";
 import CalendarElement from "./CalendarElement";
 import CalendarUser from "./CalendarUser";
+import moment from "moment";
+import * as React from "react";
 
 function CalendarDisplay(props) {
 
@@ -66,9 +68,14 @@ function CalendarDisplay(props) {
             <Paper>
                 <Grid container direction={"column"} spacing={2}>
                     <Grid item>
-                        <Button variant={"contained"} onClick={() => getBackToCurrent() }>Aujourd'hui</Button>
+                        <Button variant={"text"} onClick={() => getBackToCurrent() }>Revenir à Aujourd'hui</Button>
                     </Grid>
-                    <Grid item py={2}>
+                    <Grid item>
+                        <Typography textAlign={"center"}>
+                            {moment(week[0].day).date()} {moment(week[0].day).locale('fr').format('MMMM')} - {moment(week[4].day).date()} {moment(week[4].day).locale('fr').format('MMMM')}
+                        </Typography>
+                    </Grid>
+                    <Grid item>
                         <Grid container direction={"row"}>
                             <Grid item md={1} textAlign={"center"}>
                                 <IconButton aria-label="previous" onClick={() => getPreviousWeek()} color="primary">
@@ -88,17 +95,6 @@ function CalendarDisplay(props) {
                         </Grid>
                     </Grid>
                     <Divider/>
-                    <Grid item>
-                        <Grid container direction={"row"}>
-                            <Grid item md={1}/>
-                            {week.map((day, i) => (
-                                <Grid item md={2} key={i}>
-                                    <CalendarUser data={week[i]} updateData={updateData}/>
-                                </Grid>
-                            ))}
-                            <Grid item md={1}/>
-                        </Grid>
-                    </Grid>
                     <Grid item>
                         <Grid container direction={"row"}>
                             <Grid item md={1}/>

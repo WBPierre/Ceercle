@@ -31,7 +31,6 @@ exports.getCurrentWeek = function(index) {
     let weekStart = now.clone().startOf('isoWeek');
     let weekEnd = now.clone().endOf('isoWeek');
 
-
     const currentDay = Moment().tz('Europe/Paris').format("YYYY-MM-DD");
 
     let days = [];

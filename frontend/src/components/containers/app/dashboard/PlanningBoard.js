@@ -11,11 +11,15 @@ import * as React from "react";
 import {useEffect, useRef, useState} from "react";
 import TimeService from "../../../../services/app/time.service";
 import moment from "moment";
+import "moment/min/locales";
+
 import Card from "@mui/material/Card";
+import {Typography} from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
 
 function PlanningBoard() {
-
+    let navigate = useNavigate();
     const animationDuration = 500;
     const [week, setWeek] = useState([]);
     const [anim, setAnim] = useState(true);
@@ -67,13 +71,25 @@ function PlanningBoard() {
         })
     }
 
+    if(week === undefined || week.length === 0){
+        return (<div/>)
+    }
     return(
         <Paper elevation={4} square style={{borderRadius:'25px', minHeight:'40vh'}}>
             <Grid container direction={"column"} spacing={2} justifyContent={"center"} alignItems={"center"} paddingBottom={"2%"}>
                 <Grid item xs={12}>
-                    <Button variant="text" endIcon={<CreateIcon style={{fontSize: 28, color:'grey'}}/>} disableRipple={true} style={{backgroundColor:'transparent', textTransform: 'none', fontSize: 28, color:'black'}}>
-                        Mon planning
-                    </Button>
+                    <Grid container direction={"column"}>
+                        <Grid item>
+                            <Button variant="text" onClick={() => navigate('/calendar')} disableRipple={true} style={{backgroundColor:'transparent', textTransform: 'none', fontSize: 28, color:'black'}}>
+                                Mon planning
+                            </Button>
+                        </Grid>
+                        <Grid item>
+                            <Typography textAlign={"center"}>
+                                {moment(week[0].day).date()} {moment(week[0].day).locale('fr').format('MMMM')} - {moment(week[4].day).date()} {moment(week[4].day).locale('fr').format('MMMM')}
+                            </Typography>
+                        </Grid>
+                    </Grid>
                 </Grid>
                 <Grid item xs={12} style={{width:'100%'}}>
                     <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"}>
