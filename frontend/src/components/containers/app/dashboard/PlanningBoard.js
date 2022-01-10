@@ -8,9 +8,10 @@ import PlanningElement from "./PlanningElement";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Paper from "@mui/material/Paper";
 import * as React from "react";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import TimeService from "../../../../services/app/time.service";
 import moment from "moment";
+import Card from "@mui/material/Card";
 
 
 function PlanningBoard() {
@@ -88,36 +89,36 @@ function PlanningBoard() {
                             <div style={{width: '100%'}}>
                                 <Fade left={orientation} right={!orientation} spy={index} when={anim}
                                       duration={animationDuration} opposite distance={"10%"} cascade>
-                                    <Grid container direction={"row"} justifyContent={"space-evenly"}>
-                                        <Grid item>
+                                    <Grid container direction={"row"} justifyContent={"space-evenly"} flexWrap={"nowrap"}>
+                                        <Grid item flexGrow={1} component={Paper} style={{boxShadow:'none'}}>
                                             <PlanningElement
                                                 modify={declareDay}
                                                 from={week[0].morning}
                                                 day={"Lun."} date={week[0].day}
                                                 current={week[0].current} past={week[0].past}/>
                                         </Grid>
-                                        <Grid item>
+                                        <Grid item flexGrow={1} component={Paper} style={{boxShadow:'none'}}>
                                             <PlanningElement
                                                 modify={declareDay}
                                                 from={week[1].morning}
                                                 day={"Mar."} date={week[1].day}
                                                 current={week[1].current} past={week[1].past}/>
                                         </Grid>
-                                        <Grid item>
+                                        <Grid item flexGrow={1} component={Paper} style={{boxShadow:'none'}}>
                                             <PlanningElement
                                                 modify={declareDay}
                                                 from={week[2].morning}
                                                 day={"Mer."} date={week[2].day}
                                                 current={week[2].current} past={week[2].past}/>
                                         </Grid>
-                                        <Grid item>
+                                        <Grid item flexGrow={1} component={Paper} style={{boxShadow:'none'}}>
                                             <PlanningElement
                                                 modify={declareDay}
                                                 from={week[3].morning}
                                                 day={"Jeu."} date={week[3].day}
                                                 current={week[3].current} past={week[3].past}/>
                                         </Grid>
-                                        <Grid item>
+                                        <Grid item flexGrow={1} component={Paper} style={{boxShadow:'none'}}>
                                             <PlanningElement
                                                 modify={declareDay}
                                                 from={week[4].morning}

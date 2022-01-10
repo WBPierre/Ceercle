@@ -16,7 +16,6 @@ import ManWorkingIcon from "../../../molecules/icons/ManWorkingIcon";
 
 function Team(){
     return(
-        <Paper elevation={4} square style={{borderRadius:'25px'}}>
             <Grid container direction={"column"} spacing={2} py={2} px={2}>
                 <Grid item xs={12}>
                     <Grid container direction={"row"} alignItems={"center"} justifyContent={"space-between"}>
@@ -68,7 +67,6 @@ function Team(){
                     <Button variant="text" style={{backgroundColor:'transparent', color:'black', fontSize:18, textTransform:'none'}} startIcon={<PaperIcon sx={{width: 24, height:24}}/>} endIcon={<ExpandMoreIcon/>}>Tout afficher (4/15)</Button>
                 </Grid>
             </Grid>
-        </Paper>
     )
 }
 

@@ -33,17 +33,18 @@ function PlanningElement(props) {
     switch (props.from) {
         case 1:
             return (
-                <div>
+                <div style={{width:'100%', height:'100%'}}>
                     <Button disableRipple={true} style={{
                         textTransform: 'none',
                         backgroundColor: !props.past ? '' : 'transparent',
-                        cursor: !props.past ? 'pointer' : 'default'
+                        cursor: !props.past ? 'pointer' : 'default',
+                        width:'100%', height:'100%'
                     }} id="basic-button"
                             aria-controls="basic-menu"
                             aria-haspopup="true"
                             aria-expanded={open ? 'true' : undefined}
                             onClick={handleClick}>
-                        <Grid container direction={"column"} spacing={1} alignItems={"center"}>
+                        <Grid container direction={"column"} spacing={1}>
                             <Grid item xs={12}>
                                 <Typography textAlign={"center"} style={{color: props.current ? '#95E59A' : '#d32f2f'}}
                                             fontSize={props.current ? 24 : 22}
@@ -52,7 +53,7 @@ function PlanningElement(props) {
                                             fontSize={props.current ? 24 : 22}
                                             fontWeight={props.current ? 600 : 500}>{moment(props.date, 'YYYY-MM-DD').date()}</Typography>
                             </Grid>
-                            <Grid item>
+                            <Grid item style={{display:'flex', justifyContent:'center'}}>
                                 <Avatar sx={{width: 75, height: 75}}
                                         style={{
                                             border: props.current ? '3px solid #95E59A' : 'none',
@@ -61,10 +62,11 @@ function PlanningElement(props) {
                                     <OfficeIcon sx={{width: 50, height: 50}}/>
                                 </Avatar>
                             </Grid>
-                            <Grid item>
+                            <Grid item xs={12} my={2}/>
+                            <Grid item xs={12} style={{position:'absolute', bottom:0, width:'100%'}}>
                                 <Typography textAlign={"center"}
-                                            style={{color: props.past ? '#D3D3D3' : props.current ? '#95E59A' : '#60b56d'}}
-                                            fontSize={props.current ? 24 : 22}
+                                            style={{color: props.past ? '#D3D3D3' : props.current ? '#95E59A' : '#60b56d', width:'100%'}}
+                                            fontSize={props.current ? 20 : 18}
                                             fontWeight={props.current ? 600 : 500}>Bureau</Typography>
                             </Grid>
                         </Grid>
@@ -107,17 +109,18 @@ function PlanningElement(props) {
             );
         case 2:
             return (
-                <div>
+                <div style={{width:'100%', height:'100%'}}>
                     <Button disableRipple={true} style={{
                         textTransform: 'none',
                         backgroundColor: !props.past ? '' : 'transparent',
-                        cursor: !props.past ? 'pointer' : 'default'
+                        cursor: !props.past ? 'pointer' : 'default',
+                        width:'100%', height:'100%'
                     }} id="basic-button"
                             aria-controls="basic-menu"
                             aria-haspopup="true"
                             aria-expanded={open ? 'true' : undefined}
                             onClick={handleClick}>
-                        <Grid container direction={"column"} spacing={1} alignItems={"center"}>
+                        <Grid container direction={"column"} spacing={1}>
                             <Grid item xs={12}>
                                 <Typography textAlign={"center"} style={{color: props.current ? '#8BCCEE' : '#d32f2f'}}
                                             fontSize={props.current ? 24 : 22}
@@ -126,7 +129,7 @@ function PlanningElement(props) {
                                             fontSize={props.current ? 24 : 22}
                                             fontWeight={props.current ? 600 : 500}>{moment(props.date, 'YYYY-MM-DD').date()}</Typography>
                             </Grid>
-                            <Grid item>
+                            <Grid item style={{display:'flex', justifyContent:'center'}}>
                                 <Avatar sx={{width: 75, height: 75}}
                                         style={{
                                             border: props.current ? '3px solid #8BCCEE' : 'none',
@@ -135,10 +138,11 @@ function PlanningElement(props) {
                                     <ManWorkingIcon sx={{width: 50, height: 50}}/>
                                 </Avatar>
                             </Grid>
-                            <Grid item>
+                            <Grid item xs={12} my={2}/>
+                            <Grid item xs={12} style={{position:'absolute', bottom:0, width:'100%'}}>
                                 <Typography textAlign={"center"}
-                                            style={{color: props.past ? '#D3D3D3' : props.current ? '#8BCCEE' : '#2F5597'}}
-                                            fontSize={props.current ? 24 : 22}
+                                            style={{color: props.past ? '#D3D3D3' : props.current ? '#8BCCEE' : '#2F5597', width:'100%'}}
+                                            fontSize={props.current ? 20 : 18}
                                             fontWeight={props.current ? 600 : 500}>Télétravail</Typography>
                             </Grid>
                         </Grid>
@@ -181,17 +185,18 @@ function PlanningElement(props) {
             );
         case 3:
             return (
-                <div>
+                <div style={{width:'100%', height:'100%'}}>
                     <Button disableRipple={true} style={{
                         textTransform: 'none',
                         backgroundColor: !props.past ? '' : 'transparent',
-                        cursor: !props.past ? 'pointer' : 'default'
+                        cursor: !props.past ? 'pointer' : 'default',
+                        width:'100%', height:'100%'
                     }} id="basic-button"
                             aria-controls="basic-menu"
                             aria-haspopup="true"
                             aria-expanded={open ? 'true' : undefined}
                             onClick={handleClick}>
-                        <Grid container direction={"column"} spacing={1} alignItems={"center"}>
+                        <Grid container direction={"column"} spacing={1}>
                             <Grid item xs={12}>
                                 <Typography textAlign={"center"} style={{color: props.current ? '#C7B3DA' : '#d32f2f'}}
                                             fontSize={props.current ? 24 : 22}
@@ -200,7 +205,7 @@ function PlanningElement(props) {
                                             fontSize={props.current ? 24 : 22}
                                             fontWeight={props.current ? 600 : 500}>{moment(props.date, 'YYYY-MM-DD').date()}</Typography>
                             </Grid>
-                            <Grid item>
+                            <Grid item style={{display:'flex', justifyContent:'center'}}>
                                 <Avatar sx={{width: 75, height: 75}}
                                         style={{
                                             border: props.current ? '3px solid #C7B3DA' : 'none',
@@ -209,10 +214,11 @@ function PlanningElement(props) {
                                     <PlaneTakeOffIcon sx={{width: 50, height: 50}}/>
                                 </Avatar>
                             </Grid>
-                            <Grid item>
+                            <Grid item xs={12} my={2}/>
+                            <Grid item xs={12} style={{position:'absolute', bottom:0, width:'100%'}}>
                                 <Typography textAlign={"center"}
-                                            style={{color: props.past ? '#D3D3D3' : props.current ? '#C7B3DA' : '#9872B2'}}
-                                            fontSize={props.current ? 24 : 22}
+                                            style={{color: props.past ? '#D3D3D3' : props.current ? '#C7B3DA' : '#9872B2', width:'100%'}}
+                                            fontSize={props.current ? 20 : 18}
                                             fontWeight={props.current ? 600 : 500}>Déplacement</Typography>
                             </Grid>
                         </Grid>
@@ -255,17 +261,18 @@ function PlanningElement(props) {
             )
         default:
             return (
-                <div>
-                    <Button disableRipple={true} style={{
+                <div style={{width:'100%', height:'100%'}}>
+                    <Button style={{
                         textTransform: 'none',
                         backgroundColor: !props.past ? '' : 'transparent',
-                        cursor: !props.past ? 'pointer' : 'default'
+                        cursor: !props.past ? 'pointer' : 'default',
+                        width:'100%', height:'100%'
                     }} id="basic-button"
                             aria-controls="basic-menu"
                             aria-haspopup="true"
                             aria-expanded={open ? 'true' : undefined}
                             onClick={handleClick}>
-                        <Grid container direction={"column"} spacing={1} alignItems={"center"}>
+                        <Grid container direction={"column"} spacing={1}>
                             <Grid item xs={12}>
                                 <Typography textAlign={"center"} style={{color: props.current ? '#d32f2f' : '#d32f2f'}}
                                             fontSize={props.current ? 24 : 22}
@@ -274,7 +281,7 @@ function PlanningElement(props) {
                                             fontSize={props.current ? 24 : 22}
                                             fontWeight={props.current ? 600 : 500}>{moment(props.date, 'YYYY-MM-DD').date()}</Typography>
                             </Grid>
-                            <Grid item>
+                            <Grid item style={{display:'flex', justifyContent:'center'}}>
                                 <Avatar sx={{width: 75, height: 75}}
                                         style={{
                                             border: props.current ? '3px solid #d32f2f' : 'none',
@@ -283,10 +290,11 @@ function PlanningElement(props) {
                                     <PlaneTakeOffIcon sx={{width: 50, height: 50, display: 'none'}}/>
                                 </Avatar>
                             </Grid>
-                            <Grid item>
+                            <Grid item xs={12} my={2}/>
+                            <Grid item xs={12} style={{position:'absolute', bottom:0, width:'100%'}}>
                                 <Typography textAlign={"center"}
-                                            style={{color: props.past ? '#D3D3D3' : props.current ? '#d32f2f' : '#d32f2f'}}
-                                            fontSize={props.current ? 24 : 22} fontWeight={props.current ? 600 : 500}>{props.past ? 'Non déclaré' : 'A définir'}</Typography>
+                                            style={{color: props.past ? '#D3D3D3' : props.current ? '#d32f2f' : '#d32f2f', width:'100%'}}
+                                            fontSize={props.current ? 20 : 18} fontWeight={props.current ? 600 : 500}>{props.past ? 'Non déclaré' : 'A définir'}</Typography>
                             </Grid>
                         </Grid>
                     </Button>

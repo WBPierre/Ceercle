@@ -48,7 +48,6 @@ function Mood(props){
 
 
     return(
-        <Paper elevation={4} square style={{borderRadius:'25px'}}>
             <Grid container direction={"column"} spacing={2} py={2} px={2}>
                 <Grid item xs={12}>
                     <Typography variant={"h5"} fontWeight={500}>
@@ -88,7 +87,6 @@ function Mood(props){
                     <Typography>Votre moral est au beau fixe !</Typography>
                 </Grid>
             </Grid>
-        </Paper>
     )
 }
 
