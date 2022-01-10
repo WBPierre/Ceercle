@@ -48,7 +48,6 @@ function Mood(props){
 
 
     return(
-        <Paper elevation={4} square style={{borderRadius:'25px'}}>
             <Grid container direction={"column"} spacing={2} py={2} px={2}>
                 <Grid item xs={12}>
                     <Typography variant={"h5"} fontWeight={500}>
@@ -56,39 +55,42 @@ function Mood(props){
                     </Typography>
                 </Grid>
                 <Grid item xs={12}>
-                    <Typography fontWeight={400}>
-                        Renseigner votre moral de la journée à votre manager :
-                    </Typography>
-                </Grid>
-                <Grid item xs={12}>
-                    <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"}>
-                        <Grid item>
-                            <IconButton sx={{mr:2}} onClick={() => updateMood(0)} style={{border:mood !== null && mood.type === 0 ? '1px solid #2F5597': 'none'}}>
-                                <SunIcon />
-                            </IconButton>
+                    <Grid container direction={"column"} py={2} spacing={4}>
+                        <Grid item xs={12}>
+                            <Typography fontWeight={400}>
+                                Renseigner votre moral de la journée à votre manager :
+                            </Typography>
                         </Grid>
-                        <Grid item>
-                            <IconButton sx={{mr:2}} onClick={() => updateMood(1)} style={{border:mood !== null && mood.type === 1 ? '1px solid #2F5597': 'none'}}>
-                                <SunBehindCloudIcon />
-                            </IconButton>
+                        <Grid item xs={12}>
+                            <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"}>
+                                <Grid item>
+                                    <IconButton sx={{mr:2}} onClick={() => updateMood(0)} style={{border:mood !== null && mood.type === 0 ? '1px solid #2F5597': 'none'}}>
+                                        <SunIcon />
+                                    </IconButton>
+                                </Grid>
+                                <Grid item>
+                                    <IconButton sx={{mr:2}} onClick={() => updateMood(1)} style={{border:mood !== null && mood.type === 1 ? '1px solid #2F5597': 'none'}}>
+                                        <SunBehindCloudIcon />
+                                    </IconButton>
+                                </Grid>
+                                <Grid item>
+                                    <IconButton sx={{mr:2}} onClick={() => updateMood(2)} style={{border:mood !== null && mood.type === 2 ? '1px solid #2F5597': 'none'}}>
+                                        <SunBehindCloudRainIcon />
+                                    </IconButton>
+                                </Grid>
+                                <Grid item>
+                                    <IconButton sx={{mr:2}} onClick={() => updateMood(3)} style={{border:mood !== null && mood.type === 3 ? '1px solid #2F5597': 'none'}}>
+                                        <CloudWithRainIcon />
+                                    </IconButton>
+                                </Grid>
+                            </Grid>
                         </Grid>
-                        <Grid item>
-                            <IconButton sx={{mr:2}} onClick={() => updateMood(2)} style={{border:mood !== null && mood.type === 2 ? '1px solid #2F5597': 'none'}}>
-                                <SunBehindCloudRainIcon />
-                            </IconButton>
-                        </Grid>
-                        <Grid item>
-                            <IconButton sx={{mr:2}} onClick={() => updateMood(3)} style={{border:mood !== null && mood.type === 3 ? '1px solid #2F5597': 'none'}}>
-                                <CloudWithRainIcon />
-                            </IconButton>
+                        <Grid item xs={12}>
+                            <Typography>Votre moral est au beau fixe !</Typography>
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item xs={12}>
-                    <Typography>Votre moral est au beau fixe !</Typography>
-                </Grid>
             </Grid>
-        </Paper>
     )
 }
 

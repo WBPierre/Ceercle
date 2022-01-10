@@ -2,7 +2,7 @@ import * as React from 'react';
 import Grid from "@mui/material/Grid";
 import { useTranslation } from "react-i18next";
 import Typography from "@mui/material/Typography"
-import { Chip, useTheme } from "@mui/material";
+import {CardMedia, Chip, useTheme} from "@mui/material";
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -21,7 +21,8 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Box from '@mui/material/Box';
 import { useParams } from "react-router-dom";
-
+import Gradient from "../../../../assets/images/offers/slanted-gradient.png";
+import Button from "@mui/material/Button";
 
 
 function OfferDescription({ props }) {
@@ -40,7 +41,7 @@ function OfferDescription({ props }) {
 
 
     return (
-        <Grid container direction={"column"} style={{ height: '100%' }} alignItems={"space-around"} style={{ backgroundColor: theme.palette.background.default }}>
+        <Grid container direction={"column"} alignItems={"space-around"} style={{ backgroundColor: theme.palette.background.default }}>
 
             <Grid item xs={12} px={10}>
                 <Box
@@ -54,11 +55,10 @@ function OfferDescription({ props }) {
                         value={alignment}
                         exclusive
                         onChange={handleChange}
-                        style={{ backgroundColor: "#FFFFFF", border: '1px solid #F2E7E0' }}
                         alignItems="center"
                     >
-                        <ToggleButton value="monthly" disableRipple={true} style={{ fontWeight: 600, fontSize: 17, color: "#2F5597" }}>{t('public:offers:monthly')}</ToggleButton>
-                        <ToggleButton value="yearly" disableRipple={true} style={{ fontWeight: 600, fontSize: 17, color: "#2F5597" }}>{t('public:offers:yearly')}</ToggleButton>
+                        <ToggleButton value="monthly" disableRipple={true} style={{ fontWeight: 600, fontSize: 17, color: alignment === 'monthly' ? 'white' : '#2F5597', backgroundColor: alignment === 'monthly' ? '#2F5597' : 'white'}}>{t('public:offers:monthly')}</ToggleButton>
+                        <ToggleButton value="yearly" disableRipple={true} style={{ fontWeight: 600, fontSize: 17, color: alignment === 'yearly' ? 'white' : '#2F5597', backgroundColor: alignment === 'yearly' ? '#2F5597' : 'white'}}>{t('public:offers:yearly')}</ToggleButton>
                     </ToggleButtonGroup>
                 </Box>
 
@@ -68,16 +68,17 @@ function OfferDescription({ props }) {
                 <Grid container direction={"row"} justifyContent={"space-around"} mb={7} alignItems="stretch">
 
                     <Grid item component={Card} md={4} xs={12} mt={7} style={{
-                        border: '2px solid #548235', borderRadius: '5%', backgroundColor: "#FFFFFF", display: "flex",
-                        flexDirection: "column", justifyContent: "space-between"
-                    }} xs>
+                        border: '2px solid #548235', borderRadius:'25px', display: "flex",
+                        flexDirection: "column", backgroundColor:theme.palette.background.default
+                    }}>
                         <Fade direction={"left"} triggerOnce={true}>
                             <CardHeader disableTypography={false}
+                                        style={{backgroundColor: theme.palette.background.paper, borderTopLeftRadius:'25px', borderTopRightRadius:'25px'}}
                                 title={
                                     <Grid container direction="column" alignItems="center">
                                         <Grid item md={12} mt={1}>
-                                            <Chip pt={5} style={{ backgroundColor: "#F8FBF5", color: "#548235", fontWeight: 500, fontSize: 35, height: '5%' }}
-                                                label={t('public:offers:offer_1.title')}>
+                                            <Chip pt={5} style={{ backgroundColor: "rgba(84,130,53,0.25)", color: "#548235", fontWeight: 500, fontSize: 35, height: '5%' }}
+                                                  label={t('public:offers:offer_1.title')}>
                                             </Chip>
                                         </Grid>
                                     </Grid>}
@@ -97,12 +98,12 @@ function OfferDescription({ props }) {
                                     </Grid>
                                 </Grid>}>
                             </CardHeader>
-                            <Divider />
                             <CardContent sx={{
                                 backgroundColor: theme.palette.background.default
                             }}>
+                                <Button fullWidth variant={"contained"}  onClick={() => navigate('/demo')}>{t('public:offers:choose_this_offer')}</Button>
                                 <List alignItems="flex-start">
-                                    <ListItem disablePadding disablePadding alignItems="flex-start">
+                                    <ListItem disablePadding alignItems="flex-start">
                                         <ListItemIcon style={{ minWidth: '40px' }}>
                                             <Check sx={{ color: "#548235" }} />
                                         </ListItemIcon>
@@ -134,25 +135,17 @@ function OfferDescription({ props }) {
                                     </ListItem>
                                 </List>
                             </CardContent>
-                            <CardActions sx={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'baseline',
-                                mb: 2,
-                                backgroundColor: theme.palette.background.default
-                            }}>
-                                <Chip variant="contained" style={{ color: 'white', backgroundColor: '#2F5597', fontSize: 16, fontWeight: 400 }} label={t('public:offers:choose_this_offer')} onClick={() => navigate('/demo')} />
-                            </CardActions>
                         </Fade>
                     </Grid>
 
 
                     <Grid item component={Card} md={4} xs={12} mt={7} style={{
-                        border: '2px solid #954F35', borderRadius: '5%', backgroundColor: "#FFFFFF", display: "flex",
-                        flexDirection: "column", justifyContent: "space-between"
-                    }} xs>
+                        border: '2px solid #954F35', borderRadius: '25px', display: "flex",
+                        flexDirection: "column", backgroundColor: theme.palette.background.default
+                    }}>
                         <Fade direction={"right"} triggerOnce={true}>
                             <CardHeader disableTypography={false}
+                                        style={{backgroundColor: theme.palette.background.paper, borderTopLeftRadius:'25px', borderTopRightRadius:'25px'}}
                                 title={
                                     <Grid container direction="column" alignItems="center">
                                         <Grid item md={12} mt={1}>
@@ -162,7 +155,7 @@ function OfferDescription({ props }) {
                                         </Grid>
                                     </Grid>}
                                 subheader={<Grid container direction="column" alignItems="center">
-                                    <Grid item md={3} mt={5}>
+                                    <Grid item md={3} mt={4}>
                                         <span style={{ fontWeight: 500, fontSize: 35, color: "#2F5597" }}> {t('public:offers:offer_2.contact_us')} </span>
                                     </Grid>
 
@@ -173,10 +166,11 @@ function OfferDescription({ props }) {
                                     </Grid>
                                 </Grid>}>
                             </CardHeader>
-                            <Divider />
                             <CardContent sx={{
-                                backgroundColor: theme.palette.background.default
+                                backgroundColor: theme.palette.background.default,
+                                borderRadius: '25px'
                             }}>
+                                <Button fullWidth variant={"contained"}  onClick={() => navigate('/demo')}>{t('public:offers:choose_this_offer')}</Button>
                                 <List alignItems="flex-start">
                                     <ListItem disablePadding alignItems="flex-start">
                                         <ListItemIcon style={{ minWidth: '40px' }}>
@@ -216,15 +210,6 @@ function OfferDescription({ props }) {
                                     </ListItem>
                                 </List>
                             </CardContent>
-                            <CardActions sx={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'baseline',
-                                mb: 2,
-                                backgroundColor: theme.palette.background.default
-                            }}>
-                                <Chip variant="contained" style={{ color: 'white', backgroundColor: '#2F5597', fontSize: 16 }} label={t('public:offers:choose_this_offer')} onClick={() => navigate('/demo')} />
-                            </CardActions>
                         </Fade>
                     </Grid>
                 </Grid>

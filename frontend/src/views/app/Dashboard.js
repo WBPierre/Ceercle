@@ -63,16 +63,16 @@ export default function Dashboard(props) {
                     </Grid>
                 </Grid>
                 <Grid item xs={12}>
-                    <Grid container direction={"row"} spacing={3} alignItems={"stretch"}>
+                    <Grid container direction={"row"} spacing={1} justifyContent={"space-around"}>
                         {context.user.company.activeOfficeHandler &&
-                            <Grid item xs={12} md={4} mt={2}>
+                            <Grid item xs={12} md={4} style={{borderRadius:'25px'}} component={Paper}>
                                 <Office day={daySelected}/>
                             </Grid>
                         }
-                        <Grid item xs={12} md={context.user.company.activeOfficeHandler ? 4 : 6}>
+                        <Grid item xs={12} md={context.user.company.activeOfficeHandler ? 3 : 6} style={{borderRadius:'25px'}} component={Paper}>
                             <Team/>
                         </Grid>
-                        <Grid item xs={12} md={context.user.company.activeOfficeHandler ? 4 : 6}>
+                        <Grid item xs={12} md={context.user.company.activeOfficeHandler ? 4 : 6} style={{borderRadius:'25px'}} component={Paper}>
                             <Mood day={daySelected}/>
                         </Grid>
                     </Grid>

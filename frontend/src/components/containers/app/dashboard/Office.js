@@ -40,9 +40,8 @@ function Office(props){
 
 
     return(
-        <Paper elevation={4} square style={{borderRadius:'25px'}}>
-            <OfficeModal open={open} handleClose={(update) => handleClose(update)} handleOpen={handleOpen} day={props.day}/>
-            <Grid container direction={"column"} spacing={4} pb={2} px={2}>
+            <Grid container direction={"column"} spacing={4} py={2} px={2}>
+                <OfficeModal open={open} handleClose={(update) => handleClose(update)} handleOpen={handleOpen} day={props.day}/>
                 <Grid item xs={12}>
                     <Grid container direction={"row"} alignItems={"center"} justifyContent={"space-between"}>
                         <Grid item>
@@ -134,7 +133,6 @@ function Office(props){
                     </Grid>
                 )}
             </Grid>
-        </Paper>
     )
 }
 
