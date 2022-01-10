@@ -161,13 +161,23 @@ exports.verify = function (req, res, next) {
     if(!authHeader) {
         return res.sendStatus(400);
     } else {
-        jwt.verify(authHeader.split(' ')[1], config.secrets.jwt_key, (err, authData) => {
+        jwt.verify(authHeader.split(' ')[1], config.secrets.jwt_key, async (err, authData) => {
             if(err) return res.status(403).json(err);
+            const record = await User.findOne(
+                {
+                    where:{
+                        id:authData.user.id
+                    }
+                });
+            if(!record){
+                res.status(403);
+                res.send();
+            }
             res.status(200).json({
-                firstName: authData.user.firstName,
-                lastName: authData.user.lastName,
-                email: authData.user.email,
-                company: authData.user.company
+                firstName: record.firstName,
+                lastName: record.lastName,
+                email: record.email,
+                company: await record.getCompany()
             });
         });
     }
