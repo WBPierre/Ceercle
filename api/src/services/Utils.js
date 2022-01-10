@@ -100,3 +100,12 @@ exports.generateTree = function (list) {
     }
     return roots;
 }
+
+exports.calculateTreeSum = function(tree) {
+    if(tree.elements.length !== 0){
+        tree.elements.forEach(child => {
+            tree.used += this.calculateTreeSum(child);
+        });
+    }
+    return tree.used;
+}

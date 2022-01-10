@@ -1,5 +1,7 @@
 const OfficeBooking = require("../models/OfficeBooking");
 const {validationResult, param, body} = require("express-validator");
+const OfficeElement = require("../models/OfficeElement");
+const Office = require("../models/Office");
 
 exports.setOfficeBooking = async function (req, res, next){
     try {
@@ -44,11 +46,33 @@ exports.getOfficeBooking = async function(req, res, next) {
                 day:req.params.day,
                 userId: res.locals.auth.user.id
             }
-        }).then((record)=> {
+        }).then(async (record)=> {
             if(!record){
                 res.json([]);
             }else{
-                res.json("found");
+                const response = {};
+                const element = await OfficeElement.findOne({
+                    where:{
+                        id: record.officeElementId
+                    }
+                });
+                if(element){
+                    response.room = element.name;
+                    if(element.parentId !== null){
+                        const parent = await OfficeElement.findOne({
+                            where:{
+                                id: element.parentId
+                            }
+                        });
+                        response.parent = parent.name;
+                    }
+                    const office = await element.getOffice();
+                    response.office = office.name;
+                    res.json(response);
+                }else{
+                    res.sendStatus(500);
+                }
+
             }
         })
     } catch(err) {

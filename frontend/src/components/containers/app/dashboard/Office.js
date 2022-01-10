@@ -9,15 +9,39 @@ import example3 from "../../../../assets/images/example/3.jpg";
 import example4 from "../../../../assets/images/example/4.jpg";
 import example5 from "../../../../assets/images/example/5.jpg";
 import AddIcon from '@mui/icons-material/Add';
+import {useEffect, useState} from "react";
+import BookingService from "../../../../services/app/booking.service";
+import OfficeModal from "./OfficeModal";
 
-function Office(){
+function Office(props){
 
+    const [booking, setBooking] = useState([]);
+    const [open, setOpen] = useState(false);
 
+    const handleOpen = () => {
+        setOpen(true);
+    }
+    const handleClose = async (update) => {
+        if(update){
+            const res = await BookingService.getBooking(props.day);
+            setBooking(res.data);
+        }
+        setOpen(false);
+    }
+
+    useEffect(() => {
+        async function getBooking(){
+            const res = await BookingService.getBooking(props.day);
+            setBooking(res.data);
+        };
+        getBooking();
+    }, [])
 
 
 
     return(
         <Paper elevation={4} square style={{borderRadius:'25px'}}>
+            <OfficeModal open={open} handleClose={(update) => handleClose(update)} handleOpen={handleOpen} day={props.day}/>
             <Grid container direction={"column"} spacing={4} pb={2} px={2}>
                 <Grid item xs={12}>
                     <Grid container direction={"row"} alignItems={"center"} justifyContent={"space-between"}>
@@ -27,7 +51,7 @@ function Office(){
                             </Typography>
                         </Grid>
                         <Grid item>
-                            <Button variant={"text"} style={{backgroundColor:'transparent'}}>Go to</Button>
+                            <Button variant={"text"} style={{backgroundColor:'transparent'}} onClick={() => handleOpen()}>Go to</Button>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -37,29 +61,45 @@ function Office(){
                     </Typography>
                 </Grid>
                 <Grid item xs={12}>
-                    <Grid container direction={"row"} alignItems={"center"} justifyContent={"space-around"}>
-                        <Grid item>
-                            <Typography variant={"h5"} color={"primary"}>
-                                Paris
-                            </Typography>
+                    {booking.length !== 0 ? (
+                        <Grid container direction={"row"} alignItems={"center"} justifyContent={"space-around"}>
+                            <Grid item>
+                                <Typography variant={"h5"} color={"primary"}>
+                                    {booking.office}
+                                </Typography>
+                            </Grid>
+                            {booking.parent &&
+                            <Grid item>
+                                <Typography variant={"h5"} color={"primary"}>
+                                    {booking.parent}
+                                </Typography>
+                            </Grid>
+                            }
+                            <Grid item>
+                                <Typography variant={"h5"} style={{color:'#d32f2f'}}>
+                                    {booking.room}
+                                </Typography>
+                            </Grid>
                         </Grid>
-                        <Grid item>
-                            <Typography variant={"h5"} color={"primary"}>
-                                Salle Eiffel
-                            </Typography>
+                    ):(
+                        <Grid container direction={"row"} alignItems={"center"} justifyContent={"space-around"}>
+                            <Grid item>
+                                <Typography variant={"h5"} color={"primary"}>
+                                    Aucune réservation
+                                </Typography>
+                            </Grid>
                         </Grid>
-                        <Grid item>
-                            <Typography variant={"h5"} style={{color:'#d32f2f'}}>
-                                B08
-                            </Typography>
-                        </Grid>
-                    </Grid>
+                    )}
+
                 </Grid>
+                {booking.length !== 0 &&
                 <Grid item xs={12}>
                     <Typography variant={"body1"} color={"primary"} fontSize={18}>
                         Collaborateurs dans votre salle :
                     </Typography>
                 </Grid>
+                }
+                {booking.length !== 0 ? (
                 <Grid item xs={12}>
                     <Grid container direction={"row"} spacing={1}>
                         <Grid item>
@@ -84,6 +124,15 @@ function Office(){
                         </Grid>
                     </Grid>
                 </Grid>
+                ):(
+                    <Grid item xs={12}>
+                        <Grid container direction={"row"} spacing={1} justifyContent={"center"} alignItems={"center"}>
+                            <Grid item>
+                                <Button variant={"contained"} onClick={() => handleOpen()}>Faire une réservation</Button>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                )}
             </Grid>
         </Paper>
     )
