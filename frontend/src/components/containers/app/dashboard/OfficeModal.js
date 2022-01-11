@@ -46,8 +46,8 @@ function OfficeModal(props){
     const confirmBooking = async () => {
         const resources = {
             day: props.day,
-            morning: 1,
-            afternoon: 1,
+            morning: true,
+            afternoon: true,
             officeElementId: elementItem.id
         }
         await BookingService.setBooking(resources).then((res) => {
