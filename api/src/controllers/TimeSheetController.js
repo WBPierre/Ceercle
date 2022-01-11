@@ -23,7 +23,7 @@ exports.getUsersTimeSheet = async function(req, res, next) {
             where:{
                 companyId: res.locals.auth.user.company.id,
             }
-        } );
+        });
         //                id: {[Op.ne]:res.locals.auth.user.id}
         for(let i = 0; i < week.length; i++){
             week[i].totalUsers = users.length;

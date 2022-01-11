@@ -93,9 +93,9 @@ exports.validate = (method) => {
                 body('day', 'day doesn\'t exist').exists(),
                 body('day', 'day is not a number').isString(),
                 body('morning', 'morning doesn\'t exist').exists(),
-                body('morning', 'morning is not a number').isNumeric(),
+                body('morning', 'morning is not a number').isBoolean(),
                 body('afternoon', 'afternoon doesn\'t exist').exists(),
-                body('afternoon', 'afternoon is not a number').isNumeric(),
+                body('afternoon', 'afternoon is not a number').isBoolean(),
                 body('officeElementId', 'officeElementId doesn\'t exist').exists(),
                 body('officeElementId', 'officeElementId is not a number').isNumeric()
             ]

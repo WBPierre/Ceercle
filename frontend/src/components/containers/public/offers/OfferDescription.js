@@ -21,7 +21,6 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Box from '@mui/material/Box';
 import { useParams } from "react-router-dom";
-import Gradient from "../../../../assets/images/offers/slanted-gradient.png";
 import Button from "@mui/material/Button";
 
 
