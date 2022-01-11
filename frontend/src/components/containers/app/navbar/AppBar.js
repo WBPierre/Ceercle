@@ -9,12 +9,14 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import LightModeIcon from '@mui/icons-material/LightMode';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import {Badge} from "@mui/material";
+import {Badge, ListItemButton} from "@mui/material";
 import LangSwitcher from "../../../molecules/navbar/LangSwitcher";
 import WeatherService from "../../../../services/app/weather.service";
 import {useEffect, useState} from "react";
 import moment from "moment";
 import "moment/min/locales";
+import ListItemText from "@mui/material/ListItemText";
+import useAuth from "../../../context/auth/AuthHelper";
 
 const drawerWidth = 240;
 
@@ -51,6 +53,7 @@ export default function AppBar(props) {
     const { t } = useTranslation();
     const [temp, setTemp] = useState(0);
     const [weatherIcon, setWeatherIcon] = useState('');
+    const context = useAuth();
     const day = moment().tz("Europe/London").locale('fr');
 
     useEffect(async () => {
@@ -63,7 +66,7 @@ export default function AppBar(props) {
 
     return (
         <AppBarStyle position="fixed" open={props.open} style={{ backgroundColor: theme.palette.background.paper }}>
-            <Toolbar style={{ backgroundColor: "#F1B2AD", justifyContent: "center" }} >
+            <Toolbar style={{ backgroundColor: "#3F07A8", justifyContent: "center" }} >
                 <IconButton
                     style={{ color: 'black' }}
                     aria-label="open drawer"
@@ -73,8 +76,17 @@ export default function AppBar(props) {
                 >
                     <MenuIcon />
                 </IconButton>
+                <div style={{flexGrow:1}}/>
 
-                <div style={{flexGrow: 1}}/>
+                <Typography style={{
+                    color: 'white',
+                    fontSize: 21,
+                    fontWeight: 600,
+                    variant: 'body2',
+                    textAlign: 'center'}}>
+                    {`${t('app:navbar:welcome')} ${context.user.firstName} !`}
+                </Typography>
+                <div style={{flexGrow:1}}/>
 
                 <Typography
                     mr={3}
@@ -104,7 +116,7 @@ export default function AppBar(props) {
                     | {temp}°
                 </Typography>
 
-                <div style={{flexGrow: 1}}/>
+                <div style={{flexGrow: 2}}/>
 
                 <LangSwitcher />
 

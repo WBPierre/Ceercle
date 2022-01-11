@@ -16,6 +16,7 @@ import "moment/min/locales";
 import Card from "@mui/material/Card";
 import {Typography} from "@mui/material";
 import {useNavigate} from "react-router-dom";
+import {useSnackbar} from "notistack";
 
 
 function PlanningBoard() {
@@ -25,6 +26,8 @@ function PlanningBoard() {
     const [anim, setAnim] = useState(true);
     const [index, setIndex] = useState(0);
     const [orientation, setOrientation] = useState(true);
+    const { enqueueSnackbar } = useSnackbar();
+
 
     useEffect(() => {
         const getTimeSheet = async () => {
@@ -69,18 +72,21 @@ function PlanningBoard() {
         await TimeService.getTimeSheet(index).then((res) => {
             setWeek(res.data.week);
         })
+        enqueueSnackbar('Déclaration enregistrée', {
+            variant: 'success'
+        });
     }
 
     if(week === undefined || week.length === 0){
         return (<div/>)
     }
     return(
-        <Paper elevation={4} square style={{borderRadius:'25px', minHeight:'40vh'}}>
+        <Paper elevation={1} square style={{borderRadius:'25px', minHeight:'40vh'}}>
             <Grid container direction={"column"} spacing={2} justifyContent={"center"} alignItems={"center"} paddingBottom={"2%"}>
                 <Grid item xs={12}>
                     <Grid container direction={"column"}>
                         <Grid item>
-                            <Button variant="text" onClick={() => navigate('/calendar')} disableRipple={true} style={{backgroundColor:'transparent', textTransform: 'none', fontSize: 28, color:'black'}}>
+                            <Button variant="text" onClick={() => navigate('/app/calendar')} disableRipple={true} style={{backgroundColor:'transparent', textTransform: 'none', fontSize: 28, color:'black'}}>
                                 Mon planning
                             </Button>
                         </Grid>

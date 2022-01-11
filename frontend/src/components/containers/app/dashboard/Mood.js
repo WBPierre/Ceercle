@@ -21,10 +21,12 @@ import SunBehindCloudRainIcon from "../../../molecules/icons/SunBehindCloudRainI
 import CloudWithRainIcon from "../../../molecules/icons/CloudWithRainIcon";
 import {useEffect, useState} from "react";
 import MoodService from "../../../../services/app/mood.service";
+import {useSnackbar} from "notistack";
 
 function Mood(props){
 
     const [mood, setMood] = useState(null);
+    const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
         async function getMood(){
@@ -42,6 +44,9 @@ function Mood(props){
         await MoodService.setMood(resources);
         await MoodService.getMood(props.day).then((res) =>{
             setMood(res.data);
+        });
+        enqueueSnackbar('Déclaration enregistrée', {
+            variant: 'success'
         });
     }
 

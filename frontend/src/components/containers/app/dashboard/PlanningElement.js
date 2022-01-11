@@ -2,7 +2,7 @@ import {Avatar, ListItemIcon, ListItemText, Menu, Typography} from "@mui/materia
 import Grid from "@mui/material/Grid";
 import ManWorkingIcon from "../../../molecules/icons/ManWorkingIcon";
 import OfficeIcon from "../../../molecules/icons/OfficeIcon";
-import PlaneTakeOffIcon from "../../../molecules/icons/PlaneTakeOffIcon";
+import AwayIcon from "../../../molecules/icons/AwayIcon";
 import {useTheme} from "@mui/material/styles";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
@@ -10,6 +10,7 @@ import {useState} from "react";
 import {ContentPaste} from "@mui/icons-material";
 import ToDefineIcon from "../../../molecules/icons/ToDefineIcon";
 import moment from "moment";
+import OffIcon from "../../../molecules/icons/OffIcon";
 
 function PlanningElement(props) {
 
@@ -86,12 +87,6 @@ function PlanningElement(props) {
                             </ListItemIcon>
                             <ListItemText>A définir</ListItemText>
                         </MenuItem>
-                        <MenuItem onClick={() => modifyChoice(1)}>
-                            <ListItemIcon>
-                                <OfficeIcon/>
-                            </ListItemIcon>
-                            <ListItemText>Au bureau</ListItemText>
-                        </MenuItem>
                         <MenuItem onClick={() => modifyChoice(2)}>
                             <ListItemIcon>
                                 <ManWorkingIcon/>
@@ -100,9 +95,15 @@ function PlanningElement(props) {
                         </MenuItem>
                         <MenuItem onClick={() => modifyChoice(3)}>
                             <ListItemIcon>
-                                <PlaneTakeOffIcon/>
+                                <AwayIcon/>
                             </ListItemIcon>
                             <ListItemText>Déplacement</ListItemText>
+                        </MenuItem>
+                        <MenuItem onClick={() => modifyChoice(4)}>
+                            <ListItemIcon>
+                                <OffIcon/>
+                            </ListItemIcon>
+                            <ListItemText>Off</ListItemText>
                         </MenuItem>
                     </Menu>
                 </div>
@@ -168,17 +169,17 @@ function PlanningElement(props) {
                             </ListItemIcon>
                             <ListItemText>Au bureau</ListItemText>
                         </MenuItem>
-                        <MenuItem onClick={() => modifyChoice(2)}>
-                            <ListItemIcon>
-                                <ManWorkingIcon/>
-                            </ListItemIcon>
-                            <ListItemText>Télétravail</ListItemText>
-                        </MenuItem>
                         <MenuItem onClick={() => modifyChoice(3)}>
                             <ListItemIcon>
-                                <PlaneTakeOffIcon/>
+                                <AwayIcon/>
                             </ListItemIcon>
                             <ListItemText>Déplacement</ListItemText>
+                        </MenuItem>
+                        <MenuItem onClick={() => modifyChoice(4)}>
+                            <ListItemIcon>
+                                <OffIcon/>
+                            </ListItemIcon>
+                            <ListItemText>Off</ListItemText>
                         </MenuItem>
                     </Menu>
                 </div>
@@ -211,7 +212,7 @@ function PlanningElement(props) {
                                             border: props.current ? '3px solid #C7B3DA' : 'none',
                                             backgroundColor: props.past ? '#D3D3D3' : '#E6DCF1'
                                         }}>
-                                    <PlaneTakeOffIcon sx={{width: 50, height: 50}}/>
+                                    <AwayIcon sx={{width: 50, height: 50}}/>
                                 </Avatar>
                             </Grid>
                             <Grid item xs={12} my={2}/>
@@ -250,9 +251,85 @@ function PlanningElement(props) {
                             </ListItemIcon>
                             <ListItemText>Télétravail</ListItemText>
                         </MenuItem>
+                        <MenuItem onClick={() => modifyChoice(4)}>
+                            <ListItemIcon>
+                                <OffIcon/>
+                            </ListItemIcon>
+                            <ListItemText>Off</ListItemText>
+                        </MenuItem>
+                    </Menu>
+                </div>
+            )
+        case 4:
+            return (
+                <div style={{width:'100%', height:'100%'}}>
+                    <Button disableRipple={true} style={{
+                        textTransform: 'none',
+                        backgroundColor: !props.past ? '' : 'transparent',
+                        cursor: !props.past ? 'pointer' : 'default',
+                        width:'100%', height:'100%'
+                    }} id="basic-button"
+                            aria-controls="basic-menu"
+                            aria-haspopup="true"
+                            aria-expanded={open ? 'true' : undefined}
+                            onClick={handleClick}>
+                        <Grid container direction={"column"} spacing={1}>
+                            <Grid item xs={12}>
+                                <Typography textAlign={"center"} style={{color: props.current ? '#FFA800' : '#d32f2f'}}
+                                            fontSize={props.current ? 24 : 22}
+                                            fontWeight={props.current ? 600 : 500}>{props.day}</Typography>
+                                <Typography textAlign={"center"} style={{color: props.current ? '#FFA800' : '#2F5597'}}
+                                            fontSize={props.current ? 24 : 22}
+                                            fontWeight={props.current ? 600 : 500}>{moment(props.date, 'YYYY-MM-DD').date()}</Typography>
+                            </Grid>
+                            <Grid item style={{display:'flex', justifyContent:'center'}}>
+                                <Avatar sx={{width: 75, height: 75}}
+                                        style={{
+                                            border: props.current ? '3px solid #FFA800' : 'none',
+                                            backgroundColor: props.past ? '#D3D3D3' : '#FBE7B4'
+                                        }}>
+                                    <OffIcon sx={{width: 50, height: 50}}/>
+                                </Avatar>
+                            </Grid>
+                            <Grid item xs={12} my={2}/>
+                            <Grid item xs={12} style={{position:'absolute', bottom:0, width:'100%'}}>
+                                <Typography textAlign={"center"}
+                                            style={{color: props.past ? '#D3D3D3' : props.current ? '#FFA800' : '#FFA800', width:'100%'}}
+                                            fontSize={props.current ? 20 : 18}
+                                            fontWeight={props.current ? 600 : 500}>Off</Typography>
+                            </Grid>
+                        </Grid>
+                    </Button>
+                    <Menu
+                        id="basic-menu"
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={handleClose}
+                        MenuListProps={{
+                            'aria-labelledby': 'basic-button',
+                        }}
+                    >
+                        <MenuItem onClick={() => modifyChoice(0)}>
+                            <ListItemIcon>
+                                <ToDefineIcon/>
+                            </ListItemIcon>
+                            <ListItemText>A définir</ListItemText>
+                        </MenuItem>
+                        <MenuItem onClick={() => modifyChoice(1)}>
+                            <ListItemIcon>
+                                <OfficeIcon/>
+                            </ListItemIcon>
+                            <ListItemText>Au bureau</ListItemText>
+                        </MenuItem>
+                        <MenuItem onClick={() => modifyChoice(2)}>
+                            <ListItemIcon>
+                                <ManWorkingIcon/>
+                            </ListItemIcon>
+                            <ListItemText>Télétravail</ListItemText>
+                        </MenuItem>
                         <MenuItem onClick={() => modifyChoice(3)}>
                             <ListItemIcon>
-                                <PlaneTakeOffIcon/>
+                                <AwayIcon/>
                             </ListItemIcon>
                             <ListItemText>Déplacement</ListItemText>
                         </MenuItem>
@@ -262,7 +339,7 @@ function PlanningElement(props) {
         default:
             return (
                 <div style={{width:'100%', height:'100%'}}>
-                    <Button style={{
+                    <Button disableRipple={true} style={{
                         textTransform: 'none',
                         backgroundColor: !props.past ? '' : 'transparent',
                         cursor: !props.past ? 'pointer' : 'default',
@@ -287,7 +364,7 @@ function PlanningElement(props) {
                                             border: props.current ? '3px solid #d32f2f' : 'none',
                                             backgroundColor: props.past ? '#D3D3D3' : '#D3D3D3'
                                         }}>
-                                    <PlaneTakeOffIcon sx={{width: 50, height: 50, display: 'none'}}/>
+                                    <AwayIcon sx={{width: 50, height: 50, display: 'none'}}/>
                                 </Avatar>
                             </Grid>
                             <Grid item xs={12} my={2}/>
@@ -321,9 +398,15 @@ function PlanningElement(props) {
                         </MenuItem>
                         <MenuItem onClick={() => modifyChoice(3)}>
                             <ListItemIcon>
-                                <PlaneTakeOffIcon/>
+                                <AwayIcon/>
                             </ListItemIcon>
                             <ListItemText>Déplacement</ListItemText>
+                        </MenuItem>
+                        <MenuItem onClick={() => modifyChoice(4)}>
+                            <ListItemIcon>
+                                <OffIcon/>
+                            </ListItemIcon>
+                            <ListItemText>Off</ListItemText>
                         </MenuItem>
                     </Menu>
                 </div>

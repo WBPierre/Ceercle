@@ -50,10 +50,10 @@ function CustomContainer(props){
     };
 
     return(
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', minHeight:'100vh'}}>
             <AppBar open={open} handleDrawerOpen={handleDrawerOpen} handleDrawerClose={handleDrawerClose}/>
             <DrawerCustom open={open} handleDrawerOpen={handleDrawerOpen} handleDrawerClose={handleDrawerClose}/>
-            <Main open={open}>
+            <Main open={open} style={{backgroundColor:'#FDF9F6'}}>
                 <DrawerHeader />
                 <Container>
                     {props.children}

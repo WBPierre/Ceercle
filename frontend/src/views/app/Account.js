@@ -12,12 +12,25 @@ import AvatarSection from '../../components/containers/app/account/AvatarSection
 import PreferencesSection from '../../components/containers/app/account/PreferencesSection';
 import GeneralSection from '../../components/containers/app/account/GeneralSection';
 import SecuritySection from '../../components/containers/app/account/SecuritySection';
+import Button from "@mui/material/Button";
+import {useCookies} from "react-cookie";
+import useAuth from "../../components/context/auth/AuthHelper";
 
 export default function Account(props) {
 
     const theme = useTheme();
     let navigate = useNavigate();
     const { t } = useTranslation();
+    const context = useAuth();
+    const [cookies, setCookie, removeCookie] = useCookies(['token']);
+
+
+    const handleLogOut = () => {
+        removeCookie('token');
+        context.updateAuth(false);
+        context.updateUser(null);
+        navigate('/app/login');
+    }
 
     return (
         <CustomContainer>
@@ -29,9 +42,16 @@ export default function Account(props) {
                 </Grid>
 
                 <Grid item mb={1}>
-                    <Typography variant="body" fontWeight={100} fontSize={18} style={{ color: '#7F7F7F' }}>
-                        Paramètres de compte
-                    </Typography>
+                    <Grid container direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
+                        <Grid item>
+                            <Typography variant="body" fontWeight={100} fontSize={18} style={{ color: '#7F7F7F' }}>
+                                Paramètres de compte
+                            </Typography>
+                        </Grid>
+                        <Grid item>
+                            <Button variant={"text"} onClick={() => handleLogOut()}>Se déconnecter</Button>
+                        </Grid>
+                    </Grid>
                 </Grid>
 
                 <Divider style={{ backgroundColor: "#A4A3A3" }} />

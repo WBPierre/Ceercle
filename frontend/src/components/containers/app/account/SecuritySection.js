@@ -11,6 +11,7 @@ import DoneIcon from '@mui/icons-material/Done';
 import CancelIcon from '@mui/icons-material/Cancel';
 
 import SettingSectionTemplate from './SettingSectionTemplate';
+import {Button, Divider} from "@mui/material";
 
 export default function SecuritySection(props) {
 
@@ -85,7 +86,7 @@ export default function SecuritySection(props) {
 
                 <Grid item mt={5}>
                     <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#414040' }}>
-                        Ancien mot de passe
+                        Confirmer le mot de passe
                     </Typography>
                 </Grid>
 

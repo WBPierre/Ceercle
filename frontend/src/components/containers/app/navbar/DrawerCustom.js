@@ -54,7 +54,6 @@ export default function DrawerCustom(props) {
     let navigate = useNavigate();
     const { t } = useTranslation();
     const location = useLocation();
-    const context = useAuth();
 
     const activeRoutes = location.pathname.split('/');
 
@@ -73,7 +72,7 @@ export default function DrawerCustom(props) {
             open={props.open}
         >
             <DrawerHeader>
-                <Button style={{ textTransform: 'capitalize', backgroundColor: 'transparent' }} disableRipple={true} startIcon={<img src={iconPlanet} height={40} alt="logo" />} onClick={() => { navigate('/app/') }}>
+                <Button style={{ textTransform: 'capitalize', backgroundColor: 'transparent' }} disableRipple={true} startIcon={<img src={iconPlanet} height={40} alt="logo" />} onClick={() => { navigate('/app') }}>
                     <Typography
                         variant="h6"
                         noWrap
@@ -91,27 +90,6 @@ export default function DrawerCustom(props) {
 
             <List mb={5}>
                 <ListItem component="div" disablePadding>
-                    <ListItemButton sx={{ height: 56 }}>
-                        <ListItemText
-                            primary={t('app:navbar:welcome')}
-                            primaryTypographyProps={{
-                                color: '#7A82FC',
-                                fontWeight: 600,
-                                fontSize: 21,
-                                variant: 'body2',
-                                textAlign: 'right'
-                            }}
-                        />
-                        <ListItemText
-                            primary={`${context.user.firstName} !`}
-                            primaryTypographyProps={{
-                                fontWeight: 200,
-                                fontSize: 21,
-                                variant: 'body2',
-                                textAlign: 'center'
-                            }}
-                        />
-                    </ListItemButton>
                     <IconButton
                         size="small"
                         onClick={props.handleDrawerClose}

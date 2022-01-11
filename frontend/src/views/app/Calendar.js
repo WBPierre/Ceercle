@@ -28,7 +28,6 @@ import CalendarDisplay from "../../components/containers/app/calendar/CalendarDi
 
 export default function Calendar(props) {
 
-    const animationDuration = 500;
     const theme = useTheme();
     let navigate = useNavigate();
     const { t } = useTranslation();
@@ -44,7 +43,7 @@ export default function Calendar(props) {
 
     return (
         <CustomContainer>
-            <Grid wrap={"nowrap"} container direction={"column"} spacing={3} marginTop={"1%"}>
+            <Grid wrap={"nowrap"} container direction={"column"} spacing={5} marginTop={"1%"}>
                 <Grid item>
                     <FilterBar handleFilters={handleFilters}/>
                 </Grid>

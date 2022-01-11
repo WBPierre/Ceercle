@@ -4,7 +4,12 @@ import "./config/ignoreWarnings.js";
 
 function App() {
   return (
-    <SnackbarProvider maxSnack={3} anchorOrigin={{ horizontal: 'right', vertical: 'top' }}>
+    <SnackbarProvider maxSnack={3} anchorOrigin={{ horizontal: 'right', vertical: 'top' }} iconVariant={{
+        success: '✅',
+        error: '✖️',
+        warning: '⚠️',
+        info: 'ℹ️',
+    }} preventDuplicate>
       <Rooter />
     </SnackbarProvider>
   );

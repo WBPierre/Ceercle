@@ -1,11 +1,26 @@
-import {Avatar, Collapse, ListItem, ListItemAvatar, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
+import {
+    Accordion, AccordionDetails, AccordionSummary,
+    Avatar,
+    Collapse,
+    ListItem,
+    ListItemAvatar,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText
+} from "@mui/material";
 import OfficeIcon from "../../../molecules/icons/OfficeIcon";
 import ToDefineIcon from "../../../molecules/icons/ToDefineIcon";
 import ManWorkingIcon from "../../../molecules/icons/ManWorkingIcon";
-import PlaneTakeOffIcon from "../../../molecules/icons/PlaneTakeOffIcon";
+import AwayIcon from "../../../molecules/icons/AwayIcon";
 import {useState} from "react";
 import List from "@mui/material/List";
-import {StarBorder} from "@mui/icons-material";
+import {ExpandLess, ExpandMore, StarBorder} from "@mui/icons-material";
+import OffIcon from "../../../molecules/icons/OffIcon";
+import Grid from "@mui/material/Grid";
+import example4 from "../../../../assets/images/example/4.jpg";
+import example5 from "../../../../assets/images/example/5.jpg";
+import * as React from "react";
+import Typography from "@mui/material/Typography";
 
 function CalendarListElement(props){
 
@@ -33,6 +48,8 @@ function CalendarListElement(props){
                 return "Télétravail"
             case 3:
                 return "Déplacement"
+            case 4:
+                return "Off"
         }
     }
 
@@ -53,7 +70,11 @@ function CalendarListElement(props){
                 )
             case 3:
                 return(
-                    <PlaneTakeOffIcon/>
+                    <AwayIcon/>
+                )
+            case 4:
+                return(
+                    <OffIcon/>
                 )
         }
     }
@@ -68,6 +89,23 @@ function CalendarListElement(props){
                 return '#8BCCEE'
             case 3:
                 return '#C7B3DA'
+            case 4:
+                return '#FFA800'
+        }
+    }
+
+    const getBackColor = () => {
+        switch(props.type){
+            case 0:
+                return '#D3D3D3'
+            case 1:
+                return '#C3E4B6'
+            case 2:
+                return '#DAEFFA'
+            case 3:
+                return '#E6DCF1'
+            case 4:
+                return '#FBE7B4'
         }
     }
 
@@ -76,45 +114,67 @@ function CalendarListElement(props){
     }else {
 
         return (
-            <div style={{marginTop: '5%'}}>
-                <ListItemButton onClick={() => handleClick()} style={{
-                    paddingLeft: 0, borderWidth: 2, borderColor: getColor(), borderStyle: 'solid', borderRadius: '15px',
-                    borderBottomLeftRadius: open ? '0px' : '15px',
-                    borderBottomRightRadius: open ? '0px' : '15px',
-                    borderBottomStyle: open ? 'none' : 'solid'
-                }}>
-                    <ListItemIcon style={{minWidth: '10%'}}>
-                        {getIcon()}
-                    </ListItemIcon>
-                    <ListItemText primaryTypographyProps={{style:{fontSize: 14}}} primary={getText()}/>
-                    <ListItemText primary={`${props.data.length}/${props.total}`} primaryTypographyProps={{
-                        textAlign: 'center',
-                        style: {backgroundColor: getColor(), padding: 5, borderRadius: '25px', color: 'white', fontSize: 12}
-                    }}/>
-                </ListItemButton>
-                <Collapse in={open} timeout="auto">
-                    <List component="div" disablePadding style={{
-                        borderWidth: 2, borderColor: getColor(), borderRadius: '15px',
-                        borderTopLeftRadius: open ? '0px' : '15px',
-                        borderTopRightRadius: open ? '0px' : '15px',
-                        borderTopStyle: open ? 'none' : 'solid',
-                        borderTopWidth: 0,
-                        borderStyle: open ? 'solid' : 'none'
-                    }}>
-                        {props.data.map((item, i) => {
-                            return (
-                                <ListItem sx={{pl: 4}} key={i}>
-                                    <ListItemAvatar>
-                                        <Avatar>
-                                            <StarBorder/>
+            <div style={{marginTop: '5%', marginBottom:'5%'}}>
+                <Accordion style={{boxShadow:'none'}} disableGutters elevation={0}>
+                    <AccordionSummary
+                        aria-controls="panel1a-content"
+                        id="panel1a-header"
+                        style={{paddingLeft: 0, paddingRight: 0}}
+                        onClick={handleClick}
+                    >
+                        <Grid container direction={"column"} spacing={1}>
+                            <Grid item xs={12}>
+                                <Grid container direction={"row"} alignItems={"center"}>
+                                    <Grid item xs={3}>
+                                        <Avatar sx={{ width: 36, height: 36 }} style={{
+                                            backgroundColor: getBackColor()
+                                        }}>
+                                            {getIcon()}
                                         </Avatar>
-                                    </ListItemAvatar>
-                                    <ListItemText primaryTypographyProps={{style:{fontSize: 14}}} primary={`${item.fullName}`} secondary={getMidDayText(item)} secondaryTypographyProps={{style:{fontSize: 10}}}/>
-                                </ListItem>
-                            )
-                        })}
-                    </List>
-                </Collapse>
+                                    </Grid>
+                                    <Grid item xs={7}>
+                                        <Typography fontSize={15} fontWeight={600} style={{color: getColor()}}>{getText()}</Typography>
+                                    </Grid>
+                                    <Grid item xs={2}>
+                                        {open ? <ExpandLess/> : <ExpandMore />}
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            <Grid item hidden={open}>
+                                <Grid container direction={"row"} alignItems={"center"} spacing={1}>
+                                    <Grid item>
+                                        <Avatar sx={{ width: 24, height: 24 }} alt="Remy Sharp" src={example4} />
+                                    </Grid>
+                                    <Grid item>
+                                        <Avatar sx={{ width: 24, height: 24 }} alt="Travis Howard" src={example5} />
+                                    </Grid>
+                                    <Grid item>
+                                        <Avatar sx={{ width: 24, height: 24 }} alt="Travis Howard" src={example5} />
+                                    </Grid>
+                                    <Grid item>
+                                        <Avatar sx={{ width: 24, height: 24 }} style={{backgroundColor:'transparent', color:'#7F7F7F'}}>
+                                            +2
+                                        </Avatar>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <List component="div" disablePadding>
+                            {props.data.map((item, i) => {
+                                return (
+                                    <ListItem key={i}>
+                                        <ListItemAvatar style={{minWidth:'20px'}}>
+                                            <Avatar sx={{width:36, height:36}} src={example5}/>
+                                        </ListItemAvatar>
+                                        <ListItemText primaryTypographyProps={{style:{fontSize: 14, whiteSpace: 'nowrap', overflow:'hidden', textOverflow: 'ellipsis', paddingLeft:5}}} primary={`${item.fullName}`} secondary={getMidDayText(item)} secondaryTypographyProps={{style:{fontSize: 10, paddingLeft:5}}}/>
+                                    </ListItem>
+                                )
+                            })}
+                        </List>
+                    </AccordionDetails>
+                </Accordion>
             </div>
         )
     }

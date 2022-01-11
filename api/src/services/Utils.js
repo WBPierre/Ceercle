@@ -71,7 +71,8 @@ exports.getUsersWeekTimeSheets = function(index) {
                 0:[],
                 1:[],
                 2:[],
-                3:[]
+                3:[],
+                4:[]
             }
         }
         days.push(obj)

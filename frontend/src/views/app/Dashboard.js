@@ -69,10 +69,10 @@ export default function Dashboard(props) {
                                 <Office day={daySelected}/>
                             </Grid>
                         }
-                        <Grid item xs={12} md={context.user.company.activeOfficeHandler ? 3 : 6} style={{borderRadius:'25px'}} component={Paper}>
+                        <Grid item xs={12} md={context.user.company.activeOfficeHandler ? 3 : 5} style={{borderRadius:'25px'}} component={Paper}>
                             <Team/>
                         </Grid>
-                        <Grid item xs={12} md={context.user.company.activeOfficeHandler ? 4 : 6} style={{borderRadius:'25px'}} component={Paper}>
+                        <Grid item xs={12} md={context.user.company.activeOfficeHandler ? 4 : 5} style={{borderRadius:'25px'}} component={Paper}>
                             <Mood day={daySelected}/>
                         </Grid>
                     </Grid>

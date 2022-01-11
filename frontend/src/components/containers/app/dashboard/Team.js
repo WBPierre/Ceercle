@@ -32,15 +32,27 @@ function Team(){
                 <Grid item xs={12}>
                     <Grid container direction={"column"}>
                         <Grid item xs={12}>
-                            <Button variant="text" style={{backgroundColor:'transparent', color:'#95E59A', fontSize:18, textTransform:'none'}} startIcon={<OfficeIcon sx={{width: 24, height:24}}/>} endIcon={<ExpandMoreIcon style={{color:'#7F7F7F'}}/>}>Bureau (7/15)</Button>
+                            <Button variant="text" style={{backgroundColor:'transparent', color:'#95E59A', fontSize:18, textTransform:'none'}} startIcon={<OfficeIcon sx={{width: 36, height:36, backgroundColor:'#95E59A'}}/>} endIcon={<ExpandMoreIcon style={{color:'#7F7F7F'}}/>}>Bureau (7/15)</Button>
                         </Grid>
                         <Grid item xs={12} paddingLeft={2}>
                             <Grid container direction={"row"} alignItems={"center"} spacing={2}>
                                 <Grid item>
-                                    <Avatar alt="Trevor Henderson" src={example5} />
-                                </Grid>
-                                <Grid item>
-                                    <Typography style={{color:'#7F7F7F'}}>Trevor Henderson</Typography>
+                                    <Grid container direction={"row"} spacing={1}>
+                                        <Grid item>
+                                            <Avatar alt="Remy Sharp" src={example1} />
+                                        </Grid>
+                                        <Grid item>
+                                            <Avatar alt="Travis Howard" src={example2} />
+                                        </Grid>
+                                        <Grid item>
+                                            <Avatar alt="Cindy Baker" src={example3} />
+                                        </Grid>
+                                        <Grid item>
+                                            <Avatar style={{backgroundColor:'transparent', color:'#7F7F7F'}}>
+                                                +4
+                                            </Avatar>
+                                        </Grid>
+                                    </Grid>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -49,15 +61,20 @@ function Team(){
                 <Grid item xs={12}>
                     <Grid container direction={"column"}>
                         <Grid item xs={12}>
-                            <Button variant="text" style={{backgroundColor:'transparent', color:'#8BCCEE', fontSize:18, textTransform:'none'}} startIcon={<ManWorkingIcon sx={{width: 24, height:24}}/>} endIcon={<ExpandMoreIcon style={{color:'#7F7F7F'}}/>}>Télétravail (4/15)</Button>
+                            <Button variant="text" style={{backgroundColor:'transparent', color:'#8BCCEE', fontSize:18, textTransform:'none'}} startIcon={<ManWorkingIcon sx={{width: 36, height:36, backgroundColor:'#8BCCEE'}}/>} endIcon={<ExpandMoreIcon style={{color:'#7F7F7F'}}/>}>Télétravail (4/15)</Button>
                         </Grid>
                         <Grid item xs={12} paddingLeft={2}>
                             <Grid container direction={"row"} alignItems={"center"} spacing={2}>
                                 <Grid item>
-                                    <Avatar alt="Agnes Walker" src={example4} />
+                                    <Avatar alt="Remy Sharp" src={example4} />
                                 </Grid>
                                 <Grid item>
-                                    <Typography style={{color:'#7F7F7F'}}>Trevor Henderson</Typography>
+                                    <Avatar alt="Travis Howard" src={example5} />
+                                </Grid>
+                                <Grid item>
+                                    <Avatar style={{backgroundColor:'transparent', color:'#7F7F7F'}}>
+                                        +2
+                                    </Avatar>
                                 </Grid>
                             </Grid>
                         </Grid>

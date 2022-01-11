@@ -10,12 +10,15 @@ import CalendarElement from "./CalendarElement";
 import CalendarUser from "./CalendarUser";
 import moment from "moment";
 import * as React from "react";
+import {useSnackbar} from "notistack";
 
 function CalendarDisplay(props) {
 
     const [week, setWeek] = useState([]);
     const [index, setIndex] = useState(0);
     const [usersWeek, setUsersWeek] = useState([]);
+    const { enqueueSnackbar } = useSnackbar();
+
 
     useEffect(() => {
         const getTimeSheet = async () => {
@@ -39,6 +42,9 @@ function CalendarDisplay(props) {
         await TimeService.getTimeSheet(ind).then((res) => {
             setWeek(res.data.week);
         })
+        enqueueSnackbar('Déclaration enregistrée', {
+            variant: 'success'
+        });
         await TimeService.getAllTimeSheet(ind).then((res) => {
             setUsersWeek(res.data);
         })
@@ -56,20 +62,11 @@ function CalendarDisplay(props) {
         await updateData(ind);
     }
 
-    const getBackToCurrent = async () => {
-        setIndex(0);
-        await updateData(0);
-    }
-
     if(week.length === 0 || usersWeek.length === 0) {
         return (<div/>)
     }else{
         return(
-            <Paper>
                 <Grid container direction={"column"} spacing={2}>
-                    <Grid item>
-                        <Button variant={"text"} onClick={() => getBackToCurrent() }>Revenir à Aujourd'hui</Button>
-                    </Grid>
                     <Grid item>
                         <Typography textAlign={"center"}>
                             {moment(week[0].day).date()} {moment(week[0].day).locale('fr').format('MMMM')} - {moment(week[4].day).date()} {moment(week[4].day).locale('fr').format('MMMM')}
@@ -94,7 +91,20 @@ function CalendarDisplay(props) {
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Divider/>
+                    <Grid item>
+                        <Paper style={{paddingTop:5, paddingBottom:5, borderRadius:'25px'}}>
+                        <Grid container direction={"row"}>
+                            <Grid item md={1}/>
+                            {week.map((day, i) => (
+                                <Grid item md={2} key={i}>
+                                    <CalendarUser data={week[i]} updateData={updateData}/>
+                                </Grid>
+                            ))}
+                            <Grid item md={1}/>
+                        </Grid>
+                        </Paper>
+                    </Grid>
+
                     <Grid item>
                         <Grid container direction={"row"}>
                             <Grid item md={1}/>
@@ -107,7 +117,6 @@ function CalendarDisplay(props) {
                         </Grid>
                     </Grid>
                 </Grid>
-            </Paper>
 
         )
     }
