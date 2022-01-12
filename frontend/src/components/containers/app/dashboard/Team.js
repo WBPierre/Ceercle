@@ -1,4 +1,4 @@
-import {Avatar, AvatarGroup, Paper} from "@mui/material";
+import { Avatar, AvatarGroup, Paper } from "@mui/material";
 import * as React from "react";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
@@ -14,76 +14,76 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import PaperIcon from "../../../molecules/icons/PaperIcon";
 import ManWorkingIcon from "../../../molecules/icons/ManWorkingIcon";
 
-function Team(){
-    return(
-            <Grid container direction={"column"} spacing={2} py={2} px={2}>
-                <Grid item xs={12}>
-                    <Grid container direction={"row"} alignItems={"center"} justifyContent={"space-between"}>
-                        <Grid item>
-                            <Typography variant={"h5"} fontWeight={500}>
-                                Mon équipe
-                            </Typography>
-                        </Grid>
-                        <Grid item>
-                            <Button variant={"text"} style={{backgroundColor:'transparent'}}>Go to</Button>
-                        </Grid>
+function Team() {
+    return (
+        <Grid container direction={"column"} spacing={2} py={2} px={2}>
+            <Grid item xs={12}>
+                <Grid container direction={"row"} alignItems={"center"} justifyContent={"space-between"}>
+                    <Grid item>
+                        <Typography variant={"h5"} fontWeight={500}>
+                            Mon équipe
+                        </Typography>
+                    </Grid>
+                    <Grid item>
+                        <Button variant={"text"} style={{ backgroundColor: 'transparent', color: "#3B3838" }}>Accéder</Button>
                     </Grid>
                 </Grid>
-                <Grid item xs={12}>
-                    <Grid container direction={"column"}>
-                        <Grid item xs={12}>
-                            <Button variant="text" style={{backgroundColor:'transparent', color:'#95E59A', fontSize:18, textTransform:'none'}} startIcon={<OfficeIcon sx={{width: 36, height:36, backgroundColor:'#95E59A'}}/>} endIcon={<ExpandMoreIcon style={{color:'#7F7F7F'}}/>}>Bureau (7/15)</Button>
-                        </Grid>
-                        <Grid item xs={12} paddingLeft={2}>
-                            <Grid container direction={"row"} alignItems={"center"} spacing={2}>
-                                <Grid item>
-                                    <Grid container direction={"row"} spacing={1}>
-                                        <Grid item>
-                                            <Avatar alt="Remy Sharp" src={example1} />
-                                        </Grid>
-                                        <Grid item>
-                                            <Avatar alt="Travis Howard" src={example2} />
-                                        </Grid>
-                                        <Grid item>
-                                            <Avatar alt="Cindy Baker" src={example3} />
-                                        </Grid>
-                                        <Grid item>
-                                            <Avatar style={{backgroundColor:'transparent', color:'#7F7F7F'}}>
-                                                +4
-                                            </Avatar>
-                                        </Grid>
+            </Grid>
+            <Grid item xs={12}>
+                <Grid container direction={"column"}>
+                    <Grid item xs={12}>
+                        <Button variant="text" style={{ backgroundColor: 'transparent', color: '#60b56d', fontSize: 18, textTransform: 'none' }} startIcon={<OfficeIcon sx={{ width: 36, height: 36, backgroundColor: '#95E59A' }} />} endIcon={<ExpandMoreIcon style={{ color: '#7F7F7F' }} />}>Bureau (7/15)</Button>
+                    </Grid>
+                    <Grid item xs={12} paddingLeft={2}>
+                        <Grid container direction={"row"} alignItems={"center"} spacing={2}>
+                            <Grid item>
+                                <Grid container direction={"row"} spacing={1}>
+                                    <Grid item>
+                                        <Avatar alt="Remy Sharp" src={example1} />
+                                    </Grid>
+                                    <Grid item>
+                                        <Avatar alt="Travis Howard" src={example2} />
+                                    </Grid>
+                                    <Grid item>
+                                        <Avatar alt="Cindy Baker" src={example3} />
+                                    </Grid>
+                                    <Grid item>
+                                        <Avatar style={{ backgroundColor: 'transparent', color: '#7F7F7F' }}>
+                                            +4
+                                        </Avatar>
                                     </Grid>
                                 </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item xs={12}>
-                    <Grid container direction={"column"}>
-                        <Grid item xs={12}>
-                            <Button variant="text" style={{backgroundColor:'transparent', color:'#8BCCEE', fontSize:18, textTransform:'none'}} startIcon={<ManWorkingIcon sx={{width: 36, height:36, backgroundColor:'#8BCCEE'}}/>} endIcon={<ExpandMoreIcon style={{color:'#7F7F7F'}}/>}>Télétravail (4/15)</Button>
-                        </Grid>
-                        <Grid item xs={12} paddingLeft={2}>
-                            <Grid container direction={"row"} alignItems={"center"} spacing={2}>
-                                <Grid item>
-                                    <Avatar alt="Remy Sharp" src={example4} />
-                                </Grid>
-                                <Grid item>
-                                    <Avatar alt="Travis Howard" src={example5} />
-                                </Grid>
-                                <Grid item>
-                                    <Avatar style={{backgroundColor:'transparent', color:'#7F7F7F'}}>
-                                        +2
-                                    </Avatar>
-                                </Grid>
+            </Grid>
+            <Grid item xs={12}>
+                <Grid container direction={"column"}>
+                    <Grid item xs={12}>
+                        <Button variant="text" style={{ backgroundColor: 'transparent', color: '#0070C0', fontSize: 18, textTransform: 'none' }} startIcon={<ManWorkingIcon sx={{ width: 36, height: 36, backgroundColor: '#8BCCEE' }} />} endIcon={<ExpandMoreIcon style={{ color: '#7F7F7F' }} />}>Télétravail (4/15)</Button>
+                    </Grid>
+                    <Grid item xs={12} paddingLeft={2}>
+                        <Grid container direction={"row"} alignItems={"center"} spacing={2}>
+                            <Grid item>
+                                <Avatar alt="Remy Sharp" src={example4} />
+                            </Grid>
+                            <Grid item>
+                                <Avatar alt="Travis Howard" src={example5} />
+                            </Grid>
+                            <Grid item>
+                                <Avatar style={{ backgroundColor: 'transparent', color: '#7F7F7F' }}>
+                                    +2
+                                </Avatar>
                             </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item xs={12}>
-                    <Button variant="text" style={{backgroundColor:'transparent', color:'black', fontSize:18, textTransform:'none'}} startIcon={<PaperIcon sx={{width: 24, height:24}}/>} endIcon={<ExpandMoreIcon/>}>Tout afficher (4/15)</Button>
-                </Grid>
             </Grid>
+            <Grid item xs={12}>
+                <Button variant="text" style={{ backgroundColor: 'transparent', color: 'black', fontSize: 18, textTransform: 'none' }} startIcon={<PaperIcon sx={{ width: 24, height: 24 }} />} endIcon={<ExpandMoreIcon />}>Tout afficher (4/15)</Button>
+            </Grid>
+        </Grid>
     )
 }
 

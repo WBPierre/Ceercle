@@ -11,7 +11,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import IconButton from "@mui/material/IconButton";
 import Paper from '@mui/material/Paper';
 import PlanningElement from "../../components/containers/app/dashboard/PlanningElement";
-import {Divider, TextField} from "@mui/material";
+import { Divider, TextField } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Office from "../../components/containers/app/dashboard/Office";
 import Container from "@mui/material/Container";
@@ -19,8 +19,8 @@ import Team from "../../components/containers/app/dashboard/Team";
 import Mood from "../../components/containers/app/dashboard/Mood";
 import CustomContainer from "../../components/containers/app/CustomContainer";
 import Fade from 'react-reveal/Fade';
-import {useContext, useEffect, useState} from "react";
-import {UserContext} from "../../components/context/auth/AuthProvider";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../../components/context/auth/AuthProvider";
 import PlanningBoard from "../../components/containers/app/dashboard/PlanningBoard";
 import TimeService from "../../services/app/time.service";
 import FilterBar from "../../components/containers/app/calendar/FilterBar";
@@ -36,22 +36,33 @@ export default function Calendar(props) {
         team: 0,
         type: -1
     })
+    const [week, setWeek] = useState([]);
 
-    const handleFilters = (obj) =>{
+
+    const handleFilters = (obj) => {
         setFilers(obj);
     }
 
     return (
         <CustomContainer>
-            <Grid wrap={"nowrap"} container direction={"column"} spacing={5} marginTop={"1%"}>
-                <Grid item>
-                    <FilterBar handleFilters={handleFilters}/>
+            <Grid wrap={"nowrap"} container direction={"column"} spacing={1} >
+                <Grid item xs={12}>
+                    <Grid container direction={"column"} justifyContent="center" alignItems="center">
+                        <Grid item>
+                            <Button variant="text" disableRipple={true} style={{ backgroundColor: 'transparent', textTransform: 'none', fontSize: 28, color: 'black' }}>
+                                Calendrier
+                            </Button>
+                        </Grid>
+                    </Grid>
                 </Grid>
-                <Grid item>
-                    <CalendarDisplay filters={filters}/>
+                <Grid item mt={2}>
+                    <FilterBar handleFilters={handleFilters} />
+                </Grid>
+                <Grid item mt={3}>
+                    <CalendarDisplay filters={filters} />
                 </Grid>
             </Grid>
-        </CustomContainer>
+        </CustomContainer >
 
     );
 }
