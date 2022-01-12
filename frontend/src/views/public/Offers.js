@@ -7,13 +7,12 @@ import OfferDescription from "../../components/containers/public/offers/OfferDes
 
 function Offers(){
     return(
-        <Container maxWidth={false} disableGutters={true}>
+        <Container maxWidth={false} disableGutters={true} style={{backgroundColor:'#FDF9F6'}}>
             <NavBar/>
             <OffersIntro/>
             <div style={{marginTop:'5%'}}/>
             <OfferDescription/>
             <OffersPerks/>
-            <div style={{marginTop:'2%'}}/>
             <Footer/>
         </Container>
     )

@@ -1,20 +1,15 @@
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import OfficeImage from "../../../../assets/images/home/intro/office.png";
-import MeetingImage from "../../../../assets/images/home/intro/meeting.png";
-import ReserveImage from "../../../../assets/images/home/intro/reserve.png";
-import PlanningImage from "../../../../assets/images/home/intro/planning.png";
-import OfficeImageEN from "../../../../assets/images/home/intro/office_en.png";
-import MeetingImageEN from "../../../../assets/images/home/intro/meeting_en.png";
-import ReserveImageEN from "../../../../assets/images/home/intro/reserve_en.png";
-import PlanningImageEN from "../../../../assets/images/home/intro/planning_en.png";
+
 import Typography from "@mui/material/Typography";
 import {Chip, useTheme} from "@mui/material";
 import {useTranslation} from "react-i18next";
 import TypingEffect from "../../../molecules/home/TypingEffect";
 import {Fade} from 'react-awesome-reveal';
 import {useNavigate} from "react-router-dom";
+import Button from "@mui/material/Button";
+import VisuelSAAS from "../../../../assets/images/home/productPresentation/visuel_SAAS.png";
 
 function Intro(){
     const { t, i18n } = useTranslation();
@@ -23,62 +18,34 @@ function Intro(){
 
     return(
         <div>
-            <Box sx={{ display: { xs: 'none', md: 'flex' }, backgroundColor: theme.palette.background.paper }}>
-                <Container style={{backgroundColor: theme.palette.background.paper, height:'100vh'}}>
-                    <Grid container style={{marginTop:'10vh'}} spacing={2} direction="row">
-                        <Grid item md={4}  style={{height:'100%'}}>
+            <Box sx={{ display: { xs: 'none', md: 'flex' }, backgroundColor: '#FDF9F6' }}>
+                <Container style={{height:'85vh', paddingLeft:'5%', paddingRight:'5%'}} maxWidth={true}>
+                    <Grid container style={{height:'100%'}} spacing={3} direction="row" justifyContent={"center"} alignItems={"center"}>
+                        <Grid item md={6}>
                             <Fade direction={"left"} triggerOnce={true}>
-                                <Grid container direction="column" spacing={5}>
-                                    <Grid item style={{textAlign:'center'}}>
-                                        <img src={i18n.language === "fr" ? OfficeImage : OfficeImageEN} style={{height:'70%', width:'70%'}} alt="contact" />
-                                    </Grid>
-                                    <Grid item style={{textAlign:'center'}}>
-                                        <img src={i18n.language === "fr" ? PlanningImage : PlanningImageEN} style={{height:'100%', width:'100%'}} alt="contact" />
-                                    </Grid>
-                                </Grid>
-                            </Fade>
-                        </Grid>
-                        <Grid item md={4}>
-                            <Fade direction={"up"} triggerOnce={true}>
-                                <Grid container direction="column" style={{height:'100%'}} justifyContent={"center"} spacing={5}>
+                                <Grid container direction="column" style={{height:'100%'}} justifyContent={"flex-start"} spacing={5}>
                                     <Grid item>
-                                        <Typography variant="h4" fontWeight={600} style={{textAlign:'center'}}>
+                                        <Typography variant="h4" fontSize={48} fontWeight={600} style={{color:'#203864', textAlign:'left'}}>
                                             {t('public:home:intro.title')}
                                         </Typography>
-                                        <Typography variant="h4" fontWeight={600} style={{textAlign:'center'}}>
+                                        <Typography variant="h4" fontWeight={600} style={{textAlign:'left'}}>
                                             <TypingEffect/>
                                         </Typography>
                                     </Grid>
                                     <Grid item>
-                                        <Typography variant="h5" fontSize={18} style={{textAlign:'center', color:'#7F7F7F'}}>
+                                        <Typography variant="h5" fontSize={28} fontWeight={500} style={{textAlign:'left', color:'#3B3838'}}>
                                             {t('public:home:intro.content')}
                                         </Typography>
-                                        <Typography variant="h5" fontSize={18} style={{textAlign:'center', color:'#7F7F7F'}}>
-                                            {t('public:home:intro.content_2')}
-                                        </Typography>
-                                        <Typography variant="h5" fontSize={18} style={{textAlign:'center', color:'#7F7F7F'}}>
-                                            {t('public:home:intro.content_3')}
-                                        </Typography>
-                                        <Typography variant="h5" fontSize={18} style={{textAlign:'center', color:'#7F7F7F'}}>
-                                            {t('public:home:intro.content_4')}
-                                        </Typography>
                                     </Grid>
-                                    <Grid item style={{textAlign:'center'}}>
-                                        <Chip variant="contained" style={{color:'white',backgroundColor:'#2F5597', fontSize: 18}} label={ t("generic:demo") } onClick={() => navigate('/demo')}/>
+                                    <Grid item style={{textAlign:'left'}}>
+                                        <Button variant={"contained"} style={{textTransform:'none', backgroundColor:'#3F07A8', fontSize:28}} onClick={() => navigate('/demo')}>{t("generic:demo")}</Button>
                                     </Grid>
                                 </Grid>
                             </Fade>
                         </Grid>
-                        <Grid item md={4} style={{height:'100%'}}>
+                        <Grid item md={6}>
                             <Fade direction={"right"} triggerOnce={true}>
-                                <Grid container direction="column" spacing={5}>
-                                    <Grid item style={{textAlign:'center'}}>
-                                        <img src={i18n.language === "fr" ? MeetingImage : MeetingImageEN} style={{height:'60%', width:'60%'}} alt="contact" />
-                                    </Grid>
-                                    <Grid item style={{textAlign:'center'}}>
-                                        <img src={i18n.language === "fr" ? ReserveImage : ReserveImageEN} style={{height:'100%', width:'100%'}} alt="contact" />
-                                    </Grid>
-                                </Grid>
+                                <img src={VisuelSAAS} style={{ width: '100%' }} alt="contact" />
                             </Fade>
                         </Grid>
                     </Grid>

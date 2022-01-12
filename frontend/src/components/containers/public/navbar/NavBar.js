@@ -13,7 +13,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import HideOnScroll from "../../../molecules/navbar/HideOnScroll";
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
-import iconPlanet from "../../../../assets/images/generic/iconPlanet.png";
+import Logo from "../../../../assets/images/logo/logo_2.png";
 import { useState } from "react";
 import { Turn as Hamburger } from 'hamburger-react'
 import useAuth from "../../../context/auth/AuthHelper";
@@ -113,7 +113,7 @@ export default function NavBar(props) {
             <HideOnScroll {...props}>
                 <AppBar style={{ backgroundColor: "#FFFFFF" }} elevation={1}>
                     <Toolbar>
-                        <Button style={{ textTransform: 'capitalize', backgroundColor: 'transparent' }} disableRipple={true} startIcon={<img src={iconPlanet} height={40} alt="logo" />} onClick={() => { navigate('/') }}>
+                        <Button style={{ textTransform: 'capitalize', backgroundColor: 'transparent' }} disableRipple={true} startIcon={<img src={Logo} height={50} alt="logo" />} onClick={() => { navigate('/') }}>
                             <Typography
                                 variant="h6"
                                 noWrap
@@ -122,7 +122,7 @@ export default function NavBar(props) {
                                 style={{ fontWeight: 800 }}
                                 fontSize={24}
                             >
-                                SpaceCorner
+                                Ceercle
                             </Typography>
                         </Button>
                         <Box sx={{ flexGrow: 1 }} />
@@ -132,7 +132,7 @@ export default function NavBar(props) {
                                 aria-label="account of current user"
                                 color="primary"
                                 onClick={redirectToOffers}
-                                style={{ fontWeight: 500, textTransform: 'capitalize', fontSize: 18 }}
+                                style={{ fontWeight: 500, color:'#203864', textTransform: 'capitalize', fontSize: 18 }}
                             >
                                 {t('public:navbar:offers')}
                             </Button>
@@ -142,12 +142,13 @@ export default function NavBar(props) {
                             <IconButton style={{ color: 'black', display: 'none' }} aria-label="add to shopping cart" sx={{ mr: 2 }}>
                                 <WbSunnyIcon />
                             </IconButton>
+                            <LangSwitcher dark={true}/>
                             <Button style={{ textTransform: 'none' }}>
                                 <Chip variant="outlined"
                                     aria-label="account of current user"
                                     onClick={redirectToDemo}
                                     color="error"
-                                    style={{ fontSize: 16, fontWeight: 500 }}
+                                    style={{ fontSize: 16, fontWeight: 600 }}
                                     sx={{ mr: 2 }}
                                     label={t('public:navbar:ask_for_demo')}
                                 />
@@ -156,11 +157,10 @@ export default function NavBar(props) {
                                 aria-label="account of current user"
                                 onClick={connectHandler}
                                 color="primary"
-                                style={{ fontWeight: 500, textTransform: 'capitalize', fontSize: 18 }}
+                                style={{ fontWeight: 500, textTransform: 'capitalize', fontSize: 18, color:'#203864' }}
                             >
                                 {t('public:navbar:connect')}
                             </Button>
-                            <LangSwitcher />
                         </Box>
                         <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                             <IconButton
