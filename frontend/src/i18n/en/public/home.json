@@ -12,7 +12,7 @@
   "product_presentation" : {
     "simply": "In a few clicks.",
     "catchphrase_1" : "Having trouble organizing your hybrid work?",
-    "catchphrase_2" : "Get SpaceCorner and make life easier for your employees, in your office or anywhere else.",
+    "catchphrase_2" : "Get Ceercle  and make life easier for your employees, in your office or anywhere else.",
     "chip_1": "Fill in your planning",
     "chip_2": "Book a desk",
     "chip_3": "Manage your meetings",
@@ -31,7 +31,7 @@
       "title_2_color": "colleagues.",
       "title_3": "And that's ",
       "title_3_color": "it.",
-      "text": "Define your hybrid work criteria and rules and seamlessly plug SpaceCorner with your favorite HR software and work tools."
+      "text": "Define your hybrid work criteria and rules and seamlessly plug Ceercle with your favorite HR software and work tools."
     },
     "step_2": {
       "title_1": "Get relevant insights on ",
@@ -46,17 +46,18 @@
       "title_1": "the management of your teams.",
       "title_2_color": "Foster ",
       "title_2": "their collaboration.",
-      "text": "With SpaceCorner, your employees fill in a shared weekly attendance schedule within the company. Say goodbye to lost information."
+      "text": "With Ceercle, your employees fill in a shared weekly attendance schedule within the company. Say goodbye to lost information."
     },
     "step_4": {
       "title_1": "Book a desk in your office ",
       "title_1_color": "in one click.",
       "text": "Your employees can now book a desk alongside the employees of their choice and come to work in the best conditions."
     },
-    "and_more": "And many others."
+    "and_more": "And many others.",
+    "available_on": "Available on"
   },
   "operations": {
-    "title": "SpaceCorner enables all business departments to optimize their daily operations.",
+    "title": "Ceercle enables all business departments to optimize their daily operations.",
     "subtitle": "And let everyone benefit.",
     "card_1": {
       "title": "Employees",

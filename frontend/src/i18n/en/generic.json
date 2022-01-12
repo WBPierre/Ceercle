@@ -1,5 +1,5 @@
 {
-  "website_url": "spacecorner.io",
+  "website_url": "ceercle.io",
   "continue": "Continue",
   "yes": "Yes",
   "all": "All",
@@ -29,5 +29,7 @@
   "professional_email": "Professional email",
   "send": "Send",
   "subject": "Subject",
-  "invalid_field": "Invalid field"
+  "invalid_field": "Invalid field",
+  "more_information": "More information",
+  "contact_us": "Contact us"
 }

@@ -19,49 +19,48 @@ import Box from "@mui/material/Box";
 import { Fade } from 'react-awesome-reveal';
 import IconButton from "@mui/material/IconButton";
 import AddIcon from '@mui/icons-material/Add';
-import PlanningImage from "../../../../assets/images/home/intro/planning.png";
-import PlanningImageEN from "../../../../assets/images/home/intro/planning_en.png";
+import Phone from "../../../../assets/images/home/productPresentation/phone.png";
+import Tablet from "../../../../assets/images/home/productPresentation/tablet.png";
+import LapTop from "../../../../assets/images/home/productPresentation/laptop.png";
+import Button from "@mui/material/Button";
+import {useNavigate} from "react-router-dom";
 
 function OfferDescription(props) {
 
     const { t, i18n } = useTranslation();
     const theme = useTheme();
+    let navigate = useNavigate();
 
 
     return (
         <div>
-            <Box sx={{ display: { xs: 'none', md: 'block' }, backgroundColor: "#2F5597" }} pt={10}>
+            <Box sx={{ display: { xs: 'none', md: 'block' }, backgroundColor: "#3F07A8" }} pt={10}>
                 <Fade triggerOnce={true}>
-                    <Grid container direction={"row"}>
+                    <Grid container direction={"row"} pb={5}>
                         <Grid item md={12}>
-                            <Grid container direction={"column"} spacing={5}>
+                            <Grid container direction={"column"}>
                                 <Grid item xs={12}>
                                     <Typography variant="h3" fontWeight={600} fontSize={52} align="center" color="white">
                                         {t('public:home:offer_description.main.title')}
-                                    </Typography>
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <Typography variant="h4" fontSize={28} fontWeight={400} align="center" style={{ color: '#B4C7E7' }}>
-                                        {t('public:home:offer_description.main.subtitle')}
                                     </Typography>
                                 </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
                 </Fade>
-                <div style={{ marginTop: '5%' }} />
-                <div style={{ backgroundColor: theme.palette.background.default, height: '80vh' }}>
+                <div style={{backgroundColor: '#FDF9F6', height:'5vh'}}/>
+                <div style={{ backgroundColor: '#FDF9F6', height: '80vh' }}>
                     <Grid container direction={"row"} style={{ height: '100%', backgroundColor: 'orange' }}>
-                        <Grid item md={12} style={{ backgroundColor: theme.palette.background.default }}>
+                        <Grid item md={12} style={{ backgroundColor: '#FDF9F6' }}>
                             <Grid container direction={"row"} style={{ height: '100%' }}>
                                 <Grid item md={6} style={{ height: '100%' }} px={10}>
                                     <Grid container direction={"column"} style={{ height: '100%' }} justifyContent={"center"}>
                                         <Grid item>
                                             <Fade direction={"left"} triggerOnce={true}>
-                                                <Chip label={t('public:home:offer_description.step_1.chip_title')} style={{ color: '#2F5597', backgroundColor: '#DAE3F3', fontSize: 26, padding: 5 }} />
+                                                <Typography style={{color:'#3F07A8'}} fontSize={36} fontWeight={600}>{t('public:home:offer_description.step_1.chip_title')}</Typography>
                                             </Fade>
                                         </Grid>
-                                        <Grid item pl={10} py={5} mb={3}>
+                                        <Grid item pl={10} py={5} mb={5}>
                                             <Fade direction={"left"} triggerOnce={true}>
                                                 <img src={step_1_2} style={{ height: '25%', width: '25%' }} alt="contact" />
                                             </Fade>
@@ -76,12 +75,17 @@ function OfferDescription(props) {
                                         </Grid>
                                         <Grid item py={5} pl={10}>
                                             <Fade direction={"left"} triggerOnce={true}>
-                                                <Typography variant="body1" style={{color: '#7F7F7F'}} fontSize={18}>{t('public:home:offer_description.step_1.text')}</Typography>
+                                                <Typography variant="body1" style={{color: '#3B3838'}} fontSize={18}>{t('public:home:offer_description.step_1.text')}</Typography>
+                                            </Fade>
+                                        </Grid>
+                                        <Grid item py={5} pl={10}>
+                                            <Fade direction={"left"} triggerOnce={true}>
+                                                <Button variant={"text"} onClick={() => navigate('/demo')} style={{fontSize:18, color:'#3F07A8', textTransform:'none'}}>{t('generic:more_information')}</Button>
                                             </Fade>
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                <Grid item md={6} style={{ height: '100%', backgroundColor: theme.palette.background.paper, borderTopLeftRadius: '10%' }}>
+                                <Grid item md={6} style={{ height: '100%', backgroundColor: 'white', borderTopLeftRadius: '10%' }}>
                                     <Grid container direction={"row"} style={{ height: '100%' }} alignItems={"center"}>
                                         <Grid item xs={12} style={{ textAlign: 'center' }}>
                                             <Fade direction={"right"} triggerOnce={true}>
@@ -95,12 +99,12 @@ function OfferDescription(props) {
                     </Grid>
                 </div>
                 <div style={{ backgroundColor: theme.palette.background.default, height: '80vh' }}>
-                    <Grid container direction={"row"} style={{ height: '100%', backgroundColor: 'orange' }}>
-                        <Grid item md={12} style={{ backgroundColor: theme.palette.background.default }}>
+                    <Grid container direction={"row"} style={{ height: '100%' }}>
+                        <Grid item md={12} style={{ backgroundColor: '#FDF9F6' }}>
                             <Grid container direction={"row"} style={{ height: '100%' }}>
                                 <Grid item md={6} style={{ height: '100%' }} px={10}>
                                     <Grid container direction={"column"} style={{ height: '100%' }} justifyContent={"center"}>
-                                        <Grid item pl={10}>
+                                        <Grid item pl={10} mb={5}>
                                             <Fade direction={"left"} triggerOnce={true}>
                                                 <img src={step_2_2} style={{ height: '30%', width: '30%' }} alt="contact" />
                                             </Fade>
@@ -115,9 +119,14 @@ function OfferDescription(props) {
                                                 <Typography variant="body1" style={{color: '#7F7F7F'}} fontSize={18}>{t('public:home:offer_description.step_2.text')}</Typography>
                                             </Fade>
                                         </Grid>
+                                        <Grid item py={5} pl={10}>
+                                            <Fade direction={"left"} triggerOnce={true}>
+                                                <Button variant={"text"} onClick={() => navigate('/demo')} style={{fontSize:18, color:'#3F07A8', textTransform:'none'}}>{t('public:navbar:ask_for_demo')}</Button>
+                                            </Fade>
+                                        </Grid>
                                     </Grid>
                                 </Grid>
-                                <Grid item md={6} style={{ height: '100%', backgroundColor: theme.palette.background.paper }}>
+                                <Grid item md={6} style={{ height: '100%', backgroundColor: 'white' }}>
                                     <Grid container direction={"row"} style={{ height: '100%' }} alignItems={"center"}>
                                         <Grid item xs={12} style={{ textAlign: 'center' }}>
                                             <Fade direction={"right"} triggerOnce={true}>
@@ -132,13 +141,13 @@ function OfferDescription(props) {
                 </div>
                 <div style={{ backgroundColor: theme.palette.background.default, height: '80vh' }}>
                     <Grid container direction={"row"} style={{ height: '100%', backgroundColor: 'orange' }}>
-                        <Grid item md={12} style={{ backgroundColor: theme.palette.background.default }}>
+                        <Grid item md={12} style={{ backgroundColor: '#FDF9F6' }}>
                             <Grid container direction={"row"} style={{ height: '100%' }}>
                                 <Grid item md={6} style={{ height: '100%' }} px={10}>
                                     <Grid container direction={"column"} style={{ height: '100%' }} justifyContent={"center"}>
                                         <Grid item>
                                             <Fade direction={"left"} triggerOnce={true}>
-                                                <Chip label={t('public:home:offer_description.step_3.chip_title')} style={{ color: '#BA605A', backgroundColor: '#FAF1F1', fontSize: 26, padding: 5 }} />
+                                                <Typography style={{color:'#3F07A8'}} fontSize={36} fontWeight={600}>{t('public:home:offer_description.step_3.chip_title')}</Typography>
                                             </Fade>
                                         </Grid>
                                         <Grid item pl={10} py={5}>
@@ -171,9 +180,14 @@ function OfferDescription(props) {
                                                 <Typography variant="body1" style={{color: '#7F7F7F'}} fontSize={18}>{t('public:home:offer_description.step_3.text')}</Typography>
                                             </Fade>
                                         </Grid>
+                                        <Grid item py={5} pl={10}>
+                                            <Fade direction={"left"} triggerOnce={true}>
+                                                <Button variant={"text"} onClick={() => navigate('/demo')} style={{fontSize:18, color:'#3F07A8', textTransform:'none'}}>{t('generic:contact_us')}</Button>
+                                            </Fade>
+                                        </Grid>
                                     </Grid>
                                 </Grid>
-                                <Grid item md={6} style={{ height: '100%', backgroundColor: theme.palette.background.paper }}>
+                                <Grid item md={6} style={{ height: '100%', backgroundColor: 'white' }}>
                                     <Grid container direction={"row"} style={{ height: '100%' }} alignItems={"center"}>
                                         <Grid item xs={12} style={{ textAlign: 'center' }}>
                                             <Fade direction={"right"} triggerOnce={true}>
@@ -188,7 +202,7 @@ function OfferDescription(props) {
                 </div>
                 <div style={{ backgroundColor: theme.palette.background.default, height: '80vh' }}>
                     <Grid container direction={"row"} style={{ height: '100%' }}>
-                        <Grid item md={12} style={{ backgroundColor: theme.palette.background.default }}>
+                        <Grid item md={12} style={{ backgroundColor: '#FDF9F6' }}>
                             <Grid container direction={"row"} style={{ height: '100%' }}>
                                 <Grid item md={6} style={{ height: '100%' }} px={10}>
                                     <Grid container direction={"column"} style={{ height: '100%' }} justifyContent={"center"}>
@@ -207,9 +221,14 @@ function OfferDescription(props) {
                                                 <Typography variant="body1" style={{color: '#7F7F7F'}} fontSize={18}>{t('public:home:offer_description.step_4.text')}</Typography>
                                             </Fade>
                                         </Grid>
+                                        <Grid item py={5} pl={10}>
+                                            <Fade direction={"left"} triggerOnce={true}>
+                                                <Button variant={"text"} onClick={() => navigate('/demo')} style={{fontSize:18, color:'#3F07A8', textTransform:'none'}}>{t('generic:contact_us')}</Button>
+                                            </Fade>
+                                        </Grid>
                                     </Grid>
                                 </Grid>
-                                <Grid item md={6} style={{ height: '100%', backgroundColor: theme.palette.background.paper, borderBottomLeftRadius: '10%' }}>
+                                <Grid item md={6} style={{ height: '100%', backgroundColor: 'white', borderBottomLeftRadius: '10%' }}>
                                     <Grid container direction={"row"} style={{ height: '100%' }} alignItems={"center"}>
                                         <Grid item xs={12} style={{ textAlign: 'center' }}>
                                             <Fade direction={"right"} triggerOnce={true}>
@@ -217,6 +236,34 @@ function OfferDescription(props) {
                                             </Fade>
                                         </Grid>
                                     </Grid>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </div>
+                <div style={{ backgroundColor: theme.palette.background.default, height: '30vh' }}>
+                    <Grid container direction={"row"} style={{ height: '100%' }}>
+                        <Grid item md={12} style={{ backgroundColor: 'white' }}>
+                            <Grid container direction={"row"} style={{ height: '100%' }} justifyContent={"center"} alignItems={"center"}>
+                                <Grid item md={4} px={10} textAlign={"center"}>
+                                    <Fade direction={"Left"} triggerOnce={true}>
+                                        <Typography variant="body1" style={{color: '#3F07A8'}} fontWeight={600} fontSize={48}>{t('public:home:offer_description.available_on')}</Typography>
+                                    </Fade>
+                                </Grid>
+                                <Grid item md={8} style={{ height: '100%', backgroundColor: 'white' }}>
+                                    <Fade direction={"right"} triggerOnce={true}>
+                                        <Grid container direction={"row"} style={{ height: '100%' }} alignItems={"center"}>
+                                            <Grid item xs={4} style={{ textAlign: 'center' }}>
+                                                    <img src={LapTop} style={{ width: '100%' }} alt="contact" />
+                                            </Grid>
+                                            <Grid item xs={4} style={{ textAlign: 'center' }}>
+                                                    <img src={Phone} style={{ width: '50%', height:'50%' }} alt="contact" />
+                                            </Grid>
+                                            <Grid item xs={4} style={{ textAlign: 'center' }}>
+                                                    <img src={Tablet} style={{ width: '80%', height:'80%' }} alt="contact" />
+                                            </Grid>
+                                        </Grid>
+                                    </Fade>
                                 </Grid>
                             </Grid>
                         </Grid>

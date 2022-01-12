@@ -6,7 +6,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import LanguageIcon from '@mui/icons-material/Language';
 import {useLocation} from "react-router-dom";
 
-function LangSwitcher(){
+function LangSwitcher(props){
 
     const { i18n} = useTranslation();
     const theme = useTheme();
@@ -23,9 +23,9 @@ function LangSwitcher(){
     const returnLangueText = () => {
         switch(i18n.language){
             case "fr":
-                return "FR";
+                return "Français";
             default:
-                return "EN";
+                return "English";
         }
     }
 
@@ -44,7 +44,7 @@ function LangSwitcher(){
                 onClick={handleClick}
                 variant="text"
                 sx={{mr:2}}
-                style={{color: 'white', borderColor: theme.palette.text.primary, fontWeight:500, textTransform: 'capitalize', fontSize: 18}}
+                style={{color: props.dark === undefined ? '#203864' : theme.palette.text.primary, borderColor: theme.palette.text.primary, fontWeight:500, textTransform: 'capitalize', fontSize: 18}}
                 endIcon={<KeyboardArrowDownIcon />}
             >
                 {returnLangueText()}
@@ -60,10 +60,10 @@ function LangSwitcher(){
                 style={{color: theme.palette.text.primary}}
             >
                 {i18n.language !== "fr-FR" && i18n.language !== "fr" &&
-                    <MenuItem onClick={() => changeLangue("fr")} style={{color: theme.palette.text.primary}}>FR</MenuItem>
+                    <MenuItem onClick={() => changeLangue("fr")} style={{color: theme.palette.text.primary}}>Français</MenuItem>
                 }
                 {i18n.language !== "en-EN" && i18n.language !== "en" &&
-                    <MenuItem onClick={() => changeLangue("en")} style={{color: theme.palette.text.primary}}>EN</MenuItem>
+                    <MenuItem onClick={() => changeLangue("en")} style={{color: theme.palette.text.primary}}>English</MenuItem>
                 }
             </Menu>
         </div>
