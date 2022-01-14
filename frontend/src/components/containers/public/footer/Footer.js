@@ -5,6 +5,7 @@ import Container from "@mui/material/Container";
 import Essec from "../../../../assets/images/footer/essec.png";
 import Pepites from "../../../../assets/images/footer/pepites.jpg";
 import StationF from "../../../../assets/images/footer/stationF.png";
+import Founders from "../../../../assets/images/footer/founders.png";
 import * as React from "react";
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import { Link } from "react-router-dom";
@@ -45,7 +46,7 @@ function Footer() {
                                         <Typography variant={"body1"} style={{ color: '#3F07A8' }}>{t('public:footer:contact_us')}</Typography>
                                     </Grid>
                                     <Grid item>
-                                        <a href={'https://linkedin.com'} style={{ textDecoration: 'none' }}>
+                                        <a href={'https://www.linkedin.com/company/70945415'} style={{ textDecoration: 'none' }}>
                                             <LinkedInIcon style={{ color: '#7F7F7F' }} />
                                         </a>
                                     </Grid>
@@ -90,20 +91,27 @@ function Footer() {
                                     </Grid>
                                 </Grid>
                             </Grid>
-                            <Grid item md={4} xs={12} mt={-2}>
+                            <Grid item md={4} xs={12} mt={2}>
                                 <Grid container direction={"column"} justifyContent={"center"} alignItems={"center"}>
                                     <Grid item>
                                         <Grid container direction={"row"} spacing={3}>
                                             <Grid item textAlign={"center"} md={6}>
-                                                <img src={Pepites} style={{ maxWidth: '80%', height:'80%' }} alt="contact" />
+                                                <img src={Pepites} style={{ height:'60%' }} alt="contact" />
                                             </Grid>
                                             <Grid item textAlign={"center"} md={6}>
-                                                <img src={Essec} style={{ maxWidth: '80%', height:'100%' }} alt="contact" />
+                                                <img src={Essec} style={{ height:'60%' }} alt="contact" />
                                             </Grid>
                                         </Grid>
                                     </Grid>
-                                    <Grid item textAlign={"center"}>
-                                        <img src={StationF} style={{ maxWidth: '100%' }} alt="contact" />
+                                    <Grid item>
+                                        <Grid container direction={"row"} spacing={3}>
+                                            <Grid item textAlign={"center"} md={6}>
+                                                <img src={StationF} style={{ height:'60%' }} alt="contact" />
+                                            </Grid>
+                                            <Grid item textAlign={"center"} md={6}>
+                                                <img src={Founders} style={{ height:'60%' }} alt="contact" />
+                                            </Grid>
+                                        </Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>

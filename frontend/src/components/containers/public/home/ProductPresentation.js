@@ -38,7 +38,7 @@ function ProductPresentation({ props }) {
                 <div style={{ backgroundColor: '#FDF9F6' }}>
                     <Grid container direction={"row"} style={{minHeight:'100vh'}} spacing={0}>
                         <Grid item md={12} style={{maxHeight:'15vh', backgroundColor:'#3F07A8', width:'100%'}} pt={1}>
-                            <Typography variant="body1" fontSize={36} style={{width:'100%'}} align="center" color={"white"}>
+                            <Typography variant="body1" fontSize={36} fontWeight={300} style={{width:'100%'}} align="center" color={"white"}>
                                 {t('public:home:product_presentation.catchphrase_1')}
                             </Typography>
                         </Grid>
@@ -57,12 +57,12 @@ function ProductPresentation({ props }) {
                                     <Zoom triggerOnce={true}>
                                         <Grid container direction={"column"} spacing={5}>
                                             <Grid item xs={12}>
-                                                <Typography variant="h4" fontWeight={600} align="center" color={"white"}>
+                                                <Typography variant="h4" fontSize={38} fontWeight={600} align="center" color={"white"}>
                                                     {t('public:home:product_presentation.catchphrase_2')}
                                                 </Typography>
                                             </Grid>
                                             <Grid item xs={12}>
-                                                <Typography variant="h4" fontWeight={600} align="center" style={{ color: '#B4C7E7' }}>
+                                                <Typography variant="h4" fontSize={48} fontWeight={600} align="center" style={{ color: '#B4C7E7' }}>
                                                     {t('public:home:product_presentation.simply')}
                                                 </Typography>
                                             </Grid>
@@ -80,18 +80,18 @@ function ProductPresentation({ props }) {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item md={12} style={{height:'60vh', backgroundColor:'#FDF9F6'}}>
+                        <Grid item md={12} style={{height:'50vh', backgroundColor:'#FDF9F6'}}>
                             <Grid container direction={"row"}  justifyContent={"center"} alignItems={"center"} spacing={5} mt={2}>
                                 <Grid item md={3} textAlign={"center"}>
                                     <Fade direction={"left"} triggerOnce={true}>
-                                        <img src={icon1} style={{ width: '80%' }} alt="contact" />
+                                        <img src={icon1} style={{ width: '60%' }} alt="contact" />
                                     </Fade>
                                 </Grid>
                                 <Grid item md={3}>
                                     <Fade direction={"left"} triggerOnce={true}>
                                         <Grid container direction={"column"} justifyContent={"center"} alignItems={"center"} spacing={3}>
                                             <Grid item md={12}>
-                                                <Typography fontSize={26} fontWeight={600} style={{color:'#3F07A8'}}>Renseigner son planning</Typography>
+                                                <Typography fontSize={26} fontWeight={700} style={{color:'#3F07A8'}}>{t('public:home:product_presentation.chip_1')}</Typography>
                                             </Grid>
                                             <Grid item md={12}>
                                                 <img src={i18n.language === "fr" ? PlanningImage : PlanningImageEN} style={{ width: '100%' }} alt="contact" />
@@ -104,7 +104,7 @@ function ProductPresentation({ props }) {
 
                                     <Grid container direction={"column"} justifyContent={"center"} alignItems={"center"} spacing={3}>
                                         <Grid item md={12}>
-                                            <Typography fontSize={26} fontWeight={600} style={{color:'#3F07A8'}}>Réserver un bureau</Typography>
+                                            <Typography fontSize={26} fontWeight={700} style={{color:'#3F07A8'}}>{t('public:home:product_presentation.chip_2')}</Typography>
                                         </Grid>
                                         <Grid item md={12}>
                                             <img src={i18n.language === "fr" ? ReserveImage : ReserveImageEN} style={{ width: '100%' }} alt="contact" />
@@ -114,12 +114,12 @@ function ProductPresentation({ props }) {
                                 </Grid>
                                 <Grid item md={3} textAlign={"center"}>
                                     <Fade direction={"right"} triggerOnce={true}>
-                                    <img src={icon2} style={{ width: '100%' }} alt="contact" />
+                                    <img src={icon2} style={{ width: '60%' }} alt="contact" />
                                     </Fade>
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item md={12} mt={5} style={{height:'60vh', backgroundColor:'#FDF9F6'}}>
+                        <Grid item md={12} style={{height:'50vh', backgroundColor:'#FDF9F6'}}>
                             <Grid container direction={"row"}  justifyContent={"center"} alignItems={"center"} spacing={5} mt={2}>
                                 <Grid item md={3} textAlign={"center"}>
                                     <Fade direction={"left"} triggerOnce={true}>
@@ -130,10 +130,10 @@ function ProductPresentation({ props }) {
                                     <Fade direction={"left"} triggerOnce={true}>
                                     <Grid container direction={"column"} justifyContent={"center"} alignItems={"center"} spacing={3}>
                                         <Grid item md={12}>
-                                            <Typography fontSize={26} fontWeight={600} style={{color:'#3F07A8'}}>Activité des équipes</Typography>
+                                            <Typography fontSize={26} fontWeight={700} style={{color:'#3F07A8'}}>{t('public:home:product_presentation.chip_4')}</Typography>
                                         </Grid>
                                         <Grid item md={12} textAlign={"center"}>
-                                            <img src={i18n.language === "fr" ? OfficeImage : OfficeImageEN} style={{ width: '70%' }} alt="contact" />
+                                            <img src={i18n.language === "fr" ? OfficeImage : OfficeImageEN} style={{ width: '60%' }} alt="contact" />
                                         </Grid>
                                     </Grid>
                                     </Fade>
@@ -142,65 +142,118 @@ function ProductPresentation({ props }) {
                                     <Fade direction={"right"} triggerOnce={true}>
                                     <Grid container direction={"column"} justifyContent={"center"} alignItems={"center"} spacing={3}>
                                         <Grid item md={12}>
-                                            <Typography fontSize={26} fontWeight={600} style={{color:'#3F07A8'}}>Organiser vos réunions</Typography>
+                                            <Typography fontSize={26} fontWeight={700} style={{color:'#3F07A8'}}>{t('public:home:product_presentation.chip_3')}</Typography>
                                         </Grid>
                                         <Grid item md={12} textAlign={"center"}>
-                                            <img src={i18n.language === "fr" ? MeetingImage : MeetingImageEN} style={{ width: '60%' }} alt="contact" />
+                                            <img src={i18n.language === "fr" ? MeetingImage : MeetingImageEN} style={{ width: '50%' }} alt="contact" />
                                         </Grid>
                                     </Grid>
                                     </Fade>
                                 </Grid>
                                 <Grid item md={3} textAlign={"center"}>
                                     <Fade direction={"right"} triggerOnce={true}>
-                                    <img src={icon4} style={{ width: '100%' }} alt="contact" />
+                                    <img src={icon4} style={{ width: '80%' }} alt="contact" />
                                     </Fade>
                                 </Grid>
                             </Grid>
-                            <Grid item md={12} mt={5}>
-                                <Fade direction={"up"} triggerOnce={true}>
-                                <Typography fontSize={42} fontWeight={600} style={{width:'100%', textAlign:'center', color:'#3F07A8'}}>Et bien d'autres.</Typography>
-                                </Fade>
-                            </Grid>
+                        </Grid>
+                        <Grid item md={12} mt={5}>
+                            <Fade direction={"up"} triggerOnce={true}>
+                                <Typography fontSize={42} fontWeight={600} style={{width:'100%', textAlign:'center', color:'#3F07A8'}}>{t('public:home:product_presentation.and_more')}</Typography>
+                            </Fade>
                         </Grid>
                     </Grid>
                 </div>
             </Box>
             <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-                <div style={{ backgroundColor: theme.palette.background.paper, minHeight: '100vh' }}>
-                    <Grid container direction={"column"}>
-                        <Grid item xs={12} style={{ backgroundColor: '#2F5597' }} px={10} pb={10} pt={5}>
-                            <Zoom triggerOnce={true}>
-                                <Grid container direction={"row"} spacing={2}>
-                                    <Grid item xs={12}>
+                <div style={{ backgroundColor: '#FDF9F6', paddingTop: '5%' }}>
+                    <Grid container direction={"row"} style={{minHeight:'100vh'}} spacing={0}>
+                        <Grid item md={12} style={{backgroundColor:'#3F07A8'}} pt={1}>
+                            <Typography variant="body1" fontSize={36} fontWeight={300} style={{width:'100%'}} align="center" color={"white"}>
+                                {t('public:home:product_presentation.catchphrase_1')}
+                            </Typography>
+                        </Grid>
+                        <Grid item md={12} style={{backgroundColor: '#3F07A8' }} pb={10} pt={5}>
+                            <Grid container direction={"row"} spacing={2}>
+                                <Grid item md={8}>
+                                    <Zoom triggerOnce={true}>
                                         <Grid container direction={"column"} spacing={5}>
                                             <Grid item xs={12}>
-                                                <Typography variant="body1" fontSize={20} align="center" color={"white"}>
-                                                    {t('public:home:product_presentation.catchphrase_1')}
-                                                </Typography>
-                                            </Grid>
-                                            <Grid item xs={12}>
-                                                <Typography variant="h4" fontWeight={600} align="center" color={"white"}>
+                                                <Typography variant="h4" fontSize={38} fontWeight={600} align="center" color={"white"}>
                                                     {t('public:home:product_presentation.catchphrase_2')}
                                                 </Typography>
                                             </Grid>
                                             <Grid item xs={12}>
-                                                <Typography variant="h4" fontWeight={600} align="center" style={{ color: '#B4C7E7' }}>
+                                                <Typography variant="h4" fontSize={48} fontWeight={600} align="center" style={{ color: '#B4C7E7' }}>
                                                     {t('public:home:product_presentation.simply')}
                                                 </Typography>
                                             </Grid>
                                         </Grid>
-                                    </Grid>
+                                    </Zoom>
                                 </Grid>
-                            </Zoom>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={12} style={{ backgroundColor: theme.palette.background.paper }} px={1} py={10}>
-                            <Zoom triggerOnce={true}>
-                                <Grid container direction={"column"} spacing={5}>
-                                    <Grid item xs={12}>
-                                        <img src={VisuelSAAS} style={{ width: '100%' }} alt="contact" />
-                                    </Grid>
+                        <Grid item md={12} style={{backgroundColor:'#FDF9F6'}}>
+                            <Grid container direction={"row"}  justifyContent={"center"} alignItems={"center"} spacing={5} mt={2}>
+                                <Grid item md={3} xs={12}>
+                                    <Fade direction={"left"} triggerOnce={true}>
+                                        <Grid container direction={"column"} justifyContent={"center"} alignItems={"center"} spacing={3}>
+                                            <Grid item md={12} textAlign={"center"}>
+                                                <Typography fontSize={26} fontWeight={600} style={{color:'#3F07A8'}}>{t('public:home:product_presentation.chip_1')}</Typography>
+                                            </Grid>
+                                            <Grid item md={12} textAlign={"center"}>
+                                                <img src={i18n.language === "fr" ? PlanningImage : PlanningImageEN} style={{ width: '70%' }} alt="contact" />
+                                            </Grid>
+                                        </Grid>
+                                    </Fade>
                                 </Grid>
-                            </Zoom>
+                                <Grid item md={3} xs={12}>
+                                    <Fade direction={"right"} triggerOnce={true}>
+
+                                        <Grid container direction={"column"} justifyContent={"center"} alignItems={"center"} spacing={3}>
+                                            <Grid item md={12}>
+                                                <Typography fontSize={26} fontWeight={600} style={{color:'#3F07A8'}}>{t('public:home:product_presentation.chip_2')}</Typography>
+                                            </Grid>
+                                            <Grid item md={12} textAlign={"center"}>
+                                                <img src={i18n.language === "fr" ? ReserveImage : ReserveImageEN} style={{ width: '70%' }} alt="contact" />
+                                            </Grid>
+                                        </Grid>
+                                    </Fade>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <Grid item md={12} mt={5} style={{backgroundColor:'#FDF9F6'}}>
+                            <Grid container direction={"row"}  justifyContent={"center"} alignItems={"center"} spacing={5} mt={2}>
+                                <Grid item md={3}>
+                                    <Fade direction={"left"} triggerOnce={true}>
+                                        <Grid container direction={"column"} justifyContent={"center"} alignItems={"center"} spacing={3}>
+                                            <Grid item md={12}>
+                                                <Typography fontSize={26} fontWeight={600} style={{color:'#3F07A8'}}>{t('public:home:product_presentation.chip_4')}</Typography>
+                                            </Grid>
+                                            <Grid item md={12} textAlign={"center"}>
+                                                <img src={i18n.language === "fr" ? OfficeImage : OfficeImageEN} style={{ width: '60%' }} alt="contact" />
+                                            </Grid>
+                                        </Grid>
+                                    </Fade>
+                                </Grid>
+                                <Grid item md={3}>
+                                    <Fade direction={"right"} triggerOnce={true}>
+                                        <Grid container direction={"column"} justifyContent={"center"} alignItems={"center"} spacing={3}>
+                                            <Grid item md={12}>
+                                                <Typography fontSize={26} fontWeight={600} style={{color:'#3F07A8'}}>{t('public:home:product_presentation.chip_3')}</Typography>
+                                            </Grid>
+                                            <Grid item md={12} textAlign={"center"}>
+                                                <img src={i18n.language === "fr" ? MeetingImage : MeetingImageEN} style={{ width: '50%' }} alt="contact" />
+                                            </Grid>
+                                        </Grid>
+                                    </Fade>
+                                </Grid>
+                            </Grid>
+                            <Grid item md={12} mt={5}>
+                                <Fade direction={"up"} triggerOnce={true}>
+                                    <Typography fontSize={42} fontWeight={600} style={{width:'100%', textAlign:'center', color:'#3F07A8'}}>{t('public:home:product_presentation.and_more')}</Typography>
+                                </Fade>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </div>

@@ -21,29 +21,29 @@ function Intro(){
             <Box sx={{ display: { xs: 'none', md: 'flex' }, backgroundColor: '#FDF9F6' }}>
                 <Container style={{height:'85vh', paddingLeft:'5%', paddingRight:'5%'}} maxWidth={true}>
                     <Grid container style={{height:'100%'}} spacing={3} direction="row" justifyContent={"center"} alignItems={"center"}>
-                        <Grid item md={6}>
+                        <Grid item xs={12} md={6}>
                             <Fade direction={"left"} triggerOnce={true}>
                                 <Grid container direction="column" style={{height:'100%'}} justifyContent={"flex-start"} spacing={5}>
                                     <Grid item>
                                         <Typography variant="h4" fontSize={48} fontWeight={600} style={{color:'#203864', textAlign:'left'}}>
                                             {t('public:home:intro.title')}
                                         </Typography>
-                                        <Typography variant="h4" fontWeight={600} style={{textAlign:'left'}}>
+                                        <Typography variant="h4" fontSize={48} fontWeight={600} style={{textAlign:'left'}}>
                                             <TypingEffect/>
                                         </Typography>
                                     </Grid>
                                     <Grid item>
-                                        <Typography variant="h5" fontSize={28} fontWeight={500} style={{textAlign:'left', color:'#3B3838'}}>
+                                        <Typography variant="h5" fontSize={28} fontWeight={400} style={{textAlign:'left', color:'#3B3838'}}>
                                             {t('public:home:intro.content')}
                                         </Typography>
                                     </Grid>
                                     <Grid item style={{textAlign:'left'}}>
-                                        <Button variant={"contained"} style={{textTransform:'none', backgroundColor:'#3F07A8', fontSize:28}} onClick={() => navigate('/demo')}>{t("generic:demo")}</Button>
+                                        <Button variant={"contained"} style={{textTransform:'none', backgroundColor:'#3F07A8', fontSize:24, borderRadius:'25px', fontWeight:500}} onClick={() => navigate('/demo')}>{t("generic:demo")}</Button>
                                     </Grid>
                                 </Grid>
                             </Fade>
                         </Grid>
-                        <Grid item md={6}>
+                        <Grid item xs={12} md={6}>
                             <Fade direction={"right"} triggerOnce={true}>
                                 <img src={VisuelSAAS} style={{ width: '100%' }} alt="contact" />
                             </Fade>
@@ -51,29 +51,34 @@ function Intro(){
                     </Grid>
                 </Container>
             </Box>
-            <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-                <Container style={{backgroundColor: theme.palette.background.paper, height:'100vh'}}>
-                    <Grid container style={{marginTop:'10vh'}} direction="row">
-                        <Grid item xs={12}>
-                            <Fade top>
-                                <Grid container direction="row" style={{height:'100%'}} justifyContent={"center"} spacing={5}>
+            <Box sx={{ display: { xs: 'flex', md: 'none' }, backgroundColor: '#FDF9F6' }}>
+                <Container style={{paddingLeft:'5%', marginTop:'5%'}} maxWidth={true}>
+                    <Grid container style={{height:'100%'}} spacing={3} direction="row" justifyContent={"center"} alignItems={"center"}>
+                        <Grid item xs={12} md={6}>
+                            <Fade direction={"left"} triggerOnce={true}>
+                                <Grid container direction="column" style={{height:'100%'}} justifyContent={"flex-start"} spacing={5}>
                                     <Grid item>
-                                        <Typography variant="h4" fontWeight={500} style={{textAlign:'center'}}>
+                                        <Typography variant="h4" fontSize={48} fontWeight={600} style={{color:'#203864', textAlign:'left'}}>
                                             {t('public:home:intro.title')}
                                         </Typography>
-                                        <Typography variant="h4" fontWeight={500} style={{textAlign:'center'}}>
+                                        <Typography variant="h4" fontSize={48} fontWeight={600} style={{textAlign:'left'}}>
                                             <TypingEffect/>
                                         </Typography>
                                     </Grid>
                                     <Grid item>
-                                        <Typography variant="h5" style={{textAlign:'center'}}>
+                                        <Typography variant="h5" fontSize={28} fontWeight={400} style={{textAlign:'left', color:'#3B3838'}}>
                                             {t('public:home:intro.content')}
                                         </Typography>
                                     </Grid>
-                                    <Grid item style={{textAlign:'center'}}>
-                                        <Chip variant="contained" style={{color:'white',backgroundColor:'#2F5597', fontSize: 18}} label={ t("generic:demo") } onClick={() => navigate('/demo/company')}/>
+                                    <Grid item style={{textAlign:'left'}}>
+                                        <Button variant={"contained"} style={{textTransform:'none', backgroundColor:'#3F07A8', fontSize:24, borderRadius:'25px', fontWeight:500}} onClick={() => navigate('/demo')}>{t("generic:demo")}</Button>
                                     </Grid>
                                 </Grid>
+                            </Fade>
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <Fade direction={"right"} triggerOnce={true}>
+                                <img src={VisuelSAAS} style={{ width: '100%' }} alt="contact" />
                             </Fade>
                         </Grid>
                     </Grid>

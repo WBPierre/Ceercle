@@ -111,7 +111,7 @@ export default function NavBar(props) {
 
         <Box sx={{ flexGrow: 1 }}>
             <HideOnScroll {...props}>
-                <AppBar style={{ backgroundColor: "#FFFFFF" }} elevation={1}>
+                <AppBar style={{ backgroundColor: "#FDF9F6" }} elevation={0}>
                     <Toolbar>
                         <Button style={{ textTransform: 'capitalize', backgroundColor: 'transparent' }} disableRipple={true} startIcon={<img src={Logo} height={50} alt="logo" />} onClick={() => { navigate('/') }}>
                             <Typography
