@@ -21,7 +21,7 @@ function Footer() {
             <Container maxWidth="xl">
                 <Grid container direction={"column"} spacing={2}>
                     <Grid item>
-                        <Grid container direction="row" spacing={2}>
+                        <Grid container direction="row" spacing={3}>
                             <Grid item md={2} xs={6}>
                                 <Typography
                                     variant="h6"
@@ -91,24 +91,20 @@ function Footer() {
                                     </Grid>
                                 </Grid>
                             </Grid>
-                            <Grid item md={4} xs={12} mt={2}>
-                                <Grid container direction={"column"} justifyContent={"center"} alignItems={"center"}>
+                            <Grid item md={4} xs={12}>
+                                <Grid container direction={"column"}>
                                     <Grid item>
                                         <Grid container direction={"row"} spacing={3}>
-                                            <Grid item textAlign={"center"} md={6}>
+                                            <Grid item textAlign={"center"} md={3}>
                                                 <img src={Pepites} style={{ height:'60%' }} alt="contact" />
                                             </Grid>
-                                            <Grid item textAlign={"center"} md={6}>
+                                            <Grid item textAlign={"center"} md={3}>
                                                 <img src={Essec} style={{ height:'60%' }} alt="contact" />
                                             </Grid>
-                                        </Grid>
-                                    </Grid>
-                                    <Grid item>
-                                        <Grid container direction={"row"} spacing={3}>
-                                            <Grid item textAlign={"center"} md={6}>
+                                            <Grid item textAlign={"center"} md={3}>
                                                 <img src={StationF} style={{ height:'60%' }} alt="contact" />
                                             </Grid>
-                                            <Grid item textAlign={"center"} md={6}>
+                                            <Grid item textAlign={"center"} md={3}>
                                                 <img src={Founders} style={{ height:'60%' }} alt="contact" />
                                             </Grid>
                                         </Grid>
