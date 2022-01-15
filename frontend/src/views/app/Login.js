@@ -31,14 +31,14 @@ function Login(){
     let navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [setCookie] = useCookies(['token']);
+    const [cookies, setCookie] = useCookies(['token']);
     const context = useAuth();
 
     useEffect(() => {
         if(context.isAuth){
             navigate('/app')
         }
-    }, []); //eslint-disable-line
+    }, []); // eslint-disable-line
 
     const handleConnectTest = () => {
         setEmail('test@test.com');

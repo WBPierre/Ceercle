@@ -1,6 +1,6 @@
+require('dotenv').config();
 const server = require('./config/server');
 const db = require('./config/database');
-require('dotenv').config();
 
 const PORT = process.env.PORT || 8080;
 server.listen(PORT, () => {

@@ -3,7 +3,6 @@ const User = require('../models/User');
 const Company = require('../models/Company');
 const Security = require('../services/Security');
 const jwt = require('jsonwebtoken');
-const config = require('../../config/secrets');
 
 exports.adminVerify = function (req, res, next) {
     const authHeader = req.headers.authorization;
@@ -11,7 +10,7 @@ exports.adminVerify = function (req, res, next) {
     if(!authHeader) {
         return res.sendStatus(400);
     } else {
-        jwt.verify(authHeader.split(' ')[1], config.secrets.jwt_key, async (err, authData) => {
+        jwt.verify(authHeader.split(' ')[1], process.env.JWT_SECRET, async (err, authData) => {
             if(err) return res.status(403).json(err);
             if(authData.user.companyId === undefined){
                 res.sendStatus(403);
@@ -86,7 +85,7 @@ exports.adminLogin = async function (req, res, next) {
                                             active: record.active,
                                             isAdmin: record.isAdmin
                                         }
-                                    }, config.secrets.jwt_key, {expiresIn: '7 days'}, (err, token) => {
+                                    }, process.env.JWT_SECRET, {expiresIn: '7 days'}, (err, token) => {
                                         if (err) res.send(err);
                                         res.json({token});
                                     });
@@ -115,6 +114,7 @@ exports.login = async function (req, res, next) {
             return;
         }
         const {email, password} = req.body
+        console.log(process.env.JWT_SECRET);
         await User.findOne(
             {
                 where:{
@@ -136,7 +136,7 @@ exports.login = async function (req, res, next) {
                                 company: await record.getCompany(),
                                 active: record.active,
                                 isAdmin: record.isAdmin,
-                            }}, config.secrets.jwt_key, {expiresIn: '7 days'}, (err, token) => {
+                            }}, process.env.JWT_SECRET, {expiresIn: '7 days'}, (err, token) => {
                             if(err) res.send(err);
                             res.json({token});
                         });
@@ -161,7 +161,7 @@ exports.verify = function (req, res, next) {
     if(!authHeader) {
         return res.sendStatus(400);
     } else {
-        jwt.verify(authHeader.split(' ')[1], config.secrets.jwt_key, async (err, authData) => {
+        jwt.verify(authHeader.split(' ')[1], process.env.JWT_SECRET, async (err, authData) => {
             if(err) return res.status(403).json(err);
             const record = await User.findOne(
                 {
