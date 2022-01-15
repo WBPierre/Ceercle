@@ -147,7 +147,7 @@ function Demo(){
         <Container maxWidth={false} disableGutters={true} >
             <NavBar/>
             <Box sx={{ display: { xs: 'none', md: 'flex' }}}>
-                <Grid container direction="row" backgroundColor="#FFFFFF" justifyContent="center" alignItems="center" style={{minWidth:'100%'}}>
+                <Grid container direction="row" backgroundColor="#FDF9F6" justifyContent="center" alignItems="center" style={{minWidth:'100%'}}>
                     <Grid
                         item
                         xs={12}
