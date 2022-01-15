@@ -1,9 +1,7 @@
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-
 import Typography from "@mui/material/Typography";
-import {Chip, useTheme} from "@mui/material";
 import {useTranslation} from "react-i18next";
 import TypingEffect from "../../../molecules/home/TypingEffect";
 import {Fade} from 'react-awesome-reveal';
@@ -12,8 +10,7 @@ import Button from "@mui/material/Button";
 import VisuelSAAS from "../../../../assets/images/home/productPresentation/visuel_SAAS.png";
 
 function Intro(){
-    const { t, i18n } = useTranslation();
-    const theme = useTheme();
+    const { t } = useTranslation();
     let navigate = useNavigate();
 
     return(

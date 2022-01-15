@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
+import {Routes, Route, Navigate} from 'react-router-dom';
 import * as Public_Routes from "./Routes";
 import Home from "../../views/public/Home";
 import Offers from "../../views/public/Offers";

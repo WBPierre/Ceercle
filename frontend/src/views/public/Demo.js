@@ -10,8 +10,7 @@ import {
     ListItem,
     ListItemIcon,
     ListItemText,
-    TextField,
-    useTheme
+    TextField
 } from "@mui/material";
 import {Check} from "@mui/icons-material";
 import {Fade} from 'react-awesome-reveal';
@@ -29,7 +28,6 @@ import axios from "axios";
 
 function Demo(){
     const { t } = useTranslation();
-    const theme = useTheme();
     let navigate = useNavigate();
     const [send, setSend] = useState(false);
     const [awaitingResponse, setAwaitingResponse] = useState(true);
@@ -101,7 +99,7 @@ function Demo(){
 
     function ValidateEmail(mail)
     {
-        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
+        if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(mail))
         {
             return (true)
         }

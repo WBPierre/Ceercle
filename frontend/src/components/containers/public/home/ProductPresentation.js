@@ -1,11 +1,6 @@
 import Grid from "@mui/material/Grid";
 import { useTranslation } from "react-i18next";
 import Typography from "@mui/material/Typography"
-import VisuelSAAS from "../../../../assets/images/home/productPresentation/visuel_SAAS.png";
-import iconMeeting from "../../../../assets/images/icons/iconMeeting.png";
-import iconPpl from "../../../../assets/images/icons/iconPpl.png";
-import iconCalendar from "../../../../assets/images/icons/iconCalendar.png";
-import iconOffice from "../../../../assets/images/icons/iconOffice.png";
 import icon1 from "../../../../assets/images/home/intro/icon1.png";
 import icon2 from "../../../../assets/images/home/intro/icon2.png";
 import icon3 from "../../../../assets/images/home/intro/icon3.png";
@@ -13,11 +8,8 @@ import icon4 from "../../../../assets/images/home/intro/icon4.png";
 import anaBranson from "../../../../assets/images/home/productPresentation/anaBranson.png";
 import seat from "../../../../assets/images/home/productPresentation/seat.png";
 import seat_en from "../../../../assets/images/home/productPresentation/seat_en.png";
-import { Chip, useTheme } from "@mui/material";
 import Box from "@mui/material/Box";
 import { Fade, Zoom } from 'react-awesome-reveal';
-import step_3 from "../../../../assets/images/home/value/step_3.png";
-import step_3_en from "../../../../assets/images/home/value/step_3_en.png";
 import OfficeImage from "../../../../assets/images/home/intro/office.png";
 import MeetingImage from "../../../../assets/images/home/intro/meeting.png";
 import ReserveImage from "../../../../assets/images/home/intro/reserve.png";
@@ -29,8 +21,6 @@ import PlanningImageEN from "../../../../assets/images/home/intro/planning_en.pn
 
 function ProductPresentation({ props }) {
     const { t, i18n } = useTranslation();
-    const theme = useTheme();
-
 
     return (
         <div>

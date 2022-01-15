@@ -3,11 +3,9 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useTranslation } from "react-i18next";
 import Container from "@mui/material/Container";
-import {Chip, Paper} from "@mui/material";
+import {Paper} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Hey from "../../../../assets/images/home/demo/hey.png";
-import MeetingImage from "../../../../assets/images/home/intro/meeting.png";
-import MeetingImageEN from "../../../../assets/images/home/intro/meeting_en.png";
 import Box from "@mui/material/Box";
 
 

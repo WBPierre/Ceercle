@@ -2,9 +2,8 @@ import * as React from 'react';
 import Grid from "@mui/material/Grid";
 import { useTranslation } from "react-i18next";
 import Typography from "@mui/material/Typography"
-import {CardMedia, Chip, useTheme} from "@mui/material";
+import {Chip, useTheme} from "@mui/material";
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import {
@@ -14,13 +13,11 @@ import {
     ListItemText
 } from "@mui/material";
 import { Check } from "@mui/icons-material";
-import Divider from '@mui/material/Divider';
 import { Fade } from 'react-awesome-reveal';
 import { useNavigate } from "react-router-dom";
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Box from '@mui/material/Box';
-import { useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
 
 
@@ -29,7 +26,6 @@ function OfferDescription({ props }) {
     const theme = useTheme();
 
     let navigate = useNavigate();
-    let params = useParams();
 
     const [alignment, setAlignment] = React.useState("yearly");
     const handleChange = (event, newAlignment) => {
