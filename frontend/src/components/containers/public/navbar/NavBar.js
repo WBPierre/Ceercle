@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import LangSwitcher from "../../../molecules/navbar/LangSwitcher";
-import { Chip, useTheme } from "@mui/material";
+import { Chip } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import HideOnScroll from "../../../molecules/navbar/HideOnScroll";
@@ -16,21 +16,18 @@ import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import Logo from "../../../../assets/images/logo/logo_2.png";
 import { useState } from "react";
 import { Turn as Hamburger } from 'hamburger-react'
-import useAuth from "../../../context/auth/AuthHelper";
 
 
 export default function NavBar(props) {
 
     // Overall const
     const { t } = useTranslation();
-    const theme = useTheme();
     let navigate = useNavigate();
 
     // For mobile
     const [open, setOpen] = useState(false)
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-    const [openConnect, setOpenConnect] = useState(false);
 
     const handleMobileMenuClose = () => {
         setMobileMoreAnchorEl(null);
@@ -53,10 +50,6 @@ export default function NavBar(props) {
         // setOpen(false);
         // setOpenConnect(true)
         window.open('/app/login');
-    }
-
-    const connectHandlerClose = () => {
-        setOpenConnect(false)
     }
 
     const mobileMenuId = 'primary-search-account-menu-mobile';

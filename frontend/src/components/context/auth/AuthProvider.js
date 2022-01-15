@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useMemo, useState} from "react";
+import React, {useEffect, useState} from "react";
 import { useCookies } from 'react-cookie';
 import ApiService from "../../../services/api.service";
 import AuthService from "../../../services/app/auth.service";
@@ -17,8 +17,9 @@ const AuthProvider  = (props) => {
     const [user, setUser] = useState(null);
     const [isAuth, setIsAuth] = useState(false);
     const [loadingInitial, setLoadingInitial] = useState(true);
-    const [cookies, setCookie, removeCookie] = useCookies(['token']);
+    const [cookies, removeCookie] = useCookies(['token']);
 
+    // eslint-disable-next-line
     useEffect(async () => {
         if(cookies.token !== undefined) {
             ApiService.setHeader(cookies.token);
@@ -32,7 +33,7 @@ const AuthProvider  = (props) => {
             });
         }
         setLoadingInitial(false);
-    }, []);
+    }, []); // eslint-disable-line
 
     const contextValue = {
         user: user,

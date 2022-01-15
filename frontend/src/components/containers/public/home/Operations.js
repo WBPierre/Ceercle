@@ -1,21 +1,17 @@
 import Grid from "@mui/material/Grid";
 import { useTranslation } from "react-i18next";
 import Typography from "@mui/material/Typography"
-import {Avatar, Icon, Paper, useTheme} from "@mui/material";
 import Thumbs from "../../../../assets/images/home/operations/thumbs.png";
 import managee from "../../../../assets/images/home/operations/employees.png";
 import rh from "../../../../assets/images/home/operations/rh2.png";
 import finance from "../../../../assets/images/home/operations/card.png";
 import ecology from "../../../../assets/images/home/operations/earth.png";
 import { Fade } from "react-awesome-reveal";
-import MeetingImage from "../../../../assets/images/home/intro/meeting.png";
-import MeetingImageEN from "../../../../assets/images/home/intro/meeting_en.png";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 
 function Operations({ props }) {
     const { t } = useTranslation();
-    const theme = useTheme();
 
 
     return (

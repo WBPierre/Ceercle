@@ -1,12 +1,10 @@
 import Grid from "@mui/material/Grid";
 import { useTranslation } from "react-i18next";
 import Typography from "@mui/material/Typography"
-import { useTheme } from "@mui/material";
 import Box from "@mui/material/Box";
 
 function OffersIntro({ props }) {
     const { t } = useTranslation();
-    const theme = useTheme();
 
 
     return (

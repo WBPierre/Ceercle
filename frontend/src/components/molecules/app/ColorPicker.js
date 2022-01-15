@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent } from "@mui/material";
 import { useState } from "react";
 import { BlockPicker } from 'react-color';
 import { Chip } from "@mui/material";

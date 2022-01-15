@@ -3,7 +3,8 @@ function logError(...parameters) {
     let filter = parameters.find(parameter => {
         return (
             // Filter error because XXX
-            parameter.includes("Warning: Legacy context API has been detected within a strict-mode tree.")
+            parameter.includes("Warning: Legacy context API has been detected within a strict-mode tree.") ||
+            parameter.includes("Invalid prop `maxWidth` supplied to `ForwardRef(Container)`")
         );
     });
     if(!filter) error(...parameters);

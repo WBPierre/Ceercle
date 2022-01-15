@@ -7,7 +7,6 @@ import Typography from "@mui/material/Typography"
 import Footer from "../../components/containers/public/footer/Footer";
 import {useTheme} from "@mui/material";
 import Box from '@mui/material/Box';
-import {useNavigate} from "react-router-dom";
 
 
 
@@ -15,7 +14,6 @@ import {useNavigate} from "react-router-dom";
 function Legal(){
     const { t } = useTranslation();
     const theme = useTheme();
-    let navigate = useNavigate();
 
     return(
         <Container maxWidth={false} disableGutters={true} >

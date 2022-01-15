@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid";
 import { useTranslation } from "react-i18next";
 import Typography from "@mui/material/Typography";
-import { Avatar, Chip, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material";
 import step_1 from "../../../../assets/images/home/value/step_1.png";
 import step_2 from "../../../../assets/images/home/value/step_2.png";
 import step_3 from "../../../../assets/images/home/value/step_3.png";
@@ -17,7 +17,6 @@ import step_3_3 from "../../../../assets/images/home/value/step_3_3.png";
 import step_4_2 from "../../../../assets/images/home/value/step_4_2.png";
 import Box from "@mui/material/Box";
 import { Fade } from 'react-awesome-reveal';
-import IconButton from "@mui/material/IconButton";
 import AddIcon from '@mui/icons-material/Add';
 import Phone from "../../../../assets/images/home/productPresentation/phone.png";
 import Tablet from "../../../../assets/images/home/productPresentation/tablet.png";

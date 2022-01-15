@@ -1,7 +1,6 @@
 import Grid from "@mui/material/Grid";
 import {useTranslation} from "react-i18next";
 import Typography from "@mui/material/Typography"
-import {useTheme} from "@mui/material";
 import Box from "@mui/material/Box";
 import RedeemIcon from '@mui/icons-material/Redeem';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
@@ -10,7 +9,6 @@ import BoltIcon from '@mui/icons-material/Bolt';
 
 function OffersPerks({props}){
     const { t } = useTranslation();
-    const theme = useTheme();
 
 
     return(

@@ -3,8 +3,6 @@ import {Button, Menu, useTheme} from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import {useState} from "react";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import LanguageIcon from '@mui/icons-material/Language';
-import {useLocation} from "react-router-dom";
 
 function LangSwitcher(props){
 
