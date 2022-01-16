@@ -9,10 +9,10 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import LightModeIcon from '@mui/icons-material/LightMode';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import {Badge, ListItemButton} from "@mui/material";
+import { Badge, ListItemButton } from "@mui/material";
 import LangSwitcher from "../../../molecules/navbar/LangSwitcher";
 import WeatherService from "../../../../services/app/weather.service";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import moment from "moment";
 import "moment/min/locales";
 import ListItemText from "@mui/material/ListItemText";
@@ -65,60 +65,53 @@ export default function AppBar(props) {
 
 
     return (
-        <AppBarStyle position="fixed" open={props.open} style={{ backgroundColor: theme.palette.background.paper }}>
-            <Toolbar style={{ backgroundColor: "#3F07A8", justifyContent: "center" }} >
-                <IconButton
-                    style={{ color: 'black' }}
-                    aria-label="open drawer"
-                    onClick={props.handleDrawerOpen}
-                    edge="start"
-                    sx={{ mr: 2, ...(props.open && { display: 'none' }) }}
-                >
-                    <MenuIcon />
-                </IconButton>
-                <div style={{flexGrow:1}}/>
+        <AppBarStyle position="fixed" open={props.open} style={{ backgroundColor: theme.palette.background.paper }} elevation={0}>
+            <Toolbar style={{ backgroundColor: "#FDF9F6", justifyContent: "center" }} >
+
 
                 <Typography style={{
-                    color: 'white',
-                    fontSize: 21,
+                    color: '#2A2828',
+                    fontSize: 23,
                     fontWeight: 600,
                     variant: 'body2',
-                    textAlign: 'center'}}>
+                    textAlign: 'center'
+                }}>
                     {`${t('app:navbar:welcome')} ${context.user.firstName} !`}
                 </Typography>
-                <div style={{flexGrow:1}}/>
+
+                <div style={{ flexGrow: 1 }} />
 
                 <Typography
                     mr={3}
                     variant="h6"
                     noWrap
                     component="div"
-                    color="white"
-                    style={{ fontWeight: 200, textTransform:'capitalize'}}
-                    fontSize={25}
+                    color="#1F4E79"
+                    style={{ fontWeight: 200, textTransform: 'capitalize' }}
+                    fontSize={28}
                     align='center'
                 >
                     {day.format('dddd')} {day.format('DD')} {day.format('MMMM')} {day.format('YYYY')}
                 </Typography>
 
-                <img src={weatherIcon}/>
+                <div style={{ flexGrow: 1 }} />
+
+                <img src={weatherIcon} />
 
                 <Typography
                     mr={3}
                     variant="h6"
                     noWrap
                     component="div"
-                    color="white"
+                    color="#2A2828"
                     style={{ fontWeight: 100 }}
-                    fontSize={25}
+                    fontSize={23}
                     align='center'
                 >
                     | {temp}°
                 </Typography>
 
-                <div style={{flexGrow: 2}}/>
 
-                <LangSwitcher />
 
             </Toolbar>
         </AppBarStyle>

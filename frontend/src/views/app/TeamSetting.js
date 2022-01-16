@@ -6,6 +6,7 @@ import Grid from "@mui/material/Grid";
 import Typography from '@mui/material/Typography';
 import { Divider } from "@mui/material";
 import { Button } from "@mui/material";
+import Chip from '@mui/material/Chip';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import TeamAddModal from "../../components/containers/app/teams/TeamAddModal";
 import { TextField } from "@mui/material";
@@ -20,6 +21,7 @@ import {
 import example1 from "../../assets/images/example/1.jpg";
 import example2 from "../../assets/images/example/2.jpg";
 import example3 from "../../assets/images/example/3.jpg";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useSnackbar } from "notistack";
 
 
@@ -96,9 +98,25 @@ function Teams() {
 
             <Grid container direction="column" spacing={3}>
                 <Grid item>
-                    <Typography variant="h4" fontWeight={600} style={{ color: '#323AB8' }}>
-                        Personnalisation de l'équipe
-                    </Typography>
+                    <Grid container direction="row">
+                        <Grid item md={10}>
+                            <Typography variant="h4" fontWeight={600} style={{ color: '#2A2828' }}>
+                                Personnalisation de l'équipe
+                            </Typography>
+                        </Grid>
+                        <Grid item md={2}>
+                            <Chip
+                                label="Revenir aux équipes"
+                                sx={{
+                                    borderColor: "#777575", color: "#777575", fontWeight: "bold"
+                                }}
+                                color="error"
+                                icon={<ArrowBackIcon />}
+                                variant="outlined"
+                                onClick={() => navigate('/app/teams')}
+                            />
+                        </Grid>
+                    </Grid>
                 </Grid>
 
                 <Grid item>
@@ -120,13 +138,39 @@ function Teams() {
                 <Grid item>
                     <Grid container direction="row" justifyContent="space-between">
                         <Grid item md={3}>
-                            <Button startIcon={<AddCircleOutlineIcon />} variant="contained" sx={{ backgroundColor: "#323AB8" }}> Ajouter un utilisateur </Button>
+                            <Chip
+                                label="Ajouter un utilisateur"
+                                sx={{
+                                    borderColor: "#3F07A8", color: "#3F07A8", fontWeight: "bold"
+                                }}
+                                color="error"
+                                icon={<AddCircleOutlineIcon />}
+                                variant="outlined"
+                            />
                         </Grid>
                         <Grid item md={2}>
-                            <Button startIcon={<CheckCircleOutlineIcon />} variant="contained" sx={{ backgroundColor: "#323AB8" }} onClick={save}> Enregistrer </Button>
+                            <Chip
+                                label="Enregistrer"
+                                sx={{
+                                    borderColor: "#3F07A8", color: "#3F07A8", fontWeight: "bold"
+                                }}
+                                color="error"
+                                icon={<CheckCircleOutlineIcon />}
+                                variant="outlined"
+                                onClick={save}
+                            />
                         </Grid>
                         <Grid item md={2}>
-                            <Button startIcon={<DeleteIcon />} variant="contained" sx={{ backgroundColor: "#D20303" }} onClick={handleDeleteClickOpen}> Effacer l'équipe </Button>
+                            <Chip
+                                label="Supprimer l'équipe"
+                                sx={{
+                                    borderColor: "#D20303", color: "#D20303", fontWeight: "bold"
+                                }}
+                                color="error"
+                                icon={<DeleteIcon />}
+                                variant="outlined"
+                                onClick={handleDeleteClickOpen}
+                            />
                         </Grid>
 
                     </Grid>

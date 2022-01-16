@@ -17,17 +17,16 @@ function ColorPicker(props) {
         props.updateColor(color.hex);
     };
 
-    const handleDelete = () => {
-    };
+
 
     return (
         <div>
             <Chip
                 label="Couleur"
+                sx={{ borderColor: "#3C3B3D", color: "#3C3B3D" }}
                 color="primary"
                 onClick={handleOpen}
-                onDelete={handleDelete}
-                deleteIcon={<EditIcon />}
+                icon={<EditIcon />}
                 variant="outlined"
             />
             <Dialog

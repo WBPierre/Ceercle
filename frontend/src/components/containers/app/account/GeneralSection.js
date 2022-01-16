@@ -7,20 +7,27 @@ import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
-import DoneIcon from '@mui/icons-material/Done';
 import CancelIcon from '@mui/icons-material/Cancel';
-
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { useSnackbar } from "notistack";
+import { useNavigate } from "react-router-dom";
 import SettingSectionTemplate from './SettingSectionTemplate';
 
 export default function GeneralSection(props) {
 
-    const handleClick = () => {
-        console.info('You clicked the Chip.');
-    };
+    const { enqueueSnackbar } = useSnackbar();
+    let navigate = useNavigate();
+    const save = () => {
+        enqueueSnackbar('Paramètres enregistrés.', {
+            variant: 'success'
+        });
+    }
 
-    const handleDelete = () => {
-        console.info('You clicked the delete icon.');
-    };
+    const cancel = () => {
+        enqueueSnackbar('Annulé', {
+            variant: 'cancel'
+        });
+    }
 
     return (
         <SettingSectionTemplate title="Paramètres généraux" description="Définissez vos paramètres de compte">
@@ -127,19 +134,21 @@ export default function GeneralSection(props) {
                         <Grid item md={6}>
                             <Stack direction="row" spacing={1}>
                                 <Chip
-                                    label="Enregistrer"
-                                    color="primary"
-                                    onClick={handleClick}
-                                    onDelete={handleDelete}
-                                    deleteIcon={<DoneIcon />}
+                                    label="Annuler"
+                                    sx={{
+                                        borderColor: "#3C3B3D", color: "#3C3B3D", fontWeight: "bold"
+                                    }}
+                                    color="error"
+                                    onClick={cancel}
+                                    icon={<CancelIcon />}
                                     variant="outlined"
                                 />
                                 <Chip
-                                    label="Annuler"
+                                    label="Enregistrer"
+                                    sx={{ borderColor: "#3F07A8", color: "#3F07A8", fontWeight: "bold" }}
                                     color="error"
-                                    onClick={handleClick}
-                                    onDelete={handleDelete}
-                                    deleteIcon={<CancelIcon />}
+                                    onClick={save}
+                                    icon={<CheckCircleIcon />}
                                     variant="outlined"
                                 />
                             </Stack>

@@ -34,7 +34,7 @@ export default function GlossaryList(props) {
                             <li key={`section-${firstLetter}`}>
                                 <ul style={{ padding: 0 }}>
                                     <Divider style={{ background: '#FDFCFC' }} />
-                                    <ListItem style={{ fontSize: 15, maxHeight: 35, backgroundColor: "#F7F7F7" }}>{firstLetter} </ListItem>
+                                    <ListItem style={{ fontSize: 15, maxHeight: 35, backgroundColor: "#F7F4FD" }}>{firstLetter} </ListItem>
                                     <Divider style={{ background: '#FDFCFC' }} />
                                     {filtered_options.map((collegue, index) => {
                                         return (

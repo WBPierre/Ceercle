@@ -28,18 +28,18 @@ export default function SearchGlossary(props) {
     return (
         <Grid container direction="column" spacing={1}>
             <Grid item>
-                <Typography variant="h4" fontWeight={600} style={{ color: '#414040' }}>
+                <Typography variant="h4" fontWeight={600} style={{ color: '#2A2828' }}>
                     Annuaire
                 </Typography>
             </Grid>
 
             <Grid item>
                 <Typography variant="body" fontWeight={100} fontSize={18} style={{ color: '#7F7F7F' }}>
-                    Rechercher parmi les 1399 employés
+                    Rechercher parmi les 7 employés
                 </Typography>
             </Grid>
 
-            <Grid item mt={3}>
+            <Grid item mt={2}>
                 <FormControl sx={{ width: '80%' }} variant="outlined">
                     <InputLabel htmlFor="outlined-adornment-password">Rechercher</InputLabel>
                     <OutlinedInput
@@ -56,7 +56,7 @@ export default function SearchGlossary(props) {
                 </FormControl>
             </Grid>
 
-            <Grid item mt={3}>
+            <Grid item mt={2}>
                 <GlossaryList searchValue={value} newUserToDisplay={props.newUserToDisplay} />
             </Grid>
         </Grid >

@@ -1,13 +1,13 @@
-import {Avatar, ListItemIcon, ListItemText, Menu, Typography} from "@mui/material";
+import { Avatar, Divider, ListItemIcon, ListItemText, Menu, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import ManWorkingIcon from "../../../molecules/icons/ManWorkingIcon";
 import OfficeIcon from "../../../molecules/icons/OfficeIcon";
 import AwayIcon from "../../../molecules/icons/AwayIcon";
-import {useTheme} from "@mui/material/styles";
+import { useTheme } from "@mui/material/styles";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
-import {useState} from "react";
-import {ContentPaste} from "@mui/icons-material";
+import { useState } from "react";
+import { ContentPaste } from "@mui/icons-material";
 import ToDefineIcon from "../../../molecules/icons/ToDefineIcon";
 import moment from "moment";
 import OffIcon from "../../../molecules/icons/OffIcon";
@@ -34,41 +34,41 @@ function PlanningElement(props) {
     switch (props.from) {
         case 1:
             return (
-                <div style={{width:'100%', height:'100%'}}>
+                <div style={{ width: '100%', height: '100%' }}>
                     <Button disableRipple={true} style={{
                         textTransform: 'none',
-                        backgroundColor: !props.past ? '' : 'transparent',
+                        backgroundColor: props.current ? '#F7FEF5' : '',
                         cursor: !props.past ? 'pointer' : 'default',
-                        width:'100%', height:'100%'
+                        width: '100%', height: '100%'
                     }} id="basic-button"
-                            aria-controls="basic-menu"
-                            aria-haspopup="true"
-                            aria-expanded={open ? 'true' : undefined}
-                            onClick={handleClick}>
+                        aria-controls="basic-menu"
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}
+                        onClick={handleClick}>
                         <Grid container direction={"column"} spacing={1}>
                             <Grid item xs={12}>
-                                <Typography textAlign={"center"} style={{color: props.current ? '#95E59A' : '#d32f2f'}}
-                                            fontSize={props.current ? 24 : 22}
-                                            fontWeight={props.current ? 600 : 500}>{props.day}</Typography>
-                                <Typography textAlign={"center"} style={{color: props.current ? '#95E59A' : '#2F5597'}}
-                                            fontSize={props.current ? 24 : 22}
-                                            fontWeight={props.current ? 600 : 500}>{moment(props.date, 'YYYY-MM-DD').date()}</Typography>
+                                <Typography textAlign={"center"} style={{ color: props.current ? '#60b56d' : '#d32f2f' }}
+                                    fontSize={props.current ? 24 : 22}
+                                    fontWeight={props.current ? 600 : 500}>{props.day}</Typography>
+                                <Typography textAlign={"center"} style={{ color: props.current ? '#60b56d' : '#2F5597' }}
+                                    fontSize={props.current ? 24 : 22}
+                                    fontWeight={props.current ? 600 : 500}>{moment(props.date, 'YYYY-MM-DD').date()}</Typography>
                             </Grid>
-                            <Grid item style={{display:'flex', justifyContent:'center'}}>
-                                <Avatar sx={{width: 75, height: 75}}
-                                        style={{
-                                            border: props.current ? '3px solid #95E59A' : 'none',
-                                            backgroundColor: props.past ? '#D3D3D3' : props.current ? '#C3E4B6' : '#C3E4B6'
-                                        }}>
-                                    <OfficeIcon sx={{width: 50, height: 50}}/>
+                            <Grid item style={{ display: 'flex', justifyContent: 'center' }}>
+                                <Avatar sx={{ width: 75, height: 75 }}
+                                    style={{
+                                        border: props.current ? '3px solid #60b56d' : 'none',
+                                        backgroundColor: props.past ? '#D3D3D3' : props.current ? '#C3E4B6' : '#C3E4B6'
+                                    }}>
+                                    <OfficeIcon sx={{ width: 50, height: 50 }} />
                                 </Avatar>
                             </Grid>
-                            <Grid item xs={12} my={2}/>
-                            <Grid item xs={12} style={{position:'absolute', bottom:0, width:'100%'}}>
+                            <Grid item xs={12} my={2} />
+                            <Grid item xs={12} style={{ position: 'absolute', bottom: 0, width: '100%' }}>
                                 <Typography textAlign={"center"}
-                                            style={{color: props.past ? '#D3D3D3' : props.current ? '#95E59A' : '#60b56d', width:'100%'}}
-                                            fontSize={props.current ? 20 : 18}
-                                            fontWeight={props.current ? 600 : 500}>Bureau</Typography>
+                                    style={{ color: props.past ? '#D3D3D3' : props.current ? '#60b56d' : '#95E59A', width: '100%' }}
+                                    fontSize={props.current ? 20 : 18}
+                                    fontWeight={props.current ? 600 : 500}>Bureau</Typography>
                             </Grid>
                         </Grid>
                     </Button>
@@ -83,25 +83,25 @@ function PlanningElement(props) {
                     >
                         <MenuItem onClick={() => modifyChoice(0)}>
                             <ListItemIcon>
-                                <ToDefineIcon/>
+                                <ToDefineIcon />
                             </ListItemIcon>
                             <ListItemText>A définir</ListItemText>
                         </MenuItem>
                         <MenuItem onClick={() => modifyChoice(2)}>
                             <ListItemIcon>
-                                <ManWorkingIcon/>
+                                <ManWorkingIcon />
                             </ListItemIcon>
                             <ListItemText>Télétravail</ListItemText>
                         </MenuItem>
                         <MenuItem onClick={() => modifyChoice(3)}>
                             <ListItemIcon>
-                                <AwayIcon/>
+                                <AwayIcon />
                             </ListItemIcon>
                             <ListItemText>Déplacement</ListItemText>
                         </MenuItem>
                         <MenuItem onClick={() => modifyChoice(4)}>
                             <ListItemIcon>
-                                <OffIcon/>
+                                <OffIcon />
                             </ListItemIcon>
                             <ListItemText>Off</ListItemText>
                         </MenuItem>
@@ -110,41 +110,41 @@ function PlanningElement(props) {
             );
         case 2:
             return (
-                <div style={{width:'100%', height:'100%'}}>
+                <div style={{ width: '100%', height: '100%' }}>
                     <Button disableRipple={true} style={{
                         textTransform: 'none',
-                        backgroundColor: !props.past ? '' : 'transparent',
+                        backgroundColor: props.current ? '#F3F7FE' : '',
                         cursor: !props.past ? 'pointer' : 'default',
-                        width:'100%', height:'100%'
+                        width: '100%', height: '100%'
                     }} id="basic-button"
-                            aria-controls="basic-menu"
-                            aria-haspopup="true"
-                            aria-expanded={open ? 'true' : undefined}
-                            onClick={handleClick}>
+                        aria-controls="basic-menu"
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}
+                        onClick={handleClick}>
                         <Grid container direction={"column"} spacing={1}>
                             <Grid item xs={12}>
-                                <Typography textAlign={"center"} style={{color: props.current ? '#8BCCEE' : '#d32f2f'}}
-                                            fontSize={props.current ? 24 : 22}
-                                            fontWeight={props.current ? 600 : 500}>{props.day}</Typography>
-                                <Typography textAlign={"center"} style={{color: props.current ? '#8BCCEE' : '#2F5597'}}
-                                            fontSize={props.current ? 24 : 22}
-                                            fontWeight={props.current ? 600 : 500}>{moment(props.date, 'YYYY-MM-DD').date()}</Typography>
+                                <Typography textAlign={"center"} style={{ color: props.current ? '#0070C0' : '#d32f2f' }}
+                                    fontSize={props.current ? 24 : 22}
+                                    fontWeight={props.current ? 600 : 500}>{props.day}</Typography>
+                                <Typography textAlign={"center"} style={{ color: props.current ? '#0070C0' : '#2F5597' }}
+                                    fontSize={props.current ? 24 : 22}
+                                    fontWeight={props.current ? 600 : 500}>{moment(props.date, 'YYYY-MM-DD').date()}</Typography>
                             </Grid>
-                            <Grid item style={{display:'flex', justifyContent:'center'}}>
-                                <Avatar sx={{width: 75, height: 75}}
-                                        style={{
-                                            border: props.current ? '3px solid #8BCCEE' : 'none',
-                                            backgroundColor: props.past ? '#D3D3D3' : props.current ? '#DAEFFA' : '#DAEFFA'
-                                        }}>
-                                    <ManWorkingIcon sx={{width: 50, height: 50}}/>
+                            <Grid item style={{ display: 'flex', justifyContent: 'center' }}>
+                                <Avatar sx={{ width: 75, height: 75 }}
+                                    style={{
+                                        border: props.current ? '3px solid #0070C0' : 'none',
+                                        backgroundColor: props.past ? '#D3D3D3' : props.current ? '#DAEFFA' : '#DAEFFA'
+                                    }}>
+                                    <ManWorkingIcon sx={{ width: 50, height: 50 }} />
                                 </Avatar>
                             </Grid>
-                            <Grid item xs={12} my={2}/>
-                            <Grid item xs={12} style={{position:'absolute', bottom:0, width:'100%'}}>
+                            <Grid item xs={12} my={2} />
+                            <Grid item xs={12} style={{ position: 'absolute', bottom: 0, width: '100%' }}>
                                 <Typography textAlign={"center"}
-                                            style={{color: props.past ? '#D3D3D3' : props.current ? '#8BCCEE' : '#2F5597', width:'100%'}}
-                                            fontSize={props.current ? 20 : 18}
-                                            fontWeight={props.current ? 600 : 500}>Télétravail</Typography>
+                                    style={{ color: props.past ? '#D3D3D3' : props.current ? '#0070C0' : '#8BCCEE', width: '100%' }}
+                                    fontSize={props.current ? 20 : 18}
+                                    fontWeight={props.current ? 600 : 500}>Télétravail</Typography>
                             </Grid>
                         </Grid>
                     </Button>
@@ -159,25 +159,25 @@ function PlanningElement(props) {
                     >
                         <MenuItem onClick={() => modifyChoice(0)}>
                             <ListItemIcon>
-                                <ToDefineIcon/>
+                                <ToDefineIcon />
                             </ListItemIcon>
                             <ListItemText>A définir</ListItemText>
                         </MenuItem>
                         <MenuItem onClick={() => modifyChoice(1)}>
                             <ListItemIcon>
-                                <OfficeIcon/>
+                                <OfficeIcon />
                             </ListItemIcon>
                             <ListItemText>Au bureau</ListItemText>
                         </MenuItem>
                         <MenuItem onClick={() => modifyChoice(3)}>
                             <ListItemIcon>
-                                <AwayIcon/>
+                                <AwayIcon />
                             </ListItemIcon>
                             <ListItemText>Déplacement</ListItemText>
                         </MenuItem>
                         <MenuItem onClick={() => modifyChoice(4)}>
                             <ListItemIcon>
-                                <OffIcon/>
+                                <OffIcon />
                             </ListItemIcon>
                             <ListItemText>Off</ListItemText>
                         </MenuItem>
@@ -186,41 +186,41 @@ function PlanningElement(props) {
             );
         case 3:
             return (
-                <div style={{width:'100%', height:'100%'}}>
+                <div style={{ width: '100%', height: '100%' }}>
                     <Button disableRipple={true} style={{
                         textTransform: 'none',
-                        backgroundColor: !props.past ? '' : 'transparent',
+                        backgroundColor: props.current ? '#FAF6FF' : '',
                         cursor: !props.past ? 'pointer' : 'default',
-                        width:'100%', height:'100%'
+                        width: '100%', height: '100%'
                     }} id="basic-button"
-                            aria-controls="basic-menu"
-                            aria-haspopup="true"
-                            aria-expanded={open ? 'true' : undefined}
-                            onClick={handleClick}>
+                        aria-controls="basic-menu"
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}
+                        onClick={handleClick}>
                         <Grid container direction={"column"} spacing={1}>
                             <Grid item xs={12}>
-                                <Typography textAlign={"center"} style={{color: props.current ? '#C7B3DA' : '#d32f2f'}}
-                                            fontSize={props.current ? 24 : 22}
-                                            fontWeight={props.current ? 600 : 500}>{props.day}</Typography>
-                                <Typography textAlign={"center"} style={{color: props.current ? '#C7B3DA' : '#2F5597'}}
-                                            fontSize={props.current ? 24 : 22}
-                                            fontWeight={props.current ? 600 : 500}>{moment(props.date, 'YYYY-MM-DD').date()}</Typography>
+                                <Typography textAlign={"center"} style={{ color: props.current ? '#9872B2' : '#d32f2f' }}
+                                    fontSize={props.current ? 24 : 22}
+                                    fontWeight={props.current ? 600 : 500}>{props.day}</Typography>
+                                <Typography textAlign={"center"} style={{ color: props.current ? '#9872B2' : '#2F5597' }}
+                                    fontSize={props.current ? 24 : 22}
+                                    fontWeight={props.current ? 600 : 500}>{moment(props.date, 'YYYY-MM-DD').date()}</Typography>
                             </Grid>
-                            <Grid item style={{display:'flex', justifyContent:'center'}}>
-                                <Avatar sx={{width: 75, height: 75}}
-                                        style={{
-                                            border: props.current ? '3px solid #C7B3DA' : 'none',
-                                            backgroundColor: props.past ? '#D3D3D3' : '#E6DCF1'
-                                        }}>
-                                    <AwayIcon sx={{width: 50, height: 50}}/>
+                            <Grid item style={{ display: 'flex', justifyContent: 'center' }}>
+                                <Avatar sx={{ width: 75, height: 75 }}
+                                    style={{
+                                        border: props.current ? '3px solid #9872B2' : 'none',
+                                        backgroundColor: props.past ? '#D3D3D3' : '#E6DCF1'
+                                    }}>
+                                    <AwayIcon sx={{ width: 50, height: 50 }} />
                                 </Avatar>
                             </Grid>
-                            <Grid item xs={12} my={2}/>
-                            <Grid item xs={12} style={{position:'absolute', bottom:0, width:'100%'}}>
+                            <Grid item xs={12} my={2} />
+                            <Grid item xs={12} style={{ position: 'absolute', bottom: 0, width: '100%' }}>
                                 <Typography textAlign={"center"}
-                                            style={{color: props.past ? '#D3D3D3' : props.current ? '#C7B3DA' : '#9872B2', width:'100%'}}
-                                            fontSize={props.current ? 20 : 18}
-                                            fontWeight={props.current ? 600 : 500}>Déplacement</Typography>
+                                    style={{ color: props.past ? '#D3D3D3' : props.current ? '#9872B2' : '#C7B3DA', width: '100%' }}
+                                    fontSize={props.current ? 20 : 18}
+                                    fontWeight={props.current ? 600 : 500}>Déplacement</Typography>
                             </Grid>
                         </Grid>
                     </Button>
@@ -235,25 +235,25 @@ function PlanningElement(props) {
                     >
                         <MenuItem onClick={() => modifyChoice(0)}>
                             <ListItemIcon>
-                                <ToDefineIcon/>
+                                <ToDefineIcon />
                             </ListItemIcon>
                             <ListItemText>A définir</ListItemText>
                         </MenuItem>
                         <MenuItem onClick={() => modifyChoice(1)}>
                             <ListItemIcon>
-                                <OfficeIcon/>
+                                <OfficeIcon />
                             </ListItemIcon>
                             <ListItemText>Au bureau</ListItemText>
                         </MenuItem>
                         <MenuItem onClick={() => modifyChoice(2)}>
                             <ListItemIcon>
-                                <ManWorkingIcon/>
+                                <ManWorkingIcon />
                             </ListItemIcon>
                             <ListItemText>Télétravail</ListItemText>
                         </MenuItem>
                         <MenuItem onClick={() => modifyChoice(4)}>
                             <ListItemIcon>
-                                <OffIcon/>
+                                <OffIcon />
                             </ListItemIcon>
                             <ListItemText>Off</ListItemText>
                         </MenuItem>
@@ -262,41 +262,41 @@ function PlanningElement(props) {
             )
         case 4:
             return (
-                <div style={{width:'100%', height:'100%'}}>
+                <div style={{ width: '100%', height: '100%' }}>
                     <Button disableRipple={true} style={{
                         textTransform: 'none',
-                        backgroundColor: !props.past ? '' : 'transparent',
+                        backgroundColor: props.current ? '#FEFAF1' : '',
                         cursor: !props.past ? 'pointer' : 'default',
-                        width:'100%', height:'100%'
+                        width: '100%', height: '100%'
                     }} id="basic-button"
-                            aria-controls="basic-menu"
-                            aria-haspopup="true"
-                            aria-expanded={open ? 'true' : undefined}
-                            onClick={handleClick}>
+                        aria-controls="basic-menu"
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}
+                        onClick={handleClick}>
                         <Grid container direction={"column"} spacing={1}>
                             <Grid item xs={12}>
-                                <Typography textAlign={"center"} style={{color: props.current ? '#FFA800' : '#d32f2f'}}
-                                            fontSize={props.current ? 24 : 22}
-                                            fontWeight={props.current ? 600 : 500}>{props.day}</Typography>
-                                <Typography textAlign={"center"} style={{color: props.current ? '#FFA800' : '#2F5597'}}
-                                            fontSize={props.current ? 24 : 22}
-                                            fontWeight={props.current ? 600 : 500}>{moment(props.date, 'YYYY-MM-DD').date()}</Typography>
+                                <Typography textAlign={"center"} style={{ color: props.current ? '#FFA800' : '#d32f2f' }}
+                                    fontSize={props.current ? 24 : 22}
+                                    fontWeight={props.current ? 600 : 500}>{props.day}</Typography>
+                                <Typography textAlign={"center"} style={{ color: props.current ? '#FFA800' : '#2F5597' }}
+                                    fontSize={props.current ? 24 : 22}
+                                    fontWeight={props.current ? 600 : 500}>{moment(props.date, 'YYYY-MM-DD').date()}</Typography>
                             </Grid>
-                            <Grid item style={{display:'flex', justifyContent:'center'}}>
-                                <Avatar sx={{width: 75, height: 75}}
-                                        style={{
-                                            border: props.current ? '3px solid #FFA800' : 'none',
-                                            backgroundColor: props.past ? '#D3D3D3' : '#FBE7B4'
-                                        }}>
-                                    <OffIcon sx={{width: 50, height: 50}}/>
+                            <Grid item style={{ display: 'flex', justifyContent: 'center' }}>
+                                <Avatar sx={{ width: 75, height: 75 }}
+                                    style={{
+                                        border: props.current ? '3px solid #FFA800' : 'none',
+                                        backgroundColor: props.past ? '#D3D3D3' : '#FBE7B4'
+                                    }}>
+                                    <OffIcon sx={{ width: 50, height: 50 }} />
                                 </Avatar>
                             </Grid>
-                            <Grid item xs={12} my={2}/>
-                            <Grid item xs={12} style={{position:'absolute', bottom:0, width:'100%'}}>
+                            <Grid item xs={12} my={2} />
+                            <Grid item xs={12} style={{ position: 'absolute', bottom: 0, width: '100%' }}>
                                 <Typography textAlign={"center"}
-                                            style={{color: props.past ? '#D3D3D3' : props.current ? '#FFA800' : '#FFA800', width:'100%'}}
-                                            fontSize={props.current ? 20 : 18}
-                                            fontWeight={props.current ? 600 : 500}>Off</Typography>
+                                    style={{ color: props.past ? '#D3D3D3' : props.current ? '#FFA800' : '#FFA800', width: '100%' }}
+                                    fontSize={props.current ? 20 : 18}
+                                    fontWeight={props.current ? 600 : 500}>Off</Typography>
                             </Grid>
                         </Grid>
                     </Button>
@@ -311,25 +311,25 @@ function PlanningElement(props) {
                     >
                         <MenuItem onClick={() => modifyChoice(0)}>
                             <ListItemIcon>
-                                <ToDefineIcon/>
+                                <ToDefineIcon />
                             </ListItemIcon>
                             <ListItemText>A définir</ListItemText>
                         </MenuItem>
                         <MenuItem onClick={() => modifyChoice(1)}>
                             <ListItemIcon>
-                                <OfficeIcon/>
+                                <OfficeIcon />
                             </ListItemIcon>
                             <ListItemText>Au bureau</ListItemText>
                         </MenuItem>
                         <MenuItem onClick={() => modifyChoice(2)}>
                             <ListItemIcon>
-                                <ManWorkingIcon/>
+                                <ManWorkingIcon />
                             </ListItemIcon>
                             <ListItemText>Télétravail</ListItemText>
                         </MenuItem>
                         <MenuItem onClick={() => modifyChoice(3)}>
                             <ListItemIcon>
-                                <AwayIcon/>
+                                <AwayIcon />
                             </ListItemIcon>
                             <ListItemText>Déplacement</ListItemText>
                         </MenuItem>
@@ -338,40 +338,40 @@ function PlanningElement(props) {
             )
         default:
             return (
-                <div style={{width:'100%', height:'100%'}}>
+                <div style={{ width: '100%', height: '100%' }}>
                     <Button disableRipple={true} style={{
                         textTransform: 'none',
-                        backgroundColor: !props.past ? '' : 'transparent',
+                        backgroundColor: props.current ? '#F2F2F2' : '',
                         cursor: !props.past ? 'pointer' : 'default',
-                        width:'100%', height:'100%'
+                        width: '100%', height: '100%'
                     }} id="basic-button"
-                            aria-controls="basic-menu"
-                            aria-haspopup="true"
-                            aria-expanded={open ? 'true' : undefined}
-                            onClick={handleClick}>
+                        aria-controls="basic-menu"
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}
+                        onClick={handleClick}>
                         <Grid container direction={"column"} spacing={1}>
                             <Grid item xs={12}>
-                                <Typography textAlign={"center"} style={{color: props.current ? '#d32f2f' : '#d32f2f'}}
-                                            fontSize={props.current ? 24 : 22}
-                                            fontWeight={props.current ? 600 : 500}>{props.day}</Typography>
-                                <Typography textAlign={"center"} style={{color: props.current ? '#2F5597' : '#2F5597'}}
-                                            fontSize={props.current ? 24 : 22}
-                                            fontWeight={props.current ? 600 : 500}>{moment(props.date, 'YYYY-MM-DD').date()}</Typography>
+                                <Typography textAlign={"center"} style={{ color: props.current ? '#d32f2f' : '#d32f2f' }}
+                                    fontSize={props.current ? 24 : 22}
+                                    fontWeight={props.current ? 600 : 500}>{props.day}</Typography>
+                                <Typography textAlign={"center"} style={{ color: props.current ? '#d32f2f' : '#2F5597' }}
+                                    fontSize={props.current ? 24 : 22}
+                                    fontWeight={props.current ? 600 : 500}>{moment(props.date, 'YYYY-MM-DD').date()}</Typography>
                             </Grid>
-                            <Grid item style={{display:'flex', justifyContent:'center'}}>
-                                <Avatar sx={{width: 75, height: 75}}
-                                        style={{
-                                            border: props.current ? '3px solid #d32f2f' : 'none',
-                                            backgroundColor: props.past ? '#D3D3D3' : '#D3D3D3'
-                                        }}>
-                                    <AwayIcon sx={{width: 50, height: 50, display: 'none'}}/>
+                            <Grid item style={{ display: 'flex', justifyContent: 'center' }}>
+                                <Avatar sx={{ width: 75, height: 75 }}
+                                    style={{
+                                        border: props.current ? '3px solid #d32f2f' : 'none',
+                                        backgroundColor: props.past ? '#D3D3D3' : '#D3D3D3'
+                                    }}>
+                                    <AwayIcon sx={{ width: 50, height: 50, display: 'none' }} />
                                 </Avatar>
                             </Grid>
-                            <Grid item xs={12} my={2}/>
-                            <Grid item xs={12} style={{position:'absolute', bottom:0, width:'100%'}}>
+                            <Grid item xs={12} my={2} />
+                            <Grid item xs={12} style={{ position: 'absolute', bottom: 0, width: '100%' }}>
                                 <Typography textAlign={"center"}
-                                            style={{color: props.past ? '#D3D3D3' : props.current ? '#d32f2f' : '#d32f2f', width:'100%'}}
-                                            fontSize={props.current ? 20 : 18} fontWeight={props.current ? 600 : 500}>{props.past ? 'Non déclaré' : 'A définir'}</Typography>
+                                    style={{ color: props.past ? '#D3D3D3' : props.current ? '#d32f2f' : '#d32f2f', width: '100%' }}
+                                    fontSize={props.current ? 20 : 18} fontWeight={props.current ? 600 : 500}>{props.past ? 'Non déclaré' : 'A définir'}</Typography>
                             </Grid>
                         </Grid>
                     </Button>
@@ -386,25 +386,25 @@ function PlanningElement(props) {
                     >
                         <MenuItem onClick={() => modifyChoice(1)}>
                             <ListItemIcon>
-                                <OfficeIcon/>
+                                <OfficeIcon />
                             </ListItemIcon>
                             <ListItemText>Au bureau</ListItemText>
                         </MenuItem>
                         <MenuItem onClick={() => modifyChoice(2)}>
                             <ListItemIcon>
-                                <ManWorkingIcon/>
+                                <ManWorkingIcon />
                             </ListItemIcon>
                             <ListItemText>Télétravail</ListItemText>
                         </MenuItem>
                         <MenuItem onClick={() => modifyChoice(3)}>
                             <ListItemIcon>
-                                <AwayIcon/>
+                                <AwayIcon />
                             </ListItemIcon>
                             <ListItemText>Déplacement</ListItemText>
                         </MenuItem>
                         <MenuItem onClick={() => modifyChoice(4)}>
                             <ListItemIcon>
-                                <OffIcon/>
+                                <OffIcon />
                             </ListItemIcon>
                             <ListItemText>Off</ListItemText>
                         </MenuItem>
