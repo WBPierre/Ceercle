@@ -34,7 +34,7 @@ exports.isAdminUser = (req, res, next) => {
     }
 }
 
-exports.isSpaceCorner = (req, res, next) => {
+exports.isCeercle = (req, res, next) => {
     const authHeader = req.headers.authorization;
 
     if(!authHeader) {
@@ -53,7 +53,7 @@ exports.isSpaceCorner = (req, res, next) => {
                     res.status(403);
                     res.send();
                 }else {
-                    if (companyRecord.name !== "SpaceCorner") {
+                    if (companyRecord.name !== "Ceercle") {
                         res.status(403);
                         res.send();
                     } else {

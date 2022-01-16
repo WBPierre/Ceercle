@@ -119,12 +119,12 @@ function CalendarListElement(props){
                     <AccordionSummary
                         aria-controls="panel1a-content"
                         id="panel1a-header"
-                        style={{paddingLeft: 0, paddingRight: 0}}
+                        style={{paddingLeft: 0, paddingRight: 0, display:'flex', flexDirection:'column'}}
                         onClick={handleClick}
                     >
-                        <Grid container direction={"column"} spacing={1}>
-                            <Grid item xs={12}>
-                                <Grid container direction={"row"} alignItems={"center"}>
+                        <Grid container direction={"column"} spacing={1} style={{flex:1}}>
+                            <Grid item xs={12} style={{flex:1}}>
+                                <Grid container direction={"row"} alignItems={"center"} spacing={1}>
                                     <Grid item xs={3}>
                                         <Avatar sx={{ width: 36, height: 36 }} style={{
                                             backgroundColor: getBackColor()
@@ -140,7 +140,7 @@ function CalendarListElement(props){
                                     </Grid>
                                 </Grid>
                             </Grid>
-                            <Grid item hidden={open}>
+                            <Grid item xs={12} hidden={open} style={{flex:1}}>
                                 <Grid container direction={"row"} alignItems={"center"} spacing={1}>
                                     <Grid item>
                                         <Avatar sx={{ width: 24, height: 24 }} alt="Remy Sharp" src={example4} />

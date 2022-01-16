@@ -30,6 +30,62 @@ const User = db.define('user', {
     isAdmin: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
+    },
+    defaultWorkingMorningHour: {
+        type: DataTypes.INTEGER,
+        defaultValue: 9
+    },
+    defaultWorkingMorningMinutes: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+    },
+    defaultWorkingAfternoonHour: {
+        type: DataTypes.INTEGER,
+        defaultValue: 5
+    },
+    defaultWorkingAfternoonMinutes: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+    },
+    timezone: {
+        type: DataTypes.STRING,
+        defaultValue: 'Europe/Paris'
+    },
+    lang: {
+        type: DataTypes.STRING,
+        defaultValue: 'Français'
+    },
+    mondayStatus:{
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    tuesdayStatus:{
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    wednesdayStatus:{
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    thursdayStatus:{
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    fridayStatus:{
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    position: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    profilePicturePath: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    bannerPath:{
+        type: DataTypes.STRING,
+        allowNull: true
     }
 }, {
     timestamps: true,

@@ -1,12 +1,43 @@
 const User = require("../models/User");
 const Security = require('../services/Security');
 const { body, param, validationResult } = require('express-validator')
+const jwt = require("jsonwebtoken");
 
 
 exports.listAllUsers = async function (req, res) {
     const users = await User.findAll({order:[['createdAt', 'DESC']]} );
-    console.log(res.locals);
     res.json(users);
+}
+
+exports.updatePassword = async function(req, res, next) {
+    try {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            res.status(422).json({ errors: errors.array() });
+            return;
+        }
+        await User.findOne(
+            {
+                where:{
+                    id: res.locals.auth.user.id
+                }
+            }).then(async (record) => {
+                if (!record) {
+                    res.status(404);
+                    res.send();
+                }else{
+                    if(await Security.verifyPassword(req.body.oldPassword, record.password)) {
+                        let password = await Security.hashPassword(req.body.newPassword);
+                        record.update({password: password}).then((updated) => {
+                            res.json(updated);
+                        })
+                    }
+                }
+         })
+    } catch(err) {
+        return next(err)
+    }
 }
 
 exports.createUser = async function (req, res, next) {
@@ -88,6 +119,14 @@ exports.validate = (method) => {
                 body('password', 'password is not a string').isString(),
                 body('phoneNumber', 'phoneNumber is not a string').isString(),
                 body('companyId', 'companyId is not a number').isNumeric(),
+            ]
+        }
+        case 'updatePassword': {
+            return [
+                body('oldPassword', 'oldPassword is not a string').exists(),
+                body('oldPassword', 'oldPassword is not a string').isString(),
+                body('newPassword', 'newPassword is not a string').exists(),
+                body('newPassword', 'newPassword is not a string').isString(),
             ]
         }
     }

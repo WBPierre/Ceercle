@@ -14,11 +14,11 @@ const Company = db.define('company', {
         type: DataTypes.BOOLEAN,
         defaultValue: false
     },
-    remoteMinimum: {
+    officeMinimum: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
     },
-    remoteMaximum: {
+    officeMaximum: {
         type: DataTypes.INTEGER,
         defaultValue: 3,
     },

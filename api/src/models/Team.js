@@ -13,11 +13,11 @@ const Team = db.define('team', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    remoteMinimum: {
+    officeMinimum: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
     },
-    remoteMaximum: {
+    officeMaximum: {
         type: DataTypes.INTEGER,
         defaultValue: 3,
     },
@@ -45,8 +45,7 @@ const Team = db.define('team', {
     timestamps: true,
     freezeTableName: true
 });
-
-Team.hasMany(User);
-User.belongsTo(Team);
+Team.belongsToMany(User, {through:'UserTeams'});
+User.belongsToMany(Team, {through: 'UserTeams'});
 
 module.exports = Team;

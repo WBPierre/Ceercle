@@ -1,10 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
+import { DataGrid } from '@mui/x-data-grid';
 import CircleIcon from '@mui/icons-material/Circle';
 import EditIcon from '@mui/icons-material/Edit';
-import { Chip } from "@mui/material";
+import {Chip} from "@mui/material";
 import Typography from '@mui/material/Typography';
-
 
 function TeamsGrid(props) {
 

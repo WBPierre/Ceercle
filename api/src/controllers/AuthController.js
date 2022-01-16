@@ -24,7 +24,7 @@ exports.adminVerify = function (req, res, next) {
                         res.status(403);
                         res.send();
                     }else{
-                        if(companyRecord.name !== "SpaceCorner"){
+                        if(companyRecord.name !== "Ceercle"){
                             res.status(403);
                             res.send();
                         }else{
@@ -70,7 +70,7 @@ exports.adminLogin = async function (req, res, next) {
                             res.status(403);
                             res.send();
                         }else{
-                            if(companyRecord.name !== "SpaceCorner"){
+                            if(companyRecord.name !== "Ceercle"){
                                 res.status(403);
                                 res.send();
                             }else{
@@ -177,6 +177,22 @@ exports.verify = function (req, res, next) {
                 firstName: record.firstName,
                 lastName: record.lastName,
                 email: record.email,
+                phone: record.phone,
+                isAdmin: record.isAdmin,
+                defaultWorkingMorningHour: record.defaultWorkingMorningHour,
+                defaultWorkingMorningMinutes: record.defaultWorkingAfternoonMinutes,
+                defaultWorkingAfternoonHour: record.defaultWorkingAfternoonHour,
+                defaultWorkingAfternoonMinutes: record.defaultWorkingAfternoonMinutes,
+                timezone: record.timezone,
+                lang: record.lang,
+                mondayStatus: record.mondayStatus,
+                tuesdayStatus: record.tuesdayStatus,
+                wednesdayStatus: record.wednesdayStatus,
+                thursdayStatus: record.thursdayStatus,
+                fridayStatus: record.fridayStatus,
+                position: record.position,
+                profilePicturePath:record.profilePicturePath,
+                bannerPath: record.bannerPath,
                 company: await record.getCompany()
             });
         });

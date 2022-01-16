@@ -3,7 +3,7 @@ const Company = require("../../src/models/Company");
 const User = require("../../src/models/User");
 
 exports.initDatabase = async function() {
-    const companyId = await generateSpacecorner();
+    const companyId = await generateCeercle();
     await generateAdminProfiles(companyId);
 
     // Test profile
@@ -11,15 +11,15 @@ exports.initDatabase = async function() {
     await generateTestProfile(companyTestId);
 }
 
-async function generateSpacecorner(){
+async function generateCeercle(){
     return await Company.findOne(
         {
             where:{
-                name:'SpaceCorner'
+                name:'Ceercle'
             }
         }).then(async (record) => {
             if(!record) {
-                const company = await Company.create({name:'SpaceCorner'});
+                const company = await Company.create({name:'Ceercle'});
                 return company.id;
             }else{
                 return record.id;
@@ -47,14 +47,14 @@ async function generateAdminProfiles(companyId) {
     await User.findOne(
         {
             where:{
-                email:"victor@spacecorner.io"
+                email:"victor@ceercle.io"
             }
         }).then(async (record) => {
         if (!record) {
             await User.create({
                 firstName: "Victor",
                 lastName: "Merveilleux du Vignaux",
-                email: "victor@spacecorner.io",
+                email: "victor@ceercle.io",
                 password: await Security.hashPassword("admin"),
                 phoneNumber: "0643359022",
                 active: true,
@@ -66,14 +66,14 @@ async function generateAdminProfiles(companyId) {
     await User.findOne(
         {
             where:{
-                email:"hadrien@spacecorner.io"
+                email:"hadrien@ceercle.io"
             }
         }).then(async (record) => {
         if (!record) {
             await User.create({
                 firstName: "Hadrien",
                 lastName: "De Cournon",
-                email: "hadrien@spacecorner.io",
+                email: "hadrien@ceercle.io",
                 password: await Security.hashPassword("admin"),
                 phoneNumber: "0777467581",
                 active: true,
@@ -85,14 +85,14 @@ async function generateAdminProfiles(companyId) {
     await User.findOne(
         {
             where:{
-                email:"pierre@spacecorner.io"
+                email:"pierre@ceercle.io"
             }
         }).then(async (record) => {
         if (!record) {
             await User.create({
                 firstName: "Pierre",
                 lastName: "Delmer",
-                email: "pierre@spacecorner.io",
+                email: "pierre@ceercle.io",
                 password: await Security.hashPassword("admin"),
                 phoneNumber: "0667258173",
                 active: true,
@@ -104,14 +104,14 @@ async function generateAdminProfiles(companyId) {
     await User.findOne(
         {
             where:{
-                email:"louis@spacecorner.io"
+                email:"louis@ceercle.io"
             }
         }).then(async (record) => {
         if (!record) {
             await User.create({
                 firstName: "Louis",
                 lastName: "Lacaille",
-                email: "louis@spacecorner.io",
+                email: "louis@ceercle.io",
                 password: await Security.hashPassword("admin"),
                 phoneNumber: "0674497632",
                 active: true,
