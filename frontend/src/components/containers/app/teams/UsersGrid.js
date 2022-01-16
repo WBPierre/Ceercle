@@ -3,8 +3,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { Chip } from "@mui/material";
 import { Avatar } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
-
-
+import Typography from '@mui/material/Typography';
 
 function UsersGrid(props) {
 
@@ -22,17 +21,17 @@ function UsersGrid(props) {
         {
             field: 'name', width: 300, headerAlign: 'center', align: "center", resizable: false,
             renderHeader: () => (
-                <strong>
-                    {'Nom'}
-                </strong>
+                <Typography sx={{ fontSize: 20, fontWeight: 'bold' }}>
+                    Nom
+                </Typography>
             )
         },
         {
             field: 'position', width: 200, headerAlign: 'center', align: "center", resizable: false,
             renderHeader: () => (
-                <strong>
-                    {'Rôle'}
-                </strong>
+                <Typography sx={{ fontSize: 20, fontWeight: 'bold' }}>
+                    Rôle
+                </Typography>
             )
         },
         {
@@ -47,10 +46,10 @@ function UsersGrid(props) {
                 return (
                     <Chip
                         label="Supprimer"
-                        color="error"
+                        color="primary"
+                        sx={{ borderColor: "#3C3B3D", color: "#3C3B3D" }}
                         onClick={() => props.handleDeleteUser(params.row.id)}
-                        onDelete={handleDelete}
-                        deleteIcon={<DeleteIcon />}
+                        icon={<DeleteIcon />}
                         variant="outlined"
                     />
                 )
@@ -60,7 +59,7 @@ function UsersGrid(props) {
 
     return (
         <div style={{ height: 400, width: '100%' }}>
-            <DataGrid rows={props.listTeams} columns={columns} rowsPerPageOptions={[10]} disableColumnSelector disableColumnMen />
+            <DataGrid rows={props.listTeams} columns={columns} disableColumnSelector={true} disableColumnMen={true} disableSelectionOnClick hideFooterPagination />
         </div>
     )
 }

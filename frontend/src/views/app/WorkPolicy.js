@@ -23,7 +23,7 @@ export default function WorkPolicy(props) {
 
                 <WorkRules />
 
-                <Divider style={{ backgroundColor: "#D8D8D8" }} />
+                <Divider style={{ backgroundColor: "#66408E" }} />
 
                 <OfficeOccupancy />
 

@@ -10,8 +10,13 @@ import InputLabel from '@mui/material/InputLabel';
 import moment from 'moment-timezone';
 import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
-import DoneIcon from '@mui/icons-material/Done';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
+import { Divider } from "@mui/material";
+import { useSnackbar } from "notistack";
+import { useNavigate } from "react-router-dom";
+
+
 
 import SettingSectionTemplate from '../account/SettingSectionTemplate';
 
@@ -114,26 +119,33 @@ export default function WorkRules(props) {
     };
 
 
-    const handleClick = () => {
-        console.info('You clicked the Chip.');
-    };
+    const { enqueueSnackbar } = useSnackbar();
+    let navigate = useNavigate();
+    const save = () => {
+        enqueueSnackbar('Paramètres enregistrés.', {
+            variant: 'success'
+        });
+    }
 
-    const handleDelete = () => {
-        console.info('You clicked the delete icon.');
-    };
+    const cancel = () => {
+        enqueueSnackbar('Annulé', {
+            variant: 'cancel'
+        });
+        navigate('/app/workpolicy');
+    }
 
     return (
         <SettingSectionTemplate title="Règles de travail hybride" description="Définissez vos règles de travail hybride, à l'échelle de l'entreprise ou des équipes.">
             <Grid container direction="column">
                 <Grid item>
-                    <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#414040' }}>
+                    <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#2A2828' }}>
                         Pour l'entreprise
                     </Typography>
                 </Grid>
 
                 <Grid item>
-                    <Typography variant="body" fontWeight={400} fontSize={14} style={{ color: '#414040' }}>
-                        Attention, ces réglages écraseront les règles spécifiques à chaque équipe.
+                    <Typography variant="body" fontWeight={400} fontSize={14} style={{ color: '#2A2828' }}>
+                        Attention, ces réglages remplaceront les règles spécifiques à chaque équipe.
                     </Typography>
                 </Grid>
 
@@ -288,11 +300,12 @@ export default function WorkRules(props) {
                 </Grid>
 
 
+                <Grid item mt={4}>
+                    <Divider style={{ backgroundColor: "#E1D2FC" }} />
+                </Grid>
 
-
-
-                <Grid item mt={8}>
-                    <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#414040' }}>
+                <Grid item mt={4}>
+                    <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#2A2828' }}>
                         Par équipe
                     </Typography>
                 </Grid>
@@ -477,19 +490,21 @@ export default function WorkRules(props) {
                         <Grid item md={6}>
                             <Stack direction="row" spacing={1}>
                                 <Chip
-                                    label="Enregistrer"
-                                    color="primary"
-                                    onClick={handleClick}
-                                    onDelete={handleDelete}
-                                    deleteIcon={<DoneIcon />}
+                                    label="Annuler"
+                                    sx={{
+                                        borderColor: "#3C3B3D", color: "#3C3B3D", fontWeight: "bold"
+                                    }}
+                                    color="error"
+                                    onClick={cancel}
+                                    icon={<CancelIcon />}
                                     variant="outlined"
                                 />
                                 <Chip
-                                    label="Annuler"
+                                    label="Enregistrer"
+                                    sx={{ borderColor: "#3F07A8", color: "#3F07A8", fontWeight: "bold" }}
                                     color="error"
-                                    onClick={handleClick}
-                                    onDelete={handleDelete}
-                                    deleteIcon={<CancelIcon />}
+                                    onClick={save}
+                                    icon={<CheckCircleIcon />}
                                     variant="outlined"
                                 />
                             </Stack>

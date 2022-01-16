@@ -3,6 +3,8 @@ import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
 import CircleIcon from '@mui/icons-material/Circle';
 import EditIcon from '@mui/icons-material/Edit';
 import { Chip } from "@mui/material";
+import Typography from '@mui/material/Typography';
+
 
 function TeamsGrid(props) {
 
@@ -20,37 +22,28 @@ function TeamsGrid(props) {
         {
             field: 'name', width: 300, headerAlign: 'center', align: "center", resizable: false,
             renderHeader: () => (
-                <strong>
-                    {'Nom '}
-                    <span role="img" aria-label="enjoy">
-                        🗣️
-                    </span>
-                </strong>
+                <Typography sx={{ fontSize: 20, fontWeight: 'bold' }}>
+                    Nom 🗣️
+                </Typography>
             )
         },
         {
-            field: 'color', width: 200, headerAlign: 'center', align: "center", resizable: false,
+            field: 'color', width: 250, headerAlign: 'center', align: "center", resizable: false,
             renderHeader: () => (
-                <strong>
-                    {'Couleur '}
-                    <span role="img" aria-label="enjoy">
-                        🎨
-                    </span>
-                </strong>
+                <Typography sx={{ fontSize: 20, fontWeight: 'bold' }}>
+                    Couleur 🎨
+                </Typography>
             ),
             renderCell: (params) => {
                 return <CircleIcon sx={{ color: params.row.color }} />;
             }
         },
         {
-            field: 'size', width: 200, headerAlign: 'center', align: "center",
+            field: 'size', width: 300, headerAlign: 'center', align: "center",
             renderHeader: () => (
-                <strong>
-                    {'Nombre de salariés '}
-                    <span role="img" aria-label="enjoy">
-                        🔟
-                    </span>
-                </strong>
+                <Typography sx={{ fontSize: 20, fontWeight: 'bold' }}>
+                    Nombre de salariés 🔟
+                </Typography>
             )
         },
         {
@@ -60,9 +53,9 @@ function TeamsGrid(props) {
                     <Chip
                         label="Modifier"
                         color="primary"
+                        sx={{ borderColor: "#3F07A8", color: "#3F07A8" }}
                         onClick={() => navigate('/app/team-settings/' + params.row.id)}
-                        onDelete={handleDelete}
-                        deleteIcon={<EditIcon />}
+                        icon={<EditIcon />}
                         variant="outlined"
                     />
                 )
@@ -73,7 +66,7 @@ function TeamsGrid(props) {
 
     return (
         <div style={{ height: 500, width: '100%' }}>
-            <DataGrid rows={props.listTeams} columns={columns} rowsPerPageOptions={[8]} disableColumnSelector disableColumnMenu />
+            <DataGrid rows={props.listTeams} columns={columns} disableColumnSelector disableColumnMenu disableSelectionOnClick hideFooterPagination />
         </div>
     )
 }

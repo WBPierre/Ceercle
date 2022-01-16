@@ -86,7 +86,7 @@ export default function AppBar(props) {
                     variant="h6"
                     noWrap
                     component="div"
-                    color="#2A2828"
+                    color="#1F4E79"
                     style={{ fontWeight: 200, textTransform: 'capitalize' }}
                     fontSize={28}
                     align='center'

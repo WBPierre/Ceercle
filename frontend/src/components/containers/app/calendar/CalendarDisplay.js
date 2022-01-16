@@ -73,7 +73,7 @@ function CalendarDisplay(props) {
                         {moment(week[0].day).date()} {moment(week[0].day).locale('fr').format('MMMM')} - {moment(week[4].day).date()} {moment(week[4].day).locale('fr').format('MMMM')}
                     </Typography>
                 </Grid>
-                <Grid item>
+                <Grid item mt={1}>
                     <Grid container direction={"row"}>
                         <Grid item md={1} textAlign={"center"}>
                             <IconButton aria-label="previous" onClick={() => getPreviousWeek()} color="primary">

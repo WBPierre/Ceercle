@@ -8,6 +8,8 @@ import { Divider } from "@mui/material";
 import { Button } from "@mui/material";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import TeamAddModal from "../../components/containers/app/teams/TeamAddModal";
+import Chip from '@mui/material/Chip';
+
 
 function Teams() {
     const [openModal, setOpenModal] = useState(false);
@@ -34,13 +36,13 @@ function Teams() {
 
             <Grid container direction="column" spacing={1}>
                 <Grid item>
-                    <Typography variant="h4" fontWeight={600} style={{ color: '#323AB8' }}>
+                    <Typography variant="h4" fontWeight={600} style={{ color: '#2A2828' }}>
                         Gestion des équipes
                     </Typography>
                 </Grid>
 
                 <Grid item>
-                    <Typography variant="body" fontWeight={300} style={{ color: '#323AB8' }}>
+                    <Typography variant="body" fontWeight={300} style={{ color: '#414040' }}>
                         Gérer et paramétrez les équipes au sein de l'entreprise.
                     </Typography>
                 </Grid>
@@ -49,8 +51,15 @@ function Teams() {
                     <TeamsGrid listTeams={listTeams} />
                 </Grid>
 
-                <Grid item mt={3} style={{ alignItems: "right" }}>
-                    <Button startIcon={<AddCircleOutlineIcon />} variant="contained" sx={{ backgroundColor: "#323AB8" }} onClick={() => setOpenModal(true)}> Nouvelle équipe </Button>
+                <Grid item mt={2} style={{ alignItems: "right" }}>
+                    <Chip
+                        label="Nouvelle équipe"
+                        sx={{ borderColor: "#3F07A8", color: "#3F07A8", fontWeight: "bold", fontSize: 15 }}
+                        color="error"
+                        onClick={() => setOpenModal(true)}
+                        icon={<AddCircleOutlineIcon />}
+                        variant="outlined"
+                    />
                 </Grid>
 
             </Grid>

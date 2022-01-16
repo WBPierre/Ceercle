@@ -114,7 +114,7 @@ export default function DrawerCustom(props) {
                         primary={t('app:navbar:dashboard')}
                     />
                 </ListItem>
-                <ListItem button button onClick={() => navigate('/app/calendar')}>
+                <ListItem button onClick={() => navigate('/app/calendar')}>
                     <ListItemIcon>
                         <EventIcon sx={{ fontSize: activeRoutes[activeRoutes.length - 1] === "calendar" ? 25 : 22, color: "#FFFFFF" }} />
                     </ListItemIcon>

@@ -13,7 +13,7 @@ import PreferencesSection from '../../components/containers/app/account/Preferen
 import GeneralSection from '../../components/containers/app/account/GeneralSection';
 import SecuritySection from '../../components/containers/app/account/SecuritySection';
 import Button from "@mui/material/Button";
-import {useCookies} from "react-cookie";
+import { useCookies } from "react-cookie";
 import useAuth from "../../components/context/auth/AuthHelper";
 
 export default function Account(props) {
@@ -34,9 +34,9 @@ export default function Account(props) {
 
     return (
         <CustomContainer>
-            <Grid container direction="column" pl={10} pr={10} spacing={1}>
+            <Grid container direction="column" pl={10} pr={10}>
                 <Grid item>
-                    <Typography variant="h4" fontWeight={600} style={{ color: '#414040' }}>
+                    <Typography variant="h4" fontWeight={600} style={{ color: '#2A2828' }}>
                         Mon compte
                     </Typography>
                 </Grid>
@@ -44,12 +44,13 @@ export default function Account(props) {
                 <Grid item mb={1}>
                     <Grid container direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
                         <Grid item>
-                            <Typography variant="body" fontWeight={100} fontSize={18} style={{ color: '#7F7F7F' }}>
+                            <Typography variant="body" fontWeight={100} fontSize={18} style={{ color: '#414040' }}>
                                 Paramètres de compte
                             </Typography>
                         </Grid>
                         <Grid item>
-                            <Button variant={"text"} onClick={() => handleLogOut()}>Se déconnecter</Button>
+                            <Button variant={"text"} onClick={() => handleLogOut()} sx={{ borderColor: "#3F07A8", color: "#3F07A8", fontWeight: "bold" }}
+                                color="error">Se déconnecter</Button>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -58,15 +59,15 @@ export default function Account(props) {
 
                 <AvatarSection />
 
-                <Divider style={{ backgroundColor: "#D8D8D8" }} />
+                <Divider style={{ backgroundColor: "#E1D2FC" }} />
 
                 <PreferencesSection />
 
-                <Divider style={{ backgroundColor: "#D8D8D8" }} />
+                <Divider style={{ backgroundColor: "#E1D2FC" }} />
 
                 <GeneralSection />
 
-                <Divider style={{ backgroundColor: "#D8D8D8" }} />
+                <Divider style={{ backgroundColor: "#E1D2FC" }} />
 
                 <SecuritySection />
 

@@ -13,8 +13,11 @@ import OfficeIcon from "../../../molecules/icons/OfficeIcon";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import PaperIcon from "../../../molecules/icons/PaperIcon";
 import ManWorkingIcon from "../../../molecules/icons/ManWorkingIcon";
+import { useNavigate } from "react-router-dom";
+
 
 function Team() {
+    let navigate = useNavigate();
     return (
         <Grid container direction={"column"} spacing={2} py={2} px={2}>
             <Grid item xs={12}>
@@ -25,7 +28,7 @@ function Team() {
                         </Typography>
                     </Grid>
                     <Grid item>
-                        <Button variant={"text"} style={{ backgroundColor: 'transparent', color: "#3B3838" }}>Accéder</Button>
+                        <Button variant={"text"} onClick={() => navigate('/app/calendar')} style={{ backgroundColor: 'transparent', color: "#3B3838" }}>Accéder</Button>
                     </Grid>
                 </Grid>
             </Grid>

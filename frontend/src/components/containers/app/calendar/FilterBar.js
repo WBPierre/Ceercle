@@ -50,7 +50,7 @@ function FilterBar(props) {
                 } />
             </Grid>
             <Grid item>
-                <Chip component={FormControl} style={{ backgroundColor: 'white', borderColor: '#3F07A8' }} variant={"outlined"} label={
+                <Chip component={FormControl} style={{ backgroundColor: 'white' }} variant={"outlined"} label={
                     <FormControl fullWidth sx={{ width: 300 }}>
                         <Select
                             labelId="demo-simple-select-label"

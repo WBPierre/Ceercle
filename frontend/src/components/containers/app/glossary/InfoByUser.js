@@ -85,21 +85,21 @@ export default function InfoByUser(props) {
 
             <Grid item px={2}>
                 <Grid container direction="row" sx={{ backgroundColor: theme.palette.background.paper }}>
-                    <Grid item md={11}>
+                    <Grid item md={10}>
                         <Typography variant="h3" fontWeight={600} style={{ color: '#414040' }}>
                             {props.userToDisplay.firstName + " " + props.userToDisplay.lastName}
                         </Typography>
                     </Grid>
 
                     <Grid item md={1}>
-                        <div hidden={favorite == 1}>
+                        <div hidden={false}>
                             <Tooltip title="Supprimer des favoris" placement="top">
                                 <IconButton sx={{ mr: 5 }} onClick={onClick}>
-                                    <StarIcon sx={{ color: "#F0CC55", width: 45, height: 45 }} />
+                                    <StarIcon sx={{ color: theme.palette.background.paper, width: 45, height: 45 }} />
                                 </IconButton>
                             </Tooltip>
                         </div>
-                        <div hidden={favorite == 0}>
+                        <div hidden={true}>
                             <Tooltip title="Ajouter en favori" placement="top">
                                 <IconButton sx={{ mr: 5 }} onClick={onClick}>
                                     <StarBorderIcon sx={{ color: "#F0CC55", width: 45, height: 45 }} />
@@ -112,7 +112,7 @@ export default function InfoByUser(props) {
 
             <Grid item mt={2} px={2}>
                 <Box sx={{ width: '100%' }}>
-                    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                    <Box sx={{ borderBottom: 1, borderColor: '#E1D2FC' }}>
                         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                             <Tab label="Profil" {...a11yProps(0)} />
                             <Tab label="Calendrier" {...a11yProps(1)} />
