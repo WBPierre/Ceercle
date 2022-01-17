@@ -3,6 +3,8 @@ const User = require('../models/User');
 const Company = require('../models/Company');
 const Security = require('../services/Security');
 const jwt = require('jsonwebtoken');
+const config = require('../../config/auth.config');
+const RefreshToken = require("../models/RefreshToken");
 
 exports.adminVerify = function (req, res, next) {
     const authHeader = req.headers.authorization;
@@ -11,7 +13,7 @@ exports.adminVerify = function (req, res, next) {
         return res.sendStatus(400);
     } else {
         jwt.verify(authHeader.split(' ')[1], process.env.JWT_SECRET, async (err, authData) => {
-            if(err) return res.status(403).json(err);
+            if(err) return res.status(401).json(err);
             if(authData.user.companyId === undefined){
                 res.sendStatus(403);
             }else{
@@ -85,9 +87,10 @@ exports.adminLogin = async function (req, res, next) {
                                             active: record.active,
                                             isAdmin: record.isAdmin
                                         }
-                                    }, process.env.JWT_SECRET, {expiresIn: '7 days'}, (err, token) => {
+                                    }, process.env.JWT_SECRET, {expiresIn: config.jwtExpiration}, async (err, token) => {
                                         if (err) res.send(err);
-                                        res.json({token});
+                                        let refreshToken = await RefreshToken.createToken(record.id);
+                                        res.json({token: token, refreshToken: refreshToken});
                                     });
                                 }
                             }
@@ -114,7 +117,6 @@ exports.login = async function (req, res, next) {
             return;
         }
         const {email, password} = req.body
-        console.log(process.env.JWT_SECRET);
         await User.findOne(
             {
                 where:{
@@ -136,9 +138,10 @@ exports.login = async function (req, res, next) {
                                 company: await record.getCompany(),
                                 active: record.active,
                                 isAdmin: record.isAdmin,
-                            }}, process.env.JWT_SECRET, {expiresIn: '7 days'}, (err, token) => {
+                            }}, process.env.JWT_SECRET, {expiresIn: config.jwtExpiration}, async (err, token) => {
                             if(err) res.send(err);
-                            res.json({token});
+                            let refreshToken = await RefreshToken.createToken(record.id);
+                            res.json({token: token, refreshToken: refreshToken});
                         });
                     }else{
                         res.status(403);
@@ -162,7 +165,9 @@ exports.verify = function (req, res, next) {
         return res.sendStatus(400);
     } else {
         jwt.verify(authHeader.split(' ')[1], process.env.JWT_SECRET, async (err, authData) => {
-            if(err) return res.status(403).json(err);
+            if(err){
+                return res.status(401).json(err);
+            }
             const record = await User.findOne(
                 {
                     where:{
@@ -199,6 +204,42 @@ exports.verify = function (req, res, next) {
     }
 }
 
+exports.refreshToken = async function (req, res, next) {
+    try {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            res.status(422).json({errors: errors.array()});
+            return;
+        }
+        let refreshToken = await RefreshToken.findOne({where: {token: req.body.refreshToken}});
+        if(!refreshToken) {
+            res.sendStatus(403);
+            return;
+        }
+        if(RefreshToken.verifyExpiration(refreshToken)){
+            RefreshToken.destroy({where:{id: refreshToken.id}});
+            res.sendStatus(403);
+            return;
+        }
+        let user = await refreshToken.getUser();
+        let newAccessToken = await jwt.sign(
+        {user: {
+                id: user.id,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+                company: await user.getCompany(),
+                active: user.active,
+                isAdmin: user.isAdmin,
+            }},
+            process.env.JWT_SECRET, {expiresIn: config.jwtExpiration});
+        return res.json({token: newAccessToken, refreshToken: refreshToken.token});
+    } catch (err) {
+        return next(err)
+    }
+}
+
 exports.validate = (method) => {
     switch (method) {
         case 'login': {
@@ -207,6 +248,12 @@ exports.validate = (method) => {
                 body('email', 'email is not an email').isEmail(),
                 body('password', 'password doesn\'t exist').exists(),
                 body('password', 'password is not a string').isString()
+            ]
+        }
+        case 'refreshToken': {
+            return [
+                body('refreshToken', 'refreshToken doesn\'t exist').exists(),
+                body('refreshToken', 'refreshToken is not a string').isString()
             ]
         }
     }

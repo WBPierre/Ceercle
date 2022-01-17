@@ -12,6 +12,10 @@ class AuthService{
     async verify(){
         return this.request.get('/auth/verify');
     }
+
+    async refreshToken(){
+        return this.request.post('/auth/refreshToken');
+    }
 }
 
 export default new AuthService();

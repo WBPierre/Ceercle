@@ -6,6 +6,6 @@ router.get('/verify',  AuthController.verify);
 router.post('/login',  AuthController.validate("login"), AuthController.login);
 router.post('/admin/login', AuthController.validate("login"), AuthController.adminLogin);
 router.get('/admin/verify',  AuthController.adminVerify);
-
+router.post('/refreshToken', AuthController.refreshToken);
 
 module.exports = router;

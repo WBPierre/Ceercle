@@ -10,7 +10,7 @@ exports.isUserAuthenticated = (req, res, next) => {
         })
     } else {
         jwt.verify(authHeader.split(' ')[1], process.env.JWT_SECRET, (err, authData) => {
-            if(err) return res.status(403).json(err);
+            if(err) return res.status(401).json(err);
             res.locals.auth=authData
             next();
         });
@@ -26,7 +26,7 @@ exports.isAdminUser = (req, res, next) => {
         })
     } else {
         jwt.verify(authHeader.split(' ')[1], process.env.JWT_SECRET, (err, authData) => {
-            if(err) return res.status(403).json(err);
+            if(err) return res.status(401).json(err);
             if(!authData.user.isAdmin) return res.sendStatus(403)
             res.locals.auth=authData
             next();
@@ -43,7 +43,7 @@ exports.isCeercle = (req, res, next) => {
         })
     } else {
         jwt.verify(authHeader.split(' ')[1], process.env.JWT_SECRET, async (err, authData) => {
-            if(err) return res.status(403).json(err);
+            if(err) return res.status(401).json(err);
             await Company.findOne({
                 where:{
                     id: authData.user.companyId

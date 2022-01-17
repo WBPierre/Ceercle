@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import { useCookies } from 'react-cookie';
 import ApiService from "../../../services/api.service";
 import AuthService from "../../../services/app/auth.service";
-
+import TokenService from "../../../services/token.service";
 
 const initialState = {
     user: null
@@ -17,19 +17,21 @@ const AuthProvider  = (props) => {
     const [user, setUser] = useState(null);
     const [isAuth, setIsAuth] = useState(false);
     const [loadingInitial, setLoadingInitial] = useState(true);
-    const [cookies, removeCookie] = useCookies(['token']);
 
     // eslint-disable-next-line
     useEffect(async () => {
-        if(cookies.token !== undefined) {
-            ApiService.setHeader(cookies.token);
+        const token = TokenService.getLocalAccessToken();
+        if(token !== null) {
+            ApiService.setHeader(token);
             await AuthService.verify().then((res) => {
                 if(res.status === 200){
                     setIsAuth(true);
                     setUser(res.data);
                 }
             }).catch((err) => {
-                removeCookie('token');
+                if(err.response.status !== 401){
+                    TokenService.removeAccessToken();
+                }
             });
         }
         setLoadingInitial(false);

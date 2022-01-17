@@ -24,6 +24,7 @@ import AuthService from "../../services/app/auth.service";
 import ApiService from "../../services/api.service";
 import { useCookies } from 'react-cookie';
 import useAuth from "../../components/context/auth/AuthHelper";
+import TokenService from "../../services/token.service";
 
 function Login(){
     const { t } = useTranslation();
@@ -60,18 +61,18 @@ function Login(){
         }
         await AuthService.login(resources).then( async (res) => {
             if(res.status !== 200){
-                console.log("Error to handle")
-                ;
+                console.log("Error to handle");
             }else{
-                await setAuth(res.data.token);
+                await setAuth(res.data);
                 navigate('/app')
             }
         });
     }
 
-    const setAuth = async (token) => {
-        setCookie('token', token);
-        ApiService.setHeader(token);
+    const setAuth = async (data) => {
+        TokenService.setLocalAccessToken(data.token);
+        TokenService.setLocalRefreshToken(data.refreshToken);
+        ApiService.setHeader(data.token);
         await AuthService.verify().then((res) => {
             if(res.status === 200){
                 context.updateAuth(true);
