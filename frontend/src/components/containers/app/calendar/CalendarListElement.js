@@ -31,6 +31,7 @@ function CalendarListElement(props){
     };
 
     const getMidDayText = (item) => {
+        return ""
         if(item.morning === props.type){
             return "Le matin"
         }else{
@@ -160,13 +161,13 @@ function CalendarListElement(props){
                             </Grid>
                         </Grid>
                     </AccordionSummary>
-                    <AccordionDetails>
-                        <List component="div" disablePadding>
+                    <AccordionDetails  style={{padding:0, paddingLeft:'5px'}}>
+                        <List component="div" disablePadding >
                             {props.data.map((item, i) => {
                                 return (
-                                    <ListItem key={i}>
+                                    <ListItem key={i} style={{paddingRight:0}}>
                                         <ListItemAvatar style={{minWidth:'20px'}}>
-                                            <Avatar sx={{width:36, height:36}} src={example5}/>
+                                            <Avatar sx={{width:30, height:30}} src={example5}/>
                                         </ListItemAvatar>
                                         <ListItemText primaryTypographyProps={{style:{fontSize: 14, whiteSpace: 'nowrap', overflow:'hidden', textOverflow: 'ellipsis', paddingLeft:5}}} primary={`${item.fullName}`} secondary={getMidDayText(item)} secondaryTypographyProps={{style:{fontSize: 10, paddingLeft:5}}}/>
                                     </ListItem>

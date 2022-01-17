@@ -53,7 +53,7 @@ export default function Dashboard(props) {
                             <Divider color="#3B3838" />
                         </Grid>
                         <Grid item xs={4} textAlign={"center"}>
-                            <Button variant="text" endIcon={<ExpandMoreIcon color="#3B3838" />} sx={{ color: "#3B3838" }}>
+                            <Button variant="text" disableRipple={true} sx={{ color: "#3B3838", cursor:'default' }}>
                                 Aujourd'hui
                             </Button>
                         </Grid>

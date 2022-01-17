@@ -48,10 +48,10 @@ function PlanningElement(props) {
                         <Grid container direction={"column"} spacing={1}>
                             <Grid item xs={12}>
                                 <Typography textAlign={"center"} style={{ color: props.current ? '#60b56d' : '#d32f2f' }}
-                                    fontSize={props.current ? 24 : 22}
+                                    fontSize={props.current ? 22 : 20}
                                     fontWeight={props.current ? 600 : 500}>{props.day}</Typography>
                                 <Typography textAlign={"center"} style={{ color: props.current ? '#60b56d' : '#2F5597' }}
-                                    fontSize={props.current ? 24 : 22}
+                                    fontSize={props.current ? 22 : 20}
                                     fontWeight={props.current ? 600 : 500}>{moment(props.date, 'YYYY-MM-DD').date()}</Typography>
                             </Grid>
                             <Grid item style={{ display: 'flex', justifyContent: 'center' }}>
@@ -67,7 +67,7 @@ function PlanningElement(props) {
                             <Grid item xs={12} style={{ position: 'absolute', bottom: 0, width: '100%' }}>
                                 <Typography textAlign={"center"}
                                     style={{ color: props.past ? '#D3D3D3' : props.current ? '#60b56d' : '#95E59A', width: '100%' }}
-                                    fontSize={props.current ? 20 : 18}
+                                    fontSize={props.current ? 18 : 16}
                                     fontWeight={props.current ? 600 : 500}>Bureau</Typography>
                             </Grid>
                         </Grid>
@@ -124,10 +124,10 @@ function PlanningElement(props) {
                         <Grid container direction={"column"} spacing={1}>
                             <Grid item xs={12}>
                                 <Typography textAlign={"center"} style={{ color: props.current ? '#0070C0' : '#d32f2f' }}
-                                    fontSize={props.current ? 24 : 22}
+                                    fontSize={props.current ? 22 : 20}
                                     fontWeight={props.current ? 600 : 500}>{props.day}</Typography>
                                 <Typography textAlign={"center"} style={{ color: props.current ? '#0070C0' : '#2F5597' }}
-                                    fontSize={props.current ? 24 : 22}
+                                    fontSize={props.current ? 22 : 20}
                                     fontWeight={props.current ? 600 : 500}>{moment(props.date, 'YYYY-MM-DD').date()}</Typography>
                             </Grid>
                             <Grid item style={{ display: 'flex', justifyContent: 'center' }}>
@@ -143,7 +143,7 @@ function PlanningElement(props) {
                             <Grid item xs={12} style={{ position: 'absolute', bottom: 0, width: '100%' }}>
                                 <Typography textAlign={"center"}
                                     style={{ color: props.past ? '#D3D3D3' : props.current ? '#0070C0' : '#8BCCEE', width: '100%' }}
-                                    fontSize={props.current ? 20 : 18}
+                                    fontSize={props.current ? 18 : 16}
                                     fontWeight={props.current ? 600 : 500}>Télétravail</Typography>
                             </Grid>
                         </Grid>
@@ -200,10 +200,10 @@ function PlanningElement(props) {
                         <Grid container direction={"column"} spacing={1}>
                             <Grid item xs={12}>
                                 <Typography textAlign={"center"} style={{ color: props.current ? '#9872B2' : '#d32f2f' }}
-                                    fontSize={props.current ? 24 : 22}
+                                    fontSize={props.current ? 22 : 20}
                                     fontWeight={props.current ? 600 : 500}>{props.day}</Typography>
                                 <Typography textAlign={"center"} style={{ color: props.current ? '#9872B2' : '#2F5597' }}
-                                    fontSize={props.current ? 24 : 22}
+                                    fontSize={props.current ? 22 : 20}
                                     fontWeight={props.current ? 600 : 500}>{moment(props.date, 'YYYY-MM-DD').date()}</Typography>
                             </Grid>
                             <Grid item style={{ display: 'flex', justifyContent: 'center' }}>
@@ -219,7 +219,7 @@ function PlanningElement(props) {
                             <Grid item xs={12} style={{ position: 'absolute', bottom: 0, width: '100%' }}>
                                 <Typography textAlign={"center"}
                                     style={{ color: props.past ? '#D3D3D3' : props.current ? '#9872B2' : '#C7B3DA', width: '100%' }}
-                                    fontSize={props.current ? 20 : 18}
+                                    fontSize={props.current ? 18 : 16}
                                     fontWeight={props.current ? 600 : 500}>Déplacement</Typography>
                             </Grid>
                         </Grid>
@@ -276,10 +276,10 @@ function PlanningElement(props) {
                         <Grid container direction={"column"} spacing={1}>
                             <Grid item xs={12}>
                                 <Typography textAlign={"center"} style={{ color: props.current ? '#FFA800' : '#d32f2f' }}
-                                    fontSize={props.current ? 24 : 22}
+                                    fontSize={props.current ? 22 : 20}
                                     fontWeight={props.current ? 600 : 500}>{props.day}</Typography>
                                 <Typography textAlign={"center"} style={{ color: props.current ? '#FFA800' : '#2F5597' }}
-                                    fontSize={props.current ? 24 : 22}
+                                    fontSize={props.current ? 22 : 20}
                                     fontWeight={props.current ? 600 : 500}>{moment(props.date, 'YYYY-MM-DD').date()}</Typography>
                             </Grid>
                             <Grid item style={{ display: 'flex', justifyContent: 'center' }}>
@@ -295,7 +295,7 @@ function PlanningElement(props) {
                             <Grid item xs={12} style={{ position: 'absolute', bottom: 0, width: '100%' }}>
                                 <Typography textAlign={"center"}
                                     style={{ color: props.past ? '#D3D3D3' : props.current ? '#FFA800' : '#FFA800', width: '100%' }}
-                                    fontSize={props.current ? 20 : 18}
+                                    fontSize={props.current ? 18 : 16}
                                     fontWeight={props.current ? 600 : 500}>Off</Typography>
                             </Grid>
                         </Grid>
@@ -352,10 +352,10 @@ function PlanningElement(props) {
                         <Grid container direction={"column"} spacing={1}>
                             <Grid item xs={12}>
                                 <Typography textAlign={"center"} style={{ color: props.current ? '#d32f2f' : '#d32f2f' }}
-                                    fontSize={props.current ? 24 : 22}
+                                    fontSize={props.current ? 22 : 20}
                                     fontWeight={props.current ? 600 : 500}>{props.day}</Typography>
                                 <Typography textAlign={"center"} style={{ color: props.current ? '#d32f2f' : '#2F5597' }}
-                                    fontSize={props.current ? 24 : 22}
+                                    fontSize={props.current ? 22 : 20}
                                     fontWeight={props.current ? 600 : 500}>{moment(props.date, 'YYYY-MM-DD').date()}</Typography>
                             </Grid>
                             <Grid item style={{ display: 'flex', justifyContent: 'center' }}>
@@ -371,7 +371,7 @@ function PlanningElement(props) {
                             <Grid item xs={12} style={{ position: 'absolute', bottom: 0, width: '100%' }}>
                                 <Typography textAlign={"center"}
                                     style={{ color: props.past ? '#D3D3D3' : props.current ? '#d32f2f' : '#d32f2f', width: '100%' }}
-                                    fontSize={props.current ? 20 : 18} fontWeight={props.current ? 600 : 500}>{props.past ? 'Non déclaré' : 'A définir'}</Typography>
+                                    fontSize={props.current ? 18 : 16} fontWeight={props.current ? 600 : 500}>{props.past ? 'Non déclaré' : 'A définir'}</Typography>
                             </Grid>
                         </Grid>
                     </Button>

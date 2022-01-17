@@ -102,22 +102,22 @@ function Office(props){
                 <Grid item xs={12}>
                     <Grid container direction={"row"} spacing={1}>
                         <Grid item>
-                            <Avatar alt="Remy Sharp" src={example1} />
+                            <Avatar alt="Remy Sharp" sx={{ width: 24, height: 24 }} src={example1} />
                         </Grid>
                         <Grid item>
-                            <Avatar alt="Travis Howard" src={example2} />
+                            <Avatar alt="Travis Howard" sx={{ width: 24, height: 24 }} src={example2} />
                         </Grid>
                         <Grid item>
-                            <Avatar alt="Cindy Baker" src={example3} />
+                            <Avatar alt="Cindy Baker" sx={{ width: 24, height: 24 }} src={example3} />
                         </Grid>
                         <Grid item>
-                            <Avatar alt="Agnes Walker" src={example4} />
+                            <Avatar alt="Agnes Walker" sx={{ width: 24, height: 24 }} src={example4} />
                         </Grid>
                         <Grid item>
-                            <Avatar alt="Trevor Henderson" src={example5} />
+                            <Avatar alt="Trevor Henderson" sx={{ width: 24, height: 24 }} src={example5} />
                         </Grid>
                         <Grid item>
-                            <Avatar>
+                            <Avatar sx={{ width: 24, height: 24 }}>
                                 <AddIcon />
                             </Avatar>
                         </Grid>
