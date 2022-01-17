@@ -81,17 +81,17 @@ function PlanningBoard() {
         return (<div/>)
     }
     return(
-        <Paper elevation={1} square style={{borderRadius:'25px', minHeight:'40vh'}}>
+        <Paper elevation={1} square style={{borderRadius:'25px', minHeight:'30vh'}}>
             <Grid container direction={"column"} spacing={2} justifyContent={"center"} alignItems={"center"} paddingBottom={"2%"}>
                 <Grid item xs={12}>
                     <Grid container direction={"column"}>
                         <Grid item>
-                            <Button variant="text" onClick={() => navigate('/app/calendar')} disableRipple={true} style={{backgroundColor:'transparent', textTransform: 'none', fontSize: 28, color:'black'}}>
+                            <Button variant="text" onClick={() => navigate('/app/calendar')} disableRipple={true} style={{backgroundColor:'transparent', textTransform: 'none', fontSize: 24, color:'black'}}>
                                 Mon planning
                             </Button>
                         </Grid>
                         <Grid item>
-                            <Typography textAlign={"center"}>
+                            <Typography textAlign={"center"} fontSize={16}>
                                 {moment(week[0].day).date()} {moment(week[0].day).locale('fr').format('MMMM')} - {moment(week[4].day).date()} {moment(week[4].day).locale('fr').format('MMMM')}
                             </Typography>
                         </Grid>

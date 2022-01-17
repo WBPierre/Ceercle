@@ -35,23 +35,23 @@ function Team() {
             <Grid item xs={12}>
                 <Grid container direction={"column"}>
                     <Grid item xs={12}>
-                        <Button variant="text" style={{ backgroundColor: 'transparent', color: '#60b56d', fontSize: 18, textTransform: 'none' }} startIcon={<OfficeIcon sx={{ width: 36, height: 36, backgroundColor: '#95E59A' }} />} endIcon={<ExpandMoreIcon style={{ color: '#7F7F7F' }} />}>Bureau (7/15)</Button>
+                        <Button variant="text" style={{ backgroundColor: 'transparent', color: '#60b56d', fontSize: 16, textTransform: 'none' }} startIcon={<OfficeIcon sx={{ width: 28, height: 28, backgroundColor: '#95E59A' }} />} endIcon={<ExpandMoreIcon style={{ color: '#7F7F7F' }} />}>Bureau (7/15)</Button>
                     </Grid>
                     <Grid item xs={12} paddingLeft={2}>
                         <Grid container direction={"row"} alignItems={"center"} spacing={2}>
                             <Grid item>
                                 <Grid container direction={"row"} spacing={1}>
                                     <Grid item>
-                                        <Avatar alt="Remy Sharp" src={example1} />
+                                        <Avatar alt="Remy Sharp" sx={{ width: 24, height: 24 }} src={example1} />
                                     </Grid>
                                     <Grid item>
-                                        <Avatar alt="Travis Howard" src={example2} />
+                                        <Avatar alt="Travis Howard" sx={{ width: 24, height: 24 }} src={example2} />
                                     </Grid>
                                     <Grid item>
-                                        <Avatar alt="Cindy Baker" src={example3} />
+                                        <Avatar alt="Cindy Baker" sx={{ width: 24, height: 24 }} src={example3} />
                                     </Grid>
                                     <Grid item>
-                                        <Avatar style={{ backgroundColor: 'transparent', color: '#7F7F7F' }}>
+                                        <Avatar sx={{ width: 24, height: 24 }} style={{ backgroundColor: 'transparent', color: '#7F7F7F' }}>
                                             +4
                                         </Avatar>
                                     </Grid>
@@ -64,18 +64,18 @@ function Team() {
             <Grid item xs={12}>
                 <Grid container direction={"column"}>
                     <Grid item xs={12}>
-                        <Button variant="text" style={{ backgroundColor: 'transparent', color: '#0070C0', fontSize: 18, textTransform: 'none' }} startIcon={<ManWorkingIcon sx={{ width: 36, height: 36, backgroundColor: '#8BCCEE' }} />} endIcon={<ExpandMoreIcon style={{ color: '#7F7F7F' }} />}>Télétravail (4/15)</Button>
+                        <Button variant="text" style={{ backgroundColor: 'transparent', color: '#0070C0', fontSize: 16, textTransform: 'none' }} startIcon={<ManWorkingIcon sx={{ width: 28, height: 28, backgroundColor: '#8BCCEE' }} />} endIcon={<ExpandMoreIcon style={{ color: '#7F7F7F' }} />}>Télétravail (4/15)</Button>
                     </Grid>
                     <Grid item xs={12} paddingLeft={2}>
                         <Grid container direction={"row"} alignItems={"center"} spacing={2}>
                             <Grid item>
-                                <Avatar alt="Remy Sharp" src={example4} />
+                                <Avatar alt="Remy Sharp" src={example4} sx={{ width: 24, height: 24 }} />
                             </Grid>
                             <Grid item>
-                                <Avatar alt="Travis Howard" src={example5} />
+                                <Avatar alt="Travis Howard" src={example5} sx={{ width: 24, height: 24 }} />
                             </Grid>
                             <Grid item>
-                                <Avatar style={{ backgroundColor: 'transparent', color: '#7F7F7F' }}>
+                                <Avatar sx={{ width: 24, height: 24 }} style={{ backgroundColor: 'transparent', color: '#7F7F7F' }}>
                                     +2
                                 </Avatar>
                             </Grid>
@@ -84,7 +84,7 @@ function Team() {
                 </Grid>
             </Grid>
             <Grid item xs={12}>
-                <Button variant="text" style={{ backgroundColor: 'transparent', color: 'black', fontSize: 18, textTransform: 'none' }} startIcon={<PaperIcon sx={{ width: 24, height: 24 }} />} endIcon={<ExpandMoreIcon />}>Tout afficher (4/15)</Button>
+                <Button variant="text" style={{ backgroundColor: 'transparent', color: 'black', fontSize: 16, textTransform: 'none' }} startIcon={<PaperIcon sx={{ width: 24, height: 24 }} />} endIcon={<ExpandMoreIcon />}>Tout afficher (4/15)</Button>
             </Grid>
         </Grid>
     )
