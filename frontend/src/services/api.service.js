@@ -16,12 +16,9 @@ class ApiService {
                     if(err.response.status === 401 && !originalConfig._retry) {
                         originalConfig._retry = true;
                         try {
-                            console.log('REFRESH');
                             const rs = await this.instance.post('/auth/refreshToken', {
                                 refreshToken: TokenService.getLocalRefreshToken()
                             });
-                            console.log("TOKENS", rs.data);
-                            console.log(rs.data.token === this.instance.defaults.headers.common.Authorization)
                             const {token} = rs.data;
                             TokenService.setLocalAccessToken(token);
                             this.setHeader(token);
