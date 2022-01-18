@@ -95,16 +95,16 @@ function Footer() {
                                     <Grid item>
                                         <Grid container direction={"row"} spacing={3}>
                                             <Grid item textAlign={"center"} md={3}>
-                                                <img src={Pepites} style={{ height:'60%' }} alt="contact" />
+                                                <img src={Pepites} style={{ height:'40%' }} alt="contact" />
                                             </Grid>
                                             <Grid item textAlign={"center"} md={3}>
-                                                <img src={Essec} style={{ height:'60%' }} alt="contact" />
+                                                <img src={Essec} style={{ height:'40%' }} alt="contact" />
                                             </Grid>
                                             <Grid item textAlign={"center"} md={3}>
-                                                <img src={StationF} style={{ height:'60%' }} alt="contact" />
+                                                <img src={StationF} style={{ height:'40%' }} alt="contact" />
                                             </Grid>
                                             <Grid item textAlign={"center"} md={3}>
-                                                <img src={Founders} style={{ height:'60%' }} alt="contact" />
+                                                <img src={Founders} style={{ height:'40%' }} alt="contact" />
                                             </Grid>
                                         </Grid>
                                     </Grid>

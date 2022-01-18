@@ -111,7 +111,7 @@ export default function NavBar(props) {
                                 variant="h6"
                                 noWrap
                                 component="div"
-                                color="black"
+                                color="#3F07A8"
                                 style={{ fontWeight: 800 }}
                                 fontSize={24}
                             >

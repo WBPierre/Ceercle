@@ -18,7 +18,7 @@ import "moment/min/locales";
 import ListItemText from "@mui/material/ListItemText";
 import useAuth from "../../../context/auth/AuthHelper";
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 
 const AppBarStyle = styled(MuiAppBar, {

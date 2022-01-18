@@ -1,5 +1,5 @@
 import {
-    Accordion, AccordionDetails, AccordionSummary,
+    Accordion, AccordionDetails,
     Avatar,
     Collapse,
     ListItem,
@@ -21,6 +21,18 @@ import example4 from "../../../../assets/images/example/4.jpg";
 import example5 from "../../../../assets/images/example/5.jpg";
 import * as React from "react";
 import Typography from "@mui/material/Typography";
+import {styled} from "@mui/material/styles";
+import MuiAccordionSummary from '@mui/material/AccordionSummary';
+
+const AccordionSummary = styled((props) => (
+    <MuiAccordionSummary
+        {...props}
+    />
+))(({ theme }) => ({
+    '.MuiAccordionSummary-content': {
+        width:'100%'
+    },
+}));
 
 function CalendarListElement(props){
 
@@ -58,24 +70,24 @@ function CalendarListElement(props){
         switch(props.type){
             case 0:
                 return (
-                    <ToDefineIcon/>
+                    <ToDefineIcon sx={{height:30, width:30}}/>
                 )
             case 1:
                 return(
-                    <OfficeIcon/>
+                    <OfficeIcon sx={{height:30, width:30}}/>
 
                 )
             case 2:
                 return(
-                    <ManWorkingIcon/>
+                    <ManWorkingIcon sx={{height:30, width:30}}/>
                 )
             case 3:
                 return(
-                    <AwayIcon/>
+                    <AwayIcon sx={{height:30, width:30}}/>
                 )
             case 4:
                 return(
-                    <OffIcon/>
+                    <OffIcon sx={{height:30, width:30}}/>
                 )
         }
     }
@@ -85,11 +97,11 @@ function CalendarListElement(props){
             case 0:
                 return '#D3D3D3'
             case 1:
-                return '#95E59A'
+                return '#008946'
             case 2:
-                return '#8BCCEE'
+                return '#0070C0'
             case 3:
-                return '#C7B3DA'
+                return '#7030A0'
             case 4:
                 return '#FFA800'
         }
@@ -125,7 +137,7 @@ function CalendarListElement(props){
                     >
                         <Grid container direction={"column"} spacing={1} style={{flex:1}}>
                             <Grid item xs={12} style={{flex:1}}>
-                                <Grid container direction={"row"} alignItems={"center"} spacing={1}>
+                                <Grid container direction={"row"} alignItems={"center"} justifyContent={"space-between"} spacing={1}>
                                     <Grid item xs={3}>
                                         <Avatar sx={{ width: 36, height: 36 }} style={{
                                             backgroundColor: getBackColor()
@@ -134,7 +146,7 @@ function CalendarListElement(props){
                                         </Avatar>
                                     </Grid>
                                     <Grid item xs={7}>
-                                        <Typography fontSize={15} fontWeight={600} style={{color: getColor()}}>{getText()}</Typography>
+                                        <Typography fontSize={14} fontWeight={600} style={{minWidth:'30px',color: getColor()}}>{getText()}</Typography>
                                     </Grid>
                                     <Grid item xs={2}>
                                         {open ? <ExpandLess/> : <ExpandMore />}

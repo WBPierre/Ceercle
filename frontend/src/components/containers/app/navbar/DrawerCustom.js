@@ -39,7 +39,7 @@ import RuleIcon from '@mui/icons-material/Rule';
 import { red } from '@mui/material/colors';
 import useAuth from "../../../context/auth/AuthHelper";
 
-const drawerWidth = 210;
+const drawerWidth = 200;
 
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -99,7 +99,7 @@ export default function DrawerCustom(props) {
             </List>
 
             <List>
-                <ListItem button onClick={() => navigate('/app')}>
+                <ListItem button onClick={() => navigate('/app')} style={{backgroundColor: activeRoutes[activeRoutes.length - 1] === "app" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)'}}>
                     <ListItemIcon>
                         <DashboardIcon sx={{ fontSize: activeRoutes[activeRoutes.length - 1] === "app" ? 25 : 22, color: "#FFFFFF" }} />
                     </ListItemIcon>
@@ -114,7 +114,7 @@ export default function DrawerCustom(props) {
                         primary={t('app:navbar:dashboard')}
                     />
                 </ListItem>
-                <ListItem button onClick={() => navigate('/app/calendar')}>
+                <ListItem button onClick={() => navigate('/app/calendar')} style={{backgroundColor: activeRoutes[activeRoutes.length - 1] === "calendar" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)'}}>
                     <ListItemIcon>
                         <EventIcon sx={{ fontSize: activeRoutes[activeRoutes.length - 1] === "calendar" ? 25 : 22, color: "#FFFFFF" }} />
                     </ListItemIcon>
@@ -129,22 +129,7 @@ export default function DrawerCustom(props) {
                         primary={t('app:navbar:calendar')}
                     />
                 </ListItem>
-                <ListItem button disabled>
-                    <ListItemIcon>
-                        <ScreenSearchDesktopIcon sx={{ fontSize: activeRoutes[activeRoutes.length - 1] === "marketplace" ? 25 : 22, color: "#FFFFFF" }} />
-                    </ListItemIcon>
-                    <ListItemText
-                        primaryTypographyProps={{
-                            color: activeRoutes[activeRoutes.length - 1] === "marketplace" ? '#FFFFFF' : "#FFFFFF",
-                            fontWeight: activeRoutes[activeRoutes.length - 1] === "marketplace" ? 700 : 200,
-                            fontSize: 18,
-                            variant: 'body2',
-                            textAlign: 'left'
-                        }}
-                        primary={t('app:navbar:marketplace')}
-                    />
-                </ListItem>
-                <ListItem button onClick={() => navigate('/app/glossary')}>
+                <ListItem button onClick={() => navigate('/app/glossary')} style={{backgroundColor: activeRoutes[activeRoutes.length - 1] === "glossary" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)'}}>
                     <ListItemIcon>
                         <PeopleIcon sx={{ fontSize: activeRoutes[activeRoutes.length - 1] === "glossary" ? 25 : 22, color: "#FFFFFF" }} />
                     </ListItemIcon>
@@ -173,7 +158,7 @@ export default function DrawerCustom(props) {
                         primary="Paramètres RH"
                     />
                 </ListItem>
-                <ListItem button onClick={() => navigate('/app/workpolicy')}>
+                <ListItem button onClick={() => navigate('/app/workpolicy')} style={{backgroundColor: activeRoutes[activeRoutes.length - 1] === "workpolicy" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)'}}>
                     <ListItemIcon>
                         <RuleIcon sx={{ fontSize: activeRoutes[activeRoutes.length - 1] === "workpolicy" ? 25 : 22, color: "#FFFFFF" }} />
                     </ListItemIcon>
@@ -185,10 +170,10 @@ export default function DrawerCustom(props) {
                             variant: 'body2',
                             textAlign: 'left'
                         }}
-                        primary="Travail hybride"
+                        primary="Paramètres"
                     />
                 </ListItem>
-                <ListItem button onClick={() => navigate('/app/teams')}>
+                <ListItem button onClick={() => navigate('/app/teams')} style={{backgroundColor: activeRoutes[activeRoutes.length - 1] === "teams" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)'}}>
                     <ListItemIcon>
                         <ConnectWithoutContactIcon sx={{ fontSize: activeRoutes[activeRoutes.length - 1] === "teams" ? 25 : 22, color: "#FFFFFF" }} />
                     </ListItemIcon>

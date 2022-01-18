@@ -31,16 +31,20 @@ export default function Calendar(props) {
     const theme = useTheme();
     let navigate = useNavigate();
     const { t } = useTranslation();
+    const [week, setWeek] = useState([]);
     const [filters, setFilers] = useState({
         search: '',
         team: 0,
         type: -1
     })
-    const [week, setWeek] = useState([]);
 
 
     const handleFilters = (obj) => {
         setFilers(obj);
+    }
+
+    const handleWeek = (data) => {
+        setWeek(data);
     }
 
     return (
@@ -56,10 +60,10 @@ export default function Calendar(props) {
                     </Grid>
                 </Grid>
                 <Grid item mt={2}>
-                    <FilterBar handleFilters={handleFilters} />
+                    <FilterBar handleFilters={handleFilters} week={week}/>
                 </Grid>
                 <Grid item mt={3}>
-                    <CalendarDisplay filters={filters} />
+                    <CalendarDisplay filters={filters} handleWeek={handleWeek}/>
                 </Grid>
             </Grid>
         </CustomContainer >

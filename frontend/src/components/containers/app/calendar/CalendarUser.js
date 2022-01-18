@@ -9,11 +9,13 @@ import {useState} from "react";
 import TimeService from "../../../../services/app/time.service";
 import Button from "@mui/material/Button";
 import OffIcon from "../../../molecules/icons/OffIcon";
+import {useSnackbar} from "notistack";
 
 function CalendarUser(props){
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
+    const { enqueueSnackbar } = useSnackbar();
 
 
     const getText = () => {
@@ -71,8 +73,8 @@ function CalendarUser(props){
     }
 
     const modifyChoice = async (name) => {
-        await declareDay(props.data.day, name)
         handleClose();
+        await declareDay(props.data.day, name)
     }
 
     const handleClose = () => {
@@ -92,6 +94,9 @@ function CalendarUser(props){
             afternoon: choice
         }
         await TimeService.setTimeSheet(resources);
+        enqueueSnackbar('Déclaration enregistrée', {
+            variant: 'success'
+        });
         await props.updateData();
     }
 

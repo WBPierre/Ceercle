@@ -35,7 +35,7 @@ function Team() {
             <Grid item xs={12}>
                 <Grid container direction={"column"}>
                     <Grid item xs={12}>
-                        <Button variant="text" style={{ backgroundColor: 'transparent', color: '#60b56d', fontSize: 16, textTransform: 'none' }} startIcon={<OfficeIcon sx={{ width: 28, height: 28, backgroundColor: '#95E59A' }} />} endIcon={<ExpandMoreIcon style={{ color: '#7F7F7F' }} />}>Bureau (7/15)</Button>
+                        <Button variant="text" style={{ backgroundColor: 'transparent', color: '#008946', fontSize: 16, textTransform: 'none' }} startIcon={<OfficeIcon sx={{ width: 28, height: 28, backgroundColor: '#95E59A' }} />} endIcon={<ExpandMoreIcon style={{ color: '#7F7F7F' }} />}>Bureau (7/15)</Button>
                     </Grid>
                     <Grid item xs={12} paddingLeft={2}>
                         <Grid container direction={"row"} alignItems={"center"} spacing={2}>
