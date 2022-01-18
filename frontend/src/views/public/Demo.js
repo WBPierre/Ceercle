@@ -155,7 +155,7 @@ function Demo(){
                         <Fade direction={"left"} triggerOnce={true}>
                             <Grid container spacing={5} direction="column">
                                 <Grid item sx={{mx: 5}} mb={3}>
-                                    <Typography variant="h4" component="h4" align="left" fontWeight={600} fontSize={40} color="#2F5597">
+                                    <Typography variant="h4" component="h4" align="left" fontWeight={600} fontSize={40} color="#3F07A8">
                                         { t('public:demo:title') }
                                     </Typography>
                                 </Grid>
@@ -185,7 +185,7 @@ function Demo(){
 
                     </Grid>
                     <Grid item md={1} xs={false}/>
-                    <Grid item xs={12} md={5} backgroundColor="#F9FBFE" style={{height:'100%'}} pt={2} paddingRight={10}>
+                    <Grid item xs={12} md={5} backgroundColor="#FFF" style={{height:'100%'}} pt={2} paddingRight={10}>
                         <Box
                             sx={{
                             my: 10,

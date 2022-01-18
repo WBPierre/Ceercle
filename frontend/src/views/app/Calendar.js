@@ -50,15 +50,6 @@ export default function Calendar(props) {
     return (
         <CustomContainer>
             <Grid wrap={"nowrap"} container direction={"column"} spacing={1} >
-                <Grid item xs={12}>
-                    <Grid container direction={"column"} justifyContent="center" alignItems="center">
-                        <Grid item>
-                            <Button variant="text" disableRipple={true} style={{ backgroundColor: 'transparent', textTransform: 'none', fontSize: 28, color: 'black' }}>
-                                Calendrier
-                            </Button>
-                        </Grid>
-                    </Grid>
-                </Grid>
                 <Grid item mt={2}>
                     <FilterBar handleFilters={handleFilters} week={week}/>
                 </Grid>

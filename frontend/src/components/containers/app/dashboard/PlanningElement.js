@@ -55,7 +55,7 @@ function PlanningElement(props) {
                                     fontWeight={props.current ? 600 : 500}>{moment(props.date, 'YYYY-MM-DD').date()}</Typography>
                             </Grid>
                             <Grid item style={{ display: 'flex', justifyContent: 'center' }}>
-                                <Avatar sx={{ width: 75, height: 75 }}
+                                <Avatar sx={{ width: 65, height: 65 }}
                                     style={{
                                         border: props.current ? '3px solid #60b56d' : 'none',
                                         backgroundColor: props.past ? '#D3D3D3' : props.current ? '#C3E4B6' : '#C3E4B6'
@@ -131,7 +131,7 @@ function PlanningElement(props) {
                                     fontWeight={props.current ? 600 : 500}>{moment(props.date, 'YYYY-MM-DD').date()}</Typography>
                             </Grid>
                             <Grid item style={{ display: 'flex', justifyContent: 'center' }}>
-                                <Avatar sx={{ width: 75, height: 75 }}
+                                <Avatar sx={{ width: 65, height: 65 }}
                                     style={{
                                         border: props.current ? '3px solid #0070C0' : 'none',
                                         backgroundColor: props.past ? '#D3D3D3' : props.current ? '#DAEFFA' : '#DAEFFA'
@@ -207,7 +207,7 @@ function PlanningElement(props) {
                                     fontWeight={props.current ? 600 : 500}>{moment(props.date, 'YYYY-MM-DD').date()}</Typography>
                             </Grid>
                             <Grid item style={{ display: 'flex', justifyContent: 'center' }}>
-                                <Avatar sx={{ width: 75, height: 75 }}
+                                <Avatar sx={{ width: 65, height: 65 }}
                                     style={{
                                         border: props.current ? '3px solid #9872B2' : 'none',
                                         backgroundColor: props.past ? '#D3D3D3' : '#E6DCF1'
@@ -283,7 +283,7 @@ function PlanningElement(props) {
                                     fontWeight={props.current ? 600 : 500}>{moment(props.date, 'YYYY-MM-DD').date()}</Typography>
                             </Grid>
                             <Grid item style={{ display: 'flex', justifyContent: 'center' }}>
-                                <Avatar sx={{ width: 75, height: 75 }}
+                                <Avatar sx={{ width: 65, height: 65 }}
                                     style={{
                                         border: props.current ? '3px solid #FFA800' : 'none',
                                         backgroundColor: props.past ? '#D3D3D3' : '#FBE7B4'
@@ -359,7 +359,7 @@ function PlanningElement(props) {
                                     fontWeight={props.current ? 600 : 500}>{moment(props.date, 'YYYY-MM-DD').date()}</Typography>
                             </Grid>
                             <Grid item style={{ display: 'flex', justifyContent: 'center' }}>
-                                <Avatar sx={{ width: 75, height: 75 }}
+                                <Avatar sx={{ width: 65, height: 65 }}
                                     style={{
                                         border: props.current ? '3px solid #d32f2f' : 'none',
                                         backgroundColor: props.past ? '#D3D3D3' : '#D3D3D3'

@@ -113,7 +113,9 @@ function FilterBar(props) {
                         <Typography fontWeight={500} style={{color:'#1F4E79'}}>Semaine</Typography>
                     </Grid>
                     <Grid item>
-                        <Chip component={FormControl} style={{ backgroundColor: 'white' }} variant={"outlined"} label={`${moment(props.week[0].day).date()} ${moment(props.week[0].day).locale('fr').format('MMMM')} - ${moment(props.week[4].day).date()} ${moment(props.week[4].day).locale('fr').format('MMMM')}`}/>
+                        <Paper style={{padding:5}} elevation={0}>
+                            {`${moment(props.week[0].day).date()} ${moment(props.week[0].day).locale('fr').format('MMMM')} - ${moment(props.week[4].day).date()} ${moment(props.week[4].day).locale('fr').format('MMMM')}`}
+                        </Paper>
                     </Grid>
                 </Grid>
 
