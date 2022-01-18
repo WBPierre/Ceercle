@@ -19,10 +19,10 @@ function CalendarDateElement(props) {
             <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"}>
                 <Grid item px={1}>
                     <Grid container direction={"column"} px={1}>
-                        <Typography textAlign={"center"} style={{ color: '#d32f2f' }}
+                        <Typography textAlign={"center"} style={{ color: '#C00000' }}
                             fontSize={23}
                             fontWeight={900}>{<GetDay />}</Typography>
-                        <Typography textAlign={"center"} style={{ color: '#2F5597' }}
+                        <Typography textAlign={"center"} style={{ color: '#002060' }}
                             fontSize={19}
                             fontWeight={900}>{moment(props.date.day, 'YYYY-MM-DD').date()}</Typography>
                     </Grid>

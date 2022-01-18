@@ -47,10 +47,10 @@ function PlanningElement(props) {
                         onClick={handleClick}>
                         <Grid container direction={"column"} spacing={1}>
                             <Grid item xs={12}>
-                                <Typography textAlign={"center"} style={{ color: props.current ? '#60b56d' : '#d32f2f' }}
+                                <Typography textAlign={"center"} style={{ color: props.current ? '#008946' : '#C00000' }}
                                     fontSize={props.current ? 22 : 20}
                                     fontWeight={props.current ? 600 : 500}>{props.day}</Typography>
-                                <Typography textAlign={"center"} style={{ color: props.current ? '#60b56d' : '#2F5597' }}
+                                <Typography textAlign={"center"} style={{ color: props.current ? '#008946' : '#002060' }}
                                     fontSize={props.current ? 22 : 20}
                                     fontWeight={props.current ? 600 : 500}>{moment(props.date, 'YYYY-MM-DD').date()}</Typography>
                             </Grid>
@@ -60,13 +60,13 @@ function PlanningElement(props) {
                                         border: props.current ? '3px solid #60b56d' : 'none',
                                         backgroundColor: props.past ? '#D3D3D3' : props.current ? '#C3E4B6' : '#C3E4B6'
                                     }}>
-                                    <OfficeIcon sx={{ width: 50, height: 50 }} />
+                                    <OfficeIcon sx={{ width: 40, height: 40 }} />
                                 </Avatar>
                             </Grid>
                             <Grid item xs={12} my={2} />
                             <Grid item xs={12} style={{ position: 'absolute', bottom: 0, width: '100%' }}>
                                 <Typography textAlign={"center"}
-                                    style={{ color: props.past ? '#D3D3D3' : props.current ? '#60b56d' : '#95E59A', width: '100%' }}
+                                    style={{ color: props.past ? '#D3D3D3' : props.current ? '#008946' : '#95E59A', width: '100%' }}
                                     fontSize={props.current ? 18 : 16}
                                     fontWeight={props.current ? 600 : 500}>Bureau</Typography>
                             </Grid>
@@ -123,10 +123,10 @@ function PlanningElement(props) {
                         onClick={handleClick}>
                         <Grid container direction={"column"} spacing={1}>
                             <Grid item xs={12}>
-                                <Typography textAlign={"center"} style={{ color: props.current ? '#0070C0' : '#d32f2f' }}
+                                <Typography textAlign={"center"} style={{ color: props.current ? '#0070C0' : '#C00000' }}
                                     fontSize={props.current ? 22 : 20}
                                     fontWeight={props.current ? 600 : 500}>{props.day}</Typography>
-                                <Typography textAlign={"center"} style={{ color: props.current ? '#0070C0' : '#2F5597' }}
+                                <Typography textAlign={"center"} style={{ color: props.current ? '#0070C0' : '#002060' }}
                                     fontSize={props.current ? 22 : 20}
                                     fontWeight={props.current ? 600 : 500}>{moment(props.date, 'YYYY-MM-DD').date()}</Typography>
                             </Grid>
@@ -136,7 +136,7 @@ function PlanningElement(props) {
                                         border: props.current ? '3px solid #0070C0' : 'none',
                                         backgroundColor: props.past ? '#D3D3D3' : props.current ? '#DAEFFA' : '#DAEFFA'
                                     }}>
-                                    <ManWorkingIcon sx={{ width: 50, height: 50 }} />
+                                    <ManWorkingIcon sx={{ width: 40, height: 40 }} />
                                 </Avatar>
                             </Grid>
                             <Grid item xs={12} my={2} />
@@ -199,10 +199,10 @@ function PlanningElement(props) {
                         onClick={handleClick}>
                         <Grid container direction={"column"} spacing={1}>
                             <Grid item xs={12}>
-                                <Typography textAlign={"center"} style={{ color: props.current ? '#9872B2' : '#d32f2f' }}
+                                <Typography textAlign={"center"} style={{ color: props.current ? '#7030A0' : '#C00000' }}
                                     fontSize={props.current ? 22 : 20}
                                     fontWeight={props.current ? 600 : 500}>{props.day}</Typography>
-                                <Typography textAlign={"center"} style={{ color: props.current ? '#9872B2' : '#2F5597' }}
+                                <Typography textAlign={"center"} style={{ color: props.current ? '#7030A0' : '#002060' }}
                                     fontSize={props.current ? 22 : 20}
                                     fontWeight={props.current ? 600 : 500}>{moment(props.date, 'YYYY-MM-DD').date()}</Typography>
                             </Grid>
@@ -212,13 +212,13 @@ function PlanningElement(props) {
                                         border: props.current ? '3px solid #9872B2' : 'none',
                                         backgroundColor: props.past ? '#D3D3D3' : '#E6DCF1'
                                     }}>
-                                    <AwayIcon sx={{ width: 50, height: 50 }} />
+                                    <AwayIcon sx={{ width: 40, height: 40 }} />
                                 </Avatar>
                             </Grid>
                             <Grid item xs={12} my={2} />
                             <Grid item xs={12} style={{ position: 'absolute', bottom: 0, width: '100%' }}>
                                 <Typography textAlign={"center"}
-                                    style={{ color: props.past ? '#D3D3D3' : props.current ? '#9872B2' : '#C7B3DA', width: '100%' }}
+                                    style={{ color: props.past ? '#D3D3D3' : props.current ? '#7030A0' : '#C7B3DA', width: '100%' }}
                                     fontSize={props.current ? 18 : 16}
                                     fontWeight={props.current ? 600 : 500}>Déplacement</Typography>
                             </Grid>
@@ -275,10 +275,10 @@ function PlanningElement(props) {
                         onClick={handleClick}>
                         <Grid container direction={"column"} spacing={1}>
                             <Grid item xs={12}>
-                                <Typography textAlign={"center"} style={{ color: props.current ? '#FFA800' : '#d32f2f' }}
+                                <Typography textAlign={"center"} style={{ color: props.current ? '#FFA800' : '#C00000' }}
                                     fontSize={props.current ? 22 : 20}
                                     fontWeight={props.current ? 600 : 500}>{props.day}</Typography>
-                                <Typography textAlign={"center"} style={{ color: props.current ? '#FFA800' : '#2F5597' }}
+                                <Typography textAlign={"center"} style={{ color: props.current ? '#FFA800' : '#002060' }}
                                     fontSize={props.current ? 22 : 20}
                                     fontWeight={props.current ? 600 : 500}>{moment(props.date, 'YYYY-MM-DD').date()}</Typography>
                             </Grid>
@@ -288,7 +288,7 @@ function PlanningElement(props) {
                                         border: props.current ? '3px solid #FFA800' : 'none',
                                         backgroundColor: props.past ? '#D3D3D3' : '#FBE7B4'
                                     }}>
-                                    <OffIcon sx={{ width: 50, height: 50 }} />
+                                    <OffIcon sx={{ width: 40, height: 40 }} />
                                 </Avatar>
                             </Grid>
                             <Grid item xs={12} my={2} />
@@ -351,10 +351,10 @@ function PlanningElement(props) {
                         onClick={handleClick}>
                         <Grid container direction={"column"} spacing={1}>
                             <Grid item xs={12}>
-                                <Typography textAlign={"center"} style={{ color: props.current ? '#d32f2f' : '#d32f2f' }}
+                                <Typography textAlign={"center"} style={{ color: props.current ? '#d32f2f' : '#C00000' }}
                                     fontSize={props.current ? 22 : 20}
                                     fontWeight={props.current ? 600 : 500}>{props.day}</Typography>
-                                <Typography textAlign={"center"} style={{ color: props.current ? '#d32f2f' : '#2F5597' }}
+                                <Typography textAlign={"center"} style={{ color: props.current ? '#d32f2f' : '#002060' }}
                                     fontSize={props.current ? 22 : 20}
                                     fontWeight={props.current ? 600 : 500}>{moment(props.date, 'YYYY-MM-DD').date()}</Typography>
                             </Grid>
@@ -364,7 +364,7 @@ function PlanningElement(props) {
                                         border: props.current ? '3px solid #d32f2f' : 'none',
                                         backgroundColor: props.past ? '#D3D3D3' : '#D3D3D3'
                                     }}>
-                                    <AwayIcon sx={{ width: 50, height: 50, display: 'none' }} />
+                                    <AwayIcon sx={{ width: 40, height: 40, display: 'none' }} />
                                 </Avatar>
                             </Grid>
                             <Grid item xs={12} my={2} />

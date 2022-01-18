@@ -27,12 +27,9 @@ export default function Glossary() {
                 </Grid>
 
                 <Grid item md={8}>
-                    {userToDisplay !== 0 ?
+                    {userToDisplay !== 0 &&
                         <InfoByUser userToDisplay={userToDisplay} />
-                        :
-                        <img style={{
-                            height: "80%", width: "100%"
-                        }} src={load_profile_2} />}
+                    }
                 </Grid>
 
             </Grid>

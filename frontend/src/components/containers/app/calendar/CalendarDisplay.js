@@ -18,13 +18,13 @@ function CalendarDisplay(props) {
     const [week, setWeek] = useState([]);
     const [index, setIndex] = useState(0);
     const [usersWeek, setUsersWeek] = useState([]);
-    const { enqueueSnackbar } = useSnackbar();
 
 
     useEffect(() => {
         const getTimeSheet = async () => {
             await TimeService.getTimeSheet(index).then((res) => {
                 setWeek(res.data.week);
+                props.handleWeek(res.data.week);
             })
         }
         const getAllTimeSheet = async () => {
@@ -42,10 +42,8 @@ function CalendarDisplay(props) {
         }
         await TimeService.getTimeSheet(ind).then((res) => {
             setWeek(res.data.week);
+            props.handleWeek(res.data.week);
         })
-        enqueueSnackbar('Déclaration enregistrée', {
-            variant: 'success'
-        });
         await TimeService.getAllTimeSheet(ind).then((res) => {
             setUsersWeek(res.data);
         })
@@ -68,11 +66,6 @@ function CalendarDisplay(props) {
     } else {
         return (
             <Grid container direction={"column"} spacing={2}>
-                <Grid item>
-                    <Typography textAlign={"center"}>
-                        {moment(week[0].day).date()} {moment(week[0].day).locale('fr').format('MMMM')} - {moment(week[4].day).date()} {moment(week[4].day).locale('fr').format('MMMM')}
-                    </Typography>
-                </Grid>
                 <Grid item mt={1}>
                     <Grid container direction={"row"}>
                         <Grid item md={1} textAlign={"center"}>

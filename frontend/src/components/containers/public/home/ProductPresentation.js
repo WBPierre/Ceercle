@@ -147,7 +147,7 @@ function ProductPresentation({ props }) {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item md={12} mt={5}>
+                        <Grid item md={12} my={5}>
                             <Fade direction={"up"} triggerOnce={true}>
                                 <Typography fontSize={42} fontWeight={600} style={{width:'100%', textAlign:'center', color:'#3F07A8'}}>{t('public:home:product_presentation.and_more')}</Typography>
                             </Fade>

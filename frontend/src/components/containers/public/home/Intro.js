@@ -30,7 +30,7 @@ function Intro(){
                                         </Typography>
                                     </Grid>
                                     <Grid item>
-                                        <Typography variant="h5" fontSize={28} fontWeight={400} style={{textAlign:'left', color:'#3B3838'}}>
+                                        <Typography variant="h5" fontSize={24} fontWeight={400} style={{textAlign:'left', color:'#3B3838'}}>
                                             {t('public:home:intro.content')}
                                         </Typography>
                                     </Grid>

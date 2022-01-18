@@ -91,7 +91,6 @@ function Mood(props){
                             </Grid>
                         </Grid>
                         <Grid item xs={12}>
-                            <Typography>Votre moral est au beau fixe !</Typography>
                         </Grid>
                     </Grid>
                 </Grid>

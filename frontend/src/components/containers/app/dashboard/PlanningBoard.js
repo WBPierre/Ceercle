@@ -12,7 +12,7 @@ import {useEffect, useRef, useState} from "react";
 import TimeService from "../../../../services/app/time.service";
 import moment from "moment";
 import "moment/min/locales";
-
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import Card from "@mui/material/Card";
 import {Typography} from "@mui/material";
 import {useNavigate} from "react-router-dom";
@@ -85,8 +85,8 @@ function PlanningBoard() {
             <Grid container direction={"column"} spacing={2} justifyContent={"center"} alignItems={"center"} paddingBottom={"2%"}>
                 <Grid item xs={12}>
                     <Grid container direction={"column"}>
-                        <Grid item>
-                            <Button variant="text" onClick={() => navigate('/app/calendar')} disableRipple={true} style={{backgroundColor:'transparent', textTransform: 'none', fontSize: 24, color:'black'}}>
+                        <Grid item xs={12}>
+                            <Button variant="text" onClick={() => navigate('/app/calendar')} endIcon={<ExitToAppIcon style={{fontSize: 22}}/>} disableRipple={true} style={{backgroundColor:'transparent', textTransform: 'none', fontSize: 24, color:'black'}}>
                                 Mon planning
                             </Button>
                         </Grid>
@@ -97,6 +97,7 @@ function PlanningBoard() {
                         </Grid>
                     </Grid>
                 </Grid>
+
                 <Grid item xs={12} style={{width:'100%'}}>
                     <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"}>
                         <Grid item xs={1} textAlign={"right"} style={{zIndex:2}}>
