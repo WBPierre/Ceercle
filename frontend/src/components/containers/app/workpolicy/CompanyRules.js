@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 
 import SettingSectionTemplate from '../account/SettingSectionTemplate';
 
-export default function WorkRules(props) {
+export default function CompanyRules(props) {
 
     const timezone = moment.tz.names()
     const theme = useTheme();
@@ -298,191 +298,6 @@ export default function WorkRules(props) {
 
                     </Grid>
                 </Grid>
-
-
-                <Grid item mt={4}>
-                    <Divider style={{ backgroundColor: "#E1D2FC" }} />
-                </Grid>
-
-                <Grid item mt={4}>
-                    <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#2A2828' }}>
-                        Par équipe
-                    </Typography>
-                </Grid>
-
-                <Grid item>
-                    <FormControl sx={{ m: 1, width: 200 }} variant="standard">
-                        <InputLabel htmlFor="demo-customized-select-native">Equipe</InputLabel>
-                        <Select
-                            id="demo-customized-select-native"
-                            value={team}
-                            onChange={handleTeam}
-                        >
-                            {teams.map((t, index) => {
-                                return (
-                                    <MenuItem value={index}>{t.name}</MenuItem>
-                                )
-                            }
-                            )}
-
-                        </Select>
-                    </FormControl>
-                </Grid>
-
-
-                <Grid item mt={3}>
-                    <Typography variant="body" fontWeight={300} fontSize={17} style={{ color: '#414040', fontStyle: "italic" }}>
-                        Nombre de jours travaillés au bureau
-                    </Typography>
-                </Grid>
-
-                <Grid item mt={1}>
-                    <Grid container direction="row" alignItems="center">
-                        <Grid item md={3}>
-                            <FormControl sx={{ m: 1, width: 100 }} variant="standard">
-                                <InputLabel htmlFor="demo-customized-select-native">Minimum</InputLabel>
-                                <Select
-                                    id="demo-customized-select-native"
-                                    value={teamMin}
-                                    onChange={handleTeamMin}
-                                >
-                                    {daysWorked.map((day, index) => {
-                                        return (
-                                            <MenuItem value={index}>{day}</MenuItem>
-                                        )
-                                    }
-                                    )}
-
-                                </Select>
-                            </FormControl>
-                        </Grid>
-                        <Grid item md={3}>
-                            <FormControl sx={{ m: 1, width: 100 }} variant="standard">
-                                <InputLabel htmlFor="demo-customized-select-native">Maximum</InputLabel>
-                                <Select
-                                    id="demo-customized-select-native"
-                                    value={teamMax}
-                                    onChange={handleTeamMax}
-                                >
-                                    {daysWorked.map((day, index) => {
-                                        return (
-                                            <MenuItem value={index}>{day}</MenuItem>
-                                        )
-                                    }
-                                    )}
-
-                                </Select>
-                            </FormControl>
-                        </Grid>
-                    </Grid>
-                </Grid>
-
-
-                <Grid item mt={3}>
-                    <Typography variant="body" fontWeight={300} fontSize={17} style={{ color: '#414040', fontStyle: "italic" }}>
-                        Spécification par jour
-                    </Typography>
-                </Grid>
-
-                <Grid item mt={1}>
-                    <Grid container direction="column" spacing={1}>
-                        <Grid item>
-                            <FormControl sx={{ width: 200 }} variant="standard">
-                                <InputLabel htmlFor="demo-customized-select-native">Lundi</InputLabel>
-                                <Select
-                                    id="demo-customized-select-native"
-                                    value={mondayStatusTeam}
-                                    onChange={handleChangeMondayStatusTeam}
-                                >
-                                    {statuses.map((status, index) => {
-                                        return (
-                                            <MenuItem value={index}>{status}</MenuItem>
-                                        )
-                                    }
-                                    )}
-                                </Select>
-                            </FormControl>
-                        </Grid>
-
-                        <Grid item>
-                            <FormControl sx={{ width: 200 }} variant="standard">
-                                <InputLabel htmlFor="demo-customized-select-native">Mardi</InputLabel>
-                                <Select
-                                    id="demo-customized-select-native"
-                                    value={tuesdayStatusTeam}
-                                    onChange={handleChangeTuesdayStatusTeam}
-                                >
-                                    {statuses.map((status, index) => {
-                                        return (
-                                            <MenuItem value={index}>{status}</MenuItem>
-                                        )
-                                    }
-                                    )}
-                                </Select>
-                            </FormControl>
-                        </Grid>
-
-                        <Grid item>
-                            <FormControl sx={{ width: 200 }} variant="standard">
-                                <InputLabel htmlFor="demo-customized-select-native">Mercredi</InputLabel>
-                                <Select
-                                    id="demo-customized-select-native"
-                                    value={wednesdayStatusTeam}
-                                    onChange={handleChangeWednesdayStatusTeam}
-                                >
-                                    {statuses.map((status, index) => {
-                                        return (
-                                            <MenuItem value={index}>{status}</MenuItem>
-                                        )
-                                    }
-                                    )}
-                                </Select>
-                            </FormControl>
-                        </Grid>
-
-                        <Grid item>
-                            <FormControl sx={{ width: 200 }} variant="standard">
-                                <InputLabel htmlFor="demo-customized-select-native">Jeudi</InputLabel>
-                                <Select
-                                    id="demo-customized-select-native"
-                                    value={thursdayStatusTeam}
-                                    onChange={handleChangeThursdayStatusTeam}
-                                >
-                                    {statuses.map((status, index) => {
-                                        return (
-                                            <MenuItem value={index}>{status}</MenuItem>
-                                        )
-                                    }
-                                    )}
-                                </Select>
-                            </FormControl>
-                        </Grid>
-
-                        <Grid item>
-                            <FormControl sx={{ width: 200 }} variant="standard">
-                                <InputLabel htmlFor="demo-customized-select-native">Vendredi</InputLabel>
-                                <Select
-                                    id="demo-customized-select-native"
-                                    value={fridayStatusTeam}
-                                    onChange={handleChangeFridayStatusTeam}
-                                >
-                                    {statuses.map((status, index) => {
-                                        return (
-                                            <MenuItem value={index}>{status}</MenuItem>
-                                        )
-                                    }
-                                    )}
-                                </Select>
-                            </FormControl>
-                        </Grid>
-
-                    </Grid>
-                </Grid>
-
-
-
-
-
                 <Grid item mt={6}>
                     <Grid container direction="row">
                         <Grid item md={6} />
@@ -511,11 +326,6 @@ export default function WorkRules(props) {
                         </Grid>
                     </Grid>
                 </Grid>
-
-
-
-
-
             </Grid>
         </SettingSectionTemplate>
     )

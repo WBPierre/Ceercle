@@ -22,7 +22,7 @@ function TeamsGrid(props) {
             field: 'name', width: 300, headerAlign: 'center', align: "center", resizable: false,
             renderHeader: () => (
                 <Typography sx={{ fontSize: 20, fontWeight: 'bold' }}>
-                    Nom 🗣️
+                    Nom
                 </Typography>
             )
         },
@@ -30,7 +30,7 @@ function TeamsGrid(props) {
             field: 'color', width: 250, headerAlign: 'center', align: "center", resizable: false,
             renderHeader: () => (
                 <Typography sx={{ fontSize: 20, fontWeight: 'bold' }}>
-                    Couleur 🎨
+                    Couleur
                 </Typography>
             ),
             renderCell: (params) => {
@@ -41,7 +41,7 @@ function TeamsGrid(props) {
             field: 'size', width: 300, headerAlign: 'center', align: "center",
             renderHeader: () => (
                 <Typography sx={{ fontSize: 20, fontWeight: 'bold' }}>
-                    Nombre de salariés 🔟
+                    Nombre de salariés
                 </Typography>
             )
         },

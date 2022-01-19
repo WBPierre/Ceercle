@@ -38,7 +38,7 @@ import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import RuleIcon from '@mui/icons-material/Rule';
 import { red } from '@mui/material/colors';
 import useAuth from "../../../context/auth/AuthHelper";
-
+import EqualizerIcon from '@mui/icons-material/Equalizer';
 const drawerWidth = 200;
 
 const DrawerHeader = styled('div')(({ theme }) => ({
@@ -155,7 +155,22 @@ export default function DrawerCustom(props) {
                             textAlign: 'center',
                             fontStyle: "italic"
                         }}
-                        primary="Paramètres RH"
+                        primary="Espace RH"
+                    />
+                </ListItem>
+                <ListItem disabled button onClick={() => navigate('/app/stats')} style={{backgroundColor: activeRoutes[activeRoutes.length - 1] === "stats" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)'}}>
+                    <ListItemIcon>
+                        <EqualizerIcon sx={{ fontSize: activeRoutes[activeRoutes.length - 1] === "stats" ? 25 : 22, color: "#FFFFFF" }} />
+                    </ListItemIcon>
+                    <ListItemText
+                        primaryTypographyProps={{
+                            color: activeRoutes[activeRoutes.length - 1] === "stats" ? '#FFFFFF' : "#FFFFFF",
+                            fontWeight: activeRoutes[activeRoutes.length - 1] === "stats" ? 700 : 200,
+                            fontSize: 18,
+                            variant: 'body2',
+                            textAlign: 'left'
+                        }}
+                        primary="Statistiques"
                     />
                 </ListItem>
                 <ListItem button onClick={() => navigate('/app/workpolicy')} style={{backgroundColor: activeRoutes[activeRoutes.length - 1] === "workpolicy" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)'}}>

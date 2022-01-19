@@ -5,7 +5,10 @@ const jwt = require("jsonwebtoken");
 
 
 exports.listAllUsers = async function (req, res) {
-    const users = await User.findAll({order:[['createdAt', 'DESC']]} );
+    const users = await User.findAll({
+        where:{companyId: res.locals.auth.user.company.id},
+        order:[['createdAt', 'DESC']]
+    } );
     res.json(users);
 }
 

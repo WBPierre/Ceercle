@@ -13,7 +13,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import {useNavigate} from "react-router-dom";
-import iconPlanet from "../../assets/images/generic/iconPlanet.png";
+import logo from "../../assets/images/logo/logo_2.png";
 import GoogleIcon from "../../components/molecules/icons/GoogleIcon";
 import MicrosoftIcon from "../../components/molecules/icons/MicrosoftIcon";
 import SlackIcon from "../../components/molecules/icons/SlackIcon";
@@ -88,7 +88,7 @@ function Login(){
                 <Grid container direction="column"  alignItems="center" > 
                 
                     <Grid item mt={7}>
-                        <img src={iconPlanet} alt="contact" />
+                        <img src={logo} style={{width:50, height:50}} alt="contact" />
                     </Grid>
 
                     <Grid item mb={3}>
@@ -96,7 +96,7 @@ function Login(){
                         <Typography
                             variant="h6"
                             component="div"
-                            color="#2F5597"
+                            color="#3F07A8"
                             style={{fontWeight:500}}
                             fontSize={24}
                         >
@@ -118,7 +118,7 @@ function Login(){
                             <Grid container direction="row"  alignItems="center" justifyContent="center" spacing={1} mb={1}>
                                 <Grid item md={1}>
                                     <Tooltip title={ t('public:login:connect_with_google') } placement="top">
-                                        <IconButton sx={{mr:2}} onClick={() => handleConnectTest()}>
+                                        <IconButton disabled sx={{mr:2}} onClick={() => handleConnectTest()}>
                                             <GoogleIcon />
                                         </IconButton>    
                                     </Tooltip>
@@ -126,7 +126,7 @@ function Login(){
 
                                 <Grid item md={1}>
                                     <Tooltip title={ t('public:login:connect_with_microsoft') } placement="top">
-                                        <IconButton sx={{mr:2}}>
+                                        <IconButton sx={{mr:2}} disabled>
                                             <MicrosoftIcon />
                                         </IconButton>                     
                                     </Tooltip>
@@ -134,14 +134,14 @@ function Login(){
 
                                 <Grid item md={1}>
                                     <Tooltip title={ t('public:login:connect_with_slack') } placement="top">
-                                        <IconButton sx={{mr:2}}>
+                                        <IconButton sx={{mr:2}} disabled>
                                             <SlackIcon />
                                         </IconButton>                     
                                     </Tooltip>
                                 </Grid>
                             </Grid>
 
-                            <Typography component="h1" variant="h5" color="#2F5597">
+                            <Typography component="h1" variant="h5" color="#3F07A8">
                                 { t('public:login:my_account') }
                             </Typography>
 
@@ -178,7 +178,7 @@ function Login(){
                                 fullWidth
                                 onClick={() => login()}
                                 variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
+                                sx={{ mt: 3, mb: 2, backgroundColor:'#3F07A8' }}
                                 >
                                     { t('public:login:connect_my_self') }
                                 </Button>
