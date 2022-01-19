@@ -20,7 +20,7 @@
       "service_2": "Internal desk reservation",
       "service_3": "Integration with your HRIS and with your preferred tools",
       "service_4": "Dashboard for attendance monitoring and analytics",
-      "max_users": "Up to 500 users"
+      "max_users": "Up to 300 users"
     }
   },
   "offer_2" : {
@@ -32,7 +32,7 @@
       "service_2": "Dedicated priority support",
       "service_3": "Single Sign-On (SSO)",
       "service_4": "Custom pricing ",
-      "max_users": "More than 500 users"
+      "max_users": "More than 300 users"
     }
   },
   "perks" : {
