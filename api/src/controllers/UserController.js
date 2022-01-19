@@ -7,11 +7,54 @@ const uploadBanner = require('../middlewares/UploadBannerMiddleware');
 
 
 exports.listAllUsers = async function (req, res) {
-    const users = await User.findAll({
-        where:{companyId: res.locals.auth.user.company.id},
-        order:[['createdAt', 'DESC']]
-    } );
+    const users = await User.findAll({ order: [['createdAt', 'DESC']] });
     res.json(users);
+}
+
+exports.getUserInfo = async function (req, res, next) {
+    try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            res.status(422).json({ errors: errors.array() });
+            return;
+        }
+        await User.findOne(
+            {
+                where: {
+                    id: res.locals.auth.user.id
+                }
+            }).then(async (record) => {
+                if (!record) {
+                    res.status(404);
+                    res.send();
+                } else {
+                    res.status(200).json({
+                        firstName: record.firstName,
+                        lastName: record.lastName,
+                        email: record.email,
+                        phoneNumber: record.phoneNumber,
+                        isAdmin: record.isAdmin,
+                        defaultWorkingMorningHour: record.defaultWorkingMorningHour,
+                        defaultWorkingMorningMinutes: record.defaultWorkingAfternoonMinutes,
+                        defaultWorkingAfternoonHour: record.defaultWorkingAfternoonHour,
+                        defaultWorkingAfternoonMinutes: record.defaultWorkingAfternoonMinutes,
+                        timezone: record.timezone,
+                        lang: record.lang,
+                        mondayStatus: record.mondayStatus,
+                        tuesdayStatus: record.tuesdayStatus,
+                        wednesdayStatus: record.wednesdayStatus,
+                        thursdayStatus: record.thursdayStatus,
+                        fridayStatus: record.fridayStatus,
+                        position: record.position,
+                        profilePicturePath: record.profilePicturePath,
+                        bannerPath: record.bannerPath,
+                        teams: await record.getTeams()
+                    });
+                }
+            })
+    } catch (err) {
+        return next(err)
+    }
 }
 
 exports.uploadProfile = async function (req, res, next){
@@ -82,23 +125,26 @@ exports.updatePassword = async function(req, res, next) {
         }
         await User.findOne(
             {
-                where:{
+                where: {
                     id: res.locals.auth.user.id
                 }
             }).then(async (record) => {
                 if (!record) {
                     res.status(404);
                     res.send();
-                }else{
-                    if(await Security.verifyPassword(req.body.oldPassword, record.password)) {
+                } else {
+                    if (await Security.verifyPassword(req.body.oldPassword, record.password)) {
                         let password = await Security.hashPassword(req.body.newPassword);
-                        record.update({password: password}).then((updated) => {
+                        record.update({ password: password }).then((updated) => {
                             res.json(updated);
                         })
+                    } else {
+                        res.status(400)
+                        res.send()
                     }
                 }
-         })
-    } catch(err) {
+            })
+    } catch (err) {
         return next(err)
     }
 }
@@ -114,7 +160,7 @@ exports.createUser = async function (req, res, next) {
         req.body.password = await Security.hashPassword(req.body.password)
         const user = await User.create(req.body);
         res.json(user);
-    } catch(err) {
+    } catch (err) {
         return next(err)
     }
 }
@@ -127,29 +173,56 @@ exports.updateUser = async function (req, res, next) {
             res.status(422).json({ errors: errors.array() });
             return;
         }
-        const id = req.params.id;
         await User.findOne(
             {
-                where:{
-                    id:id
+                where: {
+                    id: res.locals.auth.user.id
                 }
             }).then((record) => {
-            if (!record) {
-                res.status(404);
-                res.send();
-            }else{
-                record.update(req.body).then((updated) => {
-                    res.json(updated);
-                })
-            }
-        });
-    } catch(err) {
+                if (!record) {
+                    res.status(404);
+                    res.send();
+                } else {
+                    record.update(req.body).then((updated) => {
+                        res.json(updated);
+                    })
+                }
+            });
+    } catch (err) {
+        return next(err)
+    }
+}
+
+exports.updateUserGeneral = async function (req, res, next) {
+    try {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            res.status(422).json({ errors: errors.array() });
+            return;
+        }
+        await User.findOne(
+            {
+                where: {
+                    id: res.locals.auth.user.id
+                }
+            }).then((record) => {
+                if (!record) {
+                    res.status(404);
+                    res.send();
+                } else {
+                    record.update({ position: req.body.position, phoneNumber: req.body.phoneNumber }).then((updated) => {
+                        res.json(updated);
+                    })
+                }
+            });
+    } catch (err) {
         return next(err)
     }
 }
 
 exports.validate = (method) => {
-    switch(method) {
+    switch (method) {
         case 'getUser': {
             return [
                 param('id', 'id doesn\'t exist').exists(),
@@ -182,6 +255,14 @@ exports.validate = (method) => {
                 body('password', 'password is not a string').isString(),
                 body('phoneNumber', 'phoneNumber is not a string').isString(),
                 body('companyId', 'companyId is not a number').isNumeric(),
+            ]
+        }
+        case 'updateUserGeneral': {
+            return [
+                body('phoneNumber', 'phoneNumber doesn\'t exist').exists(),
+                body('phoneNumber', 'phoneNumber is not a string').isString(),
+                body('position', 'position doesn\'t exist').exists(),
+                body('position', 'position is not a number').isString(),
             ]
         }
         case 'updatePassword': {

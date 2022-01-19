@@ -10,7 +10,6 @@ import InputLabel from '@mui/material/InputLabel';
 import moment from 'moment-timezone';
 import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
-import DoneIcon from '@mui/icons-material/Done';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useSnackbar } from "notistack";
@@ -21,7 +20,6 @@ import SettingSectionTemplate from './SettingSectionTemplate';
 export default function PreferencesSection(props) {
 
     const timezone = moment.tz.names()
-    const theme = useTheme();
     const { t } = useTranslation();
 
     const [hoursAM, setHoursAM] = React.useState(9);

@@ -1,8 +1,6 @@
 import * as React from 'react';
-import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import { useSnackbar } from "notistack";
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Grid from "@mui/material/Grid";
 import Chip from '@mui/material/Chip';
@@ -20,7 +18,6 @@ import {useEffect, useState} from "react";
 import UserService from "../../../../services/app/user.service";
 
 export default function AvatarSection(props) {
-
 
     const [profilePicture, setProfilePicture] = useState('');
     const [bannerPicture, setBannerPicture] = useState('');
@@ -40,7 +37,6 @@ export default function AvatarSection(props) {
             setBannerPicture(res.data.path);
         })
     }
-
 
     const { enqueueSnackbar } = useSnackbar();
     const save = () => {
