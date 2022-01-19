@@ -82,7 +82,7 @@ function PlanningBoard() {
     }
     return(
         <Paper elevation={1} square style={{borderRadius:'25px', minHeight:'30vh'}}>
-            <Grid container direction={"column"} spacing={2} justifyContent={"center"} alignItems={"center"} paddingBottom={"2%"}>
+            <Grid container direction={"column"} spacing={2} justifyContent={"center"} alignItems={"center"} paddingBottom={"1%"}>
                 <Grid item xs={12}>
                     <Grid container direction={"column"}>
                         <Grid item xs={12}>

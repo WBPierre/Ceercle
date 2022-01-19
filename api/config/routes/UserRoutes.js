@@ -10,5 +10,7 @@ router.post('/', [isAdminUser, UserController.validate('createUser')], UserContr
 router.put('/general', [isUserAuthenticated, UserController.validate('updateUserGeneral')], UserController.updateUser);
 router.put('/password', [isUserAuthenticated, UserController.validate('updatePassword')], UserController.updatePassword);
 router.put('/:id', [isUserAuthenticated, UserController.validate('updateUser')], UserController.updateUser);
+router.post('/uploadProfile', [isUserAuthenticated], UserController.uploadProfile);
+router.post('/uploadBanner', [isUserAuthenticated], UserController.uploadBanner);
 
 module.exports = router;

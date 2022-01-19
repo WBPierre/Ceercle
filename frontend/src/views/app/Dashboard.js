@@ -43,7 +43,7 @@ export default function Dashboard(props) {
 
     return (
         <CustomContainer>
-            <Grid wrap={"nowrap"} container direction={"column"} spacing={2}>
+            <Grid wrap={"nowrap"} container direction={"column"} spacing={1}>
                 <Grid item>
                     <PlanningBoard />
                 </Grid>
