@@ -11,7 +11,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
-
+import UserService from "../../../../services/app/user.service";
 import SettingSectionTemplate from './SettingSectionTemplate';
 import { Button, Divider } from "@mui/material";
 
@@ -44,11 +44,50 @@ export default function SecuritySection(props) {
     }
 
     const cancel = () => {
-        enqueueSnackbar('Annulé', {
-            variant: 'cancel'
-        });
+        setCurrentTruePassword("")
+        setNewPassword("")
+        setNewPasswordConfirmed("")
+
     }
 
+    const validate = () => {
+        if (newPasswordConfirmed !== newPassword) return false;
+        return true;
+    }
+
+    const updateUserPassword = async () => {
+        if (validate()) {
+            console.log(currentTruePassword)
+            console.log(newPasswordConfirmed)
+            const resources = {
+                oldPassword: currentTruePassword,
+                newPassword: newPasswordConfirmed
+            };
+            await UserService.updateUserPassword(resources).then(async (res) => {
+                if (res.status === 200) {
+                    enqueueSnackbar('Update saved.', {
+                        variant: 'success'
+                    });
+                    navigate('/app/myaccount');
+                } else {
+                    enqueueSnackbar('Mot de passe incorrect', {
+                        variant: 'error'
+                    });
+                }
+            }).catch(error => {
+                enqueueSnackbar('Mot de passe incorrect', {
+                    variant: 'error'
+                });
+            })
+        } else {
+            enqueueSnackbar('Vérifier la correspondance des mots de passe', {
+                variant: 'warning'
+            });
+        }
+        setCurrentTruePassword("")
+        setNewPassword("")
+        setNewPasswordConfirmed("")
+    }
 
 
     return (
@@ -100,28 +139,16 @@ export default function SecuritySection(props) {
                 </Grid>
 
                 <Grid item>
-                    <div hidden={newPasswordConfirmed != newPassword && newPasswordConfirmed != ""}>
-                        <FormControl sx={{ width: 300 }} variant="standard">
-                            <TextField
-                                id="new_confirmed-password"
-                                type="password"
-                                value={newPasswordConfirmed}
-                                onChange={handleChangeNewPasswordConfirmed}
-                            />
-                        </FormControl>
-                    </div>
-                    <div hidden={newPasswordConfirmed == newPassword || newPasswordConfirmed == ""}>
-                        <FormControl sx={{ width: 300 }} variant="standard">
-                            <TextField
-                                error
-                                id="new_confirmed-password"
-                                type="password"
-                                value={newPasswordConfirmed}
-                                onChange={handleChangeNewPasswordConfirmed}
-                                helperText="Mot de passe incorrect"
-                            />
-                        </FormControl>
-                    </div>
+                    <FormControl sx={{ width: 300 }} variant="standard">
+                        <TextField
+                            error={newPasswordConfirmed !== newPassword && newPasswordConfirmed !== ""}
+                            id="new_confirmed-password"
+                            type="password"
+                            value={newPasswordConfirmed}
+                            onChange={handleChangeNewPasswordConfirmed}
+                            helperText="Mot de passe incorrect"
+                        />
+                    </FormControl>
                 </Grid>
 
 
@@ -146,7 +173,7 @@ export default function SecuritySection(props) {
                                     label="Enregistrer"
                                     sx={{ borderColor: "#3F07A8", color: "#3F07A8", fontWeight: "bold" }}
                                     color="error"
-                                    onClick={save}
+                                    onClick={updateUserPassword}
                                     icon={<CheckCircleIcon />}
                                     variant="outlined"
                                 />

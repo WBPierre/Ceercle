@@ -6,8 +6,6 @@ import { useTranslation } from "react-i18next";
 import Grid from "@mui/material/Grid";
 import { Divider } from "@mui/material";
 import CustomContainer from "../../components/containers/app/CustomContainer";
-
-
 import AvatarSection from '../../components/containers/app/account/AvatarSection';
 import PreferencesSection from '../../components/containers/app/account/PreferencesSection';
 import GeneralSection from '../../components/containers/app/account/GeneralSection';
@@ -15,6 +13,8 @@ import SecuritySection from '../../components/containers/app/account/SecuritySec
 import Button from "@mui/material/Button";
 import { useCookies } from "react-cookie";
 import useAuth from "../../components/context/auth/AuthHelper";
+import UserService from "../../services/app/user.service";
+import { useEffect, useState } from "react";
 
 export default function Account(props) {
 
@@ -30,6 +30,21 @@ export default function Account(props) {
         context.updateAuth(false);
         context.updateUser(null);
         navigate('/app/login');
+    }
+
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        async function getUserInfo() {
+            const res = await UserService.getUserInfo();
+            setUser(res.data);
+            console.log(res.data)
+        }
+        getUserInfo();
+    }, []);
+
+    if (user === null) {
+        return (<div />)
     }
 
     return (
@@ -65,7 +80,7 @@ export default function Account(props) {
 
                 <Divider style={{ backgroundColor: "#E1D2FC" }} />
 
-                <GeneralSection />
+                <GeneralSection user={user} />
 
                 <Divider style={{ backgroundColor: "#E1D2FC" }} />
 

@@ -1,7 +1,5 @@
 import * as React from 'react';
-import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-import { useTranslation } from "react-i18next";
 import Grid from "@mui/material/Grid";
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
@@ -11,22 +9,73 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import SettingSectionTemplate from './SettingSectionTemplate';
+import UserService from "../../../../services/app/user.service";
 
 export default function GeneralSection(props) {
 
     const { enqueueSnackbar } = useSnackbar();
     let navigate = useNavigate();
-    const save = () => {
-        enqueueSnackbar('Paramètres enregistrés.', {
-            variant: 'success'
-        });
-    }
 
     const cancel = () => {
-        enqueueSnackbar('Annulé', {
-            variant: 'cancel'
-        });
+        setPosition(props.user.position)
+        setPhoneNumber(props.user.phoneNumber)
+    }
+
+    const display_teams_names = (teams_list) => {
+        let wording = ""
+        if (teams_list.length > 0) {
+            wording += teams_list[0].name
+            let i = 1
+            while (i < teams_list.length) {
+                wording += " ," + teams_list[i].name
+                i += 1
+            }
+        }
+        return wording
+    }
+
+    const [position, setPosition] = useState(props.user.position);
+    const [phoneNumber, setPhoneNumber] = useState(props.user.phoneNumber);
+
+    const onChangePhoneNumber = (event) => {
+        setPhoneNumber(event.target.value);
+    }
+
+    const onChangePosition = (event) => {
+        setPosition(event.target.value);
+    }
+
+    const validate = () => {
+        if (position === '') return false;
+        if (phoneNumber === '') return false;
+        return true;
+    }
+
+    const updateUserInfo = async () => {
+        if (validate()) {
+            const resources = {
+                position: position,
+                phoneNumber: phoneNumber
+            };
+            await UserService.updateUserGeneral(resources).then(async (res) => {
+                if (res.status === 200) {
+                    enqueueSnackbar('Update saved.', {
+                        variant: 'success'
+                    });
+                    navigate('/app/myaccount');
+                } else {
+                    enqueueSnackbar('Server returned an error.', {
+                        variant: 'error'
+                    });
+                }
+            })
+        } else {
+            enqueueSnackbar('Please fill all fields', {
+                variant: 'warning'
+            });
+        }
     }
 
     return (
@@ -44,7 +93,7 @@ export default function GeneralSection(props) {
                         <TextField
                             disabled
                             id="outlined-disabled"
-                            defaultValue="Louis Lacaille"
+                            defaultValue={props.user.firstName + " " + props.user.lastName}
                             variant="standard"
                         />
                     </FormControl>
@@ -63,7 +112,7 @@ export default function GeneralSection(props) {
                         <TextField
                             disabled
                             id="outlined-disabled"
-                            defaultValue="Finances"
+                            defaultValue={display_teams_names(props.user.teams)}
                             variant="standard"
                         />
                     </FormControl>
@@ -81,7 +130,9 @@ export default function GeneralSection(props) {
                     <FormControl sx={{ width: 300 }} variant="standard" disabled>
                         <TextField
                             id="filled-search"
-                            defaultValue="Contrôleur de gestion"
+                            defaultValue={position}
+                            value={position}
+                            onChange={onChangePosition}
                             variant="standard"
                         />
                     </FormControl>
@@ -100,7 +151,7 @@ export default function GeneralSection(props) {
                             disabled
                             id="outlined-disabled"
                             name="email"
-                            defaultValue="louis.lacaille@spacecorner.io"
+                            defaultValue={props.user.email}
                             variant="standard"
                         />
                     </FormControl>
@@ -118,7 +169,9 @@ export default function GeneralSection(props) {
                     <FormControl sx={{ width: 300 }} variant="standard" disabled>
                         <TextField
                             id="filled-search"
-                            defaultValue="+33 6 74 49 76 33"
+                            defaultValue={phoneNumber}
+                            onChange={onChangePhoneNumber}
+                            value={phoneNumber}
                             variant="standard"
                             name="phone-number"
                         />
@@ -147,7 +200,7 @@ export default function GeneralSection(props) {
                                     label="Enregistrer"
                                     sx={{ borderColor: "#3F07A8", color: "#3F07A8", fontWeight: "bold" }}
                                     color="error"
-                                    onClick={save}
+                                    onClick={updateUserInfo}
                                     icon={<CheckCircleIcon />}
                                     variant="outlined"
                                 />

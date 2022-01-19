@@ -1,4 +1,4 @@
-const {param, body, validationResult} = require("express-validator");
+const { param, body, validationResult } = require("express-validator");
 const User = require('../models/User');
 const Company = require('../models/Company');
 const Security = require('../services/Security');
@@ -9,27 +9,27 @@ const RefreshToken = require("../models/RefreshToken");
 exports.adminVerify = function (req, res, next) {
     const authHeader = req.headers.authorization;
 
-    if(!authHeader) {
+    if (!authHeader) {
         return res.sendStatus(400);
     } else {
         jwt.verify(authHeader.split(' ')[1], process.env.JWT_SECRET, async (err, authData) => {
-            if(err) return res.status(401).json(err);
-            if(authData.user.companyId === undefined){
+            if (err) return res.status(401).json(err);
+            if (authData.user.companyId === undefined) {
                 res.sendStatus(403);
-            }else{
+            } else {
                 await Company.findOne({
-                    where:{
+                    where: {
                         id: authData.user.companyId
                     }
                 }).then(async (companyRecord) => {
-                    if(!companyRecord){
+                    if (!companyRecord) {
                         res.status(403);
                         res.send();
-                    }else{
-                        if(companyRecord.name !== "Ceercle"){
+                    } else {
+                        if (companyRecord.name !== "Ceercle") {
                             res.status(403);
                             res.send();
-                        }else{
+                        } else {
                             res.status(200).json({
                                 firstName: authData.user.firstName,
                                 lastName: authData.user.lastName,
@@ -51,58 +51,58 @@ exports.adminLogin = async function (req, res, next) {
             res.status(422).json({ errors: errors.array() });
             return;
         }
-        const {email, password} = req.body
+        const { email, password } = req.body
         await User.findOne(
             {
-                where:{
-                    email:email
+                where: {
+                    email: email
                 }
             }).then(async (record) => {
-            if (!record) {
-                res.status(404);
-                res.send();
-            }else{
-                if(record.active){
-                    await Company.findOne({
-                        where:{
-                            id: record.companyId
-                        }
-                    }).then(async (companyRecord) => {
-                        if(!companyRecord){
-                            res.status(403);
-                            res.send();
-                        }else{
-                            if(companyRecord.name !== "Ceercle"){
+                if (!record) {
+                    res.status(404);
+                    res.send();
+                } else {
+                    if (record.active) {
+                        await Company.findOne({
+                            where: {
+                                id: record.companyId
+                            }
+                        }).then(async (companyRecord) => {
+                            if (!companyRecord) {
                                 res.status(403);
                                 res.send();
-                            }else{
-                                if(Security.verifyPassword(password, record.password)) {
-                                    jwt.sign({
-                                        user: {
-                                            id: record.id,
-                                            firstName: record.firstName,
-                                            lastName: record.lastName,
-                                            email: record.email,
-                                            companyId: record.companyId,
-                                            active: record.active,
-                                            isAdmin: record.isAdmin
-                                        }
-                                    }, process.env.JWT_SECRET, {expiresIn: config.jwtExpiration}, async (err, token) => {
-                                        if (err) res.send(err);
-                                        let refreshToken = await RefreshToken.createToken(record.id);
-                                        res.json({token: token, refreshToken: refreshToken});
-                                    });
+                            } else {
+                                if (companyRecord.name !== "Ceercle") {
+                                    res.status(403);
+                                    res.send();
+                                } else {
+                                    if (Security.verifyPassword(password, record.password)) {
+                                        jwt.sign({
+                                            user: {
+                                                id: record.id,
+                                                firstName: record.firstName,
+                                                lastName: record.lastName,
+                                                email: record.email,
+                                                companyId: record.companyId,
+                                                active: record.active,
+                                                isAdmin: record.isAdmin
+                                            }
+                                        }, process.env.JWT_SECRET, { expiresIn: config.jwtExpiration }, async (err, token) => {
+                                            if (err) res.send(err);
+                                            let refreshToken = await RefreshToken.createToken(record.id);
+                                            res.json({ token: token, refreshToken: refreshToken });
+                                        });
+                                    }
                                 }
                             }
-                        }
-                    })
-                }else{
-                    res.status(403);
-                    res.send();
+                        })
+                    } else {
+                        res.status(403);
+                        res.send();
+                    }
                 }
-            }
-        });
-    } catch(err) {
+            });
+    } catch (err) {
         return next(err)
     }
 }
@@ -116,44 +116,45 @@ exports.login = async function (req, res, next) {
             res.status(422).json({ errors: errors.array() });
             return;
         }
-        const {email, password} = req.body
+        const { email, password } = req.body
         await User.findOne(
             {
-                where:{
-                    email:email
+                where: {
+                    email: email
                 }
             }).then(async (record) => {
-            if (!record) {
-                res.status(404);
-                res.send();
-            }else{
-                if(record.active){
-                    if(Security.verifyPassword(password, record.password)){
-                        jwt.sign({
-                            user: {
-                                id: record.id,
-                                firstName: record.firstName,
-                                lastName: record.lastName,
-                                email: record.email,
-                                company: await record.getCompany(),
-                                active: record.active,
-                                isAdmin: record.isAdmin,
-                            }}, process.env.JWT_SECRET, {expiresIn: config.jwtExpiration}, async (err, token) => {
-                            if(err) res.send(err);
-                            let refreshToken = await RefreshToken.createToken(record.id);
-                            res.json({token: token, refreshToken: refreshToken});
-                        });
-                    }else{
+                if (!record) {
+                    res.status(404);
+                    res.send();
+                } else {
+                    if (record.active) {
+                        if (Security.verifyPassword(password, record.password)) {
+                            jwt.sign({
+                                user: {
+                                    id: record.id,
+                                    firstName: record.firstName,
+                                    lastName: record.lastName,
+                                    email: record.email,
+                                    company: await record.getCompany(),
+                                    active: record.active,
+                                    isAdmin: record.isAdmin,
+                                }
+                            }, process.env.JWT_SECRET, { expiresIn: config.jwtExpiration }, async (err, token) => {
+                                if (err) res.send(err);
+                                let refreshToken = await RefreshToken.createToken(record.id);
+                                res.json({ token: token, refreshToken: refreshToken });
+                            });
+                        } else {
+                            res.status(403);
+                            res.send();
+                        }
+                    } else {
                         res.status(403);
                         res.send();
                     }
-                }else{
-                    res.status(403);
-                    res.send();
                 }
-            }
-        });
-    } catch(err) {
+            });
+    } catch (err) {
         return next(err)
     }
 }
@@ -161,20 +162,20 @@ exports.login = async function (req, res, next) {
 exports.verify = function (req, res, next) {
     const authHeader = req.headers.authorization;
 
-    if(!authHeader) {
+    if (!authHeader) {
         return res.sendStatus(400);
     } else {
         jwt.verify(authHeader.split(' ')[1], process.env.JWT_SECRET, async (err, authData) => {
-            if(err){
+            if (err) {
                 return res.status(401).json(err);
             }
             const record = await User.findOne(
                 {
-                    where:{
-                        id:authData.user.id
+                    where: {
+                        id: authData.user.id
                     }
                 });
-            if(!record){
+            if (!record) {
                 res.status(403);
                 res.send();
             }
@@ -182,7 +183,7 @@ exports.verify = function (req, res, next) {
                 firstName: record.firstName,
                 lastName: record.lastName,
                 email: record.email,
-                phone: record.phone,
+                phoneNumber: record.phoneNumber,
                 isAdmin: record.isAdmin,
                 defaultWorkingMorningHour: record.defaultWorkingMorningHour,
                 defaultWorkingMorningMinutes: record.defaultWorkingAfternoonMinutes,
@@ -196,7 +197,7 @@ exports.verify = function (req, res, next) {
                 thursdayStatus: record.thursdayStatus,
                 fridayStatus: record.fridayStatus,
                 position: record.position,
-                profilePicturePath:record.profilePicturePath,
+                profilePicturePath: record.profilePicturePath,
                 bannerPath: record.bannerPath,
                 company: await record.getCompany()
             });
@@ -209,32 +210,34 @@ exports.refreshToken = async function (req, res, next) {
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
-            res.status(422).json({errors: errors.array()});
+            res.status(422).json({ errors: errors.array() });
             return;
         }
-        let refreshToken = await RefreshToken.findOne({where: {token: req.body.refreshToken}});
-        if(!refreshToken) {
+        let refreshToken = await RefreshToken.findOne({ where: { token: req.body.refreshToken } });
+        if (!refreshToken) {
             res.sendStatus(403);
             return;
         }
-        if(RefreshToken.verifyExpiration(refreshToken)){
-            RefreshToken.destroy({where:{id: refreshToken.id}});
+        if (RefreshToken.verifyExpiration(refreshToken)) {
+            RefreshToken.destroy({ where: { id: refreshToken.id } });
             res.sendStatus(403);
             return;
         }
         let user = await refreshToken.getUser();
         let newAccessToken = await jwt.sign(
-        {user: {
-                id: user.id,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                email: user.email,
-                company: await user.getCompany(),
-                active: user.active,
-                isAdmin: user.isAdmin,
-            }},
-            process.env.JWT_SECRET, {expiresIn: config.jwtExpiration});
-        return res.json({token: newAccessToken, refreshToken: refreshToken.token});
+            {
+                user: {
+                    id: user.id,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    email: user.email,
+                    company: await user.getCompany(),
+                    active: user.active,
+                    isAdmin: user.isAdmin,
+                }
+            },
+            process.env.JWT_SECRET, { expiresIn: config.jwtExpiration });
+        return res.json({ token: newAccessToken, refreshToken: refreshToken.token });
     } catch (err) {
         return next(err)
     }

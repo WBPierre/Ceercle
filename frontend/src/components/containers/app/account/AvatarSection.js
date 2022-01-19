@@ -1,13 +1,9 @@
 import * as React from 'react';
-import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import { useSnackbar } from "notistack";
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Grid from "@mui/material/Grid";
 import Chip from '@mui/material/Chip';
-import DoneIcon from '@mui/icons-material/Done';
-import DeleteIcon from '@mui/icons-material/Delete';
 import { Avatar } from '@mui/material';
 import example1 from "../../../../assets/images/example/1.jpg";
 import banniere2 from "../../../../assets/images/app/banniere3.jpg";
@@ -19,8 +15,6 @@ import SettingSectionTemplate from './SettingSectionTemplate';
 
 export default function AvatarSection(props) {
 
-    const theme = useTheme();
-    let navigate = useNavigate();
     const { t } = useTranslation();
 
 
@@ -43,7 +37,7 @@ export default function AvatarSection(props) {
                 <Grid item>
                     <Grid container direction="row">
 
-                        <Grid item md={5} pl={7}>
+                        <Grid item md={5} pl={3}>
                             <Avatar src={example1} sx={{ width: 120, height: 120, border: "4px solid white" }} />
                         </Grid>
                         <Grid item md={7}>
