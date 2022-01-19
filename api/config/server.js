@@ -9,6 +9,7 @@ const server = express()
 server.use(bodyParser.urlencoded({extended: true}));
 server.use(bodyParser.json());
 
+server.use('/public', express.static('public'));
 
 async function init() {
     if(await verifyDatabase()){

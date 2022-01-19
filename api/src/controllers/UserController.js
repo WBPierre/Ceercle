@@ -2,6 +2,8 @@ const User = require("../models/User");
 const Security = require('../services/Security');
 const { body, param, validationResult } = require('express-validator')
 const jwt = require("jsonwebtoken");
+const uploadProfile = require('../middlewares/UploadProfileMiddleware');
+const uploadBanner = require('../middlewares/UploadBannerMiddleware');
 
 
 exports.listAllUsers = async function (req, res) {
@@ -10,6 +12,64 @@ exports.listAllUsers = async function (req, res) {
         order:[['createdAt', 'DESC']]
     } );
     res.json(users);
+}
+
+exports.uploadProfile = async function (req, res, next){
+    try {
+        await uploadProfile(req, res);
+
+        if (req.file == undefined) {
+            return res.status(400).send({ message: "Please upload a file!" });
+        }
+        const url = req.protocol + '://' + process.env.STORAGE_HOST+':'+process.env.STORAGE_PORT + "/public/assets/profile/"+req.file.filename
+        await User.findOne(
+            {
+                where:{
+                    id: res.locals.auth.user.id
+                }
+            }).then(async (record) => {
+            if (!record) {
+                res.status(404);
+                res.send();
+            }else{
+                await record.update({profilePicturePath: url});
+            }
+        })
+        res.status(200).send({path:url});
+    } catch (err) {
+        res.status(500).send({
+            message: `Could not upload the file: ${req.file.originalname}. ${err}`,
+        });
+    }
+}
+
+exports.uploadBanner = async function (req, res, next){
+    try {
+        await uploadBanner(req, res);
+
+        if (req.file == undefined) {
+            return res.status(400).send({ message: "Please upload a file!" });
+        }
+        const url = req.protocol + '://' + process.env.STORAGE_HOST+':'+process.env.STORAGE_PORT + "/public/assets/banner/"+req.file.filename
+        await User.findOne(
+            {
+                where:{
+                    id: res.locals.auth.user.id
+                }
+            }).then(async (record) => {
+            if (!record) {
+                res.status(404);
+                res.send();
+            }else{
+                await record.update({bannerPath: url})
+            }
+        })
+        res.status(200).send({path:url});
+    } catch (err) {
+        res.status(500).send({
+            message: `Could not upload the file: ${req.file.originalname}. ${err}`,
+        });
+    }
 }
 
 exports.updatePassword = async function(req, res, next) {
@@ -130,6 +190,12 @@ exports.validate = (method) => {
                 body('oldPassword', 'oldPassword is not a string').isString(),
                 body('newPassword', 'newPassword is not a string').exists(),
                 body('newPassword', 'newPassword is not a string').isString(),
+            ]
+        }
+        case 'downloadImage':{
+            return [
+                param('filename', 'filename is not a string').exists(),
+                param('filename', 'filename is not a string').isString()
             ]
         }
     }
