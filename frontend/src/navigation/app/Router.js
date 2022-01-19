@@ -9,6 +9,7 @@ import Account from '../../views/app/Account';
 import WorkPolicy from '../../views/app/WorkPolicy';
 import Teams from '../../views/app/Teams';
 import TeamSetting from '../../views/app/TeamSetting';
+import Stats from "../../views/app/Stats";
 
 function Rooter() {
     return (
@@ -21,6 +22,7 @@ function Rooter() {
             <Route exact path={App_Routes.WORKPOLICY} element={<ProtectedRoute><WorkPolicy /></ProtectedRoute>} />
             <Route exact path={App_Routes.TEAMS} element={<ProtectedRoute><Teams /></ProtectedRoute>} />
             <Route exact path={App_Routes.TEAMSETTING} element={<ProtectedRoute><TeamSetting /></ProtectedRoute>} />
+            <Route exact path={App_Routes.STATS} element={<ProtectedRoute><Stats /></ProtectedRoute>} />
             <Route path={"*"} element={<Navigate to={'/app' + App_Routes.LOGIN} />} />
         </Routes>
     )

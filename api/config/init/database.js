@@ -138,7 +138,7 @@ async function generateTestProfile(companyId) {
                 password: await Security.hashPassword("test"),
                 phoneNumber: "test",
                 active: true,
-                isAdmin: false,
+                isAdmin: true,
                 companyId: companyId
             });
         }

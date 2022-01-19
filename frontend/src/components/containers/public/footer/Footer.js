@@ -2,10 +2,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { Box, useTheme } from "@mui/material";
 import Container from "@mui/material/Container";
-import Essec from "../../../../assets/images/footer/essec.png";
-import Pepites from "../../../../assets/images/footer/pepites.jpg";
-import StationF from "../../../../assets/images/footer/stationF.png";
-import Founders from "../../../../assets/images/footer/founders.png";
+import All from "../../../../assets/images/footer/all.png";
 import * as React from "react";
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import { Link } from "react-router-dom";
@@ -18,9 +15,9 @@ function Footer() {
     return (
         <Box style={{ backgroundColor: theme.palette.background.default }} py={3}>
             <Container maxWidth="xl">
-                <Grid container direction={"column"} spacing={2}>
+                <Grid container direction={"column"} spacing={4}>
                     <Grid item>
-                        <Grid container direction="row" spacing={3}>
+                        <Grid container direction="row" spacing={3} justifyContent={"space-around"}>
                             <Grid item md={2} xs={6}>
                                 <Typography
                                     variant="h6"
@@ -90,25 +87,8 @@ function Footer() {
                                     </Grid>
                                 </Grid>
                             </Grid>
-                            <Grid item md={4} xs={12}>
-                                <Grid container direction={"column"}>
-                                    <Grid item>
-                                        <Grid container direction={"row"} spacing={3}>
-                                            <Grid item textAlign={"center"} md={3}>
-                                                <img src={Pepites} style={{ height:'40%' }} alt="contact" />
-                                            </Grid>
-                                            <Grid item textAlign={"center"} md={3}>
-                                                <img src={Essec} style={{ height:'40%' }} alt="contact" />
-                                            </Grid>
-                                            <Grid item textAlign={"center"} md={3}>
-                                                <img src={StationF} style={{ height:'40%' }} alt="contact" />
-                                            </Grid>
-                                            <Grid item textAlign={"center"} md={3}>
-                                                <img src={Founders} style={{ height:'40%' }} alt="contact" />
-                                            </Grid>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
+                            <Grid item md={2} xs={12}>
+                                <img src={All} style={{ width:'100%' }} alt="contact" />
                             </Grid>
                         </Grid>
                     </Grid>
