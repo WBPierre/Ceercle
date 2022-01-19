@@ -118,25 +118,31 @@ function Login(){
                             <Grid container direction="row"  alignItems="center" justifyContent="center" spacing={1} mb={1}>
                                 <Grid item md={1}>
                                     <Tooltip title={ t('public:login:connect_with_google') } placement="top">
-                                        <IconButton disabled sx={{mr:2}} onClick={() => handleConnectTest()}>
-                                            <GoogleIcon />
-                                        </IconButton>    
+                                        <span>
+                                            <IconButton sx={{mr:2}} disabled>
+                                                <GoogleIcon />
+                                            </IconButton>
+                                        </span>
                                     </Tooltip>
                                 </Grid>
 
                                 <Grid item md={1}>
                                     <Tooltip title={ t('public:login:connect_with_microsoft') } placement="top">
-                                        <IconButton sx={{mr:2}} disabled>
-                                            <MicrosoftIcon />
-                                        </IconButton>                     
+                                        <span>
+                                            <IconButton sx={{mr:2}} disabled>
+                                                <MicrosoftIcon />
+                                            </IconButton>
+                                        </span>
                                     </Tooltip>
                                 </Grid>
 
                                 <Grid item md={1}>
                                     <Tooltip title={ t('public:login:connect_with_slack') } placement="top">
-                                        <IconButton sx={{mr:2}} disabled>
-                                            <SlackIcon />
-                                        </IconButton>                     
+                                        <span>
+                                            <IconButton sx={{mr:2}} disabled>
+                                                <SlackIcon />
+                                            </IconButton>
+                                        </span>
                                     </Tooltip>
                                 </Grid>
                             </Grid>
@@ -168,6 +174,9 @@ function Login(){
                                 autoComplete="current-password"
                                 value={password}
                                 onChange={handleChange}
+                                onKeyPress={(e) => {if (e.key === 'Enter') {
+                                    login();
+                                }}}
                                 />
                                 <FormControlLabel
                                 control={<Checkbox value="remember" sx={{color:"#363535"}} />}

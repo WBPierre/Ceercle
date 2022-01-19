@@ -7,5 +7,7 @@ const {isUserAuthenticated, isAdminUser} = require("../../src/middlewares/AuthMi
 router.get('/', isAdminUser, UserController.listAllUsers);
 router.post('/', [isAdminUser, UserController.validate('createUser')], UserController.createUser);
 router.put('/:id', [isUserAuthenticated, UserController.validate('updateUser')], UserController.updateUser);
+router.post('/uploadProfile', [isUserAuthenticated], UserController.uploadProfile);
+router.post('/uploadBanner', [isUserAuthenticated], UserController.uploadBanner);
 
 module.exports = router;
