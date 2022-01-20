@@ -4,7 +4,7 @@ WORKDIR /app
 COPY package.json ./
 COPY package-lock.json ./
 COPY ./ ./
-RUN npm install -g npm@latest && chmod -R 777 node_modules/.cache
+RUN npm install -g npm@latest && mkdir node_modules/.cache && chmod -R 777 node_modules/.cache
 CMD ["/bin/sh", "tools/entrypoint.sh"]
 
 
@@ -19,7 +19,7 @@ COPY yarn.lock .
 RUN yarn install --ignore-engines --production
 # Copy app files
 COPY . .
-RUN npm install -g npm@latest && chmod -R 777 node_modules/.cache
+RUN npm install -g npm@latest && mkdir node_modules/.cache && chmod -R 777 node_modules/.cache
 # Build the app
 RUN yarn build
 
