@@ -29,7 +29,7 @@ services:
       - /admin/node_modules
       - ./admin:/app
     ports:
-      - "81:2000"
+      - "81:81"
   api:
     container_name: api-prod
     image: api-prod
