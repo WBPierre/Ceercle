@@ -9,6 +9,7 @@ COPY package-lock.json ./
 COPY . .
 # Expose port
 EXPOSE 8080
+RUN apk --no-cache add --virtual builds-deps build-base python
 # Start the app
 CMD ["/bin/sh", "tools/entrypoint.sh"]
 
