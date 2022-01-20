@@ -10,7 +10,6 @@ COPY . .
 # Expose port
 EXPOSE 8080
 # Start the app
-RUN apk add --update python make g++ && rm -rf /var/cache/apk/*
 CMD ["/bin/sh", "tools/entrypoint.sh"]
 
 FROM node:16-alpine AS production
