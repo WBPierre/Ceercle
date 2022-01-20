@@ -21,7 +21,7 @@ deploy_stage:
       '
       cd ~/app
       && git status
-      && docker-compose stop
+      && docker-compose -f docker-compose.dev.yml stop
       && git pull
       && export PATH="$PATH:/home/ubuntu/.nvm/versions/node/v17.0.1/bin"
       && docker-compose -f docker-compose.dev.yml up -d
