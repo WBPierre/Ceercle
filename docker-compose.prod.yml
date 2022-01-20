@@ -13,8 +13,19 @@ services:
     volumes:
       - /frontend/node_modules
       - ./frontend:/app
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
     ports:
       - "80:80"
+      - "443:443"
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    command: certonly --webroot -w /var/www/certbot --force-renewal --email contact@ceercle.io -d ceercle.io -d www.ceercle.io --agree-tos
 
   admin:
     container_name: admin-prod
