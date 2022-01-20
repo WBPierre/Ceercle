@@ -27,20 +27,6 @@ services:
       - ./certbot/www:/var/www/certbot
     command: certonly --webroot -w /var/www/certbot --force-renewal --email contact@ceercle.io -d ceercle.io -d www.ceercle.io --agree-tos
 
-  admin:
-    container_name: admin-prod
-    image: admin-prod
-    build:
-      dockerfile: Dockerfile
-      target: production
-      context: ./admin
-    depends_on:
-      - api
-    volumes:
-      - /admin/node_modules
-      - ./admin:/app
-    ports:
-      - "81:81"
   api:
     container_name: api-prod
     image: api-prod
