@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  frontend:
+    container_name: frontend-prod
+    image: frontend-prod
+    build:
+      dockerfile: Dockerfile
+      target: production
+      context: ./frontend
+    volumes:
+      - /frontend/node_modules
+      - ./frontend:/app
+    ports:
+      - "80:3000"
+
+  admin:
+    container_name: admin-prod
+    image: admin-prod
+    build:
+      dockerfile: Dockerfile
+      target: production
+      context: ./admin
+    volumes:
+      - /admin/node_modules
+      - ./admin:/app
+    ports:
+      - "81:2000"

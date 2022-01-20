@@ -1,0 +1,15 @@
+version: '3.8'
+
+services :
+  api:
+    container_name: api-prod
+    image: api-prod
+    build:
+      dockerfile: Dockerfile
+      context: ./api
+      target: production
+    volumes:
+      - /api/node_modules
+      - ./api:/api
+    ports:
+      - "8080:8080"

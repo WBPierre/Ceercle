@@ -1,6 +1,27 @@
-FROM node:16-alpine
+FROM node:16-alpine AS development
+ENV NODE_ENV development
+# Add a work directory
 WORKDIR /api
-COPY package.json ./
-COPY package-lock.json ./
-COPY ./ ./
+# Cache and Install dependencies
+COPY package.json .
+RUN npm install
+# Copy app files
+COPY . .
+# Expose port
+EXPOSE 8080
+# Start the app
+CMD ["/bin/sh", "tools/entrypoint.sh"]
+
+FROM node:16-alpine AS production
+ENV NODE_ENV production
+# Add a work directory
+WORKDIR /api
+# Cache and Install dependencies
+COPY package.json .
+RUN npm install --production
+# Copy app files
+COPY . .
+# Expose port
+EXPOSE 8080
+# Start the app
 CMD ["/bin/sh", "tools/entrypoint.sh"]

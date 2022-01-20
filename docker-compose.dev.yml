@@ -1,13 +1,16 @@
-version: '3'
+version: '3.8'
 
 services :
   api:
+    container_name: api-dev
+    image: api-dev
     stdin_open: true
     environment:
       CHOKIDAR_USEPOLLING: "true"
     build:
       dockerfile: Dockerfile
       context: ./api
+      target: development
     depends_on:
       - postgres
     volumes:
@@ -17,12 +20,15 @@ services :
       - "8080:8080"
 
   frontend:
+    container_name: frontend-dev
+    image: frontend-dev
     stdin_open: true
     environment:
       CHOKIDAR_USEPOLLING: "true"
     build:
       dockerfile: Dockerfile
       context: ./frontend
+      target: development
     volumes:
       - /frontend/node_modules
       - ./frontend:/app
@@ -32,9 +38,12 @@ services :
       - "80:3000"
 
   admin:
+    container_name: admin-dev
+    image: admin-dev
     build:
       dockerfile: Dockerfile
       context: ./admin
+      target: development
     volumes:
       - /admin/node_modules
       - ./admin:/app
