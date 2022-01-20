@@ -1,4 +1,4 @@
-FROM node:16-alpine AS development
+FROM node:16 AS development
 ENV NODE_ENV development
 # Add a work directory
 WORKDIR /api
@@ -12,7 +12,7 @@ EXPOSE 8080
 # Start the app
 CMD ["/bin/sh", "tools/entrypoint.sh"]
 
-FROM node:16-alpine AS production
+FROM node:16 AS production
 ENV NODE_ENV production
 # Add a work directory
 WORKDIR /api
