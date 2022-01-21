@@ -28,7 +28,7 @@ function Teams() {
 
     useEffect(() => {
         async function listAllTeams() {
-            const res = await TeamService.listAllTeams();
+            //const res = await TeamService.listAllTeams();
             // setListTeams(res.data);
             setListTeams([{ 'id': '0', 'name': "Finances", 'size': 7, 'color': "#046AFC" },
             { 'id': '1', 'name': "Marketing", 'size': 11, 'color': "#FC1704" },
