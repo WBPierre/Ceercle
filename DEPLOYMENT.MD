@@ -26,3 +26,7 @@ In your Gitlab account :
 
 On server :  
 ```cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys```
+
+### Ref 
+#### Tuto certbot
+https://mindsers.blog/fr/post/configurer-https-nginx-docker-lets-encrypt/
