@@ -57,28 +57,28 @@ exports.getUserInfo = async function (req, res, next) {
     }
 }
 
-exports.uploadProfile = async function (req, res, next){
+exports.uploadProfile = async function (req, res, next) {
     try {
         await uploadProfile(req, res);
 
         if (req.file == undefined) {
             return res.status(400).send({ message: "Please upload a file!" });
         }
-        const url = req.protocol + '://' + process.env.STORAGE_HOST+':'+process.env.STORAGE_PORT + "/public/assets/profile/"+req.file.filename
+        const url = req.protocol + '://' + process.env.STORAGE_HOST + ':' + process.env.STORAGE_PORT + "/public/assets/profile/" + req.file.filename
         await User.findOne(
             {
-                where:{
+                where: {
                     id: res.locals.auth.user.id
                 }
             }).then(async (record) => {
-            if (!record) {
-                res.status(404);
-                res.send();
-            }else{
-                await record.update({profilePicturePath: url});
-            }
-        })
-        res.status(200).send({path:url});
+                if (!record) {
+                    res.status(404);
+                    res.send();
+                } else {
+                    await record.update({ profilePicturePath: url });
+                }
+            })
+        res.status(200).send({ path: url });
     } catch (err) {
         res.status(500).send({
             message: `Could not upload the file: ${req.file.originalname}. ${err}`,
@@ -86,28 +86,28 @@ exports.uploadProfile = async function (req, res, next){
     }
 }
 
-exports.uploadBanner = async function (req, res, next){
+exports.uploadBanner = async function (req, res, next) {
     try {
         await uploadBanner(req, res);
 
         if (req.file == undefined) {
             return res.status(400).send({ message: "Please upload a file!" });
         }
-        const url = req.protocol + '://' + process.env.STORAGE_HOST+':'+process.env.STORAGE_PORT + "/public/assets/banner/"+req.file.filename
+        const url = req.protocol + '://' + process.env.STORAGE_HOST + ':' + process.env.STORAGE_PORT + "/public/assets/banner/" + req.file.filename
         await User.findOne(
             {
-                where:{
+                where: {
                     id: res.locals.auth.user.id
                 }
             }).then(async (record) => {
-            if (!record) {
-                res.status(404);
-                res.send();
-            }else{
-                await record.update({bannerPath: url})
-            }
-        })
-        res.status(200).send({path:url});
+                if (!record) {
+                    res.status(404);
+                    res.send();
+                } else {
+                    await record.update({ bannerPath: url })
+                }
+            })
+        res.status(200).send({ path: url });
     } catch (err) {
         res.status(500).send({
             message: `Could not upload the file: ${req.file.originalname}. ${err}`,
@@ -115,7 +115,7 @@ exports.uploadBanner = async function (req, res, next){
     }
 }
 
-exports.updatePassword = async function(req, res, next) {
+exports.updatePassword = async function (req, res, next) {
     try {
         const errors = validationResult(req);
 
@@ -273,7 +273,7 @@ exports.validate = (method) => {
                 body('newPassword', 'newPassword is not a string').isString(),
             ]
         }
-        case 'downloadImage':{
+        case 'downloadImage': {
             return [
                 param('filename', 'filename is not a string').exists(),
                 param('filename', 'filename is not a string').isString()
