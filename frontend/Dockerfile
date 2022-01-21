@@ -29,9 +29,9 @@ ENV NODE_ENV production
 # Copy built assets from builder
 COPY --from=builder /app/build /usr/share/nginx/html
 # Add your nginx.conf WHEN CEERCLE.IO IS READY
-# COPY /nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY /nginx/nginx.conf /etc/nginx/conf.d/default.conf
 # Add your nginx.conf FOR DEFAULT HTTP
-COPY /nginx/nginxHTTP.conf /etc/nginx/conf.d/default.conf
+#COPY /nginx/nginxHTTP.conf /etc/nginx/conf.d/default.conf
 # Expose port
 EXPOSE 80 443
 # Start nginx
