@@ -10,6 +10,7 @@ services:
       context: ./frontend
     depends_on:
       - api
+    restart: always
     volumes:
       - /frontend/node_modules
       - ./frontend:/app
