@@ -3,15 +3,14 @@ const Company = require("../models/Company");
 
 exports.isUserAuthenticated = (req, res, next) => {
     const authHeader = req.headers.authorization;
-
-    if(!authHeader) {
+    if (!authHeader) {
         return res.status(403).json({
             message: 'FORBIDDEN'
         })
     } else {
         jwt.verify(authHeader.split(' ')[1], process.env.JWT_SECRET, (err, authData) => {
-            if(err) return res.status(401).json(err);
-            res.locals.auth=authData
+            if (err) return res.status(401).json(err);
+            res.locals.auth = authData
             next();
         });
     }
@@ -20,15 +19,15 @@ exports.isUserAuthenticated = (req, res, next) => {
 exports.isAdminUser = (req, res, next) => {
     const authHeader = req.headers.authorization;
 
-    if(!authHeader) {
+    if (!authHeader) {
         return res.status(403).json({
             message: 'FORBIDDEN'
         })
     } else {
         jwt.verify(authHeader.split(' ')[1], process.env.JWT_SECRET, (err, authData) => {
-            if(err) return res.status(401).json(err);
-            if(!authData.user.isAdmin) return res.sendStatus(403)
-            res.locals.auth=authData
+            if (err) return res.status(401).json(err);
+            if (!authData.user.isAdmin) return res.sendStatus(403)
+            res.locals.auth = authData
             next();
         });
     }
@@ -37,22 +36,22 @@ exports.isAdminUser = (req, res, next) => {
 exports.isCeercle = (req, res, next) => {
     const authHeader = req.headers.authorization;
 
-    if(!authHeader) {
+    if (!authHeader) {
         return res.status(403).json({
             message: 'FORBIDDEN'
         })
     } else {
         jwt.verify(authHeader.split(' ')[1], process.env.JWT_SECRET, async (err, authData) => {
-            if(err) return res.status(401).json(err);
+            if (err) return res.status(401).json(err);
             await Company.findOne({
-                where:{
+                where: {
                     id: authData.user.companyId
                 }
             }).then(async (companyRecord) => {
-                if(!companyRecord){
+                if (!companyRecord) {
                     res.status(403);
                     res.send();
-                }else {
+                } else {
                     if (companyRecord.name !== "Ceercle") {
                         res.status(403);
                         res.send();

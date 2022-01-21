@@ -1,8 +1,8 @@
 const Team = require('../models/Team');
-const {validationResult, param, body} = require("express-validator");
+const { validationResult, param, body } = require("express-validator");
 const Company = require("../models/Company");
 
-exports.createTeam = async function(req, res, next){
+exports.createTeam = async function (req, res, next) {
     try {
         const errors = validationResult(req);
 
@@ -12,12 +12,12 @@ exports.createTeam = async function(req, res, next){
         }
         const team = await Team.create(req.body);
         res.json(team);
-    } catch(err) {
+    } catch (err) {
         return next(err)
     }
 }
 
-exports.updateTeam = async function(req, res, next){
+exports.updateTeam = async function (req, res, next) {
     try {
         const errors = validationResult(req);
 
@@ -28,25 +28,25 @@ exports.updateTeam = async function(req, res, next){
         const id = req.params.id;
         await Team.findOne(
             {
-                where:{
-                    id:id
+                where: {
+                    id: id
                 }
             }).then((record) => {
-            if (!record) {
-                res.status(404);
-                res.send();
-            }else{
-                record.update(req.body).then((updated) => {
-                    res.json(updated);
-                })
-            }
-        });
-    } catch(err) {
+                if (!record) {
+                    res.status(404);
+                    res.send();
+                } else {
+                    record.update(req.body).then((updated) => {
+                        res.json(updated);
+                    })
+                }
+            });
+    } catch (err) {
         return next(err)
     }
 }
 
-exports.getTeam = async function(req, res, next) {
+exports.getTeam = async function (req, res, next) {
     try {
         const errors = validationResult(req);
 
@@ -61,38 +61,40 @@ exports.getTeam = async function(req, res, next) {
             }
         });
         res.json(team);
-    } catch(err) {
+    } catch (err) {
         return next(err)
     }
 }
 
 exports.listAllTeams = async function (req, res, next) {
+    console.log("wesh")
     try {
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
             res.status(422).json({ errors: errors.array() });
-            return;
+            return ("hello");
         }
         await Team.findAll(
-            {
-                where:{
-                    companyId: res.locals.auth.user.companyId
-                }
-            }).then((record) => {
+            // {
+            //     where: {
+            //         companyId: res.locals.auth.user.companyId
+            //     }
+            // }
+        ).then((record) => {
             if (!record) {
                 res.status(404);
                 res.send();
-            }else{
+            } else {
                 res.json(record);
             }
         });
-    } catch(err) {
+    } catch (err) {
         return next(err)
     }
 }
 
-exports.deleteTeam = async function(req, res, next){
+exports.deleteTeam = async function (req, res, next) {
     try {
         const errors = validationResult(req);
 
@@ -103,12 +105,12 @@ exports.deleteTeam = async function(req, res, next){
         const id = req.params.id;
         await Team.destroy(
             {
-                where:{
-                    id:id
+                where: {
+                    id: id
                 }
             });
         res.sendStatus(200);
-    } catch(err) {
+    } catch (err) {
         return next(err)
     }
 }

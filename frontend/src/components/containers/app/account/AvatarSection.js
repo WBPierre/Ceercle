@@ -6,7 +6,7 @@ import Grid from "@mui/material/Grid";
 import Chip from '@mui/material/Chip';
 import DoneIcon from '@mui/icons-material/Done';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {Avatar, Button} from '@mui/material';
+import { Avatar, Button } from '@mui/material';
 import example1 from "../../../../assets/images/example/1.jpg";
 import banniere2 from "../../../../assets/images/app/banniere3.jpg";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
@@ -14,7 +14,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import Stack from '@mui/material/Stack';
 
 import SettingSectionTemplate from './SettingSectionTemplate';
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import UserService from "../../../../services/app/user.service";
 
 export default function AvatarSection(props) {
@@ -80,7 +80,7 @@ export default function AvatarSection(props) {
                                             <Chip
                                                 clickable={true}
                                                 label="Modifier"
-                                                sx={{ width:'100%', borderColor: "#3F07A8", color: "#3F07A8", fontWeight: "bold" }}
+                                                sx={{ width: '100%', borderColor: "#3F07A8", color: "#3F07A8", fontWeight: "bold" }}
                                                 color="error"
                                                 icon={<CheckCircleIcon />}
                                                 variant="outlined"
@@ -130,7 +130,7 @@ export default function AvatarSection(props) {
                                             <Chip
                                                 clickable={true}
                                                 label="Modifier"
-                                                sx={{ width:'100%', borderColor: "#3F07A8", color: "#3F07A8", fontWeight: "bold" }}
+                                                sx={{ width: '100%', borderColor: "#3F07A8", color: "#3F07A8", fontWeight: "bold" }}
                                                 color="error"
                                                 icon={<CheckCircleIcon />}
                                                 variant="outlined"

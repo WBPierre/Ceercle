@@ -21,6 +21,10 @@ class UserService {
         return this.request.put('/users/password', ressource);
     }
 
+    async updateUserSettings(ressource) {
+        return this.request.put('/users/settings', ressource);
+    }
+
     async uploadProfile(resources) {
         return this.request.post('/users/uploadProfile', resources);
     }

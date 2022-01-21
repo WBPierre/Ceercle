@@ -11,6 +11,28 @@ exports.listAllUsers = async function (req, res) {
     res.json(users);
 }
 
+exports.listUsersFromTeam = async function (req, res, next) {
+    try {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            res.status(422).json({ errors: errors.array() });
+            return;
+        }
+        const id = req.params.id;
+        const users = await Users.findAll({
+            // where: {
+            //     team.id: id,
+            // }
+        });
+        //ou un filter?
+        // users_filtered = users.filter(user => )
+        res.json(users);
+    } catch (err) {
+        return next(err)
+    }
+}
+
 exports.getUserInfo = async function (req, res, next) {
     try {
         const errors = validationResult(req);
@@ -165,7 +187,7 @@ exports.createUser = async function (req, res, next) {
     }
 }
 
-exports.updateUser = async function (req, res, next) {
+exports.updateUserSettings = async function (req, res, next) {
     try {
         const errors = validationResult(req);
 
@@ -183,7 +205,20 @@ exports.updateUser = async function (req, res, next) {
                     res.status(404);
                     res.send();
                 } else {
-                    record.update(req.body).then((updated) => {
+                    to_update = {
+                        defaultWorkingMorningHour: req.body.defaultWorkingMorningHour,
+                        defaultWorkingMorningMinutes: req.body.defaultWorkingMorningMinutes,
+                        defaultWorkingAfternoonHour: req.body.defaultWorkingAfternoonHour,
+                        defaultWorkingAfternoonMinutes: req.body.defaultWorkingAfternoonMinutes,
+                        timezone: req.body.timezone,
+                        lang: req.body.lang,
+                        mondayStatus: req.body.mondayStatus,
+                        tuesdayStatus: req.body.tuesdayStatus,
+                        wednesdayStatus: req.body.wednesdayStatus,
+                        thursdayStatus: req.body.thursdayStatus,
+                        fridayStatus: req.body.fridayStatus
+                    }
+                    record.update(to_update).then((updated) => {
                         res.json(updated);
                     })
                 }
@@ -257,12 +292,38 @@ exports.validate = (method) => {
                 body('companyId', 'companyId is not a number').isNumeric(),
             ]
         }
+        case 'updateUserSettings': {
+            return [
+                body('defaultWorkingMorningHour', 'defaultWorkingMorningHour doesn\'t exist').exists(),
+                body('defaultWorkingMorningHour', 'defaultWorkingMorningHour is not an int').isInt(),
+                body('defaultWorkingMorningMinutes', 'defaultWorkingMorningMinutes doesn\'t exist').exists(),
+                body('defaultWorkingMorningMinutes', 'defaultWorkingMorningMinutes is not an int').isInt(),
+                body('defaultWorkingAfternoonHour', 'defaultWorkingAfternoonHour doesn\'t exist').exists(),
+                body('defaultWorkingAfternoonHour', 'defaultWorkingAfternoonHour is not an int').isInt(),
+                body('defaultWorkingAfternoonMinutes', 'defaultWorkingAfternoonMinutes doesn\'t exist').exists(),
+                body('defaultWorkingAfternoonMinutes', 'defaultWorkingAfternoonMinutes is not an int').isInt(),
+                body('timezone', 'timezone doesn\'t exist').exists(),
+                body('timezone', 'timezone is not a string').isString(),
+                body('lang', 'lang doesn\'t exist').exists(),
+                body('lang', 'lang is not a string').isString(),
+                body('mondayStatus', 'mondayStatus doesn\'t exist').exists(),
+                body('mondayStatus', 'mondayStatus is not an int').isInt(),
+                body('tuesdayStatus', 'tuesdayStatus doesn\'t exist').exists(),
+                body('tuesdayStatus', 'tuesdayStatus is not an int').isInt(),
+                body('wednesdayStatus', 'wednesdayStatus doesn\'t exist').exists(),
+                body('wednesdayStatus', 'wednesdayStatus is not an int').isInt(),
+                body('thursdayStatus', 'thursdayStatus doesn\'t exist').exists(),
+                body('thursdayStatus', 'thursdayStatus is not an int').isInt(),
+                body('fridayStatus', 'fridayStatus doesn\'t exist').exists(),
+                body('fridayStatus', 'fridayStatus is not an int').isInt(),
+            ]
+        }
         case 'updateUserGeneral': {
             return [
                 body('phoneNumber', 'phoneNumber doesn\'t exist').exists(),
                 body('phoneNumber', 'phoneNumber is not a string').isString(),
                 body('position', 'position doesn\'t exist').exists(),
-                body('position', 'position is not a number').isString(),
+                body('position', 'position is not a string').isString(),
             ]
         }
         case 'updatePassword': {
