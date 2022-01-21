@@ -12,6 +12,7 @@ services:
       - api
     restart: always
     volumes:
+      - ./frontend/nginx/:/etc/nginx/conf.d/:ro
       - /frontend/node_modules
       - ./frontend:/app
       - ./certbot/conf:/etc/letsencrypt
