@@ -20,9 +20,9 @@ export default function Glossary() {
     };
     return (
         <CustomContainer>
-            <Grid wrap={"nowrap"} container direction={"row"} style={{ height: '100vh' }}>
+            <Grid wrap={"nowrap"} container direction={"row"} style={{ height:'100%' }}>
 
-                <Grid item md={4} mt={2}>
+                <Grid item md={4} mt={2} style={{height:'100%'}}>
                     <SearchGlossary newUserToDisplay={(x) => newUserToDisplay(x)} />
                 </Grid>
 

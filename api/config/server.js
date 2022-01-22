@@ -4,6 +4,7 @@ const requestParser = require('./requestParser');
 const Routes = require('./routes');
 const {initDatabase} = require("./init/database");
 const {verifyDatabase} = require('./database');
+const {verifyFolderImplementation} = require('./init/upload');
 
 const server = express()
 server.use(bodyParser.urlencoded({extended: true}));
@@ -21,6 +22,8 @@ init();
 requestParser(server);
 
 Routes(server);
+
+verifyFolderImplementation();
 
 
 module.exports = server;

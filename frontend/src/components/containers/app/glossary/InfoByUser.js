@@ -17,6 +17,8 @@ import Avatar from '@mui/material/Avatar';
 import banniere from "../../../../assets/images/app/banniere2.jpeg";
 import TabInfoByUser from "./TabInfoByUser";
 import example3 from "../../../../assets/images/example/3.jpg";
+import BannerDefault from "../../../../assets/images/example/banner_default.jpg";
+import ProfileDefault from "../../../../assets/images/example/default.png";
 
 
 function TabPanel(props) {
@@ -74,10 +76,10 @@ export default function InfoByUser(props) {
     return (
         <Grid container direction="column" style={{ backgroundColor: theme.palette.background.paper }}>
             <Grid item minHeight="30vh" style={{ position: "relative" }}>
-                <div style={{ height: "80%", width: "100%", zIndex: 1, backgroundImage: `url(${props.userToDisplay.banniere})`, position: "absolute", backgroundPosition: "center", backgroundSize: "cover" }}>
+                <div style={{ height: "80%", width: "100%", zIndex: 1, backgroundImage: `url(${props.userToDisplay.bannerPath === null ? BannerDefault : props.userToDisplay.bannerPath})`, position: "absolute", backgroundPosition: "center", backgroundSize: "cover" }}>
                 </div>
                 <div style={{ position: "absolute", bottom: '0%', left: '5%', zIndex: 2 }}>
-                    <Avatar src={props.userToDisplay.avatar} sx={{ width: 120, height: 120, border: "4px solid white" }} />
+                    <Avatar src={props.userToDisplay.profilePicturePath === null ? ProfileDefault : props.userToDisplay.profilePicturePath} sx={{ width: 120, height: 120, border: "4px solid white" }} />
                 </div>
             </Grid>
 
@@ -85,45 +87,17 @@ export default function InfoByUser(props) {
 
             <Grid item px={2}>
                 <Grid container direction="row" sx={{ backgroundColor: theme.palette.background.paper }}>
-                    <Grid item md={10}>
+                    <Grid item md={12}>
                         <Typography variant="h3" fontWeight={600} style={{ color: '#414040' }}>
                             {props.userToDisplay.firstName + " " + props.userToDisplay.lastName}
                         </Typography>
                     </Grid>
-
-                    <Grid item md={1}>
-                        <div hidden={false}>
-                            <Tooltip title="Supprimer des favoris" placement="top">
-                                <IconButton sx={{ mr: 5 }} onClick={onClick}>
-                                    <StarIcon sx={{ color: theme.palette.background.paper, width: 45, height: 45 }} />
-                                </IconButton>
-                            </Tooltip>
-                        </div>
-                        <div hidden={true}>
-                            <Tooltip title="Ajouter en favori" placement="top">
-                                <IconButton sx={{ mr: 5 }} onClick={onClick}>
-                                    <StarBorderIcon sx={{ color: "#F0CC55", width: 45, height: 45 }} />
-                                </IconButton>
-                            </Tooltip>
-                        </div>
-                    </Grid>
                 </Grid>
             </Grid>
 
-            <Grid item mt={2} px={2}>
+            <Grid item mt={1} px={2}>
                 <Box sx={{ width: '100%' }}>
-                    <Box sx={{ borderBottom: 1, borderColor: '#E1D2FC' }}>
-                        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                            <Tab label="Profil" {...a11yProps(0)} />
-                            <Tab label="Calendrier" {...a11yProps(1)} />
-                        </Tabs>
-                    </Box>
-                    <TabPanel value={value} index={0}>
-                        <TabInfoByUser userToDisplay={props.userToDisplay} />
-                    </TabPanel>
-                    <TabPanel value={value} index={1}>
-                        En cours de construction
-                    </TabPanel>
+                    <TabInfoByUser userToDisplay={props.userToDisplay} />
                 </Box>
             </Grid>
         </Grid >

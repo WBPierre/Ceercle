@@ -5,12 +5,15 @@ import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
+import UserService from "../../../../services/app/user.service";
 
 import { DataList } from './DataList';
+import {useEffect} from "react";
+import ProfileDefault from "../../../../assets/images/example/default.png";
 
 export default function GlossaryList(props) {
 
-    const options = DataList.map((option) => {
+    const options = props.users.map((option) => {
         const firstLetter = option.lastName[0].toUpperCase();
         return {
             firstLetter: firstLetter,
@@ -25,7 +28,7 @@ export default function GlossaryList(props) {
     };
 
     return (
-        <List sx={{ width: '100%', maxWidth: 350, maxHeight: "55vh", overflow: 'scroll' }}>
+        <List sx={{ width: '100%', maxWidth: 350, maxHeight:'60vh', overflow: 'scroll' }}>
             {firstLetters.map((firstLetter) => {
                 {
                     const filtered_options = options.filter(x => x.firstLetter.includes(firstLetter) && (x.firstName.toLowerCase().startsWith(props.searchValue.toLowerCase()) || x.lastName.toLowerCase().startsWith(props.searchValue.toLowerCase())))
@@ -40,7 +43,7 @@ export default function GlossaryList(props) {
                                         return (
                                             <ListItem button onClick={() => onClickUser(collegue)} key={`item-${firstLetter}-${index}`}>
                                                 <ListItemAvatar>
-                                                    <Avatar src={collegue.avatar} sx={{ width: 45, height: 45 }} />
+                                                    <Avatar src={collegue.profilePicturePath === null ? ProfileDefault : collegue.profilePicturePath} sx={{ width: 45, height: 45 }} />
                                                 </ListItemAvatar>
                                                 <ListItemText
                                                     primary={collegue.firstName + " " + collegue.lastName}

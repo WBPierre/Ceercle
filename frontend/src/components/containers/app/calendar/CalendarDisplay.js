@@ -69,8 +69,8 @@ function CalendarDisplay(props) {
                 <Grid item mt={1}>
                     <Grid container direction={"row"}>
                         <Grid item md={1} textAlign={"center"}>
-                            <IconButton aria-label="previous" onClick={() => getPreviousWeek()} color="primary">
-                                <ChevronLeftIcon />
+                            <IconButton aria-label="previous" size={"large"} onClick={() => getPreviousWeek()} color="primary">
+                                <ChevronLeftIcon sx={{fontSize:30}}/>
                             </IconButton>
                         </Grid>
                         {week.map((day, i) => (
@@ -79,8 +79,8 @@ function CalendarDisplay(props) {
                             </Grid>
                         ))}
                         <Grid item md={1} textAlign={"center"}>
-                            <IconButton aria-label="next" onClick={() => getNextWeek()} color="primary">
-                                <ChevronRightIcon />
+                            <IconButton aria-label="next" size={"large"} onClick={() => getNextWeek()} color="primary">
+                                <ChevronRightIcon sx={{fontSize:30}}/>
                             </IconButton>
                         </Grid>
                     </Grid>

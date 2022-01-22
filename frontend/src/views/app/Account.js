@@ -38,13 +38,12 @@ export default function Account(props) {
         async function getUserInfo() {
             const res = await UserService.getUserInfo();
             setUser(res.data);
-            console.log(res.data)
         }
         getUserInfo();
     }, []);
 
     if (user === null) {
-        return (<div />)
+        return (<CustomContainer />)
     }
 
     return (
@@ -72,7 +71,7 @@ export default function Account(props) {
 
                 <Divider style={{ backgroundColor: "#A4A3A3" }} />
 
-                <AvatarSection />
+                <AvatarSection  user={user}/>
 
                 <Divider style={{ backgroundColor: "#E1D2FC" }} />
 

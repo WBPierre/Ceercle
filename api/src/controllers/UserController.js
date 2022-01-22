@@ -11,6 +11,30 @@ exports.listAllUsers = async function (req, res) {
     res.json(users);
 }
 
+exports.listGlossaryUsers = async function (req, res) {
+    const users = await User.findAll({
+        order: [['createdAt', 'DESC']],
+        where:{
+            companyId:  res.locals.auth.user.company.id
+        }
+    });
+    let arr = [];
+    for(let i = 0; i < users.length; i++){
+        let obj = {
+            firstName: users[i].firstName,
+            lastName: users[i].lastName,
+            position: users[i].position,
+            teams: await users[i].getTeams(),
+            email: users[i].email,
+            phoneNumber: users[i].phoneNumber,
+            profilePicturePath: users[i].profilePicturePath,
+            bannerPath: users[i].bannerPath,
+        }
+        arr.push(obj);
+    }
+    res.json(arr);
+}
+
 exports.listAllUsersNamesForTeam = async function (req, res, next) {
     try {
         const errors = validationResult(req);
