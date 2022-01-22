@@ -43,8 +43,6 @@ function CalendarListElement(props){
         setOpen(!open);
     };
 
-    console.log("FULL DATA", props.data);
-
     const getMidDayText = (item) => {
         return ""
         if(item.morning === props.type){
@@ -169,7 +167,7 @@ function CalendarListElement(props){
                                     })}
                                     {props.data.length > 3 && (
                                         <Grid item>
-                                            <Avatar sx={{ width: 24, height: 24 }} style={{backgroundColor:'transparent', color:'#7F7F7F'}}>
+                                            <Avatar sx={{ width: 24, height: 24 }} style={{backgroundColor:'transparent', color:'#7F7F7F', fontSize:12}}>
                                                 +{props.data.length-3}
                                             </Avatar>
                                         </Grid>

@@ -1,14 +1,12 @@
 const Security = require('../../src/services/Security');
 const Company = require("../../src/models/Company");
 const User = require("../../src/models/User");
+const Demo = require('./demo');
 
 exports.initDatabase = async function() {
     const companyId = await generateCeercle();
     await generateAdminProfiles(companyId);
-
-    // Test profile
-    const companyTestId = await generateTestCompany();
-    await generateTestProfile(companyTestId);
+    await Demo.generateDemo();
 }
 
 async function generateCeercle(){
@@ -24,22 +22,6 @@ async function generateCeercle(){
             }else{
                 return record.id;
             }
-    })
-}
-
-async function generateTestCompany(){
-    return await Company.findOne(
-        {
-            where:{
-                name:'Démo'
-            }
-        }).then(async (record) => {
-        if(!record) {
-            const company = await Company.create({name:'Démo'});
-            return company.id;
-        }else{
-            return record.id;
-        }
     })
 }
 
@@ -114,29 +96,6 @@ async function generateAdminProfiles(companyId) {
                 email: "louis@ceercle.io",
                 password: await Security.hashPassword("Aw$no$AFEpassword2022"),
                 phoneNumber: "0674497632",
-                active: true,
-                isAdmin: true,
-                companyId: companyId
-            });
-        }
-    });
-}
-
-
-async function generateTestProfile(companyId) {
-    await User.findOne(
-        {
-            where:{
-                email:"hadrien@demo.com"
-            }
-        }).then(async (record) => {
-        if (!record) {
-            await User.create({
-                firstName: "Hadrien",
-                lastName: "De Cournon",
-                email: "hadrien@demo.com",
-                password: await Security.hashPassword("HadrienVMV1997"),
-                phoneNumber: "0777467581",
                 active: true,
                 isAdmin: true,
                 companyId: companyId

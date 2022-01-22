@@ -25,4 +25,5 @@ yarn-debug.log*
 yarn-error.log*
 
 .idea/
-public/
+public/assets/profile/
+public/assets/banner/
