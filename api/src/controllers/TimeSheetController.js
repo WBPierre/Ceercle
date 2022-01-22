@@ -21,10 +21,10 @@ exports.getUsersTimeSheet = async function(req, res, next) {
         const week = Utils.getUsersWeekTimeSheets(req.params.index);
         const users = await User.findAll({
             where:{
-                companyId: res.locals.auth.user.company.id,
+                companyId: res.locals.auth.user.company.id
             }
         });
-        //                id: {[Op.ne]:res.locals.auth.user.id}
+        // id: {[Op.ne]:res.locals.auth.user.id}
         for(let i = 0; i < week.length; i++){
             week[i].totalUsers = users.length;
         }
@@ -41,7 +41,8 @@ exports.getUsersTimeSheet = async function(req, res, next) {
                     let obj = {
                         fullName: user.firstName +' '+ user.lastName,
                         morning: 0,
-                        afternoon: 0
+                        afternoon: 0,
+                        profilePicturePath: user.profilePicturePath
                     }
                     for(let i = 0; i < week.length; i++){
                         week[i].type[0].push(obj);
@@ -51,7 +52,8 @@ exports.getUsersTimeSheet = async function(req, res, next) {
                         let obj = {
                             fullName: user.firstName +' '+ user.lastName,
                             morning: 0,
-                            afternoon: 0
+                            afternoon: 0,
+                            profilePicturePath: user.profilePicturePath
                         }
                         let found = false;
                         for(let i = 0; i < record.length; i++){

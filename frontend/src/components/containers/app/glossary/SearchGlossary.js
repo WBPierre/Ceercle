@@ -11,12 +11,24 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 
 import GlossaryList from "./GlossaryList";
+import {useEffect, useState} from "react";
+import UserService from "../../../../services/app/user.service";
 
 
 export default function SearchGlossary(props) {
     const theme = useTheme();
     let navigate = useNavigate();
     const { t } = useTranslation();
+    const [users, setUsers] = useState([]);
+
+    useEffect(() => {
+        async function getListUsers() {
+            await UserService.getGlossaryUsers().then((res) => {
+                setUsers(res.data);
+            })
+        }
+        getListUsers();
+    }, [])
 
     const [value, setValue] = React.useState('');
 
@@ -25,6 +37,9 @@ export default function SearchGlossary(props) {
         setValue(event.target.value);
     };
 
+    if(users.length === 0){
+        return (<div/>)
+    }
     return (
         <Grid container direction="column" spacing={1}>
             <Grid item>
@@ -35,7 +50,7 @@ export default function SearchGlossary(props) {
 
             <Grid item>
                 <Typography variant="body" fontWeight={100} fontSize={18} style={{ color: '#7F7F7F' }}>
-                    Rechercher parmi les 7 employés
+                    Rechercher parmi les {users.length} employés
                 </Typography>
             </Grid>
 
@@ -57,7 +72,7 @@ export default function SearchGlossary(props) {
             </Grid>
 
             <Grid item mt={2}>
-                <GlossaryList searchValue={value} newUserToDisplay={props.newUserToDisplay} />
+                <GlossaryList searchValue={value} newUserToDisplay={props.newUserToDisplay} users={users}/>
             </Grid>
         </Grid >
     );

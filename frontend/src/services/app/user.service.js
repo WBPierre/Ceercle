@@ -9,6 +9,10 @@ class UserService {
         return this.request.get('/users/');
     }
 
+    async getGlossaryUsers() {
+        return this.request.get('/users/list/all');
+    }
+
     async getUserInfo() {
         return this.request.get('/users/current');
     }

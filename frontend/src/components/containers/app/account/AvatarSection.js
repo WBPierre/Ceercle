@@ -7,7 +7,8 @@ import Chip from '@mui/material/Chip';
 import DoneIcon from '@mui/icons-material/Done';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Avatar, Button } from '@mui/material';
-import example1 from "../../../../assets/images/example/1.jpg";
+import ProfileDefault from "../../../../assets/images/example/default.png";
+import BannerDefault from "../../../../assets/images/example/banner_default.jpg";
 import banniere2 from "../../../../assets/images/app/banniere3.jpg";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
@@ -19,8 +20,8 @@ import UserService from "../../../../services/app/user.service";
 
 export default function AvatarSection(props) {
 
-    const [profilePicture, setProfilePicture] = useState('');
-    const [bannerPicture, setBannerPicture] = useState('');
+    const [profilePicture, setProfilePicture] = useState(props.user.profilePicturePath);
+    const [bannerPicture, setBannerPicture] = useState(props.user.bannerPath);
 
     const changeHandler = (event) => {
         const formData = new FormData();
@@ -56,9 +57,8 @@ export default function AvatarSection(props) {
             <Grid container direction="column" spacing={5} >
                 <Grid item>
                     <Grid container direction="row">
-
                         <Grid item md={5} pl={7}>
-                            <Avatar src={profilePicture === '' ? example1 : profilePicture} sx={{ width: 120, height: 120, border: "4px solid white" }} />
+                            <Avatar src={profilePicture === null ? ProfileDefault : profilePicture} sx={{ width: 120, height: 120 }} />
                         </Grid>
                         <Grid item md={7}>
                             <Grid container direction="column" spacing={1}>
@@ -108,7 +108,7 @@ export default function AvatarSection(props) {
                 <Grid item>
                     <Grid container direction="row">
                         <Grid item md={5}>
-                            <img src={bannerPicture === '' ? banniere2 : bannerPicture} style={{ height: '80%', width: '80%' }} />
+                            <img src={bannerPicture === null ? BannerDefault : bannerPicture} style={{ height: '80%', width: '80%' }} />
                         </Grid>
                         <Grid item md={7}>
                             <Grid container direction="column" spacing={1}>
