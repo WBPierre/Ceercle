@@ -8,7 +8,7 @@ import { Divider } from "@mui/material";
 import { Button } from "@mui/material";
 import Chip from '@mui/material/Chip';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import TeamAddModal from "../../components/containers/app/teams/TeamAddModal";
+import UserAddModal from "../../components/containers/app/teams/UserAddModal";
 import { TextField } from "@mui/material";
 import { Stack } from "@mui/material";
 import CircleIcon from '@mui/icons-material/Circle';
@@ -19,35 +19,16 @@ import {
     Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
 } from "@mui/material";
 import example1 from "../../assets/images/example/1.jpg";
-import example2 from "../../assets/images/example/2.jpg";
-import example3 from "../../assets/images/example/3.jpg";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import TeamService from "../../services/app/team.service";
+import UserService from "../../services/app/user.service";
 import { useSnackbar } from "notistack";
 
 
 function Teams() {
     const { id } = useParams()
+
     let navigate = useNavigate();
-
-    const listTeams = [{ 'id': '0', 'name': "Finances", 'size': 7, 'color': "#046AFC" },
-    { 'id': '1', 'name': "Marketing", 'size': 11, 'color': "#FC1704" },
-    { 'id': '2', 'name': "Opérations", 'size': 27, 'color': "#085803" }]
-
-    const [listUsers, setListUsers] = useState([]);
-
-    const [name, setName] = useState(listTeams[{ id }.id].name);
-    const [color, setColor] = useState(listTeams[{ id }.id].color);
-
-    const deleteUser = (id) => {
-        let listTemp = [...listUsers]
-        listTemp.splice(id, 1)
-        var i = 0;
-        while (i < listTemp.length) {
-            listTemp[i].id = i.toString()
-            i++
-        }
-        setListUsers(listTemp)
-    };
 
     const handleChange = (event) => {
         switch (event.target.name) {
@@ -60,6 +41,43 @@ function Teams() {
         }
     }
 
+
+    const { enqueueSnackbar } = useSnackbar();
+
+    const validateDescription = () => {
+        if (name === '') return false;
+        if (color === '') return false;
+        return true;
+    }
+
+    const saveDescription = async () => {
+        if (validateDescription()) {
+            const resources = {
+                teamId: parseInt(id),
+                name: name,
+                color: color
+            };
+            console.log(resources)
+            await TeamService.updateTeamDescription(resources).then(async (res) => {
+                if (res.status === 200) {
+                    enqueueSnackbar('Equipe enregistrée', {
+                        variant: 'success'
+                    });
+                    navigate('/app/teams');
+                } else {
+                    enqueueSnackbar('Une erreur est survenue', {
+                        variant: 'error'
+                    });
+                }
+            })
+        } else {
+            enqueueSnackbar('Veuillez remplir les champs (nom, couleur)', {
+                variant: 'warning'
+            });
+        }
+    }
+
+
     const [openDelete, setOpenDelete] = useState(false);
 
     const handleDeleteClickOpen = () => {
@@ -70,26 +88,62 @@ function Teams() {
         setOpenDelete(false);
     };
 
-
-    const { enqueueSnackbar } = useSnackbar();
-
-    const save = () => {
-        enqueueSnackbar('Paramètres enregistrés.', {
-            variant: 'success'
-        });
+    const handleDeleteConfirmation = async () => {
+        await TeamService.deleteTeam(id).then(async (res) => {
+            if (res.status === 200) {
+                enqueueSnackbar('Equipe supprimée', {
+                    variant: 'success'
+                });
+                navigate('/app/teams');
+            } else {
+                enqueueSnackbar('Une erreur est survenue', {
+                    variant: 'error'
+                });
+            }
+        })
     }
 
-    const handleDeleteConfirmation = () => {
-        enqueueSnackbar('Equipe supprimée.', {
-            variant: 'success'
-        });
-        navigate('/app/teams');
+
+
+    const [openAddUser, setOpenAddUser] = useState(false);
+
+    const handleAddUserOpen = () => {
+        setOpenAddUser(true);
+    };
+
+    const handleAddUserClose = (reload) => {
+        setOpenAddUser(false);
+        if (reload) {
+            getTeam(id);
+        }
+    };
+
+
+    const [listUsers, setListUsers] = useState([]);
+    const [team, setTeam] = useState(null);
+    const [name, setName] = useState('');
+    const [color, setColor] = useState('');
+
+    async function getTeam(index) {
+        const res = await TeamService.getTeam(index);
+        setTeam(res.data);
+        setName(res.data.name)
+        setColor(res.data.color)
+        let listUsersTemp = []
+        for (let i = 0; i < res.data.users.length; i++) {
+            let object = {
+                'id': res.data.users[i].id,
+                'name': res.data.users[i].name,
+                'position': res.data.users[i].position,
+                'avatar': example1
+            }
+            listUsersTemp.push(object);
+        }
+        setListUsers(listUsersTemp)
     }
 
     useEffect(() => {
-        setListUsers([{ 'id': 0, 'name': "Louis Lacaille", 'position': 'Head of Marketing', 'avatar': example1 },
-        { 'id': 1, 'name': "Pierre Delmer", 'position': 'Tech Lead', 'avatar': example2 },
-        { 'id': 2, 'name': "Paul Dupont", 'position': 'Full stack dev', 'avatar': example3 }])
+        getTeam(id);
     }, []);
 
 
@@ -132,7 +186,7 @@ function Teams() {
                 </Grid>
 
                 <Grid item mt={1}>
-                    <UsersGrid listTeams={listUsers} handleDeleteUser={deleteUser} />
+                    <UsersGrid listUsers={listUsers} teamId={id} updateTeam={getTeam} />
                 </Grid>
 
                 <Grid item>
@@ -146,6 +200,7 @@ function Teams() {
                                 color="error"
                                 icon={<AddCircleOutlineIcon />}
                                 variant="outlined"
+                                onClick={handleAddUserOpen}
                             />
                         </Grid>
                         <Grid item md={2}>
@@ -157,7 +212,7 @@ function Teams() {
                                 color="error"
                                 icon={<CheckCircleOutlineIcon />}
                                 variant="outlined"
-                                onClick={save}
+                                onClick={saveDescription}
                             />
                         </Grid>
                         <Grid item md={2}>
@@ -192,6 +247,9 @@ function Teams() {
                     <Button onClick={handleDeleteConfirmation} sx={{ color: "#D20303" }}> Supprimer </Button>
                 </DialogActions>
             </Dialog>
+
+            <UserAddModal openModal={openAddUser} handleModalClose={handleAddUserClose} teamId={id} />
+
         </CustomContainer >
     )
 }

@@ -4,19 +4,50 @@ import { Chip } from "@mui/material";
 import { Avatar } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import Typography from '@mui/material/Typography';
+import {
+    Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+} from "@mui/material";
+import { Button } from "@mui/material";
+import { useEffect, useState } from "react";
+import TeamService from "../../../../services/app/team.service";
+import { useSnackbar } from "notistack";
 
 
 function UsersGrid(props) {
 
     let navigate = useNavigate();
+    const { enqueueSnackbar } = useSnackbar();
 
-    const handleClick = () => {
-        console.info('You clicked the Chip.');
+    const handleClickOnDelete = (userId) => {
+        setOpenDelete(true)
+        setUserToDelete(userId)
     };
 
-    const handleDelete = () => {
-        console.info('You clicked the delete icon.');
+
+    const [openDelete, setOpenDelete] = useState(false);
+    const [userToDelete, setUserToDelete] = useState(0);
+
+
+    const handleDeleteClose = () => {
+        setOpenDelete(false);
+        setUserToDelete(0)
     };
+
+    const handleDeleteConfirmation = async () => {
+        await TeamService.deleteUserFromTeam({ userId: userToDelete, teamId: parseInt(props.teamId) }).then(async (res) => {
+            if (res.status === 200) {
+                enqueueSnackbar('Utilisateur retiré de l\'équipe', {
+                    variant: 'success'
+                });
+                props.updateTeam(props.teamId)
+            } else {
+                enqueueSnackbar('Une erreur est survenue', {
+                    variant: 'error'
+                });
+            }
+        })
+        setOpenDelete(false);
+    }
 
     const columns = [
         {
@@ -49,7 +80,7 @@ function UsersGrid(props) {
                         label="Supprimer"
                         color="primary"
                         sx={{ borderColor: "#3C3B3D", color: "#3C3B3D" }}
-                        onClick={() => props.handleDeleteUser(params.row.id)}
+                        onClick={() => handleClickOnDelete(params.row.id)}
                         icon={<DeleteIcon />}
                         variant="outlined"
                     />
@@ -60,7 +91,22 @@ function UsersGrid(props) {
 
     return (
         <div style={{ height: 400, width: '100%' }}>
-            <DataGrid rows={props.listTeams} columns={columns} disableColumnSelector={true} disableColumnMen={true} disableSelectionOnClick hideFooterPagination />
+            <DataGrid rows={props.listUsers} columns={columns} disableColumnSelector={true} disableColumnMen={true} disableSelectionOnClick hideFooterPagination />
+
+            <Dialog
+                open={openDelete}
+                onClose={handleDeleteClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    Supprimer de l'équipe ?
+                </DialogTitle>
+                <DialogActions>
+                    <Button onClick={handleDeleteClose} sx={{ color: "#696A6C" }} >Annuler</Button>
+                    <Button onClick={handleDeleteConfirmation} sx={{ color: "#D20303" }}> Supprimer </Button>
+                </DialogActions>
+            </Dialog>
         </div>
     )
 }
