@@ -103,7 +103,7 @@ export default function GeneralSection(props) {
 
                 <Grid item mt={6}>
                     <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#414040' }}>
-                        Equipe associée
+                        Equipe(s) associée(s)
                     </Typography>
                 </Grid>
 

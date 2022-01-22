@@ -13,6 +13,10 @@ class UserService {
         return this.request.get('/users/current');
     }
 
+    async getUsersNamesForTeam(teamIndex) {
+        return this.request.get('/users/namesForTeam/' + teamIndex);
+    }
+
     async updateUserGeneral(ressource) {
         return this.request.put('/users/general', ressource);
     }

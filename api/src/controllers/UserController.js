@@ -11,23 +11,38 @@ exports.listAllUsers = async function (req, res) {
     res.json(users);
 }
 
-exports.listUsersFromTeam = async function (req, res, next) {
+exports.listAllUsersNamesForTeam = async function (req, res, next) {
     try {
         const errors = validationResult(req);
-
         if (!errors.isEmpty()) {
             res.status(422).json({ errors: errors.array() });
             return;
         }
-        const id = req.params.id;
-        const users = await Users.findAll({
-            // where: {
-            //     team.id: id,
-            // }
-        });
-        //ou un filter?
-        // users_filtered = users.filter(user => )
-        res.json(users);
+        await User.findAll(
+            {
+                where: {
+                    companyId: res.locals.auth.user.company.id
+                },
+                order: [['lastName', 'ASC'], ['firstName', 'ASC']]
+            }).then(async (record) => {
+                if (record.length == 0) {
+                    res.status(404);
+                    res.send();
+                } else {
+                    let users_formatted = []
+                    for (let i = 0; i < record.length; i++) {
+                        let user = {
+                            'id': record[i].id,
+                            'label': record[i].firstName + " " + record[i].lastName,
+                            'isInTeam': await record[i].hasTeam(parseInt(req.params.teamIndex))
+                        }
+                        users_formatted.push(user);
+                    }
+                    res.json(
+                        users_formatted
+                    )
+                }
+            })
     } catch (err) {
         return next(err)
     }

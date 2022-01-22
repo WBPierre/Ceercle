@@ -10,6 +10,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import TeamAddModal from "../../components/containers/app/teams/TeamAddModal";
 import Chip from '@mui/material/Chip';
 import TeamService from "../../services/app/team.service";
+import { useSnackbar } from "notistack";
 
 
 function Teams() {
@@ -19,27 +20,38 @@ function Teams() {
         setOpenModal(false);
     };
 
-    const handleAddTeam = (name, color) => {
-        setListTeams(listTeams => [...listTeams, { 'id': (listTeams.length + 1).toString(), 'name': name, 'size': 0, 'color': color }])
+    const { enqueueSnackbar } = useSnackbar();
+
+    const handleAddTeam = async (name, color) => {
+        let team_to_add = { 'name': name, 'color': color }
+        await TeamService.createTeam(team_to_add).then(async (res) => {
+            if (res.status === 200) {
+                enqueueSnackbar('Equipe créé', {
+                    variant: 'success'
+                });
+            } else {
+                enqueueSnackbar('Une erreur est survenue', {
+                    variant: 'error'
+                });
+            }
+        })
         handleModalClose();
+        listAllTeams()
     };
 
     const [listTeams, setListTeams] = useState(null);
 
+    async function listAllTeams() {
+        const res = await TeamService.listAllTeams();
+        setListTeams(res.data);
+    }
+
     useEffect(() => {
-        async function listAllTeams() {
-            //const res = await TeamService.listAllTeams();
-            // setListTeams(res.data);
-            setListTeams([{ 'id': '0', 'name': "Finances", 'size': 7, 'color': "#046AFC" },
-            { 'id': '1', 'name': "Marketing", 'size': 11, 'color': "#FC1704" },
-            { 'id': '2', 'name': "Opérations", 'size': 27, 'color': "#085803" }])
-            // console.log(res.data)
-        }
         listAllTeams();
     }, []);
 
     if (listTeams === null) {
-        return (<div />)
+        return (<CustomContainer />)
     }
 
     return (
