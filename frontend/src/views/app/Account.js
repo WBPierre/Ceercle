@@ -38,7 +38,6 @@ export default function Account(props) {
         async function getUserInfo() {
             const res = await UserService.getUserInfo();
             setUser(res.data);
-            console.log(res.data)
         }
         getUserInfo();
     }, []);

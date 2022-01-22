@@ -73,6 +73,7 @@ export default function TabInfoByUser(props) {
                     </Grid>
                 </Grid>
             </Grid>
+            {props.userToDisplay.teams.length !== 0 &&
             <Grid item>
                 <Grid container direction="column">
                     <Grid item>
@@ -92,6 +93,7 @@ export default function TabInfoByUser(props) {
                     </Grid>
                 </Grid>
             </Grid>
+            }
 
         </Grid>
     )
