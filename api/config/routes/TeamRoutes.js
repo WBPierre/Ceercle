@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const TeamController = require('../../src/controllers/TeamController');
-const {isAdminUser, isSpaceCorner, isUserAuthenticated} = require("../../src/middlewares/AuthMiddleware");
+const { isAdminUser, isSpaceCorner, isUserAuthenticated } = require("../../src/middlewares/AuthMiddleware");
 
 router.post('/', [isAdminUser, TeamController.validate('createTeam')], TeamController.createTeam);
 router.put('/:id', [isAdminUser, TeamController.validate('updateTeam')], TeamController.updateTeam);

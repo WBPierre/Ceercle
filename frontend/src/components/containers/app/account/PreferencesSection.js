@@ -14,86 +14,116 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
+import UserService from "../../../../services/app/user.service";
 
 import SettingSectionTemplate from './SettingSectionTemplate';
 
 export default function PreferencesSection(props) {
 
-    const timezone = moment.tz.names()
+    const timezones = moment.tz.names()
     const { t } = useTranslation();
 
-    const [hoursAM, setHoursAM] = React.useState(9);
+    const [hoursAM, setHoursAM] = React.useState(props.user.defaultWorkingMorningHour);
     const handleChangeHoursAM = (event) => {
         setHoursAM(event.target.value);
     };
 
-    const [minutesAM, setMinutesAM] = React.useState(0);
+    const [minutesAM, setMinutesAM] = React.useState(props.user.defaultWorkingMorningMinutes);
     const handleChangeMinutesAM = (event) => {
         setMinutesAM(event.target.value);
     };
 
-    const [hoursPM, setHoursPM] = React.useState(5);
+    const [hoursPM, setHoursPM] = React.useState(props.user.defaultWorkingAfternoonHour);
     const handleChangeHoursPM = (event) => {
         setHoursPM(event.target.value);
     };
 
-    const [minutesPM, setMinutesPM] = React.useState(0);
+    const [minutesPM, setMinutesPM] = React.useState(props.user.defaultWorkingAfternoonMinutes);
     const handleChangeMinutesPM = (event) => {
         setMinutesPM(event.target.value);
     };
 
-    const [tz, setTz] = React.useState(461);
+    const [tz, setTz] = React.useState(timezones.indexOf(props.user.timezone));
     const handleChangeTimezone = (event) => {
         setTz(event.target.value);
     };
 
 
 
-    const statuses = ["En télétravail", "Au bureau", "En déplacement"]
+    const statuses = ["A définir", "Au bureau", "En télétravail", "En déplacement"]
 
-    const [mondayStatus, setMondayStatus] = React.useState(0);
+    const [mondayStatus, setMondayStatus] = React.useState(props.user.mondayStatus);
     const handleChangeMondayStatus = (event) => {
         setMondayStatus(event.target.value);
     };
 
-    const [tuesdayStatus, setTuesdayStatus] = React.useState(1);
+    const [tuesdayStatus, setTuesdayStatus] = React.useState(props.user.tuesdayStatus);
     const handleChangeTuesdayStatus = (event) => {
         setTuesdayStatus(event.target.value);
     };
 
-    const [wednesdayStatus, setWednesdayStatus] = React.useState(1);
+    const [wednesdayStatus, setWednesdayStatus] = React.useState(props.user.wednesdayStatus);
     const handleChangeWednesdayStatus = (event) => {
         setWednesdayStatus(event.target.value);
     };
 
-    const [thursdayStatus, setThursdayStatus] = React.useState(1);
+    const [thursdayStatus, setThursdayStatus] = React.useState(props.user.thursdayStatus);
     const handleChangeThursdayStatus = (event) => {
         setThursdayStatus(event.target.value);
     };
 
-    const [fridayStatus, setFridayStatus] = React.useState(0);
+    const [fridayStatus, setFridayStatus] = React.useState(props.user.fridayStatus);
     const handleChangeFridayStatus = (event) => {
         setFridayStatus(event.target.value);
     };
 
 
+
     const languageOptions = ["Français", "English"]
 
-    const [language, setLanguage] = React.useState(0);
+    const [language, setLanguage] = React.useState(languageOptions.indexOf(props.user.lang));
     const handleChangeLanguage = (event) => {
         setLanguage(event.target.value);
     };
 
 
-    const offices = ["Paris 1er", "Défense", "Bordeaux"]
-
-    const [office, setOffice] = React.useState(2);
-    const handleChangeOffice = (event) => {
-        setOffice(event.target.value);
-    };
-
-
     const { enqueueSnackbar } = useSnackbar();
+    const validate = () => {
+        return true;
+    }
+    const updateUserSettings = async () => {
+        if (validate()) {
+            const resources = {
+                defaultWorkingMorningHour: hoursAM,
+                defaultWorkingMorningMinutes: minutesAM,
+                defaultWorkingAfternoonHour: hoursPM,
+                defaultWorkingAfternoonMinutes: minutesPM,
+                timezone: timezones[tz],
+                lang: languageOptions[language],
+                mondayStatus: mondayStatus,
+                tuesdayStatus: tuesdayStatus,
+                wednesdayStatus: wednesdayStatus,
+                thursdayStatus: thursdayStatus,
+                fridayStatus: fridayStatus
+            };
+            await UserService.updateUserSettings(resources).then(async (res) => {
+                if (res.status === 200) {
+                    enqueueSnackbar('Update saved.', {
+                        variant: 'success'
+                    });
+                    navigate('/app/myaccount');
+                } else {
+                    enqueueSnackbar('Une erreur est survenue', {
+                        variant: 'error'
+                    });
+                }
+            })
+        } else {
+            enqueueSnackbar('Veuillez remplir tous les champs', {
+                variant: 'warning'
+            });
+        }
+    }
     let navigate = useNavigate();
     const save = () => {
         enqueueSnackbar('Paramètres enregistrés.', {
@@ -240,7 +270,7 @@ export default function PreferencesSection(props) {
                             value={tz}
                             onChange={handleChangeTimezone}
                         >
-                            {timezone.map((tz, index) => {
+                            {timezones.map((tz, index) => {
                                 return (
                                     <MenuItem value={index}>{tz}</MenuItem>
                                 )
@@ -267,31 +297,6 @@ export default function PreferencesSection(props) {
                             {languageOptions.map((lang, index) => {
                                 return (
                                     <MenuItem value={index}>{lang}</MenuItem>
-                                )
-                            }
-                            )}
-                        </Select>
-                    </FormControl>
-                </Grid>
-
-
-
-                <Grid item mt={6}>
-                    <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#414040' }}>
-                        Bureau
-                    </Typography>
-                </Grid>
-
-                <Grid item>
-                    <FormControl sx={{ width: 300 }} variant="standard">
-                        <Select
-                            id="demo-customized-select-native"
-                            value={office}
-                            onChange={handleChangeOffice}
-                        >
-                            {offices.map((off, index) => {
-                                return (
-                                    <MenuItem value={index}>{off}</MenuItem>
                                 )
                             }
                             )}
@@ -420,7 +425,7 @@ export default function PreferencesSection(props) {
                                     label="Enregistrer"
                                     sx={{ borderColor: "#3F07A8", color: "#3F07A8", fontWeight: "bold" }}
                                     color="error"
-                                    onClick={save}
+                                    onClick={updateUserSettings}
                                     icon={<CheckCircleIcon />}
                                     variant="outlined"
                                 />

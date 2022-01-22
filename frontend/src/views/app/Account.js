@@ -76,7 +76,7 @@ export default function Account(props) {
 
                 <Divider style={{ backgroundColor: "#E1D2FC" }} />
 
-                <PreferencesSection />
+                <PreferencesSection user={user} />
 
                 <Divider style={{ backgroundColor: "#E1D2FC" }} />
 

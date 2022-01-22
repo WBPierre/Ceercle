@@ -113,7 +113,7 @@ export default function SecuritySection(props) {
 
 
 
-                <Grid item mt={5}>
+                <Grid item mt={3}>
                     <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#414040' }}>
                         Nouveau mot de passe
                     </Typography>
@@ -132,7 +132,7 @@ export default function SecuritySection(props) {
 
 
 
-                <Grid item mt={5}>
+                <Grid item mt={3}>
                     <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#414040' }}>
                         Confirmer le mot de passe
                     </Typography>
@@ -146,7 +146,7 @@ export default function SecuritySection(props) {
                             type="password"
                             value={newPasswordConfirmed}
                             onChange={handleChangeNewPasswordConfirmed}
-                            helperText="Mot de passe incorrect"
+                            helperText={newPasswordConfirmed !== newPassword && newPasswordConfirmed !== "" ? "Mot de passe incorrect" : " "}
                         />
                     </FormControl>
                 </Grid>

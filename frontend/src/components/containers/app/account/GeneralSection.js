@@ -66,13 +66,13 @@ export default function GeneralSection(props) {
                     });
                     navigate('/app/myaccount');
                 } else {
-                    enqueueSnackbar('Server returned an error.', {
+                    enqueueSnackbar('Une erreur est survenue', {
                         variant: 'error'
                     });
                 }
             })
         } else {
-            enqueueSnackbar('Please fill all fields', {
+            enqueueSnackbar('Veuillez remplir tous les champs', {
                 variant: 'warning'
             });
         }

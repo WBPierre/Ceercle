@@ -9,11 +9,11 @@ import { Button } from "@mui/material";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import TeamAddModal from "../../components/containers/app/teams/TeamAddModal";
 import Chip from '@mui/material/Chip';
+import TeamService from "../../services/app/team.service";
 
 
 function Teams() {
     const [openModal, setOpenModal] = useState(false);
-    const [listTeams, setListTeams] = useState([]);
 
     const handleModalClose = () => {
         setOpenModal(false);
@@ -24,11 +24,23 @@ function Teams() {
         handleModalClose();
     };
 
+    const [listTeams, setListTeams] = useState(null);
+
     useEffect(() => {
-        setListTeams([{ 'id': '0', 'name': "Finances", 'size': 7, 'color': "#046AFC" },
-        { 'id': '1', 'name': "Marketing", 'size': 11, 'color': "#FC1704" },
-        { 'id': '2', 'name': "Opérations", 'size': 27, 'color': "#085803" }])
+        async function listAllTeams() {
+            //const res = await TeamService.listAllTeams();
+            // setListTeams(res.data);
+            setListTeams([{ 'id': '0', 'name': "Finances", 'size': 7, 'color': "#046AFC" },
+            { 'id': '1', 'name': "Marketing", 'size': 11, 'color': "#FC1704" },
+            { 'id': '2', 'name': "Opérations", 'size': 27, 'color': "#085803" }])
+            // console.log(res.data)
+        }
+        listAllTeams();
     }, []);
+
+    if (listTeams === null) {
+        return (<div />)
+    }
 
     return (
         <CustomContainer>
