@@ -44,7 +44,7 @@ export default function Account(props) {
     }, []);
 
     if (user === null) {
-        return (<div />)
+        return (<CustomContainer />)
     }
 
     return (
@@ -72,7 +72,7 @@ export default function Account(props) {
 
                 <Divider style={{ backgroundColor: "#A4A3A3" }} />
 
-                <AvatarSection />
+                <AvatarSection  user={user}/>
 
                 <Divider style={{ backgroundColor: "#E1D2FC" }} />
 

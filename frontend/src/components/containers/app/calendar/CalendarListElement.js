@@ -19,6 +19,7 @@ import OffIcon from "../../../molecules/icons/OffIcon";
 import Grid from "@mui/material/Grid";
 import example4 from "../../../../assets/images/example/4.jpg";
 import example5 from "../../../../assets/images/example/5.jpg";
+import ProfileDefault from "../../../../assets/images/example/default.png";
 import * as React from "react";
 import Typography from "@mui/material/Typography";
 import {styled} from "@mui/material/styles";
@@ -41,6 +42,8 @@ function CalendarListElement(props){
     const handleClick = () => {
         setOpen(!open);
     };
+
+    console.log("FULL DATA", props.data);
 
     const getMidDayText = (item) => {
         return ""
@@ -155,20 +158,22 @@ function CalendarListElement(props){
                             </Grid>
                             <Grid item xs={12} hidden={open} style={{flex:1}}>
                                 <Grid container direction={"row"} alignItems={"center"} spacing={1}>
-                                    <Grid item>
-                                        <Avatar sx={{ width: 24, height: 24 }} alt="Remy Sharp" src={example4} />
-                                    </Grid>
-                                    <Grid item>
-                                        <Avatar sx={{ width: 24, height: 24 }} alt="Travis Howard" src={example5} />
-                                    </Grid>
-                                    <Grid item>
-                                        <Avatar sx={{ width: 24, height: 24 }} alt="Travis Howard" src={example5} />
-                                    </Grid>
-                                    <Grid item>
-                                        <Avatar sx={{ width: 24, height: 24 }} style={{backgroundColor:'transparent', color:'#7F7F7F'}}>
-                                            +2
-                                        </Avatar>
-                                    </Grid>
+                                    {props.data.map((item, i) => {
+                                        if(i < 3){
+                                            return (
+                                                <Grid item>
+                                                    <Avatar sx={{ width: 24, height: 24 }} alt={item.fullName} src={item.profilePicturePath === null ? ProfileDefault : item.profilePicturePath} />
+                                                </Grid>
+                                            )
+                                        }
+                                    })}
+                                    {props.data.length > 3 && (
+                                        <Grid item>
+                                            <Avatar sx={{ width: 24, height: 24 }} style={{backgroundColor:'transparent', color:'#7F7F7F'}}>
+                                                +{props.data.length-3}
+                                            </Avatar>
+                                        </Grid>
+                                    )}
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -179,7 +184,7 @@ function CalendarListElement(props){
                                 return (
                                     <ListItem key={i} style={{paddingRight:0}}>
                                         <ListItemAvatar style={{minWidth:'20px'}}>
-                                            <Avatar sx={{width:30, height:30}} src={example5}/>
+                                            <Avatar sx={{width:30, height:30}} src={item.profilePicturePath === null ? ProfileDefault : item.profilePicturePath}/>
                                         </ListItemAvatar>
                                         <ListItemText primaryTypographyProps={{style:{fontSize: 14, whiteSpace: 'nowrap', overflow:'hidden', textOverflow: 'ellipsis', paddingLeft:5}}} primary={`${item.fullName}`} secondary={getMidDayText(item)} secondaryTypographyProps={{style:{fontSize: 10, paddingLeft:5}}}/>
                                     </ListItem>

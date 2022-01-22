@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import {Chip} from "@mui/material";
 
 
 export default function TabInfoByUser(props) {
@@ -19,7 +20,7 @@ export default function TabInfoByUser(props) {
         <Grid container direction="column" spacing={5}>
             <Grid item>
                 <Grid container direction="row">
-                    <Grid item md={6}>
+                    <Grid item md={12}>
                         <Grid container direction="column">
                             <Grid item>
                                 <Typography fontSize={15} fontWeight={100} style={{ color: '#959494' }} noWrap>
@@ -30,58 +31,6 @@ export default function TabInfoByUser(props) {
                             <Grid item>
                                 <Typography fontSize={20} fontWeight={400} style={{ color: '#323232' }} noWrap>
                                     {props.userToDisplay.position}
-                                </Typography>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-
-                    <Grid item md={6}>
-                        <Grid container direction="column">
-                            <Grid item>
-                                <Typography fontSize={15} fontWeight={100} style={{ color: '#959494' }} noWrap>
-                                    Equipe
-                                </Typography>
-                            </Grid>
-
-                            <Grid item>
-                                <Typography fontSize={20} fontWeight={400} style={{ color: '#323232' }} noWrap>
-                                    {props.userToDisplay.team}
-                                </Typography>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </Grid>
-
-            <Grid item>
-                <Grid container direction="row">
-                    <Grid item md={6}>
-                        <Grid container direction="column">
-                            <Grid item>
-                                <Typography fontSize={15} fontWeight={100} style={{ color: '#959494' }} noWrap>
-                                    Bureau
-                                </Typography>
-                            </Grid>
-
-                            <Grid item>
-                                <Typography fontSize={20} fontWeight={400} style={{ color: '#323232' }} noWrap>
-                                    {props.userToDisplay.office_location}
-                                </Typography>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-
-                    <Grid item md={6}>
-                        <Grid container direction="column">
-                            <Grid item>
-                                <Typography fontSize={15} fontWeight={100} style={{ color: '#959494' }} noWrap>
-                                    Desk
-                                </Typography>
-                            </Grid>
-
-                            <Grid item>
-                                <Typography fontSize={20} fontWeight={400} style={{ color: '#323232' }} noWrap>
-                                    {props.userToDisplay.desk}
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -117,10 +66,29 @@ export default function TabInfoByUser(props) {
 
                             <Grid item>
                                 <Typography fontSize={20} fontWeight={400} style={{ color: '#323232' }} noWrap>
-                                    {props.userToDisplay.phone}
+                                    {props.userToDisplay.phoneNumber}
                                 </Typography>
                             </Grid>
                         </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+            <Grid item>
+                <Grid container direction="column">
+                    <Grid item>
+                        <Typography fontSize={15} fontWeight={100} style={{ color: '#959494' }} noWrap>
+                            Equipe(s)
+                        </Typography>
+                    </Grid>
+
+                    <Grid item>
+                        <Typography fontSize={20} fontWeight={400} style={{ color: '#323232' }} noWrap>
+                            {props.userToDisplay.teams.map((team, index ) => {
+                                return (
+                                    <Chip label={team.name} style={{backgroundColor:team.color}}/>
+                                )
+                            })}
+                        </Typography>
                     </Grid>
                 </Grid>
             </Grid>

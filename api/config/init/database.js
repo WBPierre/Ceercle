@@ -132,11 +132,11 @@ async function generateTestProfile(companyId) {
         }).then(async (record) => {
         if (!record) {
             await User.create({
-                firstName: "Test",
-                lastName: "Test",
-                email: "test@test.com",
+                firstName: "Hadrien",
+                lastName: "De Cournon",
+                email: "hadrien@demo.com",
                 password: await Security.hashPassword("HadrienVMV1997"),
-                phoneNumber: "test",
+                phoneNumber: "0777467581",
                 active: true,
                 isAdmin: true,
                 companyId: companyId
