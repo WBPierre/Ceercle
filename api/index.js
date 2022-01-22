@@ -1,8 +1,9 @@
 require('dotenv').config();
-const server = require('./config/server');
-const db = require('./config/database');
 
 global.__basedir = __dirname;
+
+const server = require('./config/server');
+const db = require('./config/database');
 
 const PORT = process.env.PORT || 8080;
 server.listen(PORT, () => {
