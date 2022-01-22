@@ -106,8 +106,7 @@ exports.listAllTeams = async function (req, res, next) {
             }
         ).then(async (record) => {
             if (record.length == 0) {
-                res.status(404);
-                res.send();
+                res.json([]);
             } else {
                 let teams = []
                 for (let i = 0; i < record.length; i++) {

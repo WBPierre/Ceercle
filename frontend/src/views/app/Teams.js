@@ -24,6 +24,7 @@ function Teams() {
 
     const handleAddTeam = async (name, color) => {
         let team_to_add = { 'name': name, 'color': color }
+        console.log(team_to_add)
         await TeamService.createTeam(team_to_add).then(async (res) => {
             if (res.status === 200) {
                 enqueueSnackbar('Equipe créé', {
@@ -34,7 +35,7 @@ function Teams() {
                     variant: 'error'
                 });
             }
-        })
+        }).catch(err => { console.log(err) })
         handleModalClose();
         listAllTeams()
     };

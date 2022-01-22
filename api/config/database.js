@@ -1,5 +1,5 @@
-const {Sequelize} = require('sequelize');
-const {initDatabase} = require("./init/database");
+const { Sequelize } = require('sequelize');
+const { initDatabase } = require("./init/database");
 
 const db = new Sequelize(`postgres://${process.env.DB_USER}:${process.env.DB_PWD}@${process.env.DB_ADDRESS}:${process.env.DB_PORT}/${process.env.DB_NAME}`,
     {
@@ -10,12 +10,12 @@ const db = new Sequelize(`postgres://${process.env.DB_USER}:${process.env.DB_PWD
     })
 
 
-async function verifyDatabase(){
+async function verifyDatabase() {
     try {
         await db.authenticate();
         console.log('Connection to the database has been established successfully.');
         console.log('Database synchronizing...');
-        await db.sync({ force: true });
+        await db.sync({ alter: true });
         console.log('Database synchronized');
         return true;
     } catch (error) {
@@ -23,4 +23,4 @@ async function verifyDatabase(){
     }
 }
 
-module.exports = {db, verifyDatabase};
+module.exports = { db, verifyDatabase };
