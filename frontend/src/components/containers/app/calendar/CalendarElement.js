@@ -16,15 +16,26 @@ function CalendarElement(props){
         }
     }, [props.filters]);
 
+    const filterByTeam = (data) => {
+        if(props.filters.team !== 0){
+            return data.filter((x) => {
+                if(x.teams.filter(t => t.id === props.filters.team).length > 0){
+                    return x;
+                }
+            })
+        }
+        return data;
+    }
+
     return(
         <Paper style={{width:'95%', paddingLeft: '2.5%', borderRadius:'25px'}} hidden={hide}>
 
             <List  aria-label="main mailbox folders" dense={false} ref={listRef}>
-                {props.data.type[1].length !== 0 && (props.filters.type === -1 || props.filters.type === 1) && <CalendarListElement type={1} data={props.data.type[1].filter(x => x.fullName.toLowerCase().includes(props.filters.search.toLowerCase()))} total={props.data.totalUsers}/>}
-                {props.data.type[2].length !== 0 && (props.filters.type === -1 || props.filters.type === 2) && <CalendarListElement type={2} data={props.data.type[2].filter(x => x.fullName.toLowerCase().includes(props.filters.search.toLowerCase()))} total={props.data.totalUsers}/>}
-                {props.data.type[3].length !== 0 && (props.filters.type === -1 || props.filters.type === 3) && <CalendarListElement type={3} data={props.data.type[3].filter(x => x.fullName.toLowerCase().includes(props.filters.search.toLowerCase()))} total={props.data.totalUsers}/>}
-                {props.data.type[4].length !== 0 && (props.filters.type === -1 || props.filters.type === 4) && <CalendarListElement type={4} data={props.data.type[4].filter(x => x.fullName.toLowerCase().includes(props.filters.search.toLowerCase()))} total={props.data.totalUsers}/>}
-                {props.data.type[0].length !== 0 && (props.filters.type === -1 || props.filters.type === 0) && <CalendarListElement type={0} data={props.data.type[0].filter(x => x.fullName.toLowerCase().includes(props.filters.search.toLowerCase()))} total={props.data.totalUsers}/>}
+                {props.data.type[1].length !== 0 && (props.filters.type === -1 || props.filters.type === 1) && <CalendarListElement type={1} data={filterByTeam(props.data.type[1].filter(x => x.fullName.toLowerCase().includes(props.filters.search.toLowerCase())))} total={props.data.totalUsers}/>}
+                {props.data.type[2].length !== 0 && (props.filters.type === -1 || props.filters.type === 2) && <CalendarListElement type={2} data={filterByTeam(props.data.type[2].filter(x => x.fullName.toLowerCase().includes(props.filters.search.toLowerCase())))} total={props.data.totalUsers}/>}
+                {props.data.type[3].length !== 0 && (props.filters.type === -1 || props.filters.type === 3) && <CalendarListElement type={3} data={filterByTeam(props.data.type[3].filter(x => x.fullName.toLowerCase().includes(props.filters.search.toLowerCase())))} total={props.data.totalUsers}/>}
+                {props.data.type[4].length !== 0 && (props.filters.type === -1 || props.filters.type === 4) && <CalendarListElement type={4} data={filterByTeam(props.data.type[4].filter(x => x.fullName.toLowerCase().includes(props.filters.search.toLowerCase())))} total={props.data.totalUsers}/>}
+                {props.data.type[0].length !== 0 && (props.filters.type === -1 || props.filters.type === 0) && <CalendarListElement type={0} data={filterByTeam(props.data.type[0].filter(x => x.fullName.toLowerCase().includes(props.filters.search.toLowerCase())))} total={props.data.totalUsers}/>}
             </List>
         </Paper>
     )
