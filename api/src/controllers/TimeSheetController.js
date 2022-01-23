@@ -36,13 +36,14 @@ exports.getUsersTimeSheet = async function(req, res, next) {
                     },
                     userId: user.id
                 }
-            }).then((record)=> {
+            }).then(async (record)=> {
                 if(record.length === 0){
                     let obj = {
                         fullName: user.firstName +' '+ user.lastName,
                         morning: 0,
                         afternoon: 0,
-                        profilePicturePath: user.profilePicturePath
+                        profilePicturePath: user.profilePicturePath,
+                        teams: await user.getTeams()
                     }
                     for(let i = 0; i < week.length; i++){
                         week[i].type[0].push(obj);
@@ -53,7 +54,8 @@ exports.getUsersTimeSheet = async function(req, res, next) {
                             fullName: user.firstName +' '+ user.lastName,
                             morning: 0,
                             afternoon: 0,
-                            profilePicturePath: user.profilePicturePath
+                            profilePicturePath: user.profilePicturePath,
+                            teams: await user.getTeams()
                         }
                         let found = false;
                         for(let i = 0; i < record.length; i++){

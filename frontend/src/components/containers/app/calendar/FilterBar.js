@@ -13,12 +13,24 @@ import * as React from "react";
 import SearchIcon from '@mui/icons-material/Search';
 import Box from "@mui/material/Box";
 import moment from "moment";
+import TeamService from "../../../../services/app/team.service";
 
 function FilterBar(props) {
 
     const [team, setTeam] = useState(0);
     const [type, setType] = useState(-1);
     const [search, setSearch] = useState('');
+    const [list, setList] = useState([]);
+
+    useEffect(() => {
+        async function getAllTeams() {
+            await TeamService.listAllTeams().then((res) => {
+                setList(res.data);
+                console.log(res.data);
+            })
+        }
+        getAllTeams();
+    }, [])
 
     const handleChange = (event) => {
         setTeam(event.target.value);
@@ -70,10 +82,11 @@ function FilterBar(props) {
                                     input={<InputBase />}
                                 >
                                     <MenuItem value={0}>Toutes les équipes</MenuItem>
-                                    <MenuItem value={1}>RH</MenuItem>
-                                    <MenuItem value={2}>Comptabilité</MenuItem>
-                                    <MenuItem value={3}>Tech</MenuItem>
-                                    <MenuItem value={4}>Opérations</MenuItem>
+                                    {list.map((team) => {
+                                        return (
+                                            <MenuItem value={team.id}>{team.name}</MenuItem>
+                                        )
+                                    })}
                                 </Select>
                             </FormControl>
                         } />
