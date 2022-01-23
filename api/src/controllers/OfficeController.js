@@ -1,27 +1,73 @@
 const Office = require('../models/Office');
-const {validationResult, param, body} = require("express-validator");
+const { validationResult, param, body } = require("express-validator");
 const Team = require("../models/Team");
 
 
-exports.getOffices = async function(req, res, next){
+exports.getOffices = async function (req, res, next) {
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            res.status(422).json({errors: errors.array()});
+            res.status(422).json({ errors: errors.array() });
         }
         const id = req.params.id;
         const result = await Office.findAll({
-            where:{
+            where: {
                 companyId: id
             }
         })
         res.json(result);
-    } catch(err) {
+    } catch (err) {
         return next(err)
     }
 }
 
-exports.createOffice = async function (req, res, next){
+exports.listOffices = async function (req, res, next) {
+    try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            res.status(422).json({ errors: errors.array() });
+        }
+        const result = await Office.findAll({
+            where: {
+                companyId: res.locals.auth.user.company.id
+            },
+            order: [['name', 'ASC']]
+        })
+        res.json(result);
+    } catch (err) {
+        return next(err)
+    }
+}
+
+exports.updateOccupancy = async function (req, res, next) {
+    try {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            res.status(422).json({ errors: errors.array() });
+            return;
+        }
+        await Office.findOne(
+            {
+                where: {
+                    id: req.body.officeId
+                }
+            }).then((record) => {
+                if (!record) {
+                    res.status(404);
+                    res.send();
+                } else {
+                    record.update({ maxCapacity: req.body.maxCapacity }).then((updated) => {
+                        res.json(updated);
+                    })
+                }
+            });
+    } catch (err) {
+        return next(err)
+    }
+}
+
+exports.createOffice = async function (req, res, next) {
     try {
         const errors = validationResult(req);
 
@@ -30,7 +76,7 @@ exports.createOffice = async function (req, res, next){
         }
         const result = await Office.create(req.body)
         res.json(result);
-    } catch(err) {
+    } catch (err) {
         return next(err)
     }
 }
@@ -45,25 +91,25 @@ exports.updateOffice = async function (req, res, next) {
         }
         await Office.findOne(
             {
-                where:{
-                    id:req.body.id
+                where: {
+                    id: req.body.id
                 }
             }).then((record) => {
-            if (!record) {
-                res.status(404);
-                res.send();
-            }else{
-                record.update(req.body).then((updated) => {
-                    res.json(updated);
-                })
-            }
-        });
-    } catch(err) {
+                if (!record) {
+                    res.status(404);
+                    res.send();
+                } else {
+                    record.update(req.body).then((updated) => {
+                        res.json(updated);
+                    })
+                }
+            });
+    } catch (err) {
         return next(err)
     }
 }
 
-exports.deleteOffice = async function(req, res, next){
+exports.deleteOffice = async function (req, res, next) {
     try {
         console.log(req.body);
         const errors = validationResult(req);
@@ -74,12 +120,12 @@ exports.deleteOffice = async function(req, res, next){
         }
         await Office.destroy(
             {
-                where:{
-                    id:req.body.id
+                where: {
+                    id: req.body.id
                 }
             });
         res.sendStatus(200);
-    } catch(err) {
+    } catch (err) {
         return next(err)
     }
 }
@@ -105,6 +151,13 @@ exports.validate = (method) => {
                 body('zipCode', 'zipCode is not a string').isString(),
                 body('city', 'city is not a string').isString(),
                 body('country', 'country is not a string').isString(),
+            ]
+        }
+        case 'updateOccupancy': {
+            return [
+                body('officeId', 'officeId doesn\'t exist').exists(),
+                body('officeId', 'officeId is not a number').isNumeric(),
+                body('maxCapacity', 'maxCapacity is not a number').isNumeric(),
             ]
         }
         case 'updateOffice': {

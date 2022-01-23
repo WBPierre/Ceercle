@@ -14,43 +14,81 @@ import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
+import OfficeService from '../../../../services/app/office.service';
+import { useEffect, useState } from "react";
 
 import SettingSectionTemplate from '../account/SettingSectionTemplate';
 
 export default function OfficeOccupancy(props) {
 
-    const { enqueueSnackbar } = useSnackbar();
-    let navigate = useNavigate();
-    const save = () => {
-        enqueueSnackbar('Paramètres enregistrés.', {
-            variant: 'success'
-        });
-    }
-
-    const cancel = () => {
-        enqueueSnackbar('Annulé', {
-            variant: 'cancel'
-        });
-        navigate('/app/workpolicy');
-    }
-
     const occupancies = ["0%", "10%", "20%", "30%", "40%", "50%", "60%", "70%", "80%", "90%", "100%"]
     const occupancy_0_1 = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
 
-    const offices = [{ "name": "Salle Mozart", "seats": 12, "occupancy": "80%" },
-    { "name": "Salle Chopin", "seats": 16, "occupancy": "100%" },
-    { "name": "Salle Vivaldi", "seats": 20, "occupancy": "60%" }]
-
     const [office, setOffice] = React.useState(0);
-    const [occupancy, setOccupancy] = React.useState(occupancies.indexOf(offices[0].occupancy, 0));
+    const [occupancy, setOccupancy] = React.useState(0);
     const handleChangeOffice = (event) => {
         setOffice(event.target.value);
-        setOccupancy(occupancies.indexOf(offices[event.target.value].occupancy, 0));
+        setOccupancy(parseInt(officesList[event.target.value].maxCapacity / 10));
     };
 
     const handleChangeOccupancy = (event) => {
         setOccupancy(event.target.value);
     };
+
+    const [officesList, setOfficesList] = React.useState([{ "name": " ", "capacity": 10, "occupancy": "100%" }]);
+
+    async function listOffices() {
+        const res = await OfficeService.listOffices();
+        setOfficesList(res.data)
+        setOccupancy(parseInt(res.data[office].maxCapacity / 10))
+    }
+
+    useEffect(() => {
+        listOffices();
+    }, []);
+
+    const { enqueueSnackbar } = useSnackbar();
+
+    const validateOccupancy = () => {
+        return true;
+    }
+
+    const saveOccupancy = async () => {
+        if (validateOccupancy()) {
+            const resources = {
+                officeId: officesList[office].id,
+                maxCapacity: occupancy * 10
+            };
+            await OfficeService.updateOccupancy(resources).then(async (res) => {
+                if (res.status === 200) {
+                    enqueueSnackbar('Paramètres enregistrés', {
+                        variant: 'success'
+                    });
+                } else {
+                    enqueueSnackbar('Une erreur est survenue', {
+                        variant: 'error'
+                    });
+                }
+            })
+        } else {
+            enqueueSnackbar('Veuillez remplir correctement les champs', {
+                variant: 'warning'
+            });
+        }
+        listOffices()
+    }
+
+
+    const cancel = () => {
+        enqueueSnackbar('Annulé', {
+            variant: 'cancel'
+        });
+        listOffices()
+    }
+
+    if (officesList == null) {
+        <SettingSectionTemplate title="Occupation des salles de travail" description="Paramétrez les taux d'occupation des espaces de travail et permettez à chaque employé de profiter d'un environnement de travail sain et organisé."></SettingSectionTemplate>
+    }
 
     return (
         <SettingSectionTemplate title="Occupation des salles de travail" description="Paramétrez les taux d'occupation des espaces de travail et permettez à chaque employé de profiter d'un environnement de travail sain et organisé.">
@@ -71,7 +109,7 @@ export default function OfficeOccupancy(props) {
                                     value={office}
                                     onChange={handleChangeOffice}
                                 >
-                                    {offices.map((off, index) => {
+                                    {officesList.map((off, index) => {
                                         return (
                                             <MenuItem value={index}>{off.name}</MenuItem>
                                         )
@@ -82,7 +120,7 @@ export default function OfficeOccupancy(props) {
                         </Grid>
                         <Grid item mt={1}>
                             <Typography variant="body" fontWeight={300} fontSize={17} style={{ color: '#414040', fontStyle: "italic" }}>
-                                ({offices[office].seats} places)
+                                ({officesList[office].capacity} places)
                             </Typography>
                         </Grid>
                     </Grid>
@@ -116,7 +154,7 @@ export default function OfficeOccupancy(props) {
                         </Grid>
                         <Grid item mt={1}>
                             <Typography variant="body" fontWeight={300} fontSize={17} style={{ color: '#414040', fontStyle: "italic" }}>
-                                ({Math.round(offices[office].seats * occupancy_0_1[occupancy])} places)
+                                ({Math.round(officesList[office].capacity * occupancy_0_1[occupancy])} places)
                             </Typography>
                         </Grid>
                     </Grid>
@@ -144,7 +182,7 @@ export default function OfficeOccupancy(props) {
                                     label="Enregistrer"
                                     sx={{ borderColor: "#3F07A8", color: "#3F07A8", fontWeight: "bold" }}
                                     color="error"
-                                    onClick={save}
+                                    onClick={saveOccupancy}
                                     icon={<CheckCircleIcon />}
                                     variant="outlined"
                                 />
