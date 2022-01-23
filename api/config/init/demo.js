@@ -162,6 +162,7 @@ async function generateAuthorizeTestProfile(companyId, teams) {
                 position: 'CEO',
                 password: await Security.hashPassword("@demo&Ceercle2022"),
                 phoneNumber: "0777467581",
+                profilePicturePath: profileUrl+"hadrien.jpeg",
                 active: true,
                 isAdmin: true,
                 companyId: companyId
@@ -184,6 +185,7 @@ async function generateAuthorizeTestProfile(companyId, teams) {
                 position: 'CEO',
                 password: await Security.hashPassword("@demo&Ceercle2022"),
                 phoneNumber: "0643359022",
+                profilePicturePath: profileUrl+"victor.jpeg",
                 active: true,
                 isAdmin: true,
                 companyId: companyId
@@ -205,6 +207,7 @@ async function generateAuthorizeTestProfile(companyId, teams) {
                 position: 'CPO',
                 password: await Security.hashPassword("@demo&Ceercle2022"),
                 phoneNumber: "0674497632",
+                profilePicturePath: profileUrl+"louis.jpeg",
                 active: true,
                 isAdmin: true,
                 companyId: companyId

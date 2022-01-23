@@ -155,7 +155,7 @@ function CalendarListElement(props){
                                 </Grid>
                             </Grid>
                             <Grid item xs={12} hidden={open} style={{flex:1}}>
-                                <Grid container direction={"row"} alignItems={"center"} spacing={1}>
+                                <Grid container direction={"row"} alignItems={"center"} spacing={1} style={{marginLeft: '1%'}}>
                                     {props.data.map((item, i) => {
                                         if(i < 3){
                                             return (
