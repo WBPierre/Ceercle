@@ -31,7 +31,7 @@ exports.updateCompany = async function (req, res, next) {
         await Company.findOne(
             {
                 where: {
-                    id: res.locals.auth.user.company.id
+                    id: id
                 }
             }).then((record) => {
                 if (!record) {
@@ -171,13 +171,11 @@ exports.validate = (method) => {
         }
         case 'updateCompany': {
             return [
-                param('id', 'id doesn\'t exist').exists(),
-                param('id', 'id is not a number').isNumeric(),
                 body('name', 'name doesn\'t exist').exists(),
                 body('name', 'name is not a string').isString(),
                 body('activeOfficeHandler', 'activeOfficeHandler is not a boolean').isBoolean(),
-                body('remoteMinimum', 'remoteMinimum is not a number').isNumeric(),
-                body('remoteMaximum', 'remoteMaximum is not a number').isNumeric(),
+                body('officeMinimum', 'officeMinimum is not a number').isNumeric(),
+                body('officeMaximum', 'officeMaximum is not a number').isNumeric(),
                 body('maxCapacity', 'maxCapacity is not a number').isNumeric(),
                 body('mondayMandatoryStatus', 'mondayMandatoryStatus is not a number').isNumeric(),
                 body('tuesdayMandatoryStatus', 'tuesdayMandatoryStatus is not a number').isNumeric(),

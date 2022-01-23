@@ -30,7 +30,8 @@ exports.listOffices = async function (req, res, next) {
         const result = await Office.findAll({
             where: {
                 companyId: res.locals.auth.user.company.id
-            }
+            },
+            order: [['name', 'ASC']]
         })
         res.json(result);
     } catch (err) {
