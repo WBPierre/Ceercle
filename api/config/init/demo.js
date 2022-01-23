@@ -2,7 +2,11 @@ const Company = require("../../src/models/Company");
 const User = require("../../src/models/User");
 const Team = require("../../src/models/Team");
 const Security = require("../../src/services/Security");
+const Utils = require('../../src/services/Utils');
 const {v4: uuidv4} = require('uuid');
+const TimeSheet = require("../../src/models/TimeSheet");
+const {Op} = require("sequelize");
+const Moment = require("moment");
 
 const profileUrl = 'http://' + process.env.STORAGE_HOST + ':' + process.env.STORAGE_PORT + "/public/assets/demo/profile/";
 const bannerUrl = 'http://' + process.env.STORAGE_HOST + ':' + process.env.STORAGE_PORT + "/public/assets/demo/banner/";
@@ -13,6 +17,54 @@ exports.generateDemo = async function() {
     const teams = await generateTeams(companyTestId);
     await generateAuthorizeTestProfile(companyTestId, teams);
     await generateRandomProfile(companyTestId, teams);
+}
+
+exports.generateDemoData = async function(){
+
+    const company = await Company.findOne({where:{name:'Démo'}});
+    let index = 0;
+    let week = Utils.getCurrentWeek(index);
+    const users = await company.getUsers();
+    for(let i = 0; i < users.length; i++){
+        await generateTimeSheet(users[i].id, week);
+    }
+    index += 1;
+    week = Utils.getCurrentWeek(index);
+    for(let i = 0; i < users.length; i++){
+        await generateTimeSheet(users[i].id, week);
+    }
+    index -= 2; // -1
+    week = Utils.getCurrentWeek(index);
+    for(let i = 0; i < users.length; i++){
+        await generateTimeSheet(users[i].id, week);
+    }
+    index -= 1; // -2
+    week = Utils.getCurrentWeek(index);
+    for(let i = 0; i < users.length; i++){
+        await generateTimeSheet(users[i].id, week);
+    }
+    index -= 1; // -3
+    week = Utils.getCurrentWeek(index);
+    for(let i = 0; i < users.length; i++){
+        await generateTimeSheet(users[i].id, week);
+    }
+}
+
+async function generateTimeSheet(userId, week){
+    for(let i = 0; i < week.length; i++){
+        await TimeSheet.findOne({
+            where:{
+                day: Moment(new Date(week[i].day)),
+                userId: userId
+            }
+        }).then(async (record) => {
+            if(!record) {
+                let rand = Math.floor(Math.random() * 4) + 1
+                await TimeSheet.create({day: week[i].day, morning:rand, afternoon:rand, userId: userId});
+            }
+        })
+    }
+
 }
 
 async function generateTestCompany(){
