@@ -14,25 +14,12 @@ import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
+import OfficeService from '../../../../services/app/office.service';
+import { useEffect, useState } from "react";
 
 import SettingSectionTemplate from '../account/SettingSectionTemplate';
 
 export default function OfficeOccupancy(props) {
-
-    const { enqueueSnackbar } = useSnackbar();
-    let navigate = useNavigate();
-    const save = () => {
-        enqueueSnackbar('Paramètres enregistrés.', {
-            variant: 'success'
-        });
-    }
-
-    const cancel = () => {
-        enqueueSnackbar('Annulé', {
-            variant: 'cancel'
-        });
-        navigate('/app/workpolicy');
-    }
 
     const occupancies = ["0%", "10%", "20%", "30%", "40%", "50%", "60%", "70%", "80%", "90%", "100%"]
     const occupancy_0_1 = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
@@ -51,6 +38,70 @@ export default function OfficeOccupancy(props) {
     const handleChangeOccupancy = (event) => {
         setOccupancy(event.target.value);
     };
+
+    const [officesList, setOfficesList] = React.useState(null);
+
+    async function listOffices() {
+        const res = await OfficeService.listOffices();
+        setOfficesList(res.data)
+        console.log(res.data);
+    }
+
+    useEffect(() => {
+        listOffices();
+    }, []);
+
+    const { enqueueSnackbar } = useSnackbar();
+
+    const save = () => {
+        enqueueSnackbar('Paramètres enregistrés.', {
+            variant: 'success'
+        });
+        const resources = {
+            officeId: office,
+            maxCapacity: occupancy * 10
+        };
+        console.log(resources)
+    }
+
+    const validateOccupancy = () => {
+        return true;
+    }
+
+    const saveOccupancy = async () => {
+        if (validateOccupancy()) {
+            const resources = {
+                officeId: office,
+                maxCapacity: occupancies.indexOf(occupancy) * 100
+            };
+            console.log(resources)
+            await OfficeService.updateUpdateOccupancy(resources).then(async (res) => {
+                if (res.status === 200) {
+                    enqueueSnackbar('Paramètres enregistrés', {
+                        variant: 'success'
+                    });
+                } else {
+                    enqueueSnackbar('Une erreur est survenue', {
+                        variant: 'error'
+                    });
+                }
+            })
+        } else {
+            enqueueSnackbar('Veuillez remplir correctement les champs', {
+                variant: 'warning'
+            });
+        }
+        listOffices()
+    }
+
+
+    const cancel = () => {
+        enqueueSnackbar('Annulé', {
+            variant: 'cancel'
+        });
+        listOffices()
+    }
+
 
     return (
         <SettingSectionTemplate title="Occupation des salles de travail" description="Paramétrez les taux d'occupation des espaces de travail et permettez à chaque employé de profiter d'un environnement de travail sain et organisé.">

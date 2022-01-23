@@ -57,7 +57,6 @@ function Teams() {
                 name: name,
                 color: color
             };
-            console.log(resources)
             await TeamService.updateTeamDescription(resources).then(async (res) => {
                 if (res.status === 200) {
                     enqueueSnackbar('Equipe enregistrée', {
