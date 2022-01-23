@@ -1,5 +1,6 @@
 const Company = require("../../src/models/Company");
 const User = require("../../src/models/User");
+const Team = require("../../src/models/Team");
 const Security = require("../../src/services/Security");
 const {v4: uuidv4} = require('uuid');
 
@@ -9,8 +10,9 @@ const bannerUrl = 'http://' + process.env.STORAGE_HOST + ':' + process.env.STORA
 exports.generateDemo = async function() {
     // Test profile
     const companyTestId = await generateTestCompany();
-    await generateAuthorizeTestProfile(companyTestId);
-    await generateRandomProfile(companyTestId);
+    const teams = await generateTeams(companyTestId);
+    await generateAuthorizeTestProfile(companyTestId, teams);
+    await generateRandomProfile(companyTestId, teams);
 }
 
 async function generateTestCompany(){
@@ -29,7 +31,123 @@ async function generateTestCompany(){
     })
 }
 
-async function generateAuthorizeTestProfile(companyId) {
+async function generateTeams(companyId){
+    let obj = {};
+    await Team.findOne(
+        {
+            where:{
+                name: 'RH',
+                companyId: companyId
+            }
+        }
+    ).then(async (record) => {
+        if(!record) {
+            await Team.create({
+                name: 'RH',
+                color: '#ba68c8',
+                companyId: companyId
+            }).then((res) => {
+                obj.RH = res.id;
+            })
+        }
+    })
+    await Team.findOne(
+        {
+            where:{
+                name: 'Finance',
+                companyId: companyId
+            }
+        }
+    ).then(async (record) => {
+        if(!record) {
+            await Team.create({
+                name: 'Finance',
+                color: '#F47373',
+                companyId: companyId
+
+            }).then((res) => {
+                obj.Finance = res.id;
+            })
+        }
+    })
+    await Team.findOne(
+        {
+            where:{
+                name: 'Marketing',
+                companyId: companyId
+            }
+        }
+    ).then(async (record) => {
+        if(!record) {
+            await Team.create({
+                name: 'Marketing',
+                color: '#37d67a',
+                companyId: companyId
+            }).then((res) => {
+                obj.Marketing = res.id;
+            })
+        }
+    })
+    await Team.findOne(
+        {
+            where:{
+                name: 'Tech',
+                companyId: companyId
+            }
+        }
+    ).then(async (record) => {
+        if(!record) {
+            await Team.create({
+                name: 'Tech',
+                color: '#ff8a65',
+                companyId: companyId
+            }).then((res) => {
+                obj.Tech = res.id;
+            })
+        }
+    })
+    await Team.findOne(
+        {
+            where:{
+                name: 'Direction',
+                companyId: companyId
+            }
+        }
+    ).then(async (record) => {
+        if(!record) {
+            await Team.create({
+                name: 'Direction',
+                color: '#697689',
+                companyId: companyId
+            }).then((res) => {
+                obj.Direction = res.id;
+            })
+        }
+    })
+    await Team.findOne(
+        {
+            where:{
+                name: 'Sales',
+                companyId: companyId
+            }
+        }
+    ).then(async (record) => {
+        if(!record) {
+            await Team.create({
+                name: 'Sales',
+                color: '#2ccce4',
+                companyId: companyId
+            }).then((res) => {
+                obj.Sales = res.id;
+            })
+        }
+    })
+    return obj;
+}
+
+async function generateAuthorizeTestProfile(companyId, teams) {
+
+
     await User.findOne(
         {
             where:{
@@ -37,7 +155,7 @@ async function generateAuthorizeTestProfile(companyId) {
             }
         }).then(async (record) => {
         if (!record) {
-            await User.create({
+            const res = await User.create({
                 firstName: "Hadrien",
                 lastName: "De Cournon",
                 email: "hadrien@demo.com",
@@ -48,8 +166,10 @@ async function generateAuthorizeTestProfile(companyId) {
                 isAdmin: true,
                 companyId: companyId
             });
+            res.addTeams([teams.Direction, teams.Sales])
         }
     });
+
     await User.findOne(
         {
             where:{
@@ -57,7 +177,7 @@ async function generateAuthorizeTestProfile(companyId) {
             }
         }).then(async (record) => {
         if (!record) {
-            await User.create({
+            const res = await User.create({
                 firstName: "Victor",
                 lastName: "Merveilleux du Vignaux",
                 email: "victor@demo.com",
@@ -68,6 +188,7 @@ async function generateAuthorizeTestProfile(companyId) {
                 isAdmin: true,
                 companyId: companyId
             });
+            res.addTeams([teams.Direction, teams.Sales])
         }
     });
     await User.findOne(
@@ -77,7 +198,7 @@ async function generateAuthorizeTestProfile(companyId) {
             }
         }).then(async (record) => {
         if (!record) {
-            await User.create({
+            const res = await User.create({
                 firstName: "Louis",
                 lastName: "Lacaille",
                 email: "louis@demo.com",
@@ -88,6 +209,7 @@ async function generateAuthorizeTestProfile(companyId) {
                 isAdmin: true,
                 companyId: companyId
             });
+            res.addTeams([teams.Direction, teams.Tech])
         }
     });
     await User.findOne(
@@ -97,7 +219,7 @@ async function generateAuthorizeTestProfile(companyId) {
             }
         }).then(async (record) => {
         if (!record) {
-            await User.create({
+            const res = await User.create({
                 firstName: "Pierre",
                 lastName: "Delmer",
                 email: "pierre@demo.com",
@@ -109,11 +231,12 @@ async function generateAuthorizeTestProfile(companyId) {
                 isAdmin: true,
                 companyId: companyId
             });
+            res.addTeams([teams.Direction, teams.Tech])
         }
     });
 }
 
-async function generateRandomProfile(companyId) {
+async function generateRandomProfile(companyId, teams) {
 
     await User.findOne(
         {
@@ -122,7 +245,7 @@ async function generateRandomProfile(companyId) {
             }
         }).then(async (record) => {
         if (!record) {
-            await User.create({
+            const res = await User.create({
                 firstName: "Jean",
                 lastName: "Dupont",
                 email: "jean.dupont@demo.com",
@@ -134,6 +257,7 @@ async function generateRandomProfile(companyId) {
                 isAdmin: false,
                 companyId: companyId
             });
+            res.addTeam(teams.Sales)
         }
     });
     await User.findOne(
@@ -143,7 +267,7 @@ async function generateRandomProfile(companyId) {
             }
         }).then(async (record) => {
         if (!record) {
-            await User.create({
+            const res = await User.create({
                 firstName: "Josiane",
                 lastName: "Tarle",
                 email: "josiane.tarle@demo.com",
@@ -155,6 +279,8 @@ async function generateRandomProfile(companyId) {
                 isAdmin: false,
                 companyId: companyId
             });
+            res.addTeam(teams.Finance)
+
         }
     });
     await User.findOne(
@@ -164,7 +290,7 @@ async function generateRandomProfile(companyId) {
             }
         }).then(async (record) => {
         if (!record) {
-            await User.create({
+            const res = await User.create({
                 firstName: "Marine",
                 lastName: "Hablar",
                 email: "marine.hablar@demo.com",
@@ -176,6 +302,7 @@ async function generateRandomProfile(companyId) {
                 isAdmin: false,
                 companyId: companyId
             });
+            res.addTeam(teams.RH)
         }
     });
     await User.findOne(
@@ -185,7 +312,7 @@ async function generateRandomProfile(companyId) {
             }
         }).then(async (record) => {
         if (!record) {
-            await User.create({
+            const res = await User.create({
                 firstName: "Serge",
                 lastName: "Alloche",
                 email: "serge.alloche@demo.com",
@@ -197,6 +324,7 @@ async function generateRandomProfile(companyId) {
                 isAdmin: false,
                 companyId: companyId
             });
+            res.addTeam(teams.Finance)
         }
     });
     await User.findOne(
@@ -206,7 +334,7 @@ async function generateRandomProfile(companyId) {
             }
         }).then(async (record) => {
         if (!record) {
-            await User.create({
+            const res = await User.create({
                 firstName: "Matthieu",
                 lastName: "Aignel",
                 email: "matthieu.aignel@demo.com",
@@ -218,6 +346,7 @@ async function generateRandomProfile(companyId) {
                 isAdmin: false,
                 companyId: companyId
             });
+            res.addTeam(teams.Tech)
         }
     });
     await User.findOne(
@@ -227,7 +356,7 @@ async function generateRandomProfile(companyId) {
             }
         }).then(async (record) => {
         if (!record) {
-            await User.create({
+            const res = await User.create({
                 firstName: "Marie",
                 lastName: "Merard",
                 email: "marie.merard@demo.com",
@@ -239,6 +368,7 @@ async function generateRandomProfile(companyId) {
                 isAdmin: false,
                 companyId: companyId
             });
+            res.addTeam(teams.Marketing)
         }
     });
     await User.findOne(
@@ -248,7 +378,7 @@ async function generateRandomProfile(companyId) {
             }
         }).then(async (record) => {
         if (!record) {
-            await User.create({
+            const res = await User.create({
                 firstName: "Marion",
                 lastName: "Gerard",
                 email: "marion.gerard@demo.com",
@@ -260,6 +390,7 @@ async function generateRandomProfile(companyId) {
                 isAdmin: false,
                 companyId: companyId
             });
+            res.addTeam(teams.Sales)
         }
     });
     await User.findOne(
@@ -269,7 +400,7 @@ async function generateRandomProfile(companyId) {
             }
         }).then(async (record) => {
         if (!record) {
-            await User.create({
+            const res = await User.create({
                 firstName: "Sylvain",
                 lastName: "Oule",
                 email: "sylvain.oule@demo.com",
@@ -281,6 +412,7 @@ async function generateRandomProfile(companyId) {
                 isAdmin: false,
                 companyId: companyId
             });
+            res.addTeam(teams.Sales)
         }
     });
     await User.findOne(
@@ -290,7 +422,7 @@ async function generateRandomProfile(companyId) {
             }
         }).then(async (record) => {
         if (!record) {
-            await User.create({
+            const res = await User.create({
                 firstName: "Clément",
                 lastName: "Sole",
                 email: "clement.sole@demo.com",
@@ -302,6 +434,7 @@ async function generateRandomProfile(companyId) {
                 isAdmin: false,
                 companyId: companyId
             });
+            res.addTeam(teams.Marketing)
         }
     });
     await User.findOne(
@@ -311,7 +444,7 @@ async function generateRandomProfile(companyId) {
             }
         }).then(async (record) => {
         if (!record) {
-            await User.create({
+            const res = await User.create({
                 firstName: "Ruben",
                 lastName: "Gorde",
                 email: "ruben.gorde@demo.com",
@@ -323,6 +456,7 @@ async function generateRandomProfile(companyId) {
                 isAdmin: false,
                 companyId: companyId
             });
+            res.addTeam(teams.Marketing)
         }
     });
     await User.findOne(
@@ -332,7 +466,7 @@ async function generateRandomProfile(companyId) {
             }
         }).then(async (record) => {
         if (!record) {
-            await User.create({
+            const res = await User.create({
                 firstName: "Florence",
                 lastName: "Vanberg",
                 email: "florence.vanberg@demo.com",
@@ -344,6 +478,7 @@ async function generateRandomProfile(companyId) {
                 isAdmin: false,
                 companyId: companyId
             });
+            res.addTeam(teams.Marketing)
         }
     });
     await User.findOne(
@@ -353,7 +488,7 @@ async function generateRandomProfile(companyId) {
             }
         }).then(async (record) => {
         if (!record) {
-            await User.create({
+            const res = await User.create({
                 firstName: "Kim",
                 lastName: "Wang",
                 email: "kim.wang@demo.com",
@@ -365,6 +500,7 @@ async function generateRandomProfile(companyId) {
                 isAdmin: false,
                 companyId: companyId
             });
+            res.addTeam(teams.Sales)
         }
     });
     await User.findOne(
@@ -374,7 +510,7 @@ async function generateRandomProfile(companyId) {
             }
         }).then(async (record) => {
         if (!record) {
-            await User.create({
+            const res = await User.create({
                 firstName: "Danielle",
                 lastName: "Komi",
                 email: "danielle.komi@demo.com",
@@ -386,6 +522,7 @@ async function generateRandomProfile(companyId) {
                 isAdmin: false,
                 companyId: companyId
             });
+            res.addTeam(teams.RH)
         }
     });
     await User.findOne(
@@ -395,7 +532,7 @@ async function generateRandomProfile(companyId) {
             }
         }).then(async (record) => {
         if (!record) {
-            await User.create({
+            const res = await User.create({
                 firstName: "Frank",
                 lastName: "Ravel",
                 email: "frank.ravel@demo.com",
@@ -407,6 +544,7 @@ async function generateRandomProfile(companyId) {
                 isAdmin: false,
                 companyId: companyId
             });
+            res.addTeam(teams.Tech)
         }
     });
     await User.findOne(
@@ -416,7 +554,7 @@ async function generateRandomProfile(companyId) {
             }
         }).then(async (record) => {
         if (!record) {
-            await User.create({
+            const res = await User.create({
                 firstName: "Laure",
                 lastName: "Garcia",
                 email: "laure.garcia@demo.com",
@@ -428,6 +566,7 @@ async function generateRandomProfile(companyId) {
                 isAdmin: false,
                 companyId: companyId
             });
+            res.addTeam(teams.Tech)
         }
     });
     await User.findOne(
@@ -437,7 +576,7 @@ async function generateRandomProfile(companyId) {
             }
         }).then(async (record) => {
         if (!record) {
-            await User.create({
+            const res = await User.create({
                 firstName: "Paul",
                 lastName: "Huaux",
                 email: "paul.huaux@demo.com",
@@ -449,6 +588,7 @@ async function generateRandomProfile(companyId) {
                 isAdmin: false,
                 companyId: companyId
             });
+            res.addTeam(teams.Sales)
         }
     });
 }

@@ -86,7 +86,7 @@ export default function TabInfoByUser(props) {
                         <Typography fontSize={20} fontWeight={400} style={{ color: '#323232' }} noWrap>
                             {props.userToDisplay.teams.map((team, index ) => {
                                 return (
-                                    <Chip label={team.name} style={{backgroundColor:team.color}}/>
+                                    <Chip label={team.name} style={{margin:1,backgroundColor:team.color, color:'white', fontWeight:500}}/>
                                 )
                             })}
                         </Typography>
