@@ -15,125 +15,118 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import { Divider } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import CompanyService from '../../../../services/app/company.service';
 
 
 
 import SettingSectionTemplate from '../account/SettingSectionTemplate';
 
-export default function CompanyRules(props) {
+export default function CompanyRules() {
 
-    const timezone = moment.tz.names()
-    const theme = useTheme();
     const { t } = useTranslation();
 
     const daysWorked = [0, 1, 2, 3, 4, 5]
-    const statuses = ["Libre", "En télétravail", "Au bureau", "En déplacement"]
+    const statuses = ["Libre", "Au bureau", "En télétravail", "En déplacement", "Off"]
 
-
-
-    const [companyMin, setCompanyMin] = React.useState(1);
-    const handleCompanyMin = (event) => {
-        setCompanyMin(event.target.value);
+    const [officeMinimum, setOfficeMinimum] = React.useState(null);
+    const handleOfficeMinimum = (event) => {
+        setOfficeMinimum(event.target.value);
     };
 
-    const [companyMax, setCompanyMax] = React.useState(3);
-    const handleCompanyMax = (event) => {
-        setCompanyMax(event.target.value);
+    const [officeMaximum, setOfficeMaximum] = React.useState(0);
+    const handleOfficeMaximum = (event) => {
+        setOfficeMaximum(event.target.value);
     };
 
-    const [mondayStatusCompany, setMondayStatusCompany] = React.useState(0);
+    const [mondayMandatoryStatus, setMondayMandatoryStatus] = React.useState(0);
     const handleChangeMondayStatusCompany = (event) => {
-        setMondayStatusCompany(event.target.value);
+        setMondayMandatoryStatus(event.target.value);
     };
 
-    const [tuesdayStatusCompany, setTuesdayStatusCompany] = React.useState(1);
+    const [tuesdayMandatoryStatus, setTuesdayMandatoryStatus] = React.useState(0);
     const handleChangeTuesdayStatusCompany = (event) => {
-        setTuesdayStatusCompany(event.target.value);
+        setTuesdayMandatoryStatus(event.target.value);
     };
 
-    const [wednesdayStatusCompany, setWednesdayStatusCompany] = React.useState(2);
+    const [wednesdayMandatoryStatus, setWednesdayMandatoryStatus] = React.useState(0);
     const handleChangeWednesdayStatusCompany = (event) => {
-        setWednesdayStatusCompany(event.target.value);
+        setWednesdayMandatoryStatus(event.target.value);
     };
 
-    const [thursdayStatusCompany, setThursdayStatusCompany] = React.useState(1);
+    const [thursdayMandatoryStatus, setThursdayMandatoryStatus] = React.useState(0);
     const handleChangeThursdayStatusCompany = (event) => {
-        setThursdayStatusCompany(event.target.value);
+        setThursdayMandatoryStatus(event.target.value);
     };
 
-    const [fridayStatusCompany, setFridayStatusCompany] = React.useState(0);
+    const [fridayMandatoryStatus, setFridayMandatoryStatus] = React.useState(0);
     const handleChangeFridayStatusCompany = (event) => {
-        setFridayStatusCompany(event.target.value);
+        setFridayMandatoryStatus(event.target.value);
     };
 
 
-    const teams = [{ "name": "Finances", "min": 1, "max": 3, "mon": 0, "tue": 1, "wed": 2, "thu": 1, "fri": 0 },
-    { "name": "Marketing", "min": 2, "max": 3, "mon": 1, "tue": 1, "wed": 2, "thu": 1, "fri": 0 },
-    { "name": "Opérations", "min": 1, "max": 2, "mon": 0, "tue": 1, "wed": 2, "thu": 1, "fri": 1 }]
+    async function getHRRules() {
+        const res = await CompanyService.getHRRules();
+        setOfficeMinimum(res.data.officeMinimum);
+        setOfficeMaximum(res.data.officeMaximum);
+        setMondayMandatoryStatus(res.data.mondayMandatoryStatus);
+        setTuesdayMandatoryStatus(res.data.tuesdayMandatoryStatus);
+        setWednesdayMandatoryStatus(res.data.wednesdayMandatoryStatus);
+        setThursdayMandatoryStatus(res.data.thursdayMandatoryStatus);
+        setFridayMandatoryStatus(res.data.fridayMandatoryStatus);
+    }
 
-    const [team, setTeam] = React.useState(0);
-    const handleTeam = (event) => {
-        setTeam(event.target.value);
-        setTeamMin(teams[event.target.value].min)
-        setTeamMax(teams[event.target.value].max)
-        setMondayStatusTeam(teams[event.target.value].mon)
-        setTuesdayStatusTeam(teams[event.target.value].tue)
-        setWednesdayStatusTeam(teams[event.target.value].wed)
-        setThursdayStatusTeam(teams[event.target.value].thu)
-        setFridayStatusTeam(teams[event.target.value].fri)
-    };
-
-    const [teamMin, setTeamMin] = React.useState(teams[team].min);
-    const handleTeamMin = (event) => {
-        setTeamMin(event.target.value);
-    };
-
-    const [teamMax, setTeamMax] = React.useState(teams[team].max);
-    const handleTeamMax = (event) => {
-        setTeamMax(event.target.value);
-    };
-
-    const [mondayStatusTeam, setMondayStatusTeam] = React.useState(teams[team].mon);
-    const handleChangeMondayStatusTeam = (event) => {
-        setMondayStatusTeam(event.target.value);
-    };
-
-    const [tuesdayStatusTeam, setTuesdayStatusTeam] = React.useState(teams[team].tue);
-    const handleChangeTuesdayStatusTeam = (event) => {
-        setTuesdayStatusTeam(event.target.value);
-    };
-
-    const [wednesdayStatusTeam, setWednesdayStatusTeam] = React.useState(teams[team].wed);
-    const handleChangeWednesdayStatusTeam = (event) => {
-        setWednesdayStatusTeam(event.target.value);
-    };
-
-    const [thursdayStatusTeam, setThursdayStatusTeam] = React.useState(teams[team].thu);
-    const handleChangeThursdayStatusTeam = (event) => {
-        setThursdayStatusTeam(event.target.value);
-    };
-
-    const [fridayStatusTeam, setFridayStatusTeam] = React.useState(teams[team].fri);
-    const handleChangeFridayStatusTeam = (event) => {
-        setFridayStatusTeam(event.target.value);
-    };
+    useEffect(() => {
+        getHRRules();
+    }, []);
 
 
     const { enqueueSnackbar } = useSnackbar();
-    let navigate = useNavigate();
-    const save = () => {
-        enqueueSnackbar('Paramètres enregistrés.', {
-            variant: 'success'
-        });
+
+    const validateHRRules = () => {
+        if (officeMinimum > officeMaximum) return false;
+        return true;
+    }
+
+    const saveHRRules = async () => {
+        if (validateHRRules()) {
+            const resources = {
+                officeMinimum: officeMinimum,
+                officeMaximum: officeMaximum,
+                mondayMandatoryStatus: mondayMandatoryStatus,
+                tuesdayMandatoryStatus: tuesdayMandatoryStatus,
+                wednesdayMandatoryStatus: wednesdayMandatoryStatus,
+                thursdayMandatoryStatus: thursdayMandatoryStatus,
+                fridayMandatoryStatus: fridayMandatoryStatus
+            };
+            await CompanyService.updateHRRules(resources).then(async (res) => {
+                if (res.status === 200) {
+                    enqueueSnackbar('Paramètres enregistrés', {
+                        variant: 'success'
+                    });
+                } else {
+                    enqueueSnackbar('Une erreur est survenue', {
+                        variant: 'error'
+                    });
+                }
+            })
+        } else {
+            enqueueSnackbar('Attention, le nombre de jours travaillés minimum est supérieur au nombre de jours travaillés maximum.', {
+                variant: 'warning'
+            });
+        }
     }
 
     const cancel = () => {
         enqueueSnackbar('Annulé', {
             variant: 'cancel'
         });
-        navigate('/app/workpolicy');
+        getHRRules();
     }
 
+    if (officeMinimum === null) {
+        return (< SettingSectionTemplate title="Règles de travail hybride" description="Définissez vos règles de travail hybride, à l'échelle de l'entreprise ou des équipes." />)
+    }
     return (
         <SettingSectionTemplate title="Règles de travail hybride" description="Définissez vos règles de travail hybride, à l'échelle de l'entreprise ou des équipes.">
             <Grid container direction="column">
@@ -159,12 +152,12 @@ export default function CompanyRules(props) {
                 <Grid item mt={1}>
                     <Grid container direction="row" alignItems="center">
                         <Grid item md={3}>
-                            <FormControl sx={{ m: 1, width: 100 }} variant="standard">
+                            <FormControl sx={{ m: 1, width: 70 }} variant="standard">
                                 <InputLabel htmlFor="demo-customized-select-native">Minimum</InputLabel>
                                 <Select
                                     id="demo-customized-select-native"
-                                    value={companyMin}
-                                    onChange={handleCompanyMin}
+                                    value={officeMinimum}
+                                    onChange={handleOfficeMinimum}
                                 >
                                     {daysWorked.map((day, index) => {
                                         return (
@@ -177,12 +170,12 @@ export default function CompanyRules(props) {
                             </FormControl>
                         </Grid>
                         <Grid item md={3}>
-                            <FormControl sx={{ m: 1, width: 100 }} variant="standard">
+                            <FormControl sx={{ m: 1, width: 70 }} variant="standard">
                                 <InputLabel htmlFor="demo-customized-select-native">Maximum</InputLabel>
                                 <Select
                                     id="demo-customized-select-native"
-                                    value={companyMax}
-                                    onChange={handleCompanyMax}
+                                    value={officeMaximum}
+                                    onChange={handleOfficeMaximum}
                                 >
                                     {daysWorked.map((day, index) => {
                                         return (
@@ -211,7 +204,7 @@ export default function CompanyRules(props) {
                                 <InputLabel htmlFor="demo-customized-select-native">Lundi</InputLabel>
                                 <Select
                                     id="demo-customized-select-native"
-                                    value={mondayStatusCompany}
+                                    value={mondayMandatoryStatus}
                                     onChange={handleChangeMondayStatusCompany}
                                 >
                                     {statuses.map((status, index) => {
@@ -229,7 +222,7 @@ export default function CompanyRules(props) {
                                 <InputLabel htmlFor="demo-customized-select-native">Mardi</InputLabel>
                                 <Select
                                     id="demo-customized-select-native"
-                                    value={tuesdayStatusCompany}
+                                    value={tuesdayMandatoryStatus}
                                     onChange={handleChangeTuesdayStatusCompany}
                                 >
                                     {statuses.map((status, index) => {
@@ -247,7 +240,7 @@ export default function CompanyRules(props) {
                                 <InputLabel htmlFor="demo-customized-select-native">Mercredi</InputLabel>
                                 <Select
                                     id="demo-customized-select-native"
-                                    value={wednesdayStatusCompany}
+                                    value={wednesdayMandatoryStatus}
                                     onChange={handleChangeWednesdayStatusCompany}
                                 >
                                     {statuses.map((status, index) => {
@@ -265,7 +258,7 @@ export default function CompanyRules(props) {
                                 <InputLabel htmlFor="demo-customized-select-native">Jeudi</InputLabel>
                                 <Select
                                     id="demo-customized-select-native"
-                                    value={thursdayStatusCompany}
+                                    value={thursdayMandatoryStatus}
                                     onChange={handleChangeThursdayStatusCompany}
                                 >
                                     {statuses.map((status, index) => {
@@ -283,7 +276,7 @@ export default function CompanyRules(props) {
                                 <InputLabel htmlFor="demo-customized-select-native">Vendredi</InputLabel>
                                 <Select
                                     id="demo-customized-select-native"
-                                    value={fridayStatusCompany}
+                                    value={fridayMandatoryStatus}
                                     onChange={handleChangeFridayStatusCompany}
                                 >
                                     {statuses.map((status, index) => {
@@ -318,7 +311,7 @@ export default function CompanyRules(props) {
                                     label="Enregistrer"
                                     sx={{ borderColor: "#3F07A8", color: "#3F07A8", fontWeight: "bold" }}
                                     color="error"
-                                    onClick={save}
+                                    onClick={saveHRRules}
                                     icon={<CheckCircleIcon />}
                                     variant="outlined"
                                 />
