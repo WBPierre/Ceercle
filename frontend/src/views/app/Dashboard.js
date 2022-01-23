@@ -40,7 +40,6 @@ export default function Dashboard(props) {
     }
     const [daySelected, setDaySelected] = useState(day.format('YYYY-MM-DD'));
 
-
     return (
         <CustomContainer>
             <Grid wrap={"nowrap"} container direction={"column"} spacing={1}>
@@ -70,7 +69,7 @@ export default function Dashboard(props) {
                             </Grid>
                         }
                         <Grid item xs={12} md={context.user.company.activeOfficeHandler ? 3 : 5} style={{ borderRadius: '25px' }} component={Paper}>
-                            <Team />
+                            <Team day={daySelected}/>
                         </Grid>
                         <Grid item xs={12} md={context.user.company.activeOfficeHandler ? 4 : 5} style={{ borderRadius: '25px' }} component={Paper}>
                             <Mood day={daySelected} />

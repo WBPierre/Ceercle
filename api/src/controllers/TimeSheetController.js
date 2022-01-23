@@ -10,6 +10,71 @@ const User = require("../models/User");
 // Moment warning
 Moment.suppressDeprecationWarnings = true;
 
+
+exports.getTeamTimeSheet = async function(req, res, next) {
+    const user = await User.findOne({
+        where:{
+            id: res.locals.auth.user.id
+        }
+    });
+    if(!user) {
+        res.status(403);
+        res.send();
+    }else{
+        let obj = {
+            0: [],
+            1: [],
+            2: [],
+            3: [],
+            4: []
+        }
+        let day = req.params.day;
+        const teams = await user.getTeams();
+        for(let i = 0; i < teams.length; i++) {
+            let users = await teams[i].getUsers();
+            let colleagues = users.filter(x => x.id !== res.locals.auth.user.id);
+            for(let j = 0; j < colleagues.length; j++){
+                await TimeSheet.findOne({
+                    where:{
+                        day: day,
+                        userId: colleagues[j].id
+                    }
+                }).then((record) => {
+                    let found = false;
+                    if(!record){
+                        for(let h = 0; h < obj[0].length; h++){
+                            if(obj[0][h].firstName === colleagues[j].firstName && obj[0][h].lastName === colleagues[j].lastName){
+                                found = true;
+                            }
+                        }
+                        if(!found){
+                            obj[0].push({
+                                firstName: colleagues[j].firstName,
+                                lastName: colleagues[j].lastName,
+                                profilePicturePath: colleagues[j].profilePicturePath
+                            })
+                        }
+                    }else{
+                        for(let h = 0; h < obj[0].length; h++){
+                            if(obj[record.morning][h].firstName === colleagues[j].firstName && obj[record.morning][h].lastName === colleagues[j].lastName){
+                                found = true;
+                            }
+                        }
+                        if(!found){
+                            obj[record.morning].push({
+                                firstName: colleagues[j].firstName,
+                                lastName: colleagues[j].lastName,
+                                profilePicturePath: colleagues[j].profilePicturePath
+                            })
+                        }
+                    }
+                })
+            }
+        }
+        res.json(obj);
+    }
+}
+
 exports.getUsersTimeSheet = async function(req, res, next) {
     try {
         const errors = validationResult(req);
@@ -160,6 +225,12 @@ exports.validate = (method) => {
                 body('morning', 'morning is not a number').isNumeric(),
                 body('afternoon', 'afternoon doesn\'t exist').exists(),
                 body('afternoon', 'afternoon is not a number').isNumeric()
+            ]
+        }
+        case 'getTeamTimeSheet': {
+            return [
+                param('day', 'day doesn\'t exist').exists(),
+                param('day', 'day is not a number').isString()
             ]
         }
     }

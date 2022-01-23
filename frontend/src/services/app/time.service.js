@@ -16,6 +16,10 @@ class TimeService {
     async getAllTimeSheet(index) {
         return this.request.get('/time/all/'+index);
     }
+
+    async getTeamTimeSheet(day) {
+        return this.request.get('/time/team/'+day);
+    }
 }
 
 export default new TimeService();

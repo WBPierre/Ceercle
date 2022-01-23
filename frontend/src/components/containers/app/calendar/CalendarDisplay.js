@@ -30,7 +30,6 @@ function CalendarDisplay(props) {
         const getAllTimeSheet = async () => {
             await TimeService.getAllTimeSheet(index).then((res) => {
                 setUsersWeek(res.data);
-                console.log(res.data);
             })
         }
         getTimeSheet();
