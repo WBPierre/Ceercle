@@ -24,15 +24,16 @@ export default function OfficeOccupancy(props) {
     const occupancies = ["0%", "10%", "20%", "30%", "40%", "50%", "60%", "70%", "80%", "90%", "100%"]
     const occupancy_0_1 = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
 
-    const offices = [{ "name": "Salle Mozart", "seats": 12, "occupancy": "80%" },
-    { "name": "Salle Chopin", "seats": 16, "occupancy": "100%" },
-    { "name": "Salle Vivaldi", "seats": 20, "occupancy": "60%" }]
+    const offices = [{ "name": "Salle Mozart", "capacity": 12, "occupancy": "80%" },
+    { "name": "Salle Chopin", "capacity": 16, "occupancy": "100%" },
+    { "name": "Salle Vivaldi", "capacity": 20, "occupancy": "60%" }]
 
     const [office, setOffice] = React.useState(0);
     const [occupancy, setOccupancy] = React.useState(occupancies.indexOf(offices[0].occupancy, 0));
     const handleChangeOffice = (event) => {
         setOffice(event.target.value);
         setOccupancy(occupancies.indexOf(offices[event.target.value].occupancy, 0));
+        // setOccupancy(parseInt(listOffices[event.target.value].maxCapacity / 10));
     };
 
     const handleChangeOccupancy = (event) => {
@@ -133,7 +134,7 @@ export default function OfficeOccupancy(props) {
                         </Grid>
                         <Grid item mt={1}>
                             <Typography variant="body" fontWeight={300} fontSize={17} style={{ color: '#414040', fontStyle: "italic" }}>
-                                ({offices[office].seats} places)
+                                ({offices[office].capacity} places)
                             </Typography>
                         </Grid>
                     </Grid>
@@ -167,7 +168,7 @@ export default function OfficeOccupancy(props) {
                         </Grid>
                         <Grid item mt={1}>
                             <Typography variant="body" fontWeight={300} fontSize={17} style={{ color: '#414040', fontStyle: "italic" }}>
-                                ({Math.round(offices[office].seats * occupancy_0_1[occupancy])} places)
+                                ({Math.round(offices[office].capacity * occupancy_0_1[occupancy])} places)
                             </Typography>
                         </Grid>
                     </Grid>
