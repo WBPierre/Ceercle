@@ -55,7 +55,7 @@ exports.getTeamTimeSheet = async function(req, res, next) {
                             })
                         }
                     }else{
-                        for(let h = 0; h < obj[0].length; h++){
+                        for(let h = 0; h < obj[record.morning].length; h++){
                             if(obj[record.morning][h].firstName === colleagues[j].firstName && obj[record.morning][h].lastName === colleagues[j].lastName){
                                 found = true;
                             }
