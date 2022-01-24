@@ -485,7 +485,7 @@ function Team(props) {
                     {team[1].length > 0 &&
                     <div>
                         <MenuItem onClick={handleClose5} disabled style={{color:'#008946'}}>
-                            <OfficeIcon sx={{width: 28, height: 28, marginRight:2, backgroundColor: '#C3E4B6'}}/> Au bureau
+                            <OfficeIcon sx={{width: 28, height: 28, marginRight:2, backgroundColor: '#C3E4B6'}}/> <span style={{color:'#008946'}}>Au bureau</span>
                         </MenuItem>
                         {team[1].map((item) => {
                             return(
@@ -500,7 +500,7 @@ function Team(props) {
                     {team[2].length > 0 &&
                     <div>
                         <MenuItem onClick={handleClose5} disabled style={{color:'#0070C0'}}>
-                            <ManWorkingIcon sx={{width: 28, height: 28, marginRight:2, backgroundColor: '#DAEFFA'}}/> Télétravail
+                            <ManWorkingIcon sx={{width: 28, height: 28, marginRight:2, backgroundColor: '#DAEFFA'}}/> <span style={{color:'##0070C0'}}>Télétravail</span>
                         </MenuItem>
                         {team[2].map((item) => {
                             return(
@@ -515,7 +515,7 @@ function Team(props) {
                     {team[3].length > 0 &&
                     <div>
                         <MenuItem onClick={handleClose5} disabled style={{color:'#7030A0'}}>
-                            <AwayIcon sx={{width: 28, height: 28, marginRight:2, backgroundColor: '#E6DCF1'}}/> Déplacement
+                            <AwayIcon sx={{width: 28, height: 28, marginRight:2, backgroundColor: '#E6DCF1'}}/> <span style={{color:'#7030A0'}}>Déplacement</span>
                         </MenuItem>
                         {team[3].map((item) => {
                             return(
@@ -530,7 +530,7 @@ function Team(props) {
                     {team[4].length > 0 &&
                     <div>
                         <MenuItem onClick={handleClose5} disabled style={{color:'#FFA800'}}>
-                            <OffIcon sx={{width: 28, height: 28, marginRight:2, backgroundColor: '#FBE7B4'}}/> Off
+                            <OffIcon sx={{width: 28, height: 28, marginRight:2, backgroundColor: '#FBE7B4'}}/> <span style={{color:'#FFA800'}}>Off</span>
                         </MenuItem>
                         {team[4].map((item) => {
                             return(
@@ -545,7 +545,7 @@ function Team(props) {
                     {team[0].length > 0 &&
                         <div>
                             <MenuItem onClick={handleClose5} disabled>
-                                <ToDefineIcon sx={{width: 28, height: 28, marginRight:2, backgroundColor: '#D3D3D3'}}/> Non déclaré
+                                <ToDefineIcon sx={{width: 28, height: 28, marginRight:2, backgroundColor: '#D3D3D3'}}/> <span style={{color:'#D3D3D3'}}>Non déclaré</span>
                             </MenuItem>
                             {team[0].map((item) => {
                                 return(
