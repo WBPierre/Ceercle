@@ -20,7 +20,7 @@
       "service_2": "Réservation de poste de travail interne",
       "service_3": "Intégration avec votre SIRH et avec vos outils (Slack, Teams, ...)",
       "service_4": "Dashboard de suivi de présence et analytics",
-      "max_users": "Jusqu'à 300 collaborateurs"
+      "max_users": "Jusqu'à 500 collaborateurs"
     }
   },
   "offer_2" : {
@@ -32,7 +32,7 @@
       "service_2": "Support prioritaire dédié",
       "service_3": "Single Sign-On (SSO)",
       "service_4": "Tarification sur-mesure ",
-      "max_users": "Plus de 300 collaborateurs"
+      "max_users": "Plus de 500 collaborateurs"
     }
   },
   "perks" : {
