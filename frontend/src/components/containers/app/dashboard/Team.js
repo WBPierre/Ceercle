@@ -513,7 +513,7 @@ function Team(props) {
                     }
                     {team[3].length > 0 &&
                     <div>
-                        <MenuItem onClick={handleClose5} disableTouchRipple disabled style={{color:'#7030A0', cursor:'default', backgroundColor:'transparent'}}>
+                        <MenuItem onClick={handleClose5} disableTouchRipple style={{color:'#7030A0', cursor:'default', backgroundColor:'transparent'}}>
                             <AwayIcon sx={{width: 32, height: 32, marginRight:2, backgroundColor: '#E6DCF1'}}/> <span style={{color:'#7030A0', fontWeight:500}}>Déplacement</span>
                         </MenuItem>
                         {team[3].map((item) => {
