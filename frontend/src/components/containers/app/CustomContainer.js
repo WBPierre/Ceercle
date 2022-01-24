@@ -6,7 +6,7 @@ import {useState} from "react";
 import {styled} from "@mui/material/styles";
 import Container from "@mui/material/Container";
 
-const drawerWidth = 180;
+const drawerWidth = 200;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
