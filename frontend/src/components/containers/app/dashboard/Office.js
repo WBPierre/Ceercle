@@ -91,38 +91,14 @@ function Office(props){
                     )}
 
                 </Grid>
-                {booking.length !== 0 &&
-                <Grid item xs={12}>
-                    <Typography variant={"body1"} color={"primary"} fontSize={18}>
-                        Collaborateurs dans votre salle :
-                    </Typography>
-                </Grid>
-                }
                 {booking.length !== 0 ? (
-                <Grid item xs={12}>
-                    <Grid container direction={"row"} spacing={1}>
-                        <Grid item>
-                            <Avatar alt="Remy Sharp" sx={{ width: 24, height: 24 }} src={example1} />
-                        </Grid>
-                        <Grid item>
-                            <Avatar alt="Travis Howard" sx={{ width: 24, height: 24 }} src={example2} />
-                        </Grid>
-                        <Grid item>
-                            <Avatar alt="Cindy Baker" sx={{ width: 24, height: 24 }} src={example3} />
-                        </Grid>
-                        <Grid item>
-                            <Avatar alt="Agnes Walker" sx={{ width: 24, height: 24 }} src={example4} />
-                        </Grid>
-                        <Grid item>
-                            <Avatar alt="Trevor Henderson" sx={{ width: 24, height: 24 }} src={example5} />
-                        </Grid>
-                        <Grid item>
-                            <Avatar sx={{ width: 24, height: 24 }}>
-                                <AddIcon />
-                            </Avatar>
+                    <Grid item xs={12}>
+                        <Grid container direction={"row"} spacing={1} justifyContent={"center"} alignItems={"center"}>
+                            <Grid item>
+                                <Button variant={"contained"} onClick={() => handleOpen()}>Modifier ma réservation</Button>
+                            </Grid>
                         </Grid>
                     </Grid>
-                </Grid>
                 ):(
                     <Grid item xs={12}>
                         <Grid container direction={"row"} spacing={1} justifyContent={"center"} alignItems={"center"}>
