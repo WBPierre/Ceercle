@@ -1,4 +1,4 @@
-import {Avatar, Divider, ListItem, ListItemAvatar, ListItemText, Modal, Paper} from "@mui/material";
+import {Avatar, Chip, Divider, ListItem, ListItemAvatar, ListItemText, Modal, Paper} from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import BookingService from "../../../../services/app/booking.service";
@@ -29,7 +29,7 @@ function OfficeModal(props){
     const [list, setList] = useState([]);
     const [officeList, setOfficeList] = useState([]);
     const [officeId, setOfficeId] = useState(null);
-    const [elementItem, setElementItem] = useState({});
+    const [elementItem, setElementItem] = useState([]);
     const [officeItem, setOfficeItem] = useState({});
     const [confirm, setConfirm] = useState(false);
     const [ind, setInd] = useState(0);
@@ -48,7 +48,7 @@ function OfficeModal(props){
             day: props.day,
             morning: true,
             afternoon: true,
-            officeElementId: elementItem.id
+            officeElementId: elementItem[elementItem.length-1].id
         }
         await BookingService.setBooking(resources).then((res) => {
             console.log(res)
@@ -59,7 +59,7 @@ function OfficeModal(props){
     const closeModal = (update) => {
         setOfficeId(null);
         setList([]);
-        setElementItem({});
+        setElementItem([]);
         setOfficeItem({});
         setConfirm(false);
         setInd(0);
@@ -73,8 +73,8 @@ function OfficeModal(props){
             setList(list => [...list, item.elements]);
         }else{
             setConfirm(true);
-            setElementItem(item);
         }
+        setElementItem(list => [...list, item]);
     }
 
     const selectOffice = async (item) => {
@@ -93,12 +93,14 @@ function OfficeModal(props){
             setOfficeId(null);
             setList([]);
         }else{
+            let arrtmp = elementItem;
             let arr = list;
             arr.pop();
+            arrtmp.pop();
             setList(arr);
+            setElementItem(arrtmp);
         }
         setInd(ind-1);
-
     }
 
     if(officeList.length === 0){
@@ -110,12 +112,17 @@ function OfficeModal(props){
             onClose={() => closeModal(false)}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
+            disableAutoFocus={true}
+            disableEnforceFocus
         >
-            <Box sx={style}>
+            <Box sx={style} style={{borderRadius: '25px', outline:'none'}}>
                 <Typography id="modal-modal-title" variant="h6" component="h2">
                     {confirm ? 'Confirmez-vous votre réservation' : 'Où souhaitez-vous réserver ?'}
                 </Typography>
                 <Divider/>
+                <Typography variant="text">
+                    {officeId ? `Votre réservation à ${officeItem.name}` : 'Sélectionnez votre bureau'}
+                </Typography>
                 {!confirm ? (
                     <div>
                         {officeId !== null &&
@@ -124,17 +131,12 @@ function OfficeModal(props){
                         </IconButton>
                         }
                         {officeId === null ?(
-                            <Grid container alignItems={"center"} justifyContent={"center"} mt={5}>
+
+                            <Grid container alignItems={"center"} justifyContent={"center"} mt={5} spacing={1}>
                                 {officeList.map((item, index) => {
                                     return(
-                                        <Grid item key={index}>
-                                            <Button style={{textTransform:'capitalize'}} onClick={() => selectOffice(item)}>
-                                                <Paper elevation={3}  style={{padding:20}}>
-                                                    <Typography style={{fontSize: 24}}>
-                                                        {item.name}
-                                                    </Typography>
-                                                </Paper>
-                                            </Button>
+                                        <Grid item key={index} >
+                                            <Chip label={item.name} style={{fontSize:24, padding:5, color:'white'}} color={"primary"} onClick={() => selectOffice(item)} />
                                         </Grid>
                                     )
                                 })}
@@ -144,22 +146,20 @@ function OfficeModal(props){
                                 {list[list.length-1].map((item, index) => {
                                     return(
                                         <Grid item key={item.id}>
-                                            <Button style={{textTransform:'capitalize'}} onClick={() => selectElement(item)}>
-                                                <Paper elevation={3} style={{padding:10}}>
-                                                    <Grid container direction={"row"} spacing={3} style={{padding:5}}>
-                                                        <Grid item xs={8}>
-                                                            <Typography style={{color: item.color, fontSize: 24}}>
-                                                                {item.name}
-                                                            </Typography>
-                                                        </Grid>
-                                                        <Grid item xs={4}>
-                                                            <Avatar sx={{ bgcolor: item.color }}>
-                                                                {item.capacity - item.used}/{item.capacity}
-                                                            </Avatar>
-                                                        </Grid>
-                                                    </Grid>
-                                                </Paper>
-                                            </Button>
+                                            <Chip component={Grid} style={{fontSize:24, padding:5, color:'white'}} color={"primary"} onClick={() => selectElement(item)}
+                                                  label={<Grid container direction={"row"} alignItems={"center"} spacing={3} style={{padding:5}}>
+                                                      <Grid item xs={8}>
+                                                          <Typography style={{color: item.color, fontSize: 24}}>
+                                                              {item.name}
+                                                          </Typography>
+                                                      </Grid>
+                                                      <Grid item xs={4}>
+                                                          <Typography style={{color: item.color, fontSize: 14}}>
+                                                            ({item.capacity - item.used}/{item.capacity})
+                                                          </Typography>
+                                                      </Grid>
+                                                  </Grid>}
+                                            />
                                         </Grid>
                                     )
                                 })}
@@ -169,13 +169,17 @@ function OfficeModal(props){
                 ):(
                     <Grid container direction={"column"} spacing={3} mt={3}>
                         <Grid item>
-                            <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"}>
+                            <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} spacing={2}>
                                 <Grid item>
-                                    <Typography style={{fontSize:24}}>{officeItem.name} - </Typography>
+                                    <Typography style={{fontSize:24}}>{officeItem.name}</Typography>
                                 </Grid>
-                                <Grid item>
-                                    <Typography style={{fontSize:24, color: elementItem.color}}>{elementItem.name}</Typography>
-                                </Grid>
+                                {elementItem.map((el) => {
+                                    return(
+                                        <Grid item>
+                                            <Typography style={{fontSize:24, color: el.color}}>{` ${el.name}`}</Typography>
+                                        </Grid>
+                                    )
+                                })}
                             </Grid>
                         </Grid>
                         <Grid item>

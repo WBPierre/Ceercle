@@ -27,8 +27,8 @@ function Company() {
     const [name, setName] = useState('');
     const [activeOffice, setActiveOffice] = useState(false);
     const [maxCapacity, setMaxCapacity] = useState(0);
-    const [minRemote, setMinRemote] = useState(0);
-    const [maxRemote, setMaxRemote] = useState(5);
+    const [minOffice, setMinOffice] = useState(0);
+    const [maxOffice, setMaxOffice] = useState(5);
     const [monday, setMonday] = useState(0);
     const [tuesday, setTuesday] = useState(0);
     const [wednesday, setWednesday] = useState(0);
@@ -58,11 +58,11 @@ function Company() {
             case 'maxCapacity':
                 setMaxCapacity(event.target.value);
                 break;
-            case 'minRemote':
-                setMinRemote(event.target.value);
+            case 'minOffice':
+                setMinOffice(event.target.value);
                 break;
-            case 'maxRemote':
-                setMaxRemote(event.target.value);
+            case 'maxOffice':
+                setMaxOffice(event.target.value);
                 break;
         }
     };
@@ -77,8 +77,8 @@ function Company() {
         setName(res.data[0].name);
         setActiveOffice(res.data[0].activeOfficeHandler);
         setMaxCapacity(res.data[0].maxCapacity);
-        setMinRemote(res.data[0].remoteMinimum);
-        setMaxRemote(res.data[0].remoteMaximum);
+        setMinOffice(res.data[0].officeMinimum);
+        setMaxOffice(res.data[0].officeMaximum);
         setMonday(res.data[0].mondayMandatoryStatus);
         setTuesday(res.data[0].tuesdayMandatoryStatus);
         setWednesday(res.data[0].wednesdayMandatoryStatus);
@@ -93,8 +93,8 @@ function Company() {
                 name: name,
                 activeOfficeHandler: activeOffice,
                 maxCapacity: maxCapacity,
-                officeMinimum: minRemote,
-                officeMaximum: maxRemote,
+                officeMinimum: minOffice,
+                officeMaximum: maxOffice,
                 mondayMandatoryStatus: monday,
                 tuesdayMandatoryStatus: tuesday,
                 wednesdayMandatoryStatus: wednesday,
@@ -123,8 +123,8 @@ function Company() {
 
     const validate = () => {
         if (maxCapacity === '' || maxCapacity < 0 || maxCapacity > 100) return false;
-        if (minRemote === '' || minRemote < 0 || minRemote > 5) return false;
-        if (maxRemote === '' || maxRemote < 0 || maxRemote > 5) return false;
+        if (minOffice === '' || minOffice < 0 || minOffice > 5) return false;
+        if (maxOffice === '' || maxOffice < 0 || maxOffice > 5) return false;
         if (monday < 0 || monday > 2) return false;
         if (tuesday < 0 || tuesday > 2) return false;
         if (wednesday < 0 || wednesday > 2) return false;
@@ -154,13 +154,13 @@ function Company() {
                 <Grid item>
                     <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} spacing={1}>
                         <Grid item md={2} textAlign={"center"}>
-                            <Typography variant={"h5"}>Remote days</Typography>
+                            <Typography variant={"h5"}>Office days</Typography>
                         </Grid>
                         <Grid item md={5}>
-                            <TextField fullWidth name={"minRemote"} onChange={handleChange} label="Min" id="fullWidth" value={minRemote} aria-valuemin={0} aria-valuemax={5} />
+                            <TextField fullWidth name={"minOffice"} onChange={handleChange} label="Min" id="fullWidth" value={minOffice} aria-valuemin={0} aria-valuemax={5} />
                         </Grid>
                         <Grid item md={5}>
-                            <TextField fullWidth name={"maxRemote"} onChange={handleChange} label="Max" id="fullWidth" value={maxRemote} aria-valuemin={0} aria-valuemax={5} />
+                            <TextField fullWidth name={"maxOffice"} onChange={handleChange} label="Max" id="fullWidth" value={maxOffice} aria-valuemin={0} aria-valuemax={5} />
                         </Grid>
                     </Grid>
                 </Grid>

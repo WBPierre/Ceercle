@@ -1,6 +1,8 @@
 const Company = require("../../src/models/Company");
 const User = require("../../src/models/User");
 const Team = require("../../src/models/Team");
+const Office = require("../../src/models/Office");
+const OfficeElement = require("../../src/models/OfficeElement");
 const Security = require("../../src/services/Security");
 const Utils = require('../../src/services/Utils');
 const {v4: uuidv4} = require('uuid');
@@ -14,6 +16,7 @@ const bannerUrl = 'http://' + process.env.STORAGE_HOST + ':' + process.env.STORA
 exports.generateDemo = async function() {
     // Test profile
     const companyTestId = await generateTestCompany();
+    await generateOffices(companyTestId);
     const teams = await generateTeams(companyTestId);
     await generateAuthorizeTestProfile(companyTestId, teams);
     await generateRandomProfile(companyTestId, teams);
@@ -50,6 +53,159 @@ exports.generateDemoData = async function(){
     }
 }
 
+async function generateOffices(companyId){
+    const paris = await Office.findOne({
+        where:{
+            name: "Paris",
+            companyId: companyId
+        }
+    }).then(async (record) => {
+        if(!record) {
+            return await Office.create({name: "Paris", capacity: 30, companyId: companyId});
+        }else{
+            return record;
+        }
+    })
+    const londres = await Office.findOne({
+        where:{
+            name: "Londres",
+            companyId: companyId
+        }
+    }).then(async (record) => {
+        if(!record) {
+            return await Office.create({name:"Londres", country: 'ENGLAND', capacity: 20, companyId: companyId});
+        }
+    })
+    const paris_floor_1 = await OfficeElement.findOne({
+        where:{
+            name: "1er Etage",
+            officeId: paris.id
+        }
+    }).then(async (record) => {
+        if(!record) {
+            return await OfficeElement.create({name:"1er Etage", type: 0, color:'#2CCCE4', capacity: 20, officeId: paris.id});
+        }
+    })
+    const paris_floor_2 = await OfficeElement.findOne({
+        where:{
+            name: "2e Etage",
+            officeId: paris.id
+        }
+    }).then(async (record) => {
+        if(!record) {
+            return await OfficeElement.create({name:"2e Etage", type: 0, color:'#37D67A', capacity: 20, officeId: paris.id});
+        }
+    })
+    const paris_room_1 = await OfficeElement.findOne({
+        where:{
+            name: "Salle Eiffel",
+            officeId: paris.id,
+            parentId: paris_floor_1.id
+        }
+    }).then(async (record) => {
+        if(!record) {
+            return await OfficeElement.create({name:"Salle Eiffel", type: 1, color:'#DCE775', capacity: 10, officeId: paris.id, parentId: paris_floor_1.id});
+        }
+    })
+    const paris_room_2 = await OfficeElement.findOne({
+        where:{
+            name: "Salle Hugo",
+            officeId: paris.id,
+            parentId: paris_floor_1.id
+        }
+    }).then(async (record) => {
+        if(!record) {
+            return await OfficeElement.create({name:"Salle Hugo", type: 1, color:'#FF8A65', capacity: 10, officeId: paris.id, parentId: paris_floor_1.id});
+        }
+    })
+    const paris_room_3 = await OfficeElement.findOne({
+        where:{
+            name: "Salle Verne",
+            officeId: paris.id,
+            parentId: paris_floor_2.id
+        }
+    }).then(async (record) => {
+        if(!record) {
+            return await OfficeElement.create({name:"Salle Verne", type: 1, color:'#FF5733', capacity: 5, officeId: paris.id, parentId: paris_floor_2.id});
+        }
+    })
+    const paris_room_4 = await OfficeElement.findOne({
+        where:{
+            name: "Salle Diderot",
+            officeId: paris.id,
+            parentId: paris_floor_2.id
+        }
+    }).then(async (record) => {
+        if(!record) {
+            return await OfficeElement.create({name:"Salle Diderot", type: 1, color:'#BA68C8', capacity: 5, officeId: paris.id, parentId: paris_floor_2.id});
+        }
+    })
+    const londres_floor_1 = await OfficeElement.findOne({
+        where:{
+            name: "1st Floor",
+            officeId: londres.id
+        }
+    }).then(async (record) => {
+        if(!record) {
+            return await OfficeElement.create({name:"1st Floor", type: 0, color:'#2CCCE4', capacity: 10, officeId: londres.id});
+        }
+    })
+    const londres_floor_2 = await OfficeElement.findOne({
+        where:{
+            name: "2nd Floor",
+            officeId: londres.id
+        }
+    }).then(async (record) => {
+        if(!record) {
+            return await OfficeElement.create({name:"2nd Floor", type: 0, color:'#37D67A', capacity: 10, officeId: londres.id});
+        }
+    })
+    const londres_room_1 = await OfficeElement.findOne({
+        where:{
+            name: "Joy",
+            officeId: londres.id,
+            parentId: londres_floor_1.id
+        }
+    }).then(async (record) => {
+        if(!record) {
+            return await OfficeElement.create({name:"Joy", type: 1, color:'#DCE775', capacity: 8, officeId: londres.id, parentId: londres_floor_1.id});
+        }
+    })
+    const londres_room_2 = await OfficeElement.findOne({
+        where:{
+            name: "Clarity",
+            officeId: londres.id,
+            parentId: londres_floor_1.id
+        }
+    }).then(async (record) => {
+        if(!record) {
+            return await OfficeElement.create({name:"Clarity", type: 1, color:'#FF8A65', capacity: 2, officeId: londres.id, parentId: londres_floor_1.id});
+        }
+    })
+    const londres_room_3 = await OfficeElement.findOne({
+        where:{
+            name: "Focus",
+            officeId: londres.id,
+            parentId: londres_floor_2.id
+        }
+    }).then(async (record) => {
+        if(!record) {
+            return await OfficeElement.create({name:"Focus", type: 1, color:'#FF5733', capacity: 6, officeId: londres.id, parentId: londres_floor_2.id});
+        }
+    })
+    const londres_room_4 = await OfficeElement.findOne({
+        where:{
+            name: "Radiance",
+            officeId: londres.id,
+            parentId: londres_floor_2.id
+        }
+    }).then(async (record) => {
+        if(!record) {
+            return await OfficeElement.create({name:"Radiance", type: 1, color:'#BA68C8', capacity: 4, officeId: londres.id, parentId: londres_floor_2.id});
+        }
+    })
+}
+
 async function generateTimeSheet(userId, week){
     for(let i = 0; i < week.length; i++){
         await TimeSheet.findOne({
@@ -75,7 +231,7 @@ async function generateTestCompany(){
             }
         }).then(async (record) => {
         if(!record) {
-            const company = await Company.create({name:'Démo'});
+            const company = await Company.create({name:'Démo', activeOfficeHandler: true});
             return company.id;
         }else{
             return record.id;

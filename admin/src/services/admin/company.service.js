@@ -10,7 +10,7 @@ class CompanyService{
     }
 
     async getCompany(id){
-        return this.request.get('/company/'+id);
+        return this.request.get('/company/specific/'+id);
     }
 
     async updateCompany(id, resources) {
