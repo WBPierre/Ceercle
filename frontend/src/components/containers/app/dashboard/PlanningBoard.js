@@ -86,7 +86,7 @@ function PlanningBoard() {
                 <Grid item xs={12}>
                     <Grid container direction={"column"}>
                         <Grid item xs={12}>
-                            <Button variant="text" onClick={() => navigate('/app/calendar')} endIcon={<ExitToAppIcon style={{fontSize: 22}}/>} disableRipple={true} style={{backgroundColor:'transparent', textTransform: 'none', fontSize: 24, color:'black'}}>
+                            <Button variant="text" onClick={() => navigate('/app/calendar')} endIcon={<ExitToAppIcon style={{fontSize: 22}}/>} disableRipple={true} style={{fontWeight:500, backgroundColor:'transparent', textTransform: 'none', fontSize: 26, color:'black'}}>
                                 Mon planning
                             </Button>
                         </Grid>

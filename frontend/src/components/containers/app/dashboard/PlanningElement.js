@@ -66,7 +66,7 @@ function PlanningElement(props) {
                             <Grid item xs={12} my={2} />
                             <Grid item xs={12} style={{ position: 'absolute', bottom: 0, width: '100%' }}>
                                 <Typography textAlign={"center"}
-                                    style={{ color: props.past ? '#D3D3D3' : props.current ? '#008946' : '#95E59A', width: '100%' }}
+                                    style={{ color: props.past ? '#D3D3D3' : props.current ? '#008946' : '#008946', width: '100%' }}
                                     fontSize={props.current ? 18 : 16}
                                     fontWeight={props.current ? 600 : 500}>Bureau</Typography>
                             </Grid>
@@ -142,7 +142,7 @@ function PlanningElement(props) {
                             <Grid item xs={12} my={2} />
                             <Grid item xs={12} style={{ position: 'absolute', bottom: 0, width: '100%' }}>
                                 <Typography textAlign={"center"}
-                                    style={{ color: props.past ? '#D3D3D3' : props.current ? '#0070C0' : '#8BCCEE', width: '100%' }}
+                                    style={{ color: props.past ? '#D3D3D3' : props.current ? '#0070C0' : '#0070C0', width: '100%' }}
                                     fontSize={props.current ? 18 : 16}
                                     fontWeight={props.current ? 600 : 500}>Télétravail</Typography>
                             </Grid>
@@ -218,7 +218,7 @@ function PlanningElement(props) {
                             <Grid item xs={12} my={2} />
                             <Grid item xs={12} style={{ position: 'absolute', bottom: 0, width: '100%' }}>
                                 <Typography textAlign={"center"}
-                                    style={{ color: props.past ? '#D3D3D3' : props.current ? '#7030A0' : '#C7B3DA', width: '100%' }}
+                                    style={{ color: props.past ? '#D3D3D3' : props.current ? '#7030A0' : '#7030A0', width: '100%' }}
                                     fontSize={props.current ? 18 : 16}
                                     fontWeight={props.current ? 600 : 500}>Déplacement</Typography>
                             </Grid>
