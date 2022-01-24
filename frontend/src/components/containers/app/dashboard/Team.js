@@ -79,7 +79,6 @@ function Team(props) {
     useEffect(() => {
         async function getTeamTimeSheet() {
             await TimeService.getTeamTimeSheet(props.day).then((res) => {
-                console.log(res.data);
                 setTeam(res.data);
             })
         }
@@ -500,7 +499,7 @@ function Team(props) {
                     {team[2].length > 0 &&
                     <div>
                         <MenuItem onClick={handleClose5} disableTouchRipple style={{color:'#0070C0', cursor:'default', backgroundColor:'transparent'}}>
-                            <ManWorkingIcon sx={{width: 28, height: 28, marginRight:2, backgroundColor: '#DAEFFA'}}/> <span style={{color:'##0070C0', fontWeight:500}}>Télétravail</span>
+                            <ManWorkingIcon sx={{width: 28, height: 28, marginRight:2, backgroundColor: '#DAEFFA'}}/> <span style={{color:'#0070C0', fontWeight:500}}>Télétravail</span>
                         </MenuItem>
                         {team[2].map((item) => {
                             return(
