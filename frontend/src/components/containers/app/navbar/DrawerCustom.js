@@ -39,7 +39,7 @@ import RuleIcon from '@mui/icons-material/Rule';
 import { red } from '@mui/material/colors';
 import useAuth from "../../../context/auth/AuthHelper";
 import EqualizerIcon from '@mui/icons-material/Equalizer';
-const drawerWidth = 180;
+const drawerWidth = 200;
 
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
