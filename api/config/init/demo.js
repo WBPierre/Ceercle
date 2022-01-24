@@ -142,66 +142,66 @@ async function generateOffices(companyId){
     })
     const londres_floor_1 = await OfficeElement.findOne({
         where:{
-            name: "1er Etage",
+            name: "1st Floor",
             officeId: londres.id
         }
     }).then(async (record) => {
         if(!record) {
-            return await OfficeElement.create({name:"1er Etage", type: 0, color:'#2CCCE4', capacity: 10, officeId: londres.id});
+            return await OfficeElement.create({name:"1st Floor", type: 0, color:'#2CCCE4', capacity: 10, officeId: londres.id});
         }
     })
     const londres_floor_2 = await OfficeElement.findOne({
         where:{
-            name: "2e Etage",
+            name: "2nd Floor",
             officeId: londres.id
         }
     }).then(async (record) => {
         if(!record) {
-            return await OfficeElement.create({name:"2e Etage", type: 0, color:'#37D67A', capacity: 10, officeId: londres.id});
+            return await OfficeElement.create({name:"2nd Floor", type: 0, color:'#37D67A', capacity: 10, officeId: londres.id});
         }
     })
     const londres_room_1 = await OfficeElement.findOne({
         where:{
-            name: "Salle Eiffel",
+            name: "Joy",
             officeId: londres.id,
             parentId: londres_floor_1.id
         }
     }).then(async (record) => {
         if(!record) {
-            return await OfficeElement.create({name:"Salle Eiffel", type: 1, color:'#DCE775', capacity: 8, officeId: londres.id, parentId: londres_floor_1.id});
+            return await OfficeElement.create({name:"Joy", type: 1, color:'#DCE775', capacity: 8, officeId: londres.id, parentId: londres_floor_1.id});
         }
     })
     const londres_room_2 = await OfficeElement.findOne({
         where:{
-            name: "Salle Hugo",
+            name: "Clarity",
             officeId: londres.id,
             parentId: londres_floor_1.id
         }
     }).then(async (record) => {
         if(!record) {
-            return await OfficeElement.create({name:"Salle Hugo", type: 1, color:'#FF8A65', capacity: 2, officeId: londres.id, parentId: londres_floor_1.id});
+            return await OfficeElement.create({name:"Clarity", type: 1, color:'#FF8A65', capacity: 2, officeId: londres.id, parentId: londres_floor_1.id});
         }
     })
     const londres_room_3 = await OfficeElement.findOne({
         where:{
-            name: "Salle Verne",
+            name: "Focus",
             officeId: londres.id,
             parentId: londres_floor_2.id
         }
     }).then(async (record) => {
         if(!record) {
-            return await OfficeElement.create({name:"Salle Verne", type: 1, color:'#FF5733', capacity: 6, officeId: londres.id, parentId: londres_floor_2.id});
+            return await OfficeElement.create({name:"Focus", type: 1, color:'#FF5733', capacity: 6, officeId: londres.id, parentId: londres_floor_2.id});
         }
     })
     const londres_room_4 = await OfficeElement.findOne({
         where:{
-            name: "Salle Diderot",
+            name: "Radiance",
             officeId: londres.id,
             parentId: londres_floor_2.id
         }
     }).then(async (record) => {
         if(!record) {
-            return await OfficeElement.create({name:"Salle Diderot", type: 1, color:'#BA68C8', capacity: 4, officeId: londres.id, parentId: londres_floor_2.id});
+            return await OfficeElement.create({name:"Radiance", type: 1, color:'#BA68C8', capacity: 4, officeId: londres.id, parentId: londres_floor_2.id});
         }
     })
 }
