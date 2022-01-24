@@ -71,24 +71,24 @@ function CalendarListElement(props){
         switch(props.type){
             case 0:
                 return (
-                    <ToDefineIcon sx={{height:30, width:30}}/>
+                    <ToDefineIcon sx={{height:26, width:26}}/>
                 )
             case 1:
                 return(
-                    <OfficeIcon sx={{height:30, width:30}}/>
+                    <OfficeIcon sx={{height:26, width:26}}/>
 
                 )
             case 2:
                 return(
-                    <ManWorkingIcon sx={{height:30, width:30}}/>
+                    <ManWorkingIcon sx={{height:26, width:26}}/>
                 )
             case 3:
                 return(
-                    <AwayIcon sx={{height:30, width:30}}/>
+                    <AwayIcon sx={{height:26, width:26}}/>
                 )
             case 4:
                 return(
-                    <OffIcon sx={{height:30, width:30}}/>
+                    <OffIcon sx={{height:26, width:26}}/>
                 )
         }
     }

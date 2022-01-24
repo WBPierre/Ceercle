@@ -18,7 +18,7 @@ import "moment/min/locales";
 import ListItemText from "@mui/material/ListItemText";
 import useAuth from "../../../context/auth/AuthHelper";
 
-const drawerWidth = 200;
+const drawerWidth = 180;
 
 
 const AppBarStyle = styled(MuiAppBar, {
@@ -70,13 +70,14 @@ export default function AppBar(props) {
 
 
                 <Typography style={{
-                    color: '#2A2828',
+                    color: '#1F4E79',
                     fontSize: 23,
                     fontWeight: 600,
                     variant: 'body2',
                     textAlign: 'center'
                 }}>
-                    {`${t('app:navbar:welcome')} ${context.user.firstName} !`}
+                    <span style={{fontWeight:400}}>{t('app:navbar:welcome')}</span>
+                    {` ${context.user.firstName} !`}
                 </Typography>
 
                 <div style={{ flexGrow: 1 }} />
@@ -91,7 +92,7 @@ export default function AppBar(props) {
                     fontSize={28}
                     align='center'
                 >
-                    {day.format('dddd')} {day.format('DD')} {day.format('MMMM')} {day.format('YYYY')}
+                    <span style={{fontWeight:500}}>{day.format('dddd')} {day.format('DD')}</span> {day.format('MMMM')} {day.format('YYYY')}
                 </Typography>
 
                 <div style={{ flexGrow: 1 }} />
