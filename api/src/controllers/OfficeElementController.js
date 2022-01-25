@@ -1,27 +1,28 @@
+const Office = require('../models/Office');
 const OfficeElement = require('../models/OfficeElement');
-const {validationResult, param, body} = require("express-validator");
+const { validationResult, param, body } = require("express-validator");
 const Team = require("../models/Team");
 const Utils = require("../services/Utils");
 const OfficeBooking = require('../models/OfficeBooking');
 
 
-exports.getOfficeElements = async function(req, res, next){
+exports.getOfficeElements = async function (req, res, next) {
     try {
         const errors = validationResult(req);
         console.log(errors);
         if (!errors.isEmpty()) {
-            res.status(422).json({errors: errors.array()});
+            res.status(422).json({ errors: errors.array() });
         }
         const id = req.params.id;
         let result = await OfficeElement.findAll({
-            where:{
+            where: {
                 officeId: id
             },
-            order:[['id', 'ASC']]
+            order: [['id', 'ASC']]
         });
 
         let arr = [];
-        for(let i = 0; i < result.length; i++){
+        for (let i = 0; i < result.length; i++) {
             let obj = {
                 id: result[i].id,
                 name: result[i].name,
@@ -36,35 +37,35 @@ exports.getOfficeElements = async function(req, res, next){
         }
         const array = Utils.generateTree(arr);
         res.json(array);
-    } catch(err) {
+    } catch (err) {
         return next(err)
     }
 }
 
-exports.getOfficeElementsWithCapacity = async function(req, res, next){
+exports.getOfficeElementsWithCapacity = async function (req, res, next) {
     try {
         const errors = validationResult(req);
         console.log(errors);
         if (!errors.isEmpty()) {
-            res.status(422).json({errors: errors.array()});
+            res.status(422).json({ errors: errors.array() });
         }
         const id = req.params.id;
         let result = await OfficeElement.findAll({
-            where:{
+            where: {
                 officeId: id
             },
-            order:[['id', 'ASC']]
+            order: [['id', 'ASC']]
         });
 
         let arr = [];
-        for(let i = 0; i < result.length; i++){
+        for (let i = 0; i < result.length; i++) {
             let obj = {
                 id: result[i].id,
                 name: result[i].name,
                 type: result[i].type,
                 color: result[i].color,
                 capacity: result[i].capacity,
-                used: await OfficeBooking.count({where:{day:req.params.day, officeElementId: result[i].id}}),
+                used: await OfficeBooking.count({ where: { day: req.params.day, officeElementId: result[i].id } }),
                 parentId: result[i].parentId,
                 officeId: result[i].officeId,
                 elements: []
@@ -73,16 +74,99 @@ exports.getOfficeElementsWithCapacity = async function(req, res, next){
         }
 
         const array = Utils.generateTree(arr);
-        for(let i = 0; i < array.length; i++){
+        for (let i = 0; i < array.length; i++) {
             Utils.calculateTreeSum(array[i])
         }
         res.json(array);
-    } catch(err) {
+    } catch (err) {
         return next(err)
     }
 }
 
-exports.createOfficeElement = async function (req, res, next){
+exports.getOfficeElementsFromCompany = async function (req, res, next) {
+    try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            res.status(422).json({ errors: errors.array() });
+        }
+        let offices_with_elements = {}
+        let leafs = []
+        const id = req.params.id;
+        const offices = await Office.findAll({
+            where: {
+                companyId: id
+            }
+        })
+        if (offices.length > 0) {
+            for (let j = 0; j < offices.length; j++) {
+                let parents
+                let result = await OfficeElement.findAll({
+                    where: {
+                        officeId: offices[j].id
+                    },
+                    order: [['id', 'ASC']]
+                });
+                if (result.length > 0) {
+                    let arr = [];
+                    for (let i = 0; i < result.length; i++) {
+                        let obj = {
+                            id: result[i].id,
+                            name: result[i].name,
+                            type: result[i].type,
+                            color: result[i].color,
+                            capacity: result[i].capacity,
+                            maxCapacity: result[i].maxCapacity,
+                            parentId: result[i].parentId,
+                            officeId: result[i].officeId,
+                            elements: []
+                        };
+                        arr.push(obj);
+                    }
+                    const array = Utils.generateTree(arr);
+                    for (let i = 0; i < array.length; i++) {
+                        const leafs_office = Utils.extractLeafFromTree(array[i])
+                        leafs = leafs.concat(leafs_office)
+                    }
+                    offices_with_elements[offices[j].id] = array
+                }
+            }
+        }
+        res.json(leafs);
+    } catch (err) {
+        return next(err)
+    }
+
+}
+
+exports.updateOccupancy = async function (req, res, next) {
+    try {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            res.status(422).json({ errors: errors.array() });
+            return;
+        }
+        await OfficeElement.findOne(
+            {
+                where: {
+                    id: req.body.officeElementId
+                }
+            }).then((record) => {
+                if (!record) {
+                    res.status(404);
+                    res.send();
+                } else {
+                    record.update({ maxCapacity: req.body.maxCapacity }).then((updated) => {
+                        res.json(updated);
+                    })
+                }
+            });
+    } catch (err) {
+        return next(err)
+    }
+}
+
+exports.createOfficeElement = async function (req, res, next) {
     try {
         const errors = validationResult(req);
 
@@ -91,7 +175,7 @@ exports.createOfficeElement = async function (req, res, next){
         }
         const result = await OfficeElement.create(req.body)
         res.json(result);
-    } catch(err) {
+    } catch (err) {
         return next(err)
     }
 }
@@ -106,25 +190,25 @@ exports.updateOfficeElement = async function (req, res, next) {
         }
         await OfficeElement.findOne(
             {
-                where:{
-                    id:req.body.id
+                where: {
+                    id: req.body.id
                 }
             }).then((record) => {
-            if (!record) {
-                res.status(404);
-                res.send();
-            }else{
-                record.update(req.body).then((updated) => {
-                    res.json(updated);
-                })
-            }
-        });
-    } catch(err) {
+                if (!record) {
+                    res.status(404);
+                    res.send();
+                } else {
+                    record.update(req.body).then((updated) => {
+                        res.json(updated);
+                    })
+                }
+            });
+    } catch (err) {
         return next(err)
     }
 }
 
-exports.deleteOfficeElement = async function(req, res, next){
+exports.deleteOfficeElement = async function (req, res, next) {
     try {
         const errors = validationResult(req);
 
@@ -134,12 +218,12 @@ exports.deleteOfficeElement = async function(req, res, next){
         }
         await OfficeElement.destroy(
             {
-                where:{
-                    id:req.body.id
+                where: {
+                    id: req.body.id
                 }
             });
         res.sendStatus(200);
-    } catch(err) {
+    } catch (err) {
         return next(err)
     }
 }
@@ -155,13 +239,20 @@ exports.validate = (method) => {
         case 'createOfficeElement': {
             return [
                 body('parentId', 'parentId doesn\'t exist').exists(),
-                body('parentId', 'parentId is not a number').isNumeric().optional({nullable:true}),
+                body('parentId', 'parentId is not a number').isNumeric().optional({ nullable: true }),
                 body('name', 'name doesn\'t exist').exists(),
                 body('name', 'name is not a string').isString(),
                 body('type', 'type doesn\'t exist').exists(),
                 body('type', 'type is not a number').isNumeric(),
                 body('color', 'color is not a string').isString(),
                 body('capacity', 'capacity is not a string').isNumeric(),
+            ]
+        }
+        case 'updateOccupancy': {
+            return [
+                body('officeElementId', 'officeElementId doesn\'t exist').exists(),
+                body('officeElementId', 'officeElementId is not a number').isNumeric(),
+                body('maxCapacity', 'maxCapacity is not a number').isNumeric(),
             ]
         }
         case 'updateOfficeElement': {

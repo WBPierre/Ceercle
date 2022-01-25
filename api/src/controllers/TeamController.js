@@ -75,7 +75,8 @@ exports.getTeam = async function (req, res, next) {
             let user = {
                 'id': users_linked[i].id,
                 'name': users_linked[i].firstName + " " + users_linked[i].lastName,
-                'position': users_linked[i].position
+                'position': users_linked[i].position,
+                'avatar': users_linked[i].profilePicturePath
             }
             users_formatted.push(user);
         }
