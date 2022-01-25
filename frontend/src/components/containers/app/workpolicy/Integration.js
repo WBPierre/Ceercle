@@ -10,13 +10,13 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import SettingSectionTemplate from "../account/SettingSectionTemplate";
 import * as React from "react";
-import {Accordion, AccordionDetails, AccordionSummary} from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Payfit from "../../../../assets/images/generic/payfit.png";
 import BambooHR from "../../../../assets/images/generic/bamboohr.png";
 
-function Integration(props){
-    return(
+function Integration(props) {
+    return (
         <SettingSectionTemplate title="Intégration avec des applications tierces" description="Intégrer directement vos employés en vous connectant avec une autre application.">
             <Grid container direction="column">
                 <Grid item>
@@ -29,10 +29,7 @@ function Integration(props){
                         >
                             <Grid container direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
                                 <Grid item>
-                                    <img src={Payfit} style={{height:60}}/>
-                                </Grid>
-                                <Grid item>
-                                    <Typography>(coming soon)</Typography>
+                                    <img src={Payfit} style={{ height: 60 }} />
                                 </Grid>
                             </Grid>
                         </AccordionSummary>
@@ -50,13 +47,11 @@ function Integration(props){
                             id="panel1a-header"
                             disabled
                         >
-                            <Grid container direction={"row"}  justifyContent={"space-between"} alignItems={"center"}>
+                            <Grid container direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
                                 <Grid item>
-                                    <img src={BambooHR} style={{height:50}}/>
+                                    <img src={BambooHR} style={{ height: 50 }} />
                                 </Grid>
-                                <Grid item>
-                                    <Typography>(coming soon)</Typography>
-                                </Grid>
+
                             </Grid>
                         </AccordionSummary>
                         <AccordionDetails>

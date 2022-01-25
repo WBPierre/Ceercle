@@ -1,7 +1,7 @@
 import { DataGrid } from '@mui/x-data-grid';
 import UserService from "../../../../services/app/user.service";
-import {useEffect, useState} from "react";
-import {Button, Chip, Grid} from "@mui/material";
+import { useEffect, useState } from "react";
+import { Button, Chip, Grid } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 
 const columns = [
@@ -10,21 +10,21 @@ const columns = [
     {
         field: 'position',
         headerName: 'Position',
-        width: 130,
+        width: 200,
         resizable: false,
-        sortable:false,
+        sortable: false,
     },
     {
         field: 'email',
         headerName: 'Email',
-        width: 130
+        width: 200
     },
     {
-        field:'actions',
-        headerName:'',
+        field: 'actions',
+        headerName: '',
         width: 130,
         headerAlign: 'center', align: "right", flex: 1, resizable: false,
-        sortable:false,
+        sortable: false,
         renderCell: (params) => {
             return <Chip
                 label="Modifier"
@@ -37,25 +37,24 @@ const columns = [
     }
 ];
 
-function UserManagement(props){
+function UserManagement(props) {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
         async function getUsers() {
             await UserService.getUsers().then((res) => {
                 setUsers(res.data);
-                console.log(res.data);
             })
         }
         getUsers();
     }, [])
-    return(
-        <div style={{width:'100%'}}>
+    return (
+        <div style={{ width: '100%' }}>
             <Grid container direction={"column"} spacing={1}>
                 <Grid item xs={12} textAlign={"right"}>
                     <Button variant={"contained"} color={"secondary"}>Ajouter un utilisateur</Button>
                 </Grid>
-                <Grid item style={{height: '60vh'}}>
+                <Grid item style={{ height: '60vh' }}>
                     <DataGrid
                         rows={users}
                         columns={columns}
