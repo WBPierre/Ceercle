@@ -76,7 +76,7 @@ export default function AppBar(props) {
                     variant: 'body2',
                     textAlign: 'center'
                 }}>
-                    <span style={{fontWeight:400}}>{t('app:navbar:welcome')}</span>
+                    <span style={{ fontWeight: 400 }}>{t('app:appbar:welcome')}</span>
                     {` ${context.user.firstName} !`}
                 </Typography>
 
@@ -92,7 +92,7 @@ export default function AppBar(props) {
                     fontSize={28}
                     align='center'
                 >
-                    <span style={{fontWeight:500}}>{day.format('dddd')} {day.format('DD')}</span> {day.format('MMMM')} {day.format('YYYY')}
+                    <span style={{ fontWeight: 500 }}>{day.format('dddd')} {day.format('DD')}</span> {day.format('MMMM')} {day.format('YYYY')}
                 </Typography>
 
                 <div style={{ flexGrow: 1 }} />

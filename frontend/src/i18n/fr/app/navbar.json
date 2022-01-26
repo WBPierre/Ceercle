@@ -1,8 +1,10 @@
 {
   "dashboard": "Dashboard",
   "calendar": "Calendrier",
-  "marketplace": "Marketplace",
   "glossary": "Annuaire",
-  "my_account": "Mon compte",
-  "welcome": "Bienvenue"
+  "RH_section": "Espace RH",
+  "statistics": "Statistiques",
+  "parameters": "Paramètres",
+  "teams": "Equipes",
+  "my_account": "Mon compte"
 }
