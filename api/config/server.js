@@ -5,6 +5,7 @@ const Routes = require('./routes');
 const {initDatabase} = require("./init/database");
 const {verifyDatabase} = require('./database');
 const {verifyFolderImplementation} = require('./init/upload');
+const {generateDemoData} = require('./init/demo');
 const {isSecure} = require('./utils');
 
 
@@ -36,6 +37,11 @@ server.get('*', function(req, res, next) {
 Routes(server);
 
 verifyFolderImplementation();
+
+async function DemoData() {
+    await generateDemoData();
+}
+DemoData();
 
 
 module.exports = server;
