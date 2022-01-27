@@ -34,6 +34,7 @@ import ScreenSearchDesktopIcon from '@mui/icons-material/ScreenSearchDesktop';
 import PeopleIcon from '@mui/icons-material/People';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import { red } from '@mui/material/colors';
+import * as App_Routes from "../../../../navigation/app/Routes";
 
 const drawerWidth = 240;
 
@@ -155,7 +156,7 @@ export default function NavBarOld() {
                 open={open}
             >
                 <DrawerHeader>
-                    <Button style={{ textTransform: 'capitalize', backgroundColor: 'transparent' }} disableRipple={true} startIcon={<img src={iconPlanet} height={40} alt="logo" />} onClick={() => { navigate('/app/') }}>
+                    <Button style={{ textTransform: 'capitalize', backgroundColor: 'transparent' }} disableRipple={true} startIcon={<img src={iconPlanet} height={40} alt="logo" />} onClick={() => { navigate(App_Routes.DASHBOARD) }}>
                         <Typography
                             variant="h6"
                             noWrap

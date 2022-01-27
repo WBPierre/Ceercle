@@ -8,6 +8,8 @@ import {Fade} from 'react-awesome-reveal';
 import {useNavigate} from "react-router-dom";
 import Button from "@mui/material/Button";
 import VisuelSAAS from "../../../../assets/images/home/productPresentation/visuel_SAAS.png";
+import * as Public_Routes from "../../../../navigation/public/Routes";
+
 
 function Intro(){
     const { t } = useTranslation();
@@ -35,7 +37,7 @@ function Intro(){
                                         </Typography>
                                     </Grid>
                                     <Grid item style={{textAlign:'left'}}>
-                                        <Button variant={"contained"} style={{textTransform:'none', backgroundColor:'#3F07A8', fontSize:24, borderRadius:'25px', fontWeight:500}} onClick={() => navigate('/demo')}>{t("generic:demo")}</Button>
+                                        <Button variant={"contained"} style={{textTransform:'none', backgroundColor:'#3F07A8', fontSize:24, borderRadius:'25px', fontWeight:500}} onClick={() => navigate(Public_Routes.DEMO)}>{t("generic:demo")}</Button>
                                     </Grid>
                                 </Grid>
                             </Fade>
@@ -68,7 +70,7 @@ function Intro(){
                                         </Typography>
                                     </Grid>
                                     <Grid item style={{textAlign:'left'}}>
-                                        <Button variant={"contained"} style={{textTransform:'none', backgroundColor:'#3F07A8', fontSize:24, borderRadius:'25px', fontWeight:500}} onClick={() => navigate('/demo')}>{t("generic:demo")}</Button>
+                                        <Button variant={"contained"} style={{textTransform:'none', backgroundColor:'#3F07A8', fontSize:24, borderRadius:'25px', fontWeight:500}} onClick={() => navigate(Public_Routes.DEMO)}>{t("generic:demo")}</Button>
                                     </Grid>
                                 </Grid>
                             </Fade>

@@ -19,7 +19,7 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Box from '@mui/material/Box';
 import Button from "@mui/material/Button";
-
+import * as Public_Routes from "../../../../navigation/public/Routes";
 
 function OfferDescription({ props }) {
     const { t } = useTranslation();
@@ -99,7 +99,7 @@ function OfferDescription({ props }) {
                             <CardContent sx={{
                                 backgroundColor: theme.palette.background.default
                             }}>
-                                <Button fullWidth variant={"contained"} style={{backgroundColor:'#3F07A8'}}  onClick={() => navigate('/demo')}>{t('public:offers:choose_this_offer')}</Button>
+                                <Button fullWidth variant={"contained"} style={{backgroundColor:'#3F07A8'}}  onClick={() => navigate(Public_Routes.DEMO)}>{t('public:offers:choose_this_offer')}</Button>
                                 <List alignItems="flex-start">
                                     <ListItem disablePadding alignItems="flex-start">
                                         <ListItemIcon style={{ minWidth: '40px' }}>
@@ -167,7 +167,7 @@ function OfferDescription({ props }) {
                                 backgroundColor: theme.palette.background.default,
                                 borderRadius: '25px'
                             }}>
-                                <Button fullWidth variant={"contained"} style={{backgroundColor:'#3F07A8'}}  onClick={() => navigate('/demo')}>{t('public:offers:choose_this_offer')}</Button>
+                                <Button fullWidth variant={"contained"} style={{backgroundColor:'#3F07A8'}}  onClick={() => navigate(Public_Routes.DEMO)}>{t('public:offers:choose_this_offer')}</Button>
                                 <List alignItems="flex-start">
                                     <ListItem disablePadding alignItems="flex-start">
                                         <ListItemIcon style={{ minWidth: '40px' }}>

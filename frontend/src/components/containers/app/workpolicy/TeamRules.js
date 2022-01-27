@@ -15,6 +15,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import { Divider } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
+import * as App_Routes from "../../../../navigation/app/Routes";
 
 
 
@@ -131,7 +132,7 @@ export default function TeamRules(props) {
         enqueueSnackbar('Annulé', {
             variant: 'cancel'
         });
-        navigate('/app/workpolicy');
+        navigate(App_Routes.WORKPOLICY);
     }
 
     return (

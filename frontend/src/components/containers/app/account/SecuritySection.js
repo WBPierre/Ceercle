@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import UserService from "../../../../services/app/user.service";
 import SettingSectionTemplate from './SettingSectionTemplate';
 import { Button, Divider } from "@mui/material";
+import * as App_Routes from "../../../../navigation/app/Routes";
 
 export default function SecuritySection(props) {
 
@@ -68,7 +69,7 @@ export default function SecuritySection(props) {
                     enqueueSnackbar('Update saved.', {
                         variant: 'success'
                     });
-                    navigate('/app/myaccount');
+                    navigate(App_Routes.ACCOUNT);
                 } else {
                     enqueueSnackbar('Mot de passe incorrect', {
                         variant: 'error'

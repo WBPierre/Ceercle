@@ -10,8 +10,8 @@ const TimeSheet = require("../../src/models/TimeSheet");
 const {Op} = require("sequelize");
 const Moment = require("moment");
 
-const profileUrl = 'http://' + process.env.STORAGE_HOST + ':' + process.env.STORAGE_PORT + "/public/assets/demo/profile/";
-const bannerUrl = 'http://' + process.env.STORAGE_HOST + ':' + process.env.STORAGE_PORT + "/public/assets/demo/banner/";
+const profileUrl = process.env.STORAGE_PROTOCOL + '://' + process.env.STORAGE_HOST + ':' + process.env.STORAGE_PORT + "/public/assets/demo/profile/";
+const bannerUrl = process.env.STORAGE_PROTOCOL + '://' + process.env.STORAGE_HOST + ':' + process.env.STORAGE_PORT + "/public/assets/demo/banner/";
 
 exports.generateDemo = async function() {
     // Test profile
@@ -23,7 +23,6 @@ exports.generateDemo = async function() {
 }
 
 exports.generateDemoData = async function(){
-
     const company = await Company.findOne({where:{name:'Démo'}});
     let index = 0;
     let week = Utils.getCurrentWeek(index);

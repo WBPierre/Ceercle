@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import SettingSectionTemplate from './SettingSectionTemplate';
 import UserService from "../../../../services/app/user.service";
+import * as App_Routes from "../../../../navigation/app/Routes";
 
 export default function GeneralSection(props) {
 
@@ -64,7 +65,7 @@ export default function GeneralSection(props) {
                     enqueueSnackbar('Update saved.', {
                         variant: 'success'
                     });
-                    navigate('/app/myaccount');
+                    navigate(App_Routes.ACCOUNT);
                 } else {
                     enqueueSnackbar('Une erreur est survenue', {
                         variant: 'error'

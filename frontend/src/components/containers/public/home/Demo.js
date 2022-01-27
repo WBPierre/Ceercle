@@ -7,7 +7,7 @@ import {Paper} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Hey from "../../../../assets/images/home/demo/hey.png";
 import Box from "@mui/material/Box";
-
+import * as Public_Routes from "../../../../navigation/public/Routes";
 
 function Demo() {
     const { t } = useTranslation();
@@ -34,7 +34,7 @@ function Demo() {
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={12} mt={5} textAlign={"center"}>
-                                    <Button variant={"text"} onClick={() => navigate('/demo')} style={{fontSize:18, color:'#3F07A8', textTransform:'none', backgroundColor:'white', borderRadius:'25px', fontWeight:500}}>{t('generic:demo')}</Button>
+                                    <Button variant={"text"} onClick={() => navigate(Public_Routes.DEMO)} style={{fontSize:18, color:'#3F07A8', textTransform:'none', backgroundColor:'white', borderRadius:'25px', fontWeight:500}}>{t('generic:demo')}</Button>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -59,7 +59,7 @@ function Demo() {
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={12} mt={5} mb={5} textAlign={"center"}>
-                                    <Button variant={"text"} onClick={() => navigate('/demo')} style={{fontSize:18, color:'#3F07A8', textTransform:'none', backgroundColor:'white', borderRadius:'25px', fontWeight:500}}>{t('generic:demo')}</Button>
+                                    <Button variant={"text"} onClick={() => navigate(Public_Routes.DEMO)} style={{fontSize:18, color:'#3F07A8', textTransform:'none', backgroundColor:'white', borderRadius:'25px', fontWeight:500}}>{t('generic:demo')}</Button>
                                 </Grid>
                             </Grid>
                         </Grid>

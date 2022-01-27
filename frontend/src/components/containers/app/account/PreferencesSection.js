@@ -15,6 +15,8 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
 import UserService from "../../../../services/app/user.service";
+import * as App_Routes from "../../../../navigation/app/Routes";
+
 
 import SettingSectionTemplate from './SettingSectionTemplate';
 
@@ -111,7 +113,7 @@ export default function PreferencesSection(props) {
                     enqueueSnackbar('Update saved.', {
                         variant: 'success'
                     });
-                    navigate('/app/myaccount');
+                    navigate(App_Routes.ACCOUNT);
                 } else {
                     enqueueSnackbar('Une erreur est survenue', {
                         variant: 'error'

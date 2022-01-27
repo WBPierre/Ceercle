@@ -17,6 +17,7 @@ import Card from "@mui/material/Card";
 import {Typography} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {useSnackbar} from "notistack";
+import * as App_Routes from "../../../../navigation/app/Routes";
 
 
 function PlanningBoard() {
@@ -86,7 +87,7 @@ function PlanningBoard() {
                 <Grid item xs={12}>
                     <Grid container direction={"column"}>
                         <Grid item xs={12}>
-                            <Button variant="text" onClick={() => navigate('/app/calendar')} endIcon={<ExitToAppIcon style={{fontSize: 22}}/>} disableRipple={true} style={{fontWeight:500, backgroundColor:'transparent', textTransform: 'none', fontSize: 26, color:'black'}}>
+                            <Button variant="text" onClick={() => navigate(App_Routes.CALENDAR)} endIcon={<ExitToAppIcon style={{fontSize: 22}}/>} disableRipple={true} style={{fontWeight:500, backgroundColor:'transparent', textTransform: 'none', fontSize: 26, color:'black'}}>
                                 Mon planning
                             </Button>
                         </Grid>

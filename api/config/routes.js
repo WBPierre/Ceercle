@@ -1,3 +1,4 @@
+const MoodRoutes = require("./routes/MoodRoutes");
 module.exports = function(server) {
     const UserRoutes = require('./routes/UserRoutes');
     const ContactRoutes = require('./routes/ContactRoutes');
@@ -9,6 +10,7 @@ module.exports = function(server) {
     const OfficeElementRoutes = require('./routes/OfficeElementRoutes');
     const OfficeBookingRoutes = require('./routes/OfficeBookingRoutes');
     const MoodRoutes = require('./routes/MoodRoutes');
+    const ExternalRoutes = require('./routes/ExternalRoutes');
 
     const baseUrl = "/api"
 
@@ -22,4 +24,5 @@ module.exports = function(server) {
     server.use(baseUrl+"/officeElement", OfficeElementRoutes);
     server.use(baseUrl+"/officeBooking", OfficeBookingRoutes);
     server.use(baseUrl+"/mood", MoodRoutes);
+    server.use(baseUrl+"/external", ExternalRoutes);
 }
