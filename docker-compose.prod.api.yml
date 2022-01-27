@@ -37,7 +37,7 @@ services:
     volumes:
       - ./certbot/conf:/etc/letsencrypt:rw
       - ./certbot/www:/var/www/certbot:rw
-    command: certonly --dry-run --webroot -w /var/www/certbot --force-renewal --email contact@ceercle.io -d api.ceercle.io -d www.api.ceercle.io --agree-tos
+    command: certonly --webroot -w /var/www/certbot --force-renewal --email contact@ceercle.io -d api.ceercle.io -d www.api.ceercle.io --agree-tos
 
   postgres:
     image: postgres:14.0
