@@ -1,11 +1,13 @@
 {
   "my_planning": "Mon planning",
   "today": "Aujourd'hui",
+  "snackbar_success": "Déclaration enregistrée",
   "desk": {
     "my_desk": "Mon bureau",
     "my_reservation": "Ma réservation",
     "none": "Aucune réservation",
     "book": "Faire une réservation",
+    "modify": "Modifier ma réservation",
     "where_to_book": "Où souhaitez-vous réserver ?",
     "select_office": "Sélectionnez votre bureau",
     "confirm": "Confirmez votre réservation",
@@ -20,6 +22,7 @@
   },
   "mood": {
     "my_mood": "Mon moral",
-    "why_to_fill": "Renseigner votre moral de la journée"
+    "why_to_fill": "Renseigner votre moral de la journée",
+    "snackbar_success": "Déclaration enregistrée"
   }
 }

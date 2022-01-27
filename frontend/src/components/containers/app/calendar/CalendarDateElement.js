@@ -1,16 +1,19 @@
+import { useTranslation } from "react-i18next";
 import Grid from "@mui/material/Grid";
-import { Divider, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import moment from "moment";
 
 function CalendarDateElement(props) {
 
+    const { t } = useTranslation();
+
     const GetDay = () => {
         switch (props.dayKey) {
-            case 0: return ('Lun.');
-            case 1: return ('Mar.');
-            case 2: return ('Mer.');
-            case 3: return ('Jeu.');
-            case 4: return ('Ven.');
+            case 0: return (t('app:date_elements:Mon'));
+            case 1: return (t('app:date_elements:Tue'));
+            case 2: return (t('app:date_elements:Wed'));
+            case 3: return (t('app:date_elements:Thu'));
+            case 4: return (t('app:date_elements:Fri'));
         }
     }
 

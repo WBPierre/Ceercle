@@ -1,22 +1,8 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
-import {
-    Button,
-    Collapse, Dialog, DialogActions, DialogTitle, Divider, FormControl, InputLabel, ListItem, ListItemAvatar,
-    ListItemButton,
-    ListItemIcon, ListItemSecondaryAction,
-    ListItemText,
-    ListSubheader, Modal, Select,
-    Typography
-} from "@mui/material";
-import List from "@mui/material/List";
-import { ExpandLess, ExpandMore } from "@mui/icons-material";
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { Divider, Modal, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
-import ColorPicker from "../../../molecules/app/ColorPicker";
-import MenuItem from "@mui/material/MenuItem";
-import CircleIcon from '@mui/icons-material/Circle';
 import { Stack } from "@mui/material";
 import Chip from '@mui/material/Chip';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
@@ -42,7 +28,7 @@ const style = {
 
 
 function UserAddModal(props) {
-    let navigate = useNavigate();
+    const { t } = useTranslation();
 
     const confirmAddUser = async () => {
         let object = { userId: value.id, teamId: parseInt(props.teamId) }
@@ -82,7 +68,7 @@ function UserAddModal(props) {
                 <Grid container direction={"column"} spacing={1}>
                     <Grid item>
                         <Typography id="modal-modal-title" variant="h6" component="h2" style={{ color: '#414040' }}>
-                            Ajouter un utilisateur
+                            {t('app:teams:personalize.add_user')}
                         </Typography>
                     </Grid>
 
@@ -103,14 +89,14 @@ function UserAddModal(props) {
                                 option.isInTeam
                             }
                             sx={{ width: 300 }}
-                            renderInput={(params) => <TextField {...params} label="Collaborateur" />}
+                            renderInput={(params) => <TextField {...params} label={t('app:teams:personalize.user')} />}
                         />
                     </Grid>
 
                     <Grid item mt={4}>
                         <Stack direction="row" spacing={1}>
                             <Chip
-                                label="Annuler"
+                                label={t('generic:cancel')}
                                 sx={{
                                     borderColor: "#3C3B3D", color: "#3C3B3D", fontWeight: "bold"
                                 }}
@@ -120,7 +106,7 @@ function UserAddModal(props) {
                                 variant="outlined"
                             />
                             <Chip
-                                label="Ajouter"
+                                label={t('generic:add')}
                                 disabled={value == null}
                                 sx={{ borderColor: "#3F07A8", color: "#3F07A8", fontWeight: "bold" }}
                                 color="error"

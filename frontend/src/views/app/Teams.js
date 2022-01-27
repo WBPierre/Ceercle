@@ -1,11 +1,9 @@
+import { useTranslation } from "react-i18next";
 import CustomContainer from "../../components/containers/app/CustomContainer";
-import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import TeamsGrid from "../../components/containers/app/teams/TeamsGrid";
 import Grid from "@mui/material/Grid";
 import Typography from '@mui/material/Typography';
-import { Divider } from "@mui/material";
-import { Button } from "@mui/material";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import TeamAddModal from "../../components/containers/app/teams/TeamAddModal";
 import Chip from '@mui/material/Chip';
@@ -14,6 +12,8 @@ import { useSnackbar } from "notistack";
 
 
 function Teams() {
+    const { t } = useTranslation();
+
     const [openModal, setOpenModal] = useState(false);
 
     const handleModalClose = () => {
@@ -27,11 +27,11 @@ function Teams() {
         console.log(team_to_add)
         await TeamService.createTeam(team_to_add).then(async (res) => {
             if (res.status === 200) {
-                enqueueSnackbar('Equipe créé', {
+                enqueueSnackbar(t('app:teams:main.snackbar_success'), {
                     variant: 'success'
                 });
             } else {
-                enqueueSnackbar('Une erreur est survenue', {
+                enqueueSnackbar(t('app:snackbar:error'), {
                     variant: 'error'
                 });
             }
@@ -62,13 +62,13 @@ function Teams() {
             <Grid container direction="column" spacing={1}>
                 <Grid item>
                     <Typography variant="h4" fontWeight={600} style={{ color: '#2A2828' }}>
-                        Gestion des équipes
+                        {t('app:teams:main.title')}
                     </Typography>
                 </Grid>
 
                 <Grid item>
                     <Typography variant="body" fontWeight={300} style={{ color: '#414040' }}>
-                        Gérer et paramétrez les équipes au sein de l'entreprise.
+                        {t('app:teams:main.subtitle')}
                     </Typography>
                 </Grid>
 
@@ -78,7 +78,7 @@ function Teams() {
 
                 <Grid item mt={2} style={{ alignItems: "right" }}>
                     <Chip
-                        label="Nouvelle équipe"
+                        label={t('app:teams:main.new_team')}
                         sx={{ borderColor: "#3F07A8", color: "#3F07A8", fontWeight: "bold", fontSize: 15 }}
                         color="error"
                         onClick={() => setOpenModal(true)}

@@ -4,19 +4,11 @@ import Typography from '@mui/material/Typography';
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Grid from "@mui/material/Grid";
-import StarIcon from '@mui/icons-material/Star';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
-import Tooltip from '@mui/material/Tooltip';
-import IconButton from '@mui/material/IconButton';
 import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 
-import banniere from "../../../../assets/images/app/banniere2.jpeg";
 import TabInfoByUser from "./TabInfoByUser";
-import example3 from "../../../../assets/images/example/3.jpg";
 import BannerDefault from "../../../../assets/images/example/banner_default.jpg";
 import ProfileDefault from "../../../../assets/images/example/default.png";
 

@@ -1,64 +1,65 @@
-import {Avatar, ListItemAvatar, ListItemButton, ListItemIcon, ListItemText, Menu} from "@mui/material";
+import { Avatar, ListItemIcon, ListItemText, Menu } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import ToDefineIcon from "../../../molecules/icons/ToDefineIcon";
 import OfficeIcon from "../../../molecules/icons/OfficeIcon";
 import ManWorkingIcon from "../../../molecules/icons/ManWorkingIcon";
 import AwayIcon from "../../../molecules/icons/AwayIcon";
-import example1 from "../../../../assets/images/example/1.jpg";
 import MenuItem from "@mui/material/MenuItem";
-import {useState} from "react";
+import { useState } from "react";
 import TimeService from "../../../../services/app/time.service";
 import Button from "@mui/material/Button";
 import OffIcon from "../../../molecules/icons/OffIcon";
-import {useSnackbar} from "notistack";
+import { useSnackbar } from "notistack";
 
-function CalendarUser(props){
+function CalendarUser(props) {
 
+    const { t } = useTranslation();
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const { enqueueSnackbar } = useSnackbar();
 
 
     const getText = () => {
-        switch(props.data.morning){
+        switch (props.data.morning) {
             case 0:
-                return "Non déclaré"
+                return t('app:statuses:undeclared')
             case 1:
-                return "Au bureau"
+                return t('app:statuses:office')
             case 2:
-                return "Télétravail"
+                return t('app:statuses:home_working')
             case 3:
-                return "Déplacement"
+                return t('app:statuses:on_the_go')
         }
     }
 
     const getIcon = () => {
-        switch(props.data.morning){
+        switch (props.data.morning) {
             case 0:
                 return (
-                    <ToDefineIcon/>
+                    <ToDefineIcon />
                 )
             case 1:
-                return(
-                    <OfficeIcon/>
+                return (
+                    <OfficeIcon />
 
                 )
             case 2:
-                return(
-                    <ManWorkingIcon/>
+                return (
+                    <ManWorkingIcon />
                 )
             case 3:
-                return(
-                    <AwayIcon/>
+                return (
+                    <AwayIcon />
                 )
             case 4:
-                return(
-                    <OffIcon/>
+                return (
+                    <OffIcon />
                 )
         }
     }
 
     const getColor = () => {
-        switch(props.data.morning){
+        switch (props.data.morning) {
             case 0:
                 return '#D3D3D3'
             case 1:
@@ -94,17 +95,17 @@ function CalendarUser(props){
             afternoon: choice
         }
         await TimeService.setTimeSheet(resources);
-        enqueueSnackbar('Déclaration enregistrée', {
+        enqueueSnackbar(t('app:calendar:snackbar_success'), {
             variant: 'success'
         });
         await props.updateData();
     }
 
     const getBorder = () => {
-        if(!props.data.current){
+        if (!props.data.current) {
             return 'none'
-        }else{
-            switch(props.data.morning){
+        } else {
+            switch (props.data.morning) {
                 case 0:
                     return '3px solid #D3D3D3'
                 case 1:
@@ -119,12 +120,12 @@ function CalendarUser(props){
         }
     }
 
-    return(
+    return (
         <div>
             <Button style={{
                 backgroundColor: 'transparent',
                 cursor: !props.data.past ? 'pointer' : 'default',
-                width:'100%'
+                width: '100%'
             }} disableRipple={true} onClick={handleClick} >
                 <Avatar sx={{ width: 75, height: 75 }} style={{
                     border: getBorder(),
@@ -145,42 +146,42 @@ function CalendarUser(props){
                 {props.data.morning !== 0 &&
                     <MenuItem onClick={() => modifyChoice(0)}>
                         <ListItemIcon>
-                            <ToDefineIcon/>
+                            <ToDefineIcon />
                         </ListItemIcon>
-                        <ListItemText>A définir</ListItemText>
+                        <ListItemText>{t('app:statuses:to_be_defined')}</ListItemText>
                     </MenuItem>
                 }
                 {props.data.morning !== 1 &&
                     <MenuItem onClick={() => modifyChoice(1)}>
                         <ListItemIcon>
-                            <OfficeIcon/>
+                            <OfficeIcon />
                         </ListItemIcon>
-                        <ListItemText>Au bureau</ListItemText>
+                        <ListItemText>{t('app:statuses:office')}</ListItemText>
                     </MenuItem>
                 }
                 {props.data.morning !== 2 &&
                     <MenuItem onClick={() => modifyChoice(2)}>
                         <ListItemIcon>
-                            <ManWorkingIcon/>
+                            <ManWorkingIcon />
                         </ListItemIcon>
-                        <ListItemText>Télétravail</ListItemText>
+                        <ListItemText>{t('app:statuses:home_working')}</ListItemText>
                     </MenuItem>
                 }
                 {props.data.morning !== 3 &&
                     <MenuItem onClick={() => modifyChoice(3)}>
                         <ListItemIcon>
-                            <AwayIcon/>
+                            <AwayIcon />
                         </ListItemIcon>
-                        <ListItemText>Déplacement</ListItemText>
+                        <ListItemText>{t('app:statuses:on_the_go')}</ListItemText>
                     </MenuItem>
                 }
                 {props.data.morning !== 4 &&
-                <MenuItem onClick={() => modifyChoice(4)}>
-                    <ListItemIcon>
-                        <OffIcon/>
-                    </ListItemIcon>
-                    <ListItemText>Congé</ListItemText>
-                </MenuItem>
+                    <MenuItem onClick={() => modifyChoice(4)}>
+                        <ListItemIcon>
+                            <OffIcon />
+                        </ListItemIcon>
+                        <ListItemText>{t('app:statuses:off')}</ListItemText>
+                    </MenuItem>
                 }
             </Menu>
         </div>

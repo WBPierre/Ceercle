@@ -1,26 +1,9 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useState } from "react";
 import Grid from "@mui/material/Grid";
-import {
-    Button,
-    Collapse, Dialog, DialogActions, DialogTitle, Divider, FormControl, InputLabel, ListItem, ListItemAvatar,
-    ListItemButton,
-    ListItemIcon, ListItemSecondaryAction,
-    ListItemText,
-    ListSubheader, Modal, Select,
-    TextField,
-    Typography
-} from "@mui/material";
-import List from "@mui/material/List";
-import { ExpandLess, ExpandMore } from "@mui/icons-material";
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { Button, Divider, Modal, TextField, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
-import ColorPicker from "../../../../components/molecules/app/ColorPicker";
-import MenuItem from "@mui/material/MenuItem";
-import CircleIcon from '@mui/icons-material/Circle';
 import { BlockPicker } from 'react-color';
-
-
 
 
 const style = {
@@ -38,11 +21,10 @@ const style = {
 
 function TeamAddModal(props) {
 
-    let navigate = useNavigate();
+    const { t } = useTranslation();
     const [name, setName] = useState('');
     const [color, setColor] = useState('#000000');
 
-    const [openDelete, setOpenDelete] = useState(false);
 
     const handleChangeComplete = (color) => {
         setColor(color.hex);
@@ -74,7 +56,7 @@ function TeamAddModal(props) {
                 <Grid container direction={"column"} spacing={1}>
                     <Grid item>
                         <Typography id="modal-modal-title" variant="h6" component="h2" style={{ color: '#414040' }}>
-                            Nouvelle équipe
+                            {t('app:teams:main.new_team')}
                         </Typography>
                     </Grid>
 
@@ -83,7 +65,7 @@ function TeamAddModal(props) {
                     </Grid>
 
                     <Grid item mt={4}>
-                        <TextField fullWidth label="Nom de l'équipe" id="fullWidth" name={"name"} value={name} onChange={handleChange} />
+                        <TextField fullWidth label={t('app:teams:team_name')} id="fullWidth" name={"name"} value={name} onChange={handleChange} />
                     </Grid>
 
 
@@ -101,7 +83,7 @@ function TeamAddModal(props) {
                         </Grid>
 
                         <Grid item item mt={4}>
-                            <Button fullWidth variant={"outlined"} onClick={validate}>Ajouter l'équipe</Button>
+                            <Button fullWidth variant={"outlined"} onClick={validate}>{t('app:teams:main.add')}</Button>
                         </Grid>
                     </Grid>
                 </Grid>

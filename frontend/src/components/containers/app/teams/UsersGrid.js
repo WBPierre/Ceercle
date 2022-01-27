@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { DataGrid } from '@mui/x-data-grid';
 import { Chip } from "@mui/material";
 import { Avatar } from "@mui/material";
@@ -15,7 +15,7 @@ import { useSnackbar } from "notistack";
 
 function UsersGrid(props) {
 
-    let navigate = useNavigate();
+    const { t } = useTranslation();
     const { enqueueSnackbar } = useSnackbar();
 
     const handleClickOnDelete = (userId) => {
@@ -36,12 +36,12 @@ function UsersGrid(props) {
     const handleDeleteConfirmation = async () => {
         await TeamService.deleteUserFromTeam({ userId: userToDelete, teamId: parseInt(props.teamId) }).then(async (res) => {
             if (res.status === 200) {
-                enqueueSnackbar('Utilisateur retiré de l\'équipe', {
+                enqueueSnackbar(t('app:teams:personalize.user_removed'), {
                     variant: 'success'
                 });
                 props.updateTeam(props.teamId)
             } else {
-                enqueueSnackbar('Une erreur est survenue', {
+                enqueueSnackbar(t('app:snackbar:error'), {
                     variant: 'error'
                 });
             }
@@ -54,7 +54,7 @@ function UsersGrid(props) {
             field: 'name', width: 300, headerAlign: 'center', align: "center", resizable: false,
             renderHeader: () => (
                 <Typography sx={{ fontSize: 20, fontWeight: 'bold' }}>
-                    Nom
+                    {t('app:teams:personalize.name')}
                 </Typography>
             )
         },
@@ -62,7 +62,7 @@ function UsersGrid(props) {
             field: 'position', width: 200, headerAlign: 'center', align: "center", resizable: false,
             renderHeader: () => (
                 <Typography sx={{ fontSize: 20, fontWeight: 'bold' }}>
-                    Rôle
+                    {t('app:teams:personalize.position')}
                 </Typography>
             )
         },
@@ -77,7 +77,7 @@ function UsersGrid(props) {
             renderCell: (params) => {
                 return (
                     <Chip
-                        label="Supprimer"
+                        label={t('generic:delete')}
                         color="primary"
                         sx={{ borderColor: "#3C3B3D", color: "#3C3B3D" }}
                         onClick={() => handleClickOnDelete(params.row.id)}
@@ -100,11 +100,11 @@ function UsersGrid(props) {
                 aria-describedby="alert-dialog-description"
             >
                 <DialogTitle id="alert-dialog-title">
-                    Supprimer de l'équipe ?
+                    {t('app:teams:personalize.delete_from_team_ask')}
                 </DialogTitle>
                 <DialogActions>
-                    <Button onClick={handleDeleteClose} sx={{ color: "#696A6C" }} >Annuler</Button>
-                    <Button onClick={handleDeleteConfirmation} sx={{ color: "#D20303" }}> Supprimer </Button>
+                    <Button onClick={handleDeleteClose} sx={{ color: "#696A6C" }} >{t('generic:cancel')}</Button>
+                    <Button onClick={handleDeleteConfirmation} sx={{ color: "#D20303" }}> {t('generic:delete')} </Button>
                 </DialogActions>
             </Dialog>
         </div>

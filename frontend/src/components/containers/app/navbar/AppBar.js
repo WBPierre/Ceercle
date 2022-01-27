@@ -3,19 +3,12 @@ import { styled, useTheme } from '@mui/material/styles';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import LightModeIcon from '@mui/icons-material/LightMode';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import { Badge, ListItemButton } from "@mui/material";
-import LangSwitcher from "../../../molecules/navbar/LangSwitcher";
 import WeatherService from "../../../../services/app/weather.service";
 import { useEffect, useState } from "react";
 import moment from "moment";
 import "moment/min/locales";
-import ListItemText from "@mui/material/ListItemText";
 import useAuth from "../../../context/auth/AuthHelper";
 
 const drawerWidth = 200;
@@ -49,7 +42,6 @@ const AppBarStyle = styled(MuiAppBar, {
 
 export default function AppBar(props) {
     const theme = useTheme();
-    let navigate = useNavigate();
     const { t } = useTranslation();
     const [temp, setTemp] = useState(0);
     const [weatherIcon, setWeatherIcon] = useState('');

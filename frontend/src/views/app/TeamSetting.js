@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import CustomContainer from "../../components/containers/app/CustomContainer";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -27,6 +28,8 @@ import { useSnackbar } from "notistack";
 
 function Teams() {
     const { id } = useParams()
+
+    const { t } = useTranslation();
 
     let navigate = useNavigate();
 
@@ -59,18 +62,18 @@ function Teams() {
             };
             await TeamService.updateTeamDescription(resources).then(async (res) => {
                 if (res.status === 200) {
-                    enqueueSnackbar('Equipe enregistrée', {
+                    enqueueSnackbar(t('app:teams:personalize.snackbar_team_saved'), {
                         variant: 'success'
                     });
                     navigate('/app/teams');
                 } else {
-                    enqueueSnackbar('Une erreur est survenue', {
+                    enqueueSnackbar(t('app:snackbar:error'), {
                         variant: 'error'
                     });
                 }
             })
         } else {
-            enqueueSnackbar('Veuillez remplir les champs (nom, couleur)', {
+            enqueueSnackbar(t('app:teams:personalize.snackbar_team_deleted'), {
                 variant: 'warning'
             });
         }
@@ -90,12 +93,12 @@ function Teams() {
     const handleDeleteConfirmation = async () => {
         await TeamService.deleteTeam(id).then(async (res) => {
             if (res.status === 200) {
-                enqueueSnackbar('Equipe supprimée', {
+                enqueueSnackbar(t('app:teams:personalize.snackbar_team_deleted'), {
                     variant: 'success'
                 });
                 navigate('/app/teams');
             } else {
-                enqueueSnackbar('Une erreur est survenue', {
+                enqueueSnackbar(t('app:snackbar:error'), {
                     variant: 'error'
                 });
             }
@@ -154,12 +157,12 @@ function Teams() {
                     <Grid container direction="row">
                         <Grid item md={10}>
                             <Typography variant="h4" fontWeight={600} style={{ color: '#2A2828' }}>
-                                Personnalisation de l'équipe
+                                {t('app:teams:personalize.title')}
                             </Typography>
                         </Grid>
                         <Grid item md={2}>
                             <Chip
-                                label="Revenir aux équipes"
+                                label={t('app:teams:personalize.back_to_team')}
                                 sx={{
                                     borderColor: "#777575", color: "#777575", fontWeight: "bold"
                                 }}
@@ -173,7 +176,7 @@ function Teams() {
                 </Grid>
 
                 <Grid item>
-                    <TextField sx={{ width: 300 }} label="Nom d'équipe" id="fullWidth" name={"name"} value={name} onChange={handleChange} />
+                    <TextField sx={{ width: 300 }} label={t('app:teams:personalize.name')} id="fullWidth" name={"name"} value={name} onChange={handleChange} />
                 </Grid>
 
                 <Grid item>
@@ -192,7 +195,7 @@ function Teams() {
                     <Grid container direction="row" justifyContent="space-between">
                         <Grid item md={3}>
                             <Chip
-                                label="Ajouter un utilisateur"
+                                label={t('app:teams:personalize.add_user')}
                                 sx={{
                                     borderColor: "#3F07A8", color: "#3F07A8", fontWeight: "bold"
                                 }}
@@ -204,7 +207,7 @@ function Teams() {
                         </Grid>
                         <Grid item md={2}>
                             <Chip
-                                label="Enregistrer"
+                                label={t('generic:save')}
                                 sx={{
                                     borderColor: "#3F07A8", color: "#3F07A8", fontWeight: "bold"
                                 }}
@@ -216,7 +219,7 @@ function Teams() {
                         </Grid>
                         <Grid item md={2}>
                             <Chip
-                                label="Supprimer l'équipe"
+                                label={t('app:teams:personalize.delete_team')}
                                 sx={{
                                     borderColor: "#D20303", color: "#D20303", fontWeight: "bold"
                                 }}
@@ -239,11 +242,11 @@ function Teams() {
                 aria-describedby="alert-dialog-description"
             >
                 <DialogTitle id="alert-dialog-title">
-                    Supprimer l'équipe ?
+                    {t('app:teams:personalize.delete_team_ask')}
                 </DialogTitle>
                 <DialogActions>
-                    <Button onClick={handleDeleteClose} sx={{ color: "#696A6C" }} >Annuler</Button>
-                    <Button onClick={handleDeleteConfirmation} sx={{ color: "#D20303" }}> Supprimer </Button>
+                    <Button onClick={handleDeleteClose} sx={{ color: "#696A6C" }} >{t('generic:cancel')}</Button>
+                    <Button onClick={handleDeleteConfirmation} sx={{ color: "#D20303" }}> {t('generic:delete')} </Button>
                 </DialogActions>
             </Dialog>
 

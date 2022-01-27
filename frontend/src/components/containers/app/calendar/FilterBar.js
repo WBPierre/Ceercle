@@ -1,13 +1,10 @@
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
+import { useTranslation } from "react-i18next";
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import ListItemText from '@mui/material/ListItemText';
 import Select from '@mui/material/Select';
-import Checkbox from '@mui/material/Checkbox';
 import { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
-import {Chip, InputBase, TextField, Typography} from "@mui/material";
+import { Chip, InputBase, Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import * as React from "react";
 import SearchIcon from '@mui/icons-material/Search';
@@ -16,6 +13,8 @@ import moment from "moment";
 import TeamService from "../../../../services/app/team.service";
 
 function FilterBar(props) {
+
+    const { t } = useTranslation();
 
     const [team, setTeam] = useState(0);
     const [type, setType] = useState(-1);
@@ -49,8 +48,8 @@ function FilterBar(props) {
     }, [search, team, type]);
 
 
-    if(props.week.length === 0){
-        return (<div/>)
+    if (props.week.length === 0) {
+        return (<div />)
     }
     return (
         <Grid container direction={"row"} justifyContent={"space-around"}>
@@ -58,7 +57,7 @@ function FilterBar(props) {
                 <Chip component={FormControl} style={{ backgroundColor: 'white' }} variant={"outlined"} label={
                     <FormControl sx={{ width: 150, borderBottom: 'none' }}>
                         <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
-                            <InputBase id="input-with-sx" placeholder={"Recherche"} variant="standard" onChange={handleChangeSearch} fullWidth value={search} />
+                            <InputBase id="input-with-sx" placeholder={t('app:calendar:search')} variant="standard" onChange={handleChangeSearch} fullWidth value={search} />
                             <SearchIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
                         </Box>
                     </FormControl>
@@ -67,7 +66,7 @@ function FilterBar(props) {
             <Grid item xs={3}>
                 <Grid container direction={"row"} alignItems={"center"} spacing={1}>
                     <Grid item>
-                        <Typography fontWeight={500} style={{color:'#1F4E79'}}>Equipe</Typography>
+                        <Typography fontWeight={500} style={{ color: '#1F4E79' }}>{t('app:calendar:team')}</Typography>
                     </Grid>
                     <Grid item>
                         <Chip component={FormControl} style={{ backgroundColor: 'white' }} variant={"outlined"} label={
@@ -81,7 +80,7 @@ function FilterBar(props) {
                                     variant={"standard"}
                                     input={<InputBase />}
                                 >
-                                    <MenuItem value={0}>Toutes les équipes</MenuItem>
+                                    <MenuItem value={0}>{t('app:calendar:team_search')}</MenuItem>
                                     {list.map((team) => {
                                         return (
                                             <MenuItem value={team.id}>{team.name}</MenuItem>
@@ -96,7 +95,7 @@ function FilterBar(props) {
             <Grid item xs={3}>
                 <Grid container direction={"row"} alignItems={"center"} spacing={1}>
                     <Grid item>
-                        <Typography fontWeight={500} style={{color:'#1F4E79'}}>Statut</Typography>
+                        <Typography fontWeight={500} style={{ color: '#1F4E79' }}>{t('app:calendar:status')}</Typography>
                     </Grid>
                     <Grid item>
                         <Chip component={FormControl} style={{ backgroundColor: 'white' }} variant={"outlined"} label={
@@ -108,12 +107,12 @@ function FilterBar(props) {
                                     onChange={handleChangeType}
                                     input={<InputBase />}
                                 >
-                                    <MenuItem value={-1}>Partout</MenuItem>
-                                    <MenuItem value={1}>Au bureau</MenuItem>
-                                    <MenuItem value={2}>Télétravail</MenuItem>
-                                    <MenuItem value={3}>En déplacement</MenuItem>
-                                    <MenuItem value={4}>Off</MenuItem>
-                                    <MenuItem value={0}>Non déclaré</MenuItem>
+                                    <MenuItem value={-1}>{t('app:statuses:everywhere')}</MenuItem>
+                                    <MenuItem value={1}>{t('app:statuses:office')}</MenuItem>
+                                    <MenuItem value={2}>{t('app:statuses:home_working')}</MenuItem>
+                                    <MenuItem value={3}>{t('app:statuses:on_the_go')}</MenuItem>
+                                    <MenuItem value={4}>{t('app:statuses:off')}</MenuItem>
+                                    <MenuItem value={0}>{t('app:statuses:undeclared')}</MenuItem>
                                 </Select>
                             </FormControl>
                         } />
@@ -123,10 +122,10 @@ function FilterBar(props) {
             <Grid item xs={3}>
                 <Grid container direction={"row"} alignItems={"center"} spacing={1}>
                     <Grid item>
-                        <Typography fontWeight={500} style={{color:'#1F4E79'}}>Semaine</Typography>
+                        <Typography fontWeight={500} style={{ color: '#1F4E79' }}>{t('app:calendar:week')}</Typography>
                     </Grid>
                     <Grid item>
-                        <Paper style={{padding:5}} elevation={0}>
+                        <Paper style={{ padding: 5 }} elevation={0}>
                             {`${moment(props.week[0].day).date()} ${moment(props.week[0].day).locale('fr').format('MMMM')} - ${moment(props.week[4].day).date()} ${moment(props.week[4].day).locale('fr').format('MMMM')}`}
                         </Paper>
                     </Grid>
