@@ -8,8 +8,6 @@ services:
       dockerfile: Dockerfile
       target: production
       context: ./frontend
-    depends_on:
-      - api
     restart: always
     volumes:
       - ./frontend/nginx/:/etc/nginx/conf.d/:ro
