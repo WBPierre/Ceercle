@@ -39,7 +39,11 @@ import RuleIcon from '@mui/icons-material/Rule';
 import { red } from '@mui/material/colors';
 import useAuth from "../../../context/auth/AuthHelper";
 import EqualizerIcon from '@mui/icons-material/Equalizer';
+import * as App_Routes from "../../../../navigation/app/Routes";
+
+
 const drawerWidth = 200;
+
 
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -78,7 +82,7 @@ export default function DrawerCustom(props) {
             open={props.open}
         >
             <DrawerHeader>
-                <Button style={{ textTransform: 'capitalize', backgroundColor: 'transparent' }} disableRipple={true} startIcon={<img src={logo_indigo} height={45} alt="logo" />} onClick={() => { navigate('/app') }}>
+                <Button style={{ textTransform: 'capitalize', backgroundColor: 'transparent' }} disableRipple={true} startIcon={<img src={logo_indigo} height={45} alt="logo" />} onClick={() => { navigate(App_Routes.DASHBOARD) }}>
                     <Typography
                         variant="h6"
                         noWrap
@@ -99,7 +103,7 @@ export default function DrawerCustom(props) {
             </List>
 
             <List>
-                <ListItem button onClick={() => navigate('/app')} style={{backgroundColor: activeRoutes[activeRoutes.length - 1] === "app" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)'}}>
+                <ListItem button onClick={() => navigate(App_Routes.DASHBOARD)} style={{backgroundColor: activeRoutes[activeRoutes.length - 1] === "app" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)'}}>
                     <ListItemIcon>
                         <DashboardIcon sx={{ fontSize: activeRoutes[activeRoutes.length - 1] === "app" ? 25 : 22, color: "#FFFFFF" }} />
                     </ListItemIcon>
@@ -114,7 +118,7 @@ export default function DrawerCustom(props) {
                         primary={t('app:navbar:dashboard')}
                     />
                 </ListItem>
-                <ListItem button onClick={() => navigate('/app/calendar')} style={{backgroundColor: activeRoutes[activeRoutes.length - 1] === "calendar" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)'}}>
+                <ListItem button onClick={() => navigate(App_Routes.CALENDAR)} style={{backgroundColor: activeRoutes[activeRoutes.length - 1] === "calendar" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)'}}>
                     <ListItemIcon>
                         <EventIcon sx={{ fontSize: activeRoutes[activeRoutes.length - 1] === "calendar" ? 25 : 22, color: "#FFFFFF" }} />
                     </ListItemIcon>
@@ -129,7 +133,7 @@ export default function DrawerCustom(props) {
                         primary={t('app:navbar:calendar')}
                     />
                 </ListItem>
-                <ListItem button onClick={() => navigate('/app/glossary')} style={{backgroundColor: activeRoutes[activeRoutes.length - 1] === "glossary" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)'}}>
+                <ListItem button onClick={() => navigate(App_Routes.GLOSSARY)} style={{backgroundColor: activeRoutes[activeRoutes.length - 1] === "glossary" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)'}}>
                     <ListItemIcon>
                         <PeopleIcon sx={{ fontSize: activeRoutes[activeRoutes.length - 1] === "glossary" ? 25 : 22, color: "#FFFFFF" }} />
                     </ListItemIcon>
@@ -158,7 +162,7 @@ export default function DrawerCustom(props) {
                         primary="Espace RH"
                     />
                 </ListItem>
-                <ListItem disabled button onClick={() => navigate('/app/stats')} style={{backgroundColor: activeRoutes[activeRoutes.length - 1] === "stats" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)'}}>
+                <ListItem disabled button onClick={() => navigate(App_Routes.STATS)} style={{backgroundColor: activeRoutes[activeRoutes.length - 1] === "stats" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)'}}>
                     <ListItemIcon>
                         <EqualizerIcon sx={{ fontSize: activeRoutes[activeRoutes.length - 1] === "stats" ? 25 : 22, color: "#FFFFFF" }} />
                     </ListItemIcon>
@@ -173,7 +177,7 @@ export default function DrawerCustom(props) {
                         primary="Statistiques"
                     />
                 </ListItem>
-                <ListItem button onClick={() => navigate('/app/workpolicy')} style={{backgroundColor: activeRoutes[activeRoutes.length - 1] === "workpolicy" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)'}}>
+                <ListItem button onClick={() => navigate(App_Routes.WORKPOLICY)} style={{backgroundColor: activeRoutes[activeRoutes.length - 1] === "workpolicy" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)'}}>
                     <ListItemIcon>
                         <RuleIcon sx={{ fontSize: activeRoutes[activeRoutes.length - 1] === "workpolicy" ? 25 : 22, color: "#FFFFFF" }} />
                     </ListItemIcon>
@@ -188,7 +192,7 @@ export default function DrawerCustom(props) {
                         primary="Paramètres"
                     />
                 </ListItem>
-                <ListItem button onClick={() => navigate('/app/teams')} style={{backgroundColor: activeRoutes[activeRoutes.length - 1] === "teams" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)'}}>
+                <ListItem button onClick={() => navigate(App_Routes.TEAMS)} style={{backgroundColor: activeRoutes[activeRoutes.length - 1] === "teams" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)'}}>
                     <ListItemIcon>
                         <ConnectWithoutContactIcon sx={{ fontSize: activeRoutes[activeRoutes.length - 1] === "teams" ? 25 : 22, color: "#FFFFFF" }} />
                     </ListItemIcon>
@@ -207,7 +211,7 @@ export default function DrawerCustom(props) {
             <Box sx={{ flexGrow: 1 }} />
             <Divider />
             <List>
-                <ListItem button onClick={() => navigate('/app/myaccount')}>
+                <ListItem button onClick={() => navigate(App_Routes.ACCOUNT)}>
                     <ListItemIcon>
                         <ManageAccountsIcon sx={{ fontSize: activeRoutes[activeRoutes.length - 1] === "myaccount" ? 25 : 22, color: "#FFFFFF" }} />
                     </ListItemIcon>

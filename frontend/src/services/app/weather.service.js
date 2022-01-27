@@ -5,8 +5,8 @@ class WeatherService {
         this.request = ApiService
     }
 
-    async getWeather(city) {
-        return this.request.get('https://api.weatherapi.com/v1/current.json?key=eee17c534a4f41f9803172218220801&q=Paris&aqi=no');
+    async getWeather() {
+        return this.request.get('/external/weather');
     }
 }
 

@@ -25,6 +25,7 @@ import ApiService from "../../services/api.service";
 import { useCookies } from 'react-cookie';
 import useAuth from "../../components/context/auth/AuthHelper";
 import TokenService from "../../services/token.service";
+import * as App_Routes from "../../navigation/app/Routes";
 
 function Login(){
     const { t } = useTranslation();
@@ -37,7 +38,7 @@ function Login(){
 
     useEffect(() => {
         if(context.isAuth){
-            navigate('/app')
+            navigate(App_Routes.DASHBOARD)
         }
     }, []); // eslint-disable-line
 
@@ -64,7 +65,7 @@ function Login(){
                 console.log("Error to handle");
             }else{
                 await setAuth(res.data);
-                navigate('/app')
+                navigate(App_Routes.DASHBOARD)
             }
         });
     }

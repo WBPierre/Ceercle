@@ -14,16 +14,16 @@ import Stats from "../../views/app/Stats";
 function Rooter() {
     return (
         <Routes>
-            <Route exact path={App_Routes.LOGIN} element={<Login />} />
-            <Route exact path={App_Routes.DASHBOARD} element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-            <Route exact path={App_Routes.GLOSSARY} element={<ProtectedRoute><Glossary /></ProtectedRoute>} />
-            <Route exact path={App_Routes.CALENDAR} element={<ProtectedRoute><Calendar /></ProtectedRoute>} />
-            <Route exact path={App_Routes.ACCOUNT} element={<ProtectedRoute><Account /></ProtectedRoute>} />
-            <Route exact path={App_Routes.WORKPOLICY} element={<ProtectedRoute><WorkPolicy /></ProtectedRoute>} />
-            <Route exact path={App_Routes.TEAMS} element={<ProtectedRoute><Teams /></ProtectedRoute>} />
-            <Route exact path={App_Routes.TEAMSETTING} element={<ProtectedRoute><TeamSetting /></ProtectedRoute>} />
-            <Route exact path={App_Routes.STATS} element={<ProtectedRoute><Stats /></ProtectedRoute>} />
-            <Route path={"*"} element={<Navigate to={'/app' + App_Routes.LOGIN} />} />
+            <Route exact path={"/"} element={<Login />} />
+            <Route exact path={"/dashboard"} element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            <Route exact path={"/glossary"} element={<ProtectedRoute><Glossary /></ProtectedRoute>} />
+            <Route exact path={"/calendar"} element={<ProtectedRoute><Calendar /></ProtectedRoute>} />
+            <Route exact path={"/myaccount"} element={<ProtectedRoute><Account /></ProtectedRoute>} />
+            <Route exact path={"/workpolicy"} element={<ProtectedRoute><WorkPolicy /></ProtectedRoute>} />
+            <Route exact path={"/teams"} element={<ProtectedRoute><Teams /></ProtectedRoute>} />
+            <Route exact path={"/team-settings/:id"} element={<ProtectedRoute><TeamSetting /></ProtectedRoute>} />
+            <Route exact path={"/stats"} element={<ProtectedRoute><Stats /></ProtectedRoute>} />
+            <Route path={"*"} element={<Navigate to={App_Routes.LOGIN} />} />
         </Routes>
     )
 }

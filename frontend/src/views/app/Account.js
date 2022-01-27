@@ -15,6 +15,7 @@ import { useCookies } from "react-cookie";
 import useAuth from "../../components/context/auth/AuthHelper";
 import UserService from "../../services/app/user.service";
 import { useEffect, useState } from "react";
+import * as App_Routes from "../../navigation/app/Routes";
 
 export default function Account(props) {
 
@@ -29,7 +30,7 @@ export default function Account(props) {
         removeCookie('token');
         context.updateAuth(false);
         context.updateUser(null);
-        navigate('/app/login');
+        navigate(App_Routes.LOGIN);
     }
 
     const [user, setUser] = useState(null);

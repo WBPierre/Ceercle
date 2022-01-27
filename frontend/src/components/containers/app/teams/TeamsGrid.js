@@ -4,6 +4,7 @@ import CircleIcon from '@mui/icons-material/Circle';
 import EditIcon from '@mui/icons-material/Edit';
 import {Chip} from "@mui/material";
 import Typography from '@mui/material/Typography';
+import * as App_Routes from "../../../../navigation/app/Routes";
 
 function TeamsGrid(props) {
 
@@ -53,7 +54,7 @@ function TeamsGrid(props) {
                         label="Modifier"
                         color="primary"
                         sx={{ borderColor: "#3F07A8", color: "#3F07A8" }}
-                        onClick={() => navigate('/app/team-settings/' + params.row.id)}
+                        onClick={() => navigate(App_Routes.TEAMSETTING + params.row.id)}
                         icon={<EditIcon />}
                         variant="outlined"
                     />

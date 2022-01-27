@@ -22,7 +22,7 @@ import {useState} from "react";
 import { Fade as Fader } from '@mui/material';
 import LoadingIcons from 'react-loading-icons'
 import axios from "axios";
-
+import * as Public_Routes from "../../navigation/public/Routes";
 
 
 
@@ -305,7 +305,7 @@ function Demo(){
 
                                     <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 1 }}>
                                         {'Copyright © '}
-                                        <Link color="inherit" onClick={() => { navigate('/')}}>
+                                        <Link color="inherit" onClick={() => { navigate(Public_Routes.HOME)}}>
                                             { t('generic:website_url') }
                                         </Link>{' '}
                                         {new Date().getFullYear()}
@@ -442,7 +442,7 @@ function Demo(){
 
                                 <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 1 }}>
                                     {'Copyright © '}
-                                    <Link color="inherit" onClick={() => { navigate('/')}}>
+                                    <Link color="inherit" onClick={() => { navigate(Public_Routes.HOME)}}>
                                         { t('generic:website_url') }
                                     </Link>{' '}
                                     {new Date().getFullYear()}

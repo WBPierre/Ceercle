@@ -5,7 +5,6 @@ const Security = require('../services/Security');
 const jwt = require('jsonwebtoken');
 const config = require('../../config/auth.config');
 const RefreshToken = require("../models/RefreshToken");
-const {generateDemoData} = require("../../config/init/demo");
 
 exports.adminVerify = function (req, res, next) {
     const authHeader = req.headers.authorization;
@@ -77,7 +76,7 @@ exports.adminLogin = async function (req, res, next) {
                                     res.status(403);
                                     res.send();
                                 } else {
-                                    if (Security.verifyPassword(password, record.password)) {
+                                    if (await Security.verifyPassword(password, record.password)) {
                                         jwt.sign({
                                             user: {
                                                 id: record.id,
@@ -129,7 +128,7 @@ exports.login = async function (req, res, next) {
                     res.send();
                 } else {
                     if (record.active) {
-                        if (Security.verifyPassword(password, record.password)) {
+                        if (await Security.verifyPassword(password, record.password)) {
                             const company = await record.getCompany();
                             jwt.sign({
                                 user: {
@@ -143,9 +142,6 @@ exports.login = async function (req, res, next) {
                                 }
                             }, process.env.JWT_SECRET, { expiresIn: config.jwtExpiration }, async (err, token) => {
                                 if (err) res.send(err);
-                                if(company.name === "Démo"){
-                                    await generateDemoData();
-                                }
                                 let refreshToken = await RefreshToken.createToken(record.id);
                                 res.json({ token: token, refreshToken: refreshToken });
                             });

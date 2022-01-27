@@ -23,7 +23,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import TeamService from "../../services/app/team.service";
 import UserService from "../../services/app/user.service";
 import { useSnackbar } from "notistack";
-
+import * as App_Routes from "../../navigation/app/Routes";
 
 function Teams() {
     const { id } = useParams()
@@ -62,7 +62,7 @@ function Teams() {
                     enqueueSnackbar('Equipe enregistrée', {
                         variant: 'success'
                     });
-                    navigate('/app/teams');
+                    navigate(App_Routes.TEAMS);
                 } else {
                     enqueueSnackbar('Une erreur est survenue', {
                         variant: 'error'
@@ -93,7 +93,7 @@ function Teams() {
                 enqueueSnackbar('Equipe supprimée', {
                     variant: 'success'
                 });
-                navigate('/app/teams');
+                navigate(App_Routes.TEAMS);
             } else {
                 enqueueSnackbar('Une erreur est survenue', {
                     variant: 'error'
@@ -166,7 +166,7 @@ function Teams() {
                                 color="error"
                                 icon={<ArrowBackIcon />}
                                 variant="outlined"
-                                onClick={() => navigate('/app/teams')}
+                                onClick={() => navigate(App_Routes.TEAMS)}
                             />
                         </Grid>
                     </Grid>

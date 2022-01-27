@@ -23,6 +23,7 @@ import Tablet from "../../../../assets/images/home/productPresentation/tablet.pn
 import LapTop from "../../../../assets/images/home/productPresentation/laptop.png";
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
+import * as Public_Routes from "../../../../navigation/public/Routes";
 
 function OfferDescription(props) {
 
@@ -79,7 +80,7 @@ function OfferDescription(props) {
                                         </Grid>
                                         <Grid item pl={10}>
                                             <Fade direction={"left"} triggerOnce={true}>
-                                                <Button variant={"text"} onClick={() => navigate('/demo')} style={{fontSize:18, color:'#3F07A8', textTransform:'none', backgroundColor:'white', borderRadius:'25px', fontWeight:500}}>{t('generic:more_information')}</Button>
+                                                <Button variant={"text"} onClick={() => navigate(Public_Routes.DEMO)} style={{fontSize:18, color:'#3F07A8', textTransform:'none', backgroundColor:'white', borderRadius:'25px', fontWeight:500}}>{t('generic:more_information')}</Button>
                                             </Fade>
                                         </Grid>
                                     </Grid>
@@ -120,7 +121,7 @@ function OfferDescription(props) {
                                         </Grid>
                                         <Grid item pl={10}>
                                             <Fade direction={"left"} triggerOnce={true}>
-                                                <Button variant={"text"} onClick={() => navigate('/demo')} style={{fontSize:18, color:'#3F07A8', textTransform:'none', backgroundColor:'white', borderRadius:'25px', fontWeight:500}}>{t('public:navbar:ask_for_demo')}</Button>
+                                                <Button variant={"text"} onClick={() => navigate(Public_Routes.DEMO)} style={{fontSize:18, color:'#3F07A8', textTransform:'none', backgroundColor:'white', borderRadius:'25px', fontWeight:500}}>{t('public:navbar:ask_for_demo')}</Button>
                                             </Fade>
                                         </Grid>
                                     </Grid>
@@ -181,7 +182,7 @@ function OfferDescription(props) {
                                         </Grid>
                                         <Grid item pl={10}>
                                             <Fade direction={"left"} triggerOnce={true}>
-                                                <Button variant={"text"} onClick={() => navigate('/demo')} style={{fontSize:18, color:'#3F07A8', textTransform:'none', backgroundColor:'white', borderRadius:'25px', fontWeight:500}}>{t('generic:contact_us')}</Button>
+                                                <Button variant={"text"} onClick={() => navigate(Public_Routes.DEMO)} style={{fontSize:18, color:'#3F07A8', textTransform:'none', backgroundColor:'white', borderRadius:'25px', fontWeight:500}}>{t('generic:contact_us')}</Button>
                                             </Fade>
                                         </Grid>
                                     </Grid>
@@ -222,7 +223,7 @@ function OfferDescription(props) {
                                         </Grid>
                                         <Grid item pl={10}>
                                             <Fade direction={"left"} triggerOnce={true}>
-                                                <Button variant={"text"} onClick={() => navigate('/demo')} style={{fontSize:18, color:'#3F07A8', textTransform:'none', backgroundColor:'white', borderRadius:'25px', fontWeight:500}}>{t('generic:contact_us')}</Button>
+                                                <Button variant={"text"} onClick={() => navigate(Public_Routes.DEMO)} style={{fontSize:18, color:'#3F07A8', textTransform:'none', backgroundColor:'white', borderRadius:'25px', fontWeight:500}}>{t('generic:contact_us')}</Button>
                                             </Fade>
                                         </Grid>
                                     </Grid>
@@ -319,7 +320,7 @@ function OfferDescription(props) {
                                                 </Grid>
                                                 <Grid item pl={5}>
                                                     <Fade direction={"left"} triggerOnce={true}>
-                                                        <Button variant={"text"} onClick={() => navigate('/demo')} style={{fontSize:18, color:'#3F07A8', textTransform:'none', backgroundColor:'white', borderRadius:'25px', fontWeight:500}}>{t('generic:more_information')}</Button>
+                                                        <Button variant={"text"} onClick={() => navigate(Public_Routes.DEMO)} style={{fontSize:18, color:'#3F07A8', textTransform:'none', backgroundColor:'white', borderRadius:'25px', fontWeight:500}}>{t('generic:more_information')}</Button>
                                                     </Fade>
                                                 </Grid>
                                             </Grid>
@@ -353,7 +354,7 @@ function OfferDescription(props) {
                                                 </Grid>
                                                 <Grid item pl={5}>
                                                     <Fade direction={"left"} triggerOnce={true}>
-                                                        <Button variant={"text"} onClick={() => navigate('/demo')} style={{fontSize:18, color:'#3F07A8', textTransform:'none', backgroundColor:'white', borderRadius:'25px', fontWeight:500}}>{t('public:navbar:ask_for_demo')}</Button>
+                                                        <Button variant={"text"} onClick={() => navigate(Public_Routes.DEMO)} style={{fontSize:18, color:'#3F07A8', textTransform:'none', backgroundColor:'white', borderRadius:'25px', fontWeight:500}}>{t('public:navbar:ask_for_demo')}</Button>
                                                     </Fade>
                                                 </Grid>
                                             </Grid>
@@ -407,7 +408,7 @@ function OfferDescription(props) {
                                                 </Grid>
                                                 <Grid item py={5} pl={5}>
                                                     <Fade direction={"left"} triggerOnce={true}>
-                                                        <Button variant={"text"} onClick={() => navigate('/demo')} style={{fontSize:18, color:'#3F07A8', textTransform:'none', backgroundColor:'white', borderRadius:'25px', fontWeight:500}}>{t('generic:contact_us')}</Button>
+                                                        <Button variant={"text"} onClick={() => navigate(Public_Routes.DEMO)} style={{fontSize:18, color:'#3F07A8', textTransform:'none', backgroundColor:'white', borderRadius:'25px', fontWeight:500}}>{t('generic:contact_us')}</Button>
                                                     </Fade>
                                                 </Grid>
                                             </Grid>
@@ -441,7 +442,7 @@ function OfferDescription(props) {
                                                 </Grid>
                                                 <Grid item py={5} pl={5}>
                                                     <Fade direction={"left"} triggerOnce={true}>
-                                                        <Button variant={"text"} onClick={() => navigate('/demo')} style={{fontSize:18, color:'#3F07A8', textTransform:'none', backgroundColor:'white', borderRadius:'25px', fontWeight:500}}>{t('generic:contact_us')}</Button>
+                                                        <Button variant={"text"} onClick={() => navigate(Public_Routes.DEMO)} style={{fontSize:18, color:'#3F07A8', textTransform:'none', backgroundColor:'white', borderRadius:'25px', fontWeight:500}}>{t('generic:contact_us')}</Button>
                                                     </Fade>
                                                 </Grid>
                                             </Grid>

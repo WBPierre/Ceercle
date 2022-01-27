@@ -125,7 +125,7 @@ exports.uploadProfile = async function (req, res, next) {
         if (req.file == undefined) {
             return res.status(400).send({ message: "Please upload a file!" });
         }
-        const url = req.protocol + '://' + process.env.STORAGE_HOST + ':' + process.env.STORAGE_PORT + "/public/assets/profile/" + req.file.filename
+        const url = process.env.STORAGE_PROTOCOL + '://' + process.env.STORAGE_HOST + ':' + process.env.STORAGE_PORT + "/public/assets/profile/" + req.file.filename
         await User.findOne(
             {
                 where: {
@@ -154,7 +154,7 @@ exports.uploadBanner = async function (req, res, next) {
         if (req.file == undefined) {
             return res.status(400).send({ message: "Please upload a file!" });
         }
-        const url = req.protocol + '://' + process.env.STORAGE_HOST + ':' + process.env.STORAGE_PORT + "/public/assets/banner/" + req.file.filename
+        const url = process.env.STORAGE_PROTOCOL + '://' + process.env.STORAGE_HOST + ':' + process.env.STORAGE_PORT + "/public/assets/banner/" + req.file.filename
         await User.findOne(
             {
                 where: {

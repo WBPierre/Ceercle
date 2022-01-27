@@ -16,7 +16,8 @@ import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import Logo from "../../../../assets/images/logo/logo_2.png";
 import { useState } from "react";
 import { Turn as Hamburger } from 'hamburger-react'
-
+import * as Public_Routes from "../../../../navigation/public/Routes";
+import * as App_Routes from "../../../../navigation/app/Routes";
 
 export default function NavBar(props) {
 
@@ -38,18 +39,22 @@ export default function NavBar(props) {
     };
 
     const redirectToDemo = () => {
-        navigate('/demo');
+        navigate(Public_Routes.DEMO);
     }
 
     const redirectToOffers = () => {
-        navigate('/offers');
+        navigate(Public_Routes.OFFERS);
     }
 
     const connectHandler = () => {
         // setMobileMoreAnchorEl(null);
         // setOpen(false);
         // setOpenConnect(true)
-        window.open('/app/login');
+        if(window.location.host.includes("ceercle")){
+            window.open('https://app.ceercle.io/');
+        }else{
+            window.open(App_Routes.LOGIN);
+        }
     }
 
     const mobileMenuId = 'primary-search-account-menu-mobile';
@@ -106,7 +111,7 @@ export default function NavBar(props) {
             <HideOnScroll {...props}>
                 <AppBar style={{ backgroundColor: "#FDF9F6" }} elevation={0}>
                     <Toolbar>
-                        <Button style={{ textTransform: 'capitalize', backgroundColor: 'transparent' }} disableRipple={true} startIcon={<img src={Logo} height={50} alt="logo" />} onClick={() => { navigate('/') }}>
+                        <Button style={{ textTransform: 'capitalize', backgroundColor: 'transparent' }} disableRipple={true} startIcon={<img src={Logo} height={50} alt="logo" />} onClick={() => { navigate(Public_Routes.HOME) }}>
                             <Typography
                                 variant="h6"
                                 noWrap
