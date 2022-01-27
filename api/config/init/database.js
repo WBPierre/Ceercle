@@ -7,6 +7,7 @@ exports.initDatabase = async function() {
     const companyId = await generateCeercle();
     await generateAdminProfiles(companyId);
     await Demo.generateDemo();
+    await Demo.generateDemoData();
 }
 
 async function generateCeercle(){
