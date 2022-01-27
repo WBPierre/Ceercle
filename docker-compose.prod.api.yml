@@ -17,6 +17,17 @@ services:
     depends_on:
       - postgres
     ports:
+      - "8080:8080"
+
+  nginx:
+    image: nginx
+    restart: always
+    volumes:
+      - ./api/nginx/:/etc/nginx/conf.d/:ro
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot:ro
+      - ./certbot/conf/:/etc/nginx/ssl/:ro
+    ports:
       - "80:80"
       - "443:443"
 

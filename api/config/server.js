@@ -5,8 +5,6 @@ const Routes = require('./routes');
 const {initDatabase} = require("./init/database");
 const {verifyDatabase} = require('./database');
 const {verifyFolderImplementation} = require('./init/upload');
-const {generateDemoData} = require('./init/demo');
-const {isSecure} = require('./utils');
 
 verifyFolderImplementation();
 const server = express()
@@ -26,15 +24,6 @@ init();
 
 
 requestParser(server);
-
-server.use("/.well-known/acme-challenge", express.static("letsencrypt/conf/.well-known/acme-challenge"));
-server.get('*', function(req, res, next) {
-    if (process.env.NODE_ENV !== 'development' && !isSecure(req)) {
-        res.redirect(`https://${req.headers.host}${req.url}`);
-    } else {
-        next();
-    }
-})
 
 Routes(server);
 
