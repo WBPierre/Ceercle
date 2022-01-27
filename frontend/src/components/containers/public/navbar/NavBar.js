@@ -47,10 +47,6 @@ export default function NavBar(props) {
     }
 
     const connectHandler = () => {
-        // setMobileMoreAnchorEl(null);
-        // setOpen(false);
-        // setOpenConnect(true)
-        console.log(window.location.host);
         if(window.location.host.includes("ceercle")){
             window.open('https://app.ceercle.io/');
         }else{
