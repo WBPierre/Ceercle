@@ -22,9 +22,7 @@ function Rooter(){
             return (
                 <Router>
                     <ScrollToTop>
-                        <Routes>
-                            <Route path={"*"} element={<AppRooter/>} />
-                        </Routes>
+                        <AppRooter/>
                     </ScrollToTop>
                 </Router>
             )
@@ -32,12 +30,10 @@ function Rooter(){
             return (
                 <Router>
                     <ScrollToTop>
-                        <Routes>
-                            <Route path={Public_Routes.HOME+"*"} element={<PublicRooter/>} />
-                        </Routes>
+                        <PublicRooter/>
                     </ScrollToTop>
                 </Router>
-                )
+            )
         }
     }
 

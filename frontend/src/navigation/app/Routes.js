@@ -11,7 +11,7 @@ export const TEAMSETTING = getRoutesBaseUrl()+"/team-settings/" // NEED ID
 
 function getRoutesBaseUrl() {
     if(window.location.host.includes('ceercle')){
-       return;
+       return "";
     }else{
         return '/app';
     }
