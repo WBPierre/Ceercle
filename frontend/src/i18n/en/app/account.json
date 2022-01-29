@@ -1,0 +1,43 @@
+{
+  "title": "My account",
+  "subtitle": "Account settings",
+  "disconnect": "Log out",
+  "avatar": {
+    "title": "Avatar",
+    "subtitle": "These images will be available to all your collaborators.",
+    "avatar_profile": "Profile",
+    "banner": "Banner",
+    "snackbar_save": "Image saved.",
+    "snackbar_cancel": "Image deleted."
+  },
+  "preferences": {
+    "title": "Account Preferences",
+    "subtitle": "Set-up your account preferences: working hours, default statuses, language, timezone.",
+    "default_hours": "Default working hours",
+    "hours": "Hours",
+    "minutes": "Minutes",
+    "timezone": "Timezone",
+    "language": "Language",
+    "default_statuses": "Default statuses",
+    "snackbar_success": "Change saved.",
+    "snackbar_warning": "Please, fill the fields properly."
+  },
+  "general": {
+    "title": "General settings",
+    "subtitle": "Set-up your general account settings.",
+    "full_name": "Full name",
+    "related_teams": "Related team(s)",
+    "snackbar_success": "Change saved.",
+    "snackbar_warning": "Please, fill the fields properly."
+  },
+  "security": {
+    "title": "Security",
+    "subtitle": "Set-up your credentials.",
+    "old_password": "Current password",
+    "new_password": "New password",
+    "new_password_confirmed": "Confirm new password",
+    "snackbar_success": "Change saved.",
+    "snackbar_warning": "Passwords not matched.",
+    "snackbar_error": "Incorrect password"
+  }
+}

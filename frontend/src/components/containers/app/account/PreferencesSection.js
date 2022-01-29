@@ -18,6 +18,7 @@ import UserService from "../../../../services/app/user.service";
 import SettingSectionTemplate from './SettingSectionTemplate';
 
 export default function PreferencesSection(props) {
+    const { i18n } = useTranslation();
 
     const timezones = moment.tz.names()
     const { t } = useTranslation();
@@ -111,6 +112,11 @@ export default function PreferencesSection(props) {
                         variant: 'success'
                     });
                     navigate('/app/myaccount');
+                    if (language == 0) {
+                        i18n.changeLanguage("fr");
+                    } else {
+                        i18n.changeLanguage("en");
+                    }
                 } else {
                     enqueueSnackbar(t('app:snackbar:error'), {
                         variant: 'error'
@@ -140,7 +146,7 @@ export default function PreferencesSection(props) {
     }
 
     return (
-        <SettingSectionTemplate title="Mes préférences de compte" description="Définissez vos préférences de compte: heures de travail, statut par défaut, langage, timezone">
+        <SettingSectionTemplate title={t('app:account:preferences.title')} description={t('app:account:preferences.subtitle')}>
             <Grid container direction="column" spacing={1}>
                 <Grid item>
                     <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#414040' }}>

@@ -83,7 +83,7 @@ export default function SecuritySection(props) {
 
 
     return (
-        <SettingSectionTemplate title="Sécurité" description="Configurez vos identifiants de connextion">
+        <SettingSectionTemplate title={t('app:account:security.title')} description={t('app:account:security.subtitle')}>
             <Grid container direction="column" spacing={1}>
 
                 <Grid item>
