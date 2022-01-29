@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { useTheme } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
 import { useTranslation } from "react-i18next";
+import Typography from '@mui/material/Typography';
 import Grid from "@mui/material/Grid";
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -50,7 +49,7 @@ export default function PreferencesSection(props) {
 
 
 
-    const statuses = ["A définir", "Au bureau", "En télétravail", "En déplacement"]
+    const statuses = [t('app:statuses:to_be_defined'), t('app:statuses:office'), t('app:statuses:home_working')]
 
     const [mondayStatus, setMondayStatus] = React.useState(props.user.mondayStatus);
     const handleChangeMondayStatus = (event) => {
@@ -108,33 +107,36 @@ export default function PreferencesSection(props) {
             };
             await UserService.updateUserSettings(resources).then(async (res) => {
                 if (res.status === 200) {
-                    enqueueSnackbar('Update saved.', {
+                    enqueueSnackbar(t('app:account:preferences.snackbar_success'), {
                         variant: 'success'
                     });
                     navigate('/app/myaccount');
                 } else {
-                    enqueueSnackbar('Une erreur est survenue', {
+                    enqueueSnackbar(t('app:snackbar:error'), {
                         variant: 'error'
                     });
                 }
             })
         } else {
-            enqueueSnackbar('Veuillez remplir tous les champs', {
+            enqueueSnackbar(t('app:account:preferences.snackbar_warning'), {
                 variant: 'warning'
             });
         }
     }
     let navigate = useNavigate();
-    const save = () => {
-        enqueueSnackbar('Paramètres enregistrés.', {
-            variant: 'success'
-        });
-    }
 
     const cancel = () => {
-        enqueueSnackbar('Annulé', {
-            variant: 'cancel'
-        });
+        setHoursAM(props.user.defaultWorkingMorningHour);
+        setMinutesAM(props.user.defaultWorkingMorningMinutes);
+        setHoursPM(props.user.defaultWorkingAfternoonHour);
+        setMinutesPM(props.user.defaultWorkingAfternoonMinutes);
+        setTz(timezones.indexOf(props.user.timezone));
+        setMondayStatus(props.user.mondayStatus);
+        setTuesdayStatus(props.user.tuesdayStatus);
+        setWednesdayStatus(props.user.wednesdayStatus);
+        setThursdayStatus(props.user.thursdayStatus);
+        setFridayStatus(props.user.fridayStatus);
+        setLanguage(languageOptions.indexOf(props.user.lang));
     }
 
     return (
@@ -142,7 +144,7 @@ export default function PreferencesSection(props) {
             <Grid container direction="column" spacing={1}>
                 <Grid item>
                     <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#414040' }}>
-                        Heures de travail par défaut
+                        {t('app:account:preferences.default_hours')}
                     </Typography>
                 </Grid>
 
@@ -152,7 +154,7 @@ export default function PreferencesSection(props) {
                             <Grid container direction="row" alignItems="center">
                                 <Grid item>
                                     <FormControl sx={{ m: 1 }} variant="standard">
-                                        <InputLabel htmlFor="demo-customized-select-native">Heure</InputLabel>
+                                        <InputLabel htmlFor="demo-customized-select-native">{t('app:account:preferences.hours')}</InputLabel>
                                         <Select
                                             id="demo-customized-select-native"
                                             value={hoursAM}
@@ -177,7 +179,7 @@ export default function PreferencesSection(props) {
                                 </Grid>
                                 <Grid item>
                                     <FormControl sx={{ m: 1 }} variant="standard">
-                                        <InputLabel htmlFor="demo-customized-select-native">Minutes</InputLabel>
+                                        <InputLabel htmlFor="demo-customized-select-native">{t('app:account:preferences.minutes')}</InputLabel>
                                         <Select
                                             id="demo-customized-select-native"
                                             value={minutesAM}
@@ -203,7 +205,7 @@ export default function PreferencesSection(props) {
                             <Grid container direction="row" alignItems="center">
                                 <Grid item>
                                     <FormControl sx={{ m: 1 }} variant="standard">
-                                        <InputLabel htmlFor="demo-customized-select-native">Heure</InputLabel>
+                                        <InputLabel htmlFor="demo-customized-select-native">{t('app:account:preferences.hours')}</InputLabel>
                                         <Select
                                             id="demo-customized-select-native"
                                             value={hoursPM}
@@ -229,7 +231,7 @@ export default function PreferencesSection(props) {
                                 </Grid>
                                 <Grid item>
                                     <FormControl sx={{ m: 1 }} variant="standard">
-                                        <InputLabel htmlFor="demo-customized-select-native">Minutes</InputLabel>
+                                        <InputLabel htmlFor="demo-customized-select-native">{t('app:account:preferences.minutes')}</InputLabel>
                                         <Select
                                             id="demo-customized-select-native"
                                             value={minutesPM}
@@ -259,7 +261,7 @@ export default function PreferencesSection(props) {
 
                 <Grid item>
                     <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#414040' }}>
-                        Timezone
+                        {t('app:account:preferences.timezone')}
                     </Typography>
                 </Grid>
 
@@ -283,7 +285,7 @@ export default function PreferencesSection(props) {
 
                 <Grid item mt={6}>
                     <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#414040' }}>
-                        Langage
+                        {t('app:account:preferences.language')}
                     </Typography>
                 </Grid>
 
@@ -309,13 +311,13 @@ export default function PreferencesSection(props) {
 
                 <Grid item mt={6}>
                     <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#414040' }}>
-                        Statuts par défaut
+                        {t('app:account:preferences.default_statuses')}
                     </Typography>
                 </Grid>
 
                 <Grid item>
                     <FormControl sx={{ width: 200 }} variant="standard">
-                        <InputLabel htmlFor="demo-customized-select-native">Lundi</InputLabel>
+                        <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements.Mon')}</InputLabel>
                         <Select
                             id="demo-customized-select-native"
                             value={mondayStatus}
@@ -333,7 +335,7 @@ export default function PreferencesSection(props) {
 
                 <Grid item>
                     <FormControl sx={{ width: 200 }} variant="standard">
-                        <InputLabel htmlFor="demo-customized-select-native">Mardi</InputLabel>
+                        <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements.Tue')}</InputLabel>
                         <Select
                             id="demo-customized-select-native"
                             value={tuesdayStatus}
@@ -351,7 +353,7 @@ export default function PreferencesSection(props) {
 
                 <Grid item>
                     <FormControl sx={{ width: 200 }} variant="standard">
-                        <InputLabel htmlFor="demo-customized-select-native">Mercredi</InputLabel>
+                        <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements.Wed')}</InputLabel>
                         <Select
                             id="demo-customized-select-native"
                             value={wednesdayStatus}
@@ -369,7 +371,7 @@ export default function PreferencesSection(props) {
 
                 <Grid item>
                     <FormControl sx={{ width: 200 }} variant="standard">
-                        <InputLabel htmlFor="demo-customized-select-native">Jeudi</InputLabel>
+                        <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements.Thu')}</InputLabel>
                         <Select
                             id="demo-customized-select-native"
                             value={thursdayStatus}
@@ -387,7 +389,7 @@ export default function PreferencesSection(props) {
 
                 <Grid item>
                     <FormControl sx={{ width: 200 }} variant="standard">
-                        <InputLabel htmlFor="demo-customized-select-native">Vendredi</InputLabel>
+                        <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements.Fri')}</InputLabel>
                         <Select
                             id="demo-customized-select-native"
                             value={fridayStatus}
@@ -412,7 +414,7 @@ export default function PreferencesSection(props) {
                         <Grid item md={6}>
                             <Stack direction="row" spacing={1}>
                                 <Chip
-                                    label="Annuler"
+                                    label={t('generic:cancel')}
                                     sx={{
                                         borderColor: "#3C3B3D", color: "#3C3B3D", fontWeight: "bold"
                                     }}
@@ -422,7 +424,7 @@ export default function PreferencesSection(props) {
                                     variant="outlined"
                                 />
                                 <Chip
-                                    label="Enregistrer"
+                                    label={t('generic:save')}
                                     sx={{ borderColor: "#3F07A8", color: "#3F07A8", fontWeight: "bold" }}
                                     color="error"
                                     onClick={updateUserSettings}

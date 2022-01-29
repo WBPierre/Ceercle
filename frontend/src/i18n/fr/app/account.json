@@ -6,7 +6,9 @@
     "title": "Avatar",
     "subtitle": "Ces images apparaitront dans votre profil utilisateur et sont visibles par tous.",
     "avatar_profile": "Avatar du profil",
-    "banner": "Bannière"
+    "banner": "Bannière",
+    "snackbar_save": "Image enregistrée.",
+    "snackbar_cancel": "Image supprimée."
   },
   "preferences": {
     "title": "Mes préférences de compte",
@@ -16,19 +18,26 @@
     "minutes": "Minutes",
     "timezone": "Timezone",
     "language": "Langage",
-    "default_statuses": "Statuts par défaut"
+    "default_statuses": "Statuts par défaut",
+    "snackbar_success": "Paramètres enregistrés",
+    "snackbar_warning": "Veuillez remplir correctement les champs."
   },
   "general": {
     "title": "Paramètres généraux",
     "subtitle": "Définissez vos paramètres de compte.",
     "full_name": "Nom complet",
-    "related_teams": "Equipe(s) associée(s)"
+    "related_teams": "Equipe(s) associée(s)",
+    "snackbar_success": "Paramètres enregistrés",
+    "snackbar_warning": "Veuillez remplir correctement les champs."
   },
   "security": {
     "title": "Sécurité",
     "subtitle": "Configurez vos identifiants de connexion.",
     "old_password": "Ancien mot de passe",
     "new_password": "Nouveau mot de passe",
-    "new_password_confirmed": "Confirmer le mot de passe"
+    "new_password_confirmed": "Confirmer le mot de passe",
+    "snackbar_success": "Paramètres enregistrés",
+    "snackbar_warning": "Vérifier la correspondance des mots de passe",
+    "snackbar_error": "Mot de passe incorrect"
   }
 }

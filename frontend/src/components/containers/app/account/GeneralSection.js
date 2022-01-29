@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useTranslation } from "react-i18next";
 import Typography from '@mui/material/Typography';
 import Grid from "@mui/material/Grid";
 import FormControl from '@mui/material/FormControl';
@@ -9,11 +10,13 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SettingSectionTemplate from './SettingSectionTemplate';
 import UserService from "../../../../services/app/user.service";
 
 export default function GeneralSection(props) {
+
+    const { t } = useTranslation();
 
     const { enqueueSnackbar } = useSnackbar();
     let navigate = useNavigate();
@@ -61,30 +64,30 @@ export default function GeneralSection(props) {
             };
             await UserService.updateUserGeneral(resources).then(async (res) => {
                 if (res.status === 200) {
-                    enqueueSnackbar('Update saved.', {
+                    enqueueSnackbar(t('app:account:general.snackbar_success'), {
                         variant: 'success'
                     });
                     navigate('/app/myaccount');
                 } else {
-                    enqueueSnackbar('Une erreur est survenue', {
+                    enqueueSnackbar(t('app:snackbar:error'), {
                         variant: 'error'
                     });
                 }
             })
         } else {
-            enqueueSnackbar('Veuillez remplir tous les champs', {
+            enqueueSnackbar(t('app:account:general.snackbar_warning'), {
                 variant: 'warning'
             });
         }
     }
 
     return (
-        <SettingSectionTemplate title="Paramètres généraux" description="Définissez vos paramètres de compte">
+        <SettingSectionTemplate title={t('app:account:general.title')} description={t('app:account:general.subtitle')}>
             <Grid container direction="column" spacing={1}>
 
                 <Grid item>
                     <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#414040' }}>
-                        Nom complet
+                        {t('generic:name')}
                     </Typography>
                 </Grid>
 
@@ -103,7 +106,7 @@ export default function GeneralSection(props) {
 
                 <Grid item mt={6}>
                     <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#414040' }}>
-                        Equipe(s) associée(s)
+                        {t('app:account:general.related_teams')}
                     </Typography>
                 </Grid>
 
@@ -122,7 +125,7 @@ export default function GeneralSection(props) {
 
                 <Grid item mt={6}>
                     <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#414040' }}>
-                        Position
+                        {t('generic:position')}
                     </Typography>
                 </Grid>
 
@@ -141,7 +144,7 @@ export default function GeneralSection(props) {
 
                 <Grid item mt={6}>
                     <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#414040' }}>
-                        Adresse mail
+                        {t('generic:email')}
                     </Typography>
                 </Grid>
 
@@ -161,7 +164,7 @@ export default function GeneralSection(props) {
 
                 <Grid item mt={6}>
                     <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#414040' }}>
-                        Numéro de téléphone
+                        {t('generic:phone')}
                     </Typography>
                 </Grid>
 
@@ -187,7 +190,7 @@ export default function GeneralSection(props) {
                         <Grid item md={6}>
                             <Stack direction="row" spacing={1}>
                                 <Chip
-                                    label="Annuler"
+                                    label={t('generic:cancel')}
                                     sx={{
                                         borderColor: "#3C3B3D", color: "#3C3B3D", fontWeight: "bold"
                                     }}
@@ -197,7 +200,7 @@ export default function GeneralSection(props) {
                                     variant="outlined"
                                 />
                                 <Chip
-                                    label="Enregistrer"
+                                    label={t('generic:save')}
                                     sx={{ borderColor: "#3F07A8", color: "#3F07A8", fontWeight: "bold" }}
                                     color="error"
                                     onClick={updateUserInfo}

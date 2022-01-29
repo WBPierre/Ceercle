@@ -1,20 +1,13 @@
 import * as React from 'react';
-import { useTheme } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import Grid from "@mui/material/Grid";
-import {Divider, styled} from "@mui/material";
+import Typography from '@mui/material/Typography';
 import CustomContainer from "../../components/containers/app/CustomContainer";
-
-
 import OfficeOccupancy from '../../components/containers/app/workpolicy/OfficeOccupancy';
 import CompanyRules from '../../components/containers/app/workpolicy/CompanyRules';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import TeamRules from "../../components/containers/app/workpolicy/TeamRules";
 import UserManagement from "../../components/containers/app/workpolicy/UserManagement";
 import Integration from "../../components/containers/app/workpolicy/Integration";
 
@@ -51,7 +44,9 @@ function a11yProps(index) {
     };
 }
 
-export default function WorkPolicy(props) {
+export default function WorkPolicy() {
+
+    const { t } = useTranslation();
 
     const [value, setValue] = React.useState(0);
 
@@ -60,19 +55,15 @@ export default function WorkPolicy(props) {
     };
 
 
-    const theme = useTheme();
-    let navigate = useNavigate();
-    const { t } = useTranslation();
-
     return (
         <CustomContainer>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" textColor="secondary"
-                      indicatorColor="secondary">
-                    <Tab label="Paramètrage entreprise" {...a11yProps(0)} />
-                    <Tab label="Paramètrage des bureaux" {...a11yProps(1)} />
-                    <Tab label="Utilisateurs" {...a11yProps(2)} />
-                    <Tab label="Intégration" {...a11yProps(3)} />
+                    indicatorColor="secondary">
+                    <Tab label={t('app:rh_parameters:company.tab_name')} {...a11yProps(0)} />
+                    <Tab label={t('app:rh_parameters:offices.tab_name')} {...a11yProps(1)} />
+                    <Tab label={t('app:rh_parameters:users.tab_name')} {...a11yProps(2)} />
+                    <Tab label={t('app:rh_parameters:integration.tab_name')} {...a11yProps(3)} />
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
@@ -82,10 +73,10 @@ export default function WorkPolicy(props) {
                 <OfficeOccupancy />
             </TabPanel>
             <TabPanel value={value} index={2}>
-                <UserManagement/>
+                <UserManagement />
             </TabPanel>
             <TabPanel value={value} index={3}>
-                <Integration/>
+                <Integration />
             </TabPanel>
         </CustomContainer >
 

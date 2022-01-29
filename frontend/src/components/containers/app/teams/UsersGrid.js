@@ -8,7 +8,7 @@ import {
     Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
 } from "@mui/material";
 import { Button } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import TeamService from "../../../../services/app/team.service";
 import { useSnackbar } from "notistack";
 

@@ -6,7 +6,9 @@
     "company_level_info": "Pour l'entreprise",
     "warning": "Attention, ces réglages remplaceront les règles spécifiques à chaque équipe.",
     "days_worked_at_office": "Nombre de jours travaillés au bureau",
-    "set_up_by_day": "Spécification par jour"
+    "set_up_by_day": "Spécification par jour",
+    "snackbar_success": "Paramètres enregistrés",
+    "snackbar_warning": "Attention, le nombre de jours travaillés minimum est supérieur au nombre de jours travaillés maximum."
   },
   "offices": {
     "tab_name": "Paramétrage des bureaux",
@@ -14,7 +16,9 @@
     "subtitle": "Paramétrez les taux d'occupation des espaces de travail et permettez à chaque employé de profiter d'un environnement de travail sain et organisé.",
     "room": "Salle de travail",
     "occupancy": "Taux d'occupation",
-    "seats": "places"
+    "seats": "places",
+    "snackbar_success": "Paramètres enregistrés",
+    "snackbar_warning": "Veuillez remplir correctement les champs."
   },
   "users": {
     "tab_name": "Utilisateurs",

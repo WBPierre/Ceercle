@@ -1,21 +1,17 @@
 import * as React from 'react';
-import { useTheme } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
 import { useTranslation } from "react-i18next";
+import Typography from '@mui/material/Typography';
 import Grid from "@mui/material/Grid";
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
-import moment from 'moment-timezone';
 import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { Divider } from "@mui/material";
 import { useSnackbar } from "notistack";
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import CompanyService from '../../../../services/app/company.service';
 
 
@@ -27,7 +23,7 @@ export default function CompanyRules() {
     const { t } = useTranslation();
 
     const daysWorked = [0, 1, 2, 3, 4, 5]
-    const statuses = ["Libre", "Au bureau", "En télétravail", "En déplacement", "Off"]
+    const statuses = [t('app:statuses:free'), t('app:statuses:office'), t('app:statuses:home_working'), t('app:statuses:on_the_go'), t('app:statuses:off')]
 
     const [officeMinimum, setOfficeMinimum] = React.useState(null);
     const handleOfficeMinimum = (event) => {
@@ -101,51 +97,48 @@ export default function CompanyRules() {
             };
             await CompanyService.updateHRRules(resources).then(async (res) => {
                 if (res.status === 200) {
-                    enqueueSnackbar('Paramètres enregistrés', {
+                    enqueueSnackbar(t('app:rh_parameters:company.snackbar_success'), {
                         variant: 'success'
                     });
                 } else {
-                    enqueueSnackbar('Une erreur est survenue', {
+                    enqueueSnackbar(t('app:snackbar:error'), {
                         variant: 'error'
                     });
                 }
             })
         } else {
-            enqueueSnackbar('Attention, le nombre de jours travaillés minimum est supérieur au nombre de jours travaillés maximum.', {
+            enqueueSnackbar(t('app:rh_parameters:company.snackbar_warning'), {
                 variant: 'warning'
             });
         }
     }
 
     const cancel = () => {
-        enqueueSnackbar('Annulé', {
-            variant: 'cancel'
-        });
         getHRRules();
     }
 
     if (officeMinimum === null) {
-        return (< SettingSectionTemplate title="Règles de travail hybride" description="Définissez vos règles de travail hybride, à l'échelle de l'entreprise ou des équipes." />)
+        return (< SettingSectionTemplate title={t('app:rh_parameters:company.title')} description={t('app:rh_parameters:company.subtitle')} />)
     }
     return (
-        <SettingSectionTemplate title="Règles de travail hybride" description="Définissez vos règles de travail hybride, à l'échelle de l'entreprise ou des équipes.">
+        <SettingSectionTemplate title={t('app:rh_parameters:company.title')} description={t('app:rh_parameters:company.subtitle')}>
             <Grid container direction="column">
                 <Grid item>
                     <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#2A2828' }}>
-                        Pour l'entreprise
+                        {t('app:rh_parameters:company.company_level_info')}
                     </Typography>
                 </Grid>
 
                 <Grid item>
                     <Typography variant="body" fontWeight={400} fontSize={14} style={{ color: '#2A2828' }}>
-                        Attention, ces réglages remplaceront les règles spécifiques à chaque équipe.
+                        {t('app:rh_parameters:company.warning')}
                     </Typography>
                 </Grid>
 
 
                 <Grid item mt={3}>
                     <Typography variant="body" fontWeight={300} fontSize={17} style={{ color: '#414040', fontStyle: "italic" }}>
-                        Nombre de jours travaillés au bureau
+                        {t('app:rh_parameters:company.days_worked_at_office')}
                     </Typography>
                 </Grid>
 
@@ -193,7 +186,7 @@ export default function CompanyRules() {
 
                 <Grid item mt={3}>
                     <Typography variant="body" fontWeight={300} fontSize={17} style={{ color: '#414040', fontStyle: "italic" }}>
-                        Spécification par jour
+                        {t('app:rh_parameters:company.set_up_by_day')}
                     </Typography>
                 </Grid>
 
@@ -201,7 +194,7 @@ export default function CompanyRules() {
                     <Grid container direction="column" spacing={1}>
                         <Grid item>
                             <FormControl sx={{ width: 200 }} variant="standard">
-                                <InputLabel htmlFor="demo-customized-select-native">Lundi</InputLabel>
+                                <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements:Mon')}</InputLabel>
                                 <Select
                                     id="demo-customized-select-native"
                                     value={mondayMandatoryStatus}
@@ -219,7 +212,7 @@ export default function CompanyRules() {
 
                         <Grid item>
                             <FormControl sx={{ width: 200 }} variant="standard">
-                                <InputLabel htmlFor="demo-customized-select-native">Mardi</InputLabel>
+                                <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements:Tue')}</InputLabel>
                                 <Select
                                     id="demo-customized-select-native"
                                     value={tuesdayMandatoryStatus}
@@ -237,7 +230,7 @@ export default function CompanyRules() {
 
                         <Grid item>
                             <FormControl sx={{ width: 200 }} variant="standard">
-                                <InputLabel htmlFor="demo-customized-select-native">Mercredi</InputLabel>
+                                <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements:Wed')}</InputLabel>
                                 <Select
                                     id="demo-customized-select-native"
                                     value={wednesdayMandatoryStatus}
@@ -255,7 +248,7 @@ export default function CompanyRules() {
 
                         <Grid item>
                             <FormControl sx={{ width: 200 }} variant="standard">
-                                <InputLabel htmlFor="demo-customized-select-native">Jeudi</InputLabel>
+                                <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements:Thu')}</InputLabel>
                                 <Select
                                     id="demo-customized-select-native"
                                     value={thursdayMandatoryStatus}
@@ -273,7 +266,7 @@ export default function CompanyRules() {
 
                         <Grid item>
                             <FormControl sx={{ width: 200 }} variant="standard">
-                                <InputLabel htmlFor="demo-customized-select-native">Vendredi</InputLabel>
+                                <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements:Fri')}</InputLabel>
                                 <Select
                                     id="demo-customized-select-native"
                                     value={fridayMandatoryStatus}
@@ -298,7 +291,7 @@ export default function CompanyRules() {
                         <Grid item md={6}>
                             <Stack direction="row" spacing={1}>
                                 <Chip
-                                    label="Annuler"
+                                    label={t('generic:cancel')}
                                     sx={{
                                         borderColor: "#3C3B3D", color: "#3C3B3D", fontWeight: "bold"
                                     }}
@@ -308,7 +301,7 @@ export default function CompanyRules() {
                                     variant="outlined"
                                 />
                                 <Chip
-                                    label="Enregistrer"
+                                    label={t('generic:save')}
                                     sx={{ borderColor: "#3F07A8", color: "#3F07A8", fontWeight: "bold" }}
                                     color="error"
                                     onClick={saveHRRules}
