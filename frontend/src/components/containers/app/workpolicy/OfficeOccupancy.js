@@ -12,13 +12,14 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import OfficeService from '../../../../services/app/office.service';
 import { useEffect } from "react";
+import useAuth from '../../../../components/context/auth/AuthHelper'
 
 import SettingSectionTemplate from '../account/SettingSectionTemplate';
 
 export default function OfficeOccupancy() {
 
     const { t } = useTranslation();
-
+    const context = useAuth();
     const occupancies = ["0%", "10%", "20%", "30%", "40%", "50%", "60%", "70%", "80%", "90%", "100%"]
     const occupancy_0_1 = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
 

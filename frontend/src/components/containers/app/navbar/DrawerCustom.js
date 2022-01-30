@@ -83,14 +83,14 @@ export default function DrawerCustom(props) {
             </List>
 
             <List>
-                <ListItem button onClick={() => navigate(App_Routes.DASHBOARD)} style={{backgroundColor: activeRoutes[activeRoutes.length - 1] === "app" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)'}}>
+                <ListItem button onClick={() => navigate(App_Routes.DASHBOARD)} style={{ backgroundColor: activeRoutes[activeRoutes.length - 1] === "dashboard" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)' }}>
                     <ListItemIcon>
-                        <DashboardIcon sx={{ fontSize: activeRoutes[activeRoutes.length - 1] === "app" ? 25 : 22, color: "#FFFFFF" }} />
+                        <DashboardIcon sx={{ fontSize: activeRoutes[activeRoutes.length - 1] === "dashboard" ? 25 : 22, color: "#FFFFFF" }} />
                     </ListItemIcon>
                     <ListItemText
                         primaryTypographyProps={{
-                            color: activeRoutes[activeRoutes.length - 1] === "app" ? '#FFFFFF' : "#FFFFFF",
-                            fontWeight: activeRoutes[activeRoutes.length - 1] === "app" ? 700 : 200,
+                            color: activeRoutes[activeRoutes.length - 1] === "dashboard" ? '#FFFFFF' : "#FFFFFF",
+                            fontWeight: activeRoutes[activeRoutes.length - 1] === "dashboard" ? 700 : 200,
                             fontSize: 18,
                             variant: 'body2',
                             textAlign: 'left'
@@ -98,7 +98,7 @@ export default function DrawerCustom(props) {
                         primary={t('app:navbar:dashboard')}
                     />
                 </ListItem>
-                <ListItem button onClick={() => navigate(App_Routes.CALENDAR)} style={{backgroundColor: activeRoutes[activeRoutes.length - 1] === "calendar" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)'}}>
+                <ListItem button onClick={() => navigate(App_Routes.CALENDAR)} style={{ backgroundColor: activeRoutes[activeRoutes.length - 1] === "calendar" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)' }}>
                     <ListItemIcon>
                         <EventIcon sx={{ fontSize: activeRoutes[activeRoutes.length - 1] === "calendar" ? 25 : 22, color: "#FFFFFF" }} />
                     </ListItemIcon>
@@ -113,7 +113,7 @@ export default function DrawerCustom(props) {
                         primary={t('app:navbar:calendar')}
                     />
                 </ListItem>
-                <ListItem button onClick={() => navigate(App_Routes.GLOSSARY)} style={{backgroundColor: activeRoutes[activeRoutes.length - 1] === "glossary" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)'}}>
+                <ListItem button onClick={() => navigate(App_Routes.GLOSSARY)} style={{ backgroundColor: activeRoutes[activeRoutes.length - 1] === "glossary" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)' }}>
                     <ListItemIcon>
                         <PeopleIcon sx={{ fontSize: activeRoutes[activeRoutes.length - 1] === "glossary" ? 25 : 22, color: "#FFFFFF" }} />
                     </ListItemIcon>
@@ -142,7 +142,7 @@ export default function DrawerCustom(props) {
                         primary={t('app:navbar:rh_section')}
                     />
                 </ListItem>
-                <ListItem disabled button onClick={() => navigate(App_Routes.STATS)} style={{backgroundColor: activeRoutes[activeRoutes.length - 1] === "stats" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)'}}>
+                <ListItem disabled button onClick={() => navigate(App_Routes.STATS)} style={{ backgroundColor: activeRoutes[activeRoutes.length - 1] === "stats" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)' }}>
                     <ListItemIcon>
                         <EqualizerIcon sx={{ fontSize: activeRoutes[activeRoutes.length - 1] === "stats" ? 25 : 22, color: "#FFFFFF" }} />
                     </ListItemIcon>
@@ -157,7 +157,7 @@ export default function DrawerCustom(props) {
                         primary={t('app:navbar:statistics')}
                     />
                 </ListItem>
-                <ListItem button onClick={() => navigate(App_Routes.WORKPOLICY)} style={{backgroundColor: activeRoutes[activeRoutes.length - 1] === "workpolicy" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)'}}>
+                <ListItem button onClick={() => navigate(App_Routes.WORKPOLICY)} style={{ backgroundColor: activeRoutes[activeRoutes.length - 1] === "workpolicy" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)' }}>
                     <ListItemIcon>
                         <RuleIcon sx={{ fontSize: activeRoutes[activeRoutes.length - 1] === "workpolicy" ? 25 : 22, color: "#FFFFFF" }} />
                     </ListItemIcon>
@@ -172,7 +172,7 @@ export default function DrawerCustom(props) {
                         primary={t('app:navbar:parameters')}
                     />
                 </ListItem>
-                <ListItem button onClick={() => navigate(App_Routes.TEAMS)} style={{backgroundColor: activeRoutes[activeRoutes.length - 1] === "teams" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)'}}>
+                <ListItem button onClick={() => navigate(App_Routes.TEAMS)} style={{ backgroundColor: activeRoutes[activeRoutes.length - 1] === "teams" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)' }}>
                     <ListItemIcon>
                         <ConnectWithoutContactIcon sx={{ fontSize: activeRoutes[activeRoutes.length - 1] === "teams" ? 25 : 22, color: "#FFFFFF" }} />
                     </ListItemIcon>
