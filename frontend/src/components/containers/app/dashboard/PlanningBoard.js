@@ -19,6 +19,8 @@ import { useSnackbar } from "notistack";
 
 
 function PlanningBoard() {
+    const { i18n } = useTranslation();
+    const lang = i18n.language;
     const { t } = useTranslation();
     let navigate = useNavigate();
     const animationDuration = 500;
@@ -92,7 +94,7 @@ function PlanningBoard() {
                         </Grid>
                         <Grid item>
                             <Typography textAlign={"center"} fontSize={16}>
-                                {moment(week[0].day).date()} {moment(week[0].day).locale('fr').format('MMMM')} - {moment(week[4].day).date()} {moment(week[4].day).locale('fr').format('MMMM')}
+                                {moment(week[0].day).date()} {moment(week[0].day).locale(lang).format('MMMM')} - {moment(week[4].day).date()} {moment(week[4].day).locale(lang).format('MMMM')}
                             </Typography>
                         </Grid>
                     </Grid>

@@ -1,10 +1,10 @@
 {
   "dashboard": "Dashboard",
-  "calendar": "Calendrier",
-  "glossary": "Annuaire",
-  "rh_section": "Espace RH",
-  "statistics": "Statistiques",
-  "parameters": "Paramètres",
-  "teams": "Equipes",
-  "my_account": "Mon compte"
+  "calendar": "Calendar",
+  "glossary": "Glossary",
+  "rh_section": "HR workspace",
+  "statistics": "Statistics",
+  "parameters": "Parameters",
+  "teams": "Teams",
+  "my_account": "My account"
 }

@@ -16,6 +16,8 @@
   "firstname": "Prénom",
   "lastname": "Nom",
   "position": "Poste",
+  "color": "Couleur",
+  "choose": "Choisir",
   "name": "Nom",
   "import": "Importer",
   "export": "Exporter",

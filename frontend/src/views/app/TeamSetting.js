@@ -181,7 +181,7 @@ function Teams() {
 
                 <Grid item>
                     <Stack direction="row" spacing={3} sx={{ alignItems: "center" }}>
-                        <TextField sx={{ width: 150 }} label="Couleur" id="fullWidth" name={"name"} value={color} onChange={handleChange} />
+                        <TextField sx={{ width: 150 }} label={t('generic:color')} id="fullWidth" name={"name"} value={color} onChange={handleChange} />
                         <CircleIcon sx={{ color: color, fontSize: 40 }} />
                         <ColorPicker updateColor={(hex) => setColor(hex)} />
                     </Stack>

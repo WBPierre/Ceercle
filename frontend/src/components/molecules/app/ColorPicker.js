@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Button, Dialog, DialogActions, DialogContent } from "@mui/material";
 import { useState } from "react";
 import { BlockPicker } from 'react-color';
@@ -5,6 +6,8 @@ import { Chip } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 
 function ColorPicker(props) {
+
+    const { t } = useTranslation();
 
     const [open, setOpen] = useState(false);
     const [color, setColor] = useState('#FFF');
@@ -22,7 +25,7 @@ function ColorPicker(props) {
     return (
         <div>
             <Chip
-                label="Couleur"
+                label={t('generic:color')}
                 sx={{ borderColor: "#3C3B3D", color: "#3C3B3D" }}
                 color="primary"
                 onClick={handleOpen}
@@ -39,7 +42,7 @@ function ColorPicker(props) {
                     <BlockPicker color={color} onChangeComplete={handleChangeComplete} />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Choisir</Button>
+                    <Button onClick={handleClose}>{t('generic:choose')}</Button>
                 </DialogActions>
             </Dialog>
         </div>

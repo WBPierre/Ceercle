@@ -1,12 +1,12 @@
 {
-  "Monday": "Lundi",
-  "Tuesday": "Mardi",
-  "Wednesday": "Mercredi",
-  "Thursday": "Jeudi",
-  "Friday": "Vendredi",
-  "Mon": "Lun.",
-  "Tue": "Mar.",
-  "Wed": "Mer.",
-  "Thu": "Jeu.",
-  "Fri": "Ven."
+  "Monday": "Monday",
+  "Tuesday": "Tuesday",
+  "Wednesday": "Wednesday",
+  "Thursday": "Thursday",
+  "Friday": "Friday",
+  "Mon": "Mon.",
+  "Tue": "Tue.",
+  "Wed": "Wed.",
+  "Thu": "Thu.",
+  "Fri": "Fri."
 }

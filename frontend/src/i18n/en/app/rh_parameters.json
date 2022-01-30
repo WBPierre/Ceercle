@@ -1,32 +1,32 @@
 {
   "company": {
-    "tab_name": "Paramétrage entreprise",
-    "title": "Règles de travail hybride",
-    "subtitle": "Définissez vos règles de travail hybride, à l'échelle de l'entreprise ou des équipes.",
-    "company_level_info": "Pour l'entreprise",
-    "warning": "Attention, ces réglages remplaceront les règles spécifiques à chaque équipe.",
-    "days_worked_at_office": "Nombre de jours travaillés au bureau",
-    "set_up_by_day": "Spécification par jour",
-    "snackbar_success": "Paramètres enregistrés",
-    "snackbar_warning": "Attention, le nombre de jours travaillés minimum est supérieur au nombre de jours travaillés maximum."
+    "tab_name": "Company settings",
+    "title": "Hybrid work rules",
+    "subtitle": "Set-up your hybrid work rules.",
+    "company_level_info": "For the company",
+    "warning": "Warning: these rules will overwrite the ones in place within each team.",
+    "days_worked_at_office": "Days worked at the office",
+    "set_up_by_day": "Specification by day",
+    "snackbar_success": "Change saved.",
+    "snackbar_warning": "Warning, the minimum worked days at the office is larger than the maximum."
   },
   "offices": {
-    "tab_name": "Paramétrage des bureaux",
-    "title": "Occupation des salles de travail",
-    "subtitle": "Paramétrez les taux d'occupation des espaces de travail et permettez à chaque employé de profiter d'un environnement de travail sain et organisé.",
-    "room": "Salle de travail",
-    "occupancy": "Taux d'occupation",
-    "seats": "places",
-    "snackbar_success": "Paramètres enregistrés",
-    "snackbar_warning": "Veuillez remplir correctement les champs."
+    "tab_name": "Offices set-up",
+    "title": "Work rooms occupancy rate ",
+    "subtitle": "Configure the occupancy rate of each work room and help employees enjoy a safer and more structured working environment.",
+    "room": "Work rooms",
+    "occupancy": "Occupancy rate",
+    "seats": "seats",
+    "snackbar_success": "Change saved.",
+    "snackbar_warning": "Please, fill the fields properly."
   },
   "users": {
-    "tab_name": "Utilisateurs",
-    "add_user": "Ajouter un utilisateur"
+    "tab_name": "Users",
+    "add_user": "Add a user"
   },
   "integration": {
-    "tab_name": "Intégrations",
-    "title": "Intégration avec des applications tierces",
-    "subtitle": "Intégrer directement vos employés en vous connectant avec une autre application."
+    "tab_name": "Integration",
+    "title": "Integration with external apps.",
+    "subtitle": "Onboard your collaborators in one click using one of your current HR app."
   }
 }

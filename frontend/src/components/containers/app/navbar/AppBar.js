@@ -43,10 +43,11 @@ const AppBarStyle = styled(MuiAppBar, {
 export default function AppBar(props) {
     const theme = useTheme();
     const { t } = useTranslation();
+    const { i18n } = useTranslation()
     const [temp, setTemp] = useState(0);
     const [weatherIcon, setWeatherIcon] = useState('');
     const context = useAuth();
-    const day = moment().tz("Europe/London").locale('fr');
+    const day = moment().tz("Europe/London").locale(i18n.language);
 
     useEffect(async () => {
         await WeatherService.getWeather("Paris").then((res) => {

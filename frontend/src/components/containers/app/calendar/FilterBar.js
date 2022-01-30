@@ -14,6 +14,8 @@ import TeamService from "../../../../services/app/team.service";
 
 function FilterBar(props) {
 
+    const { i18n } = useTranslation();
+    const lang = i18n.language;
     const { t } = useTranslation();
 
     const [team, setTeam] = useState(0);
@@ -126,7 +128,7 @@ function FilterBar(props) {
                     </Grid>
                     <Grid item>
                         <Paper style={{ padding: 5 }} elevation={0}>
-                            {`${moment(props.week[0].day).date()} ${moment(props.week[0].day).locale('fr').format('MMMM')} - ${moment(props.week[4].day).date()} ${moment(props.week[4].day).locale('fr').format('MMMM')}`}
+                            {`${moment(props.week[0].day).date()} ${moment(props.week[0].day).locale(lang).format('MMMM')} - ${moment(props.week[4].day).date()} ${moment(props.week[4].day).locale(lang).format('MMMM')}`}
                         </Paper>
                     </Grid>
                 </Grid>

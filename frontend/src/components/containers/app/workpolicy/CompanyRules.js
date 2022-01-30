@@ -23,7 +23,7 @@ export default function CompanyRules() {
     const { t } = useTranslation();
 
     const daysWorked = [0, 1, 2, 3, 4, 5]
-    const statuses = [t('app:statuses:free'), t('app:statuses:office'), t('app:statuses:home_working'), t('app:statuses:on_the_go'), t('app:statuses:off')]
+    const statuses = [t('app:statuses:free'), t('app:statuses:office'), t('app:statuses:home_working')]
 
     const [officeMinimum, setOfficeMinimum] = React.useState(null);
     const handleOfficeMinimum = (event) => {

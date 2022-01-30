@@ -1,10 +1,10 @@
 {
-  "free": "Libre",
-  "undeclared": "Non déclaré",
-  "to_be_defined": "A définir",
-  "office": "Bureau",
-  "home_working": "Télétravail",
-  "on_the_go": "Déplacement",
+  "free": "Free",
+  "undeclared": "Undeclared",
+  "to_be_defined": "To be defined",
+  "office": "Office",
+  "home_working": "Home working",
+  "on_the_go": "On the go",
   "off": "Off",
-  "everywhere": "Partout"
+  "everywhere": "Everywhere"
 }

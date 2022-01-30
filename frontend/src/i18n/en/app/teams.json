@@ -1,29 +1,29 @@
 {
-  "team_name": "Nom de l'équipe",
-  "color": "Couleur",
+  "team_name": "Team's name",
+  "color": "color",
   "main": {
-    "title": "Gestion des équipes",
-    "subtitle": "Gérer et paramétrez les équipes au sein de l'entreprise.",
-    "name": "Nom",
-    "color": "Couleur",
-    "nb_salaries": "Nombre de salariés",
-    "new_team": "Nouvelle équipe",
-    "add": "Ajouter",
-    "snackbar_success": "snackbar_success"
+    "title": "Teams management",
+    "subtitle": "Manage and configure teams within the company.",
+    "name": "Name",
+    "color": "Color",
+    "nb_salaries": "Number of users",
+    "new_team": "New team",
+    "add": "Add",
+    "snackbar_success": "Changed save."
   },
   "personalize": {
-    "title": "Personnalisation de l'équipe",
-    "back_to_team": "Revenir aux équipes",
-    "add_user": "Ajouter un utilisateur",
-    "name": "Nom",
-    "position": "Poste",
-    "user": "Collaborateur",
-    "delete_team": "Supprimer l'équipe",
-    "delete_team_ask": "Supprimer l'équipe ?",
-    "delete_from_team_ask": "Supprimer de l'équipe ?",
-    "user_removed": "Utilisateur retiré de l/'équipe",
-    "snackbar_team_saved": "Equipe enregistrée",
-    "snackbar_team_deleted": "Equipe supprimée",
-    "snackbar_team_warning": "Veuillez remplir les champs (nom, couleur)"
+    "title": "One-team configuration",
+    "back_to_team": "Back to teams",
+    "add_user": "Add a user",
+    "name": "Name",
+    "position": "Position",
+    "user": "Collaborator",
+    "delete_team": "Delete team",
+    "delete_team_ask": "Delete team?",
+    "delete_from_team_ask": "Delete the user from team?",
+    "user_removed": "User removed",
+    "snackbar_team_saved": "Team saved",
+    "snackbar_team_deleted": "Team deleted",
+    "snackbar_team_warning": "Please, fill the fields (name, color) properly."
   }
 }

@@ -1,8 +1,8 @@
 {
-  "search": "Recherche",
-  "team": "Equipe",
-  "team_search": "Toutes les équipes",
-  "status": "Statut",
-  "week": "Semaine",
-  "snackbar_success": "Déclaration enregistrée"
+  "search": "Search",
+  "team": "Team",
+  "team_search": "All teams",
+  "status": "Status",
+  "week": "Week",
+  "snackbar_success": "Saved."
 }
