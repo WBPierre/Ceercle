@@ -1,0 +1,32 @@
+{
+  "company": {
+    "tab_name": "Company settings",
+    "title": "Hybrid work rules",
+    "subtitle": "Set-up your hybrid work rules.",
+    "company_level_info": "For the company",
+    "warning": "Warning: these rules will overwrite the ones in place within each team.",
+    "days_worked_at_office": "Days worked at the office",
+    "set_up_by_day": "Specification by day",
+    "snackbar_success": "Change saved.",
+    "snackbar_warning": "Warning, the minimum worked days at the office is larger than the maximum."
+  },
+  "offices": {
+    "tab_name": "Offices set-up",
+    "title": "Work rooms occupancy rate ",
+    "subtitle": "Configure the occupancy rate of each work room and help employees enjoy a safer and more structured working environment.",
+    "room": "Work rooms",
+    "occupancy": "Occupancy rate",
+    "seats": "seats",
+    "snackbar_success": "Change saved.",
+    "snackbar_warning": "Please, fill the fields properly."
+  },
+  "users": {
+    "tab_name": "Users",
+    "add_user": "Add a user"
+  },
+  "integration": {
+    "tab_name": "Integration",
+    "title": "Integration with external apps.",
+    "subtitle": "Onboard your collaborators in one click using one of your current HR app."
+  }
+}

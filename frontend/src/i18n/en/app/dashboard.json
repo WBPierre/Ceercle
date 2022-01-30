@@ -1,0 +1,28 @@
+{
+  "my_planning": "My agenda",
+  "today": "Today",
+  "snackbar_success": "Saved.",
+  "desk": {
+    "my_desk": "My office",
+    "my_reservation": "My booking",
+    "none": "No booking",
+    "book": "Book a desk",
+    "modify": "Update my booking",
+    "where_to_book": "Where do you want to book?",
+    "select_office": "Select your desk",
+    "confirm": "Confirm your desk",
+    "your_booking": "Your booking at ",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "team": {
+    "my_team": "My team",
+    "display_all": "Display all",
+    "go_to": "Go to"
+  },
+  "mood": {
+    "my_mood": "My mood",
+    "why_to_fill": "Indicate your mood of the day",
+    "snackbar_success": "Saved."
+  }
+}

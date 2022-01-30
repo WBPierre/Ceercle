@@ -1,43 +1,23 @@
 import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import iconPlanet from "../../../../assets/images/generic/iconPlanet.png";
 import logo_indigo from "../../../../assets/images/generic/logo_indigo.png";
 import { useLocation, useNavigate } from "react-router-dom";
-import WbSunnyIcon from "@mui/icons-material/WbSunny";
-import LangSwitcher from "../../../molecules/navbar/LangSwitcher";
-import { Chip, Drawer, ListItemButton, Tooltip } from "@mui/material";
+import { Drawer } from "@mui/material";
 import Button from "@mui/material/Button";
 import { useTranslation } from "react-i18next";
-import PanToolIcon from '@mui/icons-material/PanTool';
-import { ArrowRight, Home, Settings } from "@mui/icons-material";
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';
-
-import LightModeIcon from '@mui/icons-material/LightMode';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import EventIcon from '@mui/icons-material/Event';
-import ScreenSearchDesktopIcon from '@mui/icons-material/ScreenSearchDesktop';
 import PeopleIcon from '@mui/icons-material/People';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import RuleIcon from '@mui/icons-material/Rule';
-import { red } from '@mui/material/colors';
-import useAuth from "../../../context/auth/AuthHelper";
 import EqualizerIcon from '@mui/icons-material/Equalizer';
 import * as App_Routes from "../../../../navigation/app/Routes";
 
@@ -159,7 +139,7 @@ export default function DrawerCustom(props) {
                             textAlign: 'center',
                             fontStyle: "italic"
                         }}
-                        primary="Espace RH"
+                        primary={t('app:navbar:rh_section')}
                     />
                 </ListItem>
                 <ListItem disabled button onClick={() => navigate(App_Routes.STATS)} style={{backgroundColor: activeRoutes[activeRoutes.length - 1] === "stats" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)'}}>
@@ -174,7 +154,7 @@ export default function DrawerCustom(props) {
                             variant: 'body2',
                             textAlign: 'left'
                         }}
-                        primary="Statistiques"
+                        primary={t('app:navbar:statistics')}
                     />
                 </ListItem>
                 <ListItem button onClick={() => navigate(App_Routes.WORKPOLICY)} style={{backgroundColor: activeRoutes[activeRoutes.length - 1] === "workpolicy" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)'}}>
@@ -189,7 +169,7 @@ export default function DrawerCustom(props) {
                             variant: 'body2',
                             textAlign: 'left'
                         }}
-                        primary="Paramètres"
+                        primary={t('app:navbar:parameters')}
                     />
                 </ListItem>
                 <ListItem button onClick={() => navigate(App_Routes.TEAMS)} style={{backgroundColor: activeRoutes[activeRoutes.length - 1] === "teams" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)'}}>
@@ -204,7 +184,7 @@ export default function DrawerCustom(props) {
                             variant: 'body2',
                             textAlign: 'left'
                         }}
-                        primary="Equipes"
+                        primary={t('app:navbar:teams')}
                     />
                 </ListItem>
             </List>

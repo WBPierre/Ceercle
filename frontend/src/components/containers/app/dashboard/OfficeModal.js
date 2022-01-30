@@ -1,13 +1,13 @@
-import {Avatar, Chip, Divider, ListItem, ListItemAvatar, ListItemText, Modal, Paper} from "@mui/material";
+import { Chip, Divider, Modal } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import BookingService from "../../../../services/app/booking.service";
 import OfficeService from "../../../../services/app/office.service";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import useAuth from "../../../context/auth/AuthHelper";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
-import List from "@mui/material/List";
+import { useTranslation } from "react-i18next";
 import IconButton from "@mui/material/IconButton";
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
@@ -23,8 +23,9 @@ const style = {
     p: 4,
 };
 
-function OfficeModal(props){
+function OfficeModal(props) {
 
+    const { t } = useTranslation();
     const context = useAuth();
     const [list, setList] = useState([]);
     const [officeList, setOfficeList] = useState([]);
@@ -35,7 +36,7 @@ function OfficeModal(props){
     const [ind, setInd] = useState(0);
 
     useEffect(() => {
-        async function getOffices(){
+        async function getOffices() {
             const res = await OfficeService.getOffices(context.user.company.id);
             setOfficeList(res.data);
         }
@@ -48,7 +49,7 @@ function OfficeModal(props){
             day: props.day,
             morning: true,
             afternoon: true,
-            officeElementId: elementItem[elementItem.length-1].id
+            officeElementId: elementItem[elementItem.length - 1].id
         }
         await BookingService.setBooking(resources).then((res) => {
             console.log(res)
@@ -68,10 +69,10 @@ function OfficeModal(props){
 
 
     const selectElement = async (item) => {
-        if(item.elements.length !== 0){
-            setInd(ind+1);
+        if (item.elements.length !== 0) {
+            setInd(ind + 1);
             setList(list => [...list, item.elements]);
-        }else{
+        } else {
             setConfirm(true);
         }
         setElementItem(list => [...list, item]);
@@ -89,10 +90,10 @@ function OfficeModal(props){
 
     const goBack = () => {
         setConfirm(false);
-        if(list.length === 1){
+        if (list.length === 1) {
             setOfficeId(null);
             setList([]);
-        }else{
+        } else {
             let arrtmp = elementItem;
             let arr = list;
             arr.pop();
@@ -100,13 +101,13 @@ function OfficeModal(props){
             setList(arr);
             setElementItem(arrtmp);
         }
-        setInd(ind-1);
+        setInd(ind - 1);
     }
 
-    if(officeList.length === 0){
-        return (<div/>)
+    if (officeList.length === 0) {
+        return (<div />)
     }
-    return(
+    return (
         <Modal
             open={props.open}
             onClose={() => closeModal(false)}
@@ -115,50 +116,50 @@ function OfficeModal(props){
             disableAutoFocus={true}
             disableEnforceFocus
         >
-            <Box sx={style} style={{borderRadius: '25px', outline:'none'}}>
+            <Box sx={style} style={{ borderRadius: '25px', outline: 'none' }}>
                 <Typography id="modal-modal-title" variant="h6" component="h2">
-                    {confirm ? 'Confirmez-vous votre réservation' : 'Où souhaitez-vous réserver ?'}
+                    {confirm ? t('app:dashboard:desk.confirm') : t('app:dashboard:desk.where_to_book')}
                 </Typography>
-                <Divider/>
+                <Divider />
                 <Typography variant="text">
-                    {officeId ? `Votre réservation à ${officeItem.name}` : 'Sélectionnez votre bureau'}
+                    {officeId ? t('app:dashboard:desk.your_booking') + officeItem.name : t('app:dashboard:desk.select_office')}
                 </Typography>
                 {!confirm ? (
                     <div>
                         {officeId !== null &&
-                        <IconButton color="primary" aria-label="return back" component="span" onClick={() => goBack()}>
-                            <ChevronLeftIcon />
-                        </IconButton>
+                            <IconButton color="primary" aria-label="return back" component="span" onClick={() => goBack()}>
+                                <ChevronLeftIcon />
+                            </IconButton>
                         }
-                        {officeId === null ?(
+                        {officeId === null ? (
 
                             <Grid container alignItems={"center"} justifyContent={"center"} mt={5} spacing={1}>
                                 {officeList.map((item, index) => {
-                                    return(
+                                    return (
                                         <Grid item key={index} >
-                                            <Chip label={item.name} style={{fontSize:24, padding:5, color:'white'}} color={"primary"} onClick={() => selectOffice(item)} />
+                                            <Chip label={item.name} style={{ fontSize: 24, padding: 5, color: 'white' }} color={"primary"} onClick={() => selectOffice(item)} />
                                         </Grid>
                                     )
                                 })}
                             </Grid>
-                        ):(
+                        ) : (
                             <Grid container alignItems={"center"} justifyContent={"center"} spacing={5}>
-                                {list[list.length-1].map((item, index) => {
-                                    return(
+                                {list[list.length - 1].map((item, index) => {
+                                    return (
                                         <Grid item key={item.id}>
-                                            <Chip component={Grid} style={{fontSize:24, padding:5, color:'white'}} color={"primary"} onClick={() => selectElement(item)}
-                                                  label={<Grid container direction={"row"} alignItems={"center"} spacing={3} style={{padding:5}}>
-                                                      <Grid item xs={8}>
-                                                          <Typography style={{color: item.color, fontSize: 24}}>
-                                                              {item.name}
-                                                          </Typography>
-                                                      </Grid>
-                                                      <Grid item xs={4}>
-                                                          <Typography style={{color: item.color, fontSize: 14}}>
+                                            <Chip component={Grid} style={{ fontSize: 24, padding: 5, color: 'white' }} color={"primary"} onClick={() => selectElement(item)}
+                                                label={<Grid container direction={"row"} alignItems={"center"} spacing={3} style={{ padding: 5 }}>
+                                                    <Grid item xs={8}>
+                                                        <Typography style={{ color: item.color, fontSize: 24 }}>
+                                                            {item.name}
+                                                        </Typography>
+                                                    </Grid>
+                                                    <Grid item xs={4}>
+                                                        <Typography style={{ color: item.color, fontSize: 14 }}>
                                                             ({item.capacity - item.used}/{item.capacity})
-                                                          </Typography>
-                                                      </Grid>
-                                                  </Grid>}
+                                                        </Typography>
+                                                    </Grid>
+                                                </Grid>}
                                             />
                                         </Grid>
                                     )
@@ -166,17 +167,17 @@ function OfficeModal(props){
                             </Grid>
                         )}
                     </div>
-                ):(
+                ) : (
                     <Grid container direction={"column"} spacing={3} mt={3}>
                         <Grid item>
                             <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} spacing={2}>
                                 <Grid item>
-                                    <Typography style={{fontSize:24}}>{officeItem.name}</Typography>
+                                    <Typography style={{ fontSize: 24 }}>{officeItem.name}</Typography>
                                 </Grid>
                                 {elementItem.map((el) => {
-                                    return(
+                                    return (
                                         <Grid item>
-                                            <Typography style={{fontSize:24, color: el.color}}>{` ${el.name}`}</Typography>
+                                            <Typography style={{ fontSize: 24, color: el.color }}>{` ${el.name}`}</Typography>
                                         </Grid>
                                     )
                                 })}
@@ -185,10 +186,10 @@ function OfficeModal(props){
                         <Grid item>
                             <Grid container direction={"row"}>
                                 <Grid item md={6} textAlign={"center"}>
-                                    <Button onClick={() => closeModal(false)}>Non</Button>
+                                    <Button onClick={() => closeModal(false)}>{t('app:dashboard:desk.no')}</Button>
                                 </Grid>
                                 <Grid item md={6} textAlign={"center"}>
-                                    <Button variant={"contained"} onClick={() => confirmBooking()}>Oui</Button>
+                                    <Button variant={"contained"} onClick={() => confirmBooking()}>{t('app:dashboard:desk.yes')}</Button>
                                 </Grid>
                             </Grid>
                         </Grid>

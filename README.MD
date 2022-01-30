@@ -1,7 +1,7 @@
-# Spacecorner
+# Ceercle
 
 
-Version [0.0.1]
+Version [0.1.0]
 
 ## Requirements
 
@@ -14,7 +14,7 @@ Version [0.0.1]
 Go to project directory and run :
 ```docker-compose -f docker-compose.dev.yml up```
 
-If you don't need the console, add ````-d```` to run it in background.
+If you don't need the console, add ````-d```` to up in order to run it in background.
 
 ### Troubleshooting
 

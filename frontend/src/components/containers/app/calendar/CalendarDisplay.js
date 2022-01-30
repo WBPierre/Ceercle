@@ -1,5 +1,5 @@
+import * as React from "react";
 import Grid from "@mui/material/Grid";
-import { Button, Divider, Paper, Typography } from "@mui/material";
 import CalendarDateElement from "./CalendarDateElement";
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -8,10 +8,6 @@ import { useEffect, useState } from "react";
 import TimeService from "../../../../services/app/time.service";
 import CalendarElement from "./CalendarElement";
 import CalendarUser from "./CalendarUser";
-import moment from "moment";
-import * as React from "react";
-import { useSnackbar } from "notistack";
-
 
 function CalendarDisplay(props) {
 
@@ -70,7 +66,7 @@ function CalendarDisplay(props) {
                     <Grid container direction={"row"}>
                         <Grid item md={1} textAlign={"center"}>
                             <IconButton aria-label="previous" size={"large"} onClick={() => getPreviousWeek()} color="primary">
-                                <ChevronLeftIcon sx={{fontSize:30}}/>
+                                <ChevronLeftIcon sx={{ fontSize: 30 }} />
                             </IconButton>
                         </Grid>
                         {week.map((day, i) => (
@@ -80,7 +76,7 @@ function CalendarDisplay(props) {
                         ))}
                         <Grid item md={1} textAlign={"center"}>
                             <IconButton aria-label="next" size={"large"} onClick={() => getNextWeek()} color="primary">
-                                <ChevronRightIcon sx={{fontSize:30}}/>
+                                <ChevronRightIcon sx={{ fontSize: 30 }} />
                             </IconButton>
                         </Grid>
                     </Grid>

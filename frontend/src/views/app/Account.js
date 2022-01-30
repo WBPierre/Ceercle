@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { useTheme } from '@mui/material/styles';
+import { useTranslation } from "react-i18next";
 import Typography from '@mui/material/Typography';
 import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 import Grid from "@mui/material/Grid";
 import { Divider } from "@mui/material";
 import CustomContainer from "../../components/containers/app/CustomContainer";
@@ -19,9 +18,9 @@ import * as App_Routes from "../../navigation/app/Routes";
 
 export default function Account(props) {
 
-    const theme = useTheme();
-    let navigate = useNavigate();
     const { t } = useTranslation();
+
+    let navigate = useNavigate();
     const context = useAuth();
     const [cookies, setCookie, removeCookie] = useCookies(['token']);
 
@@ -52,7 +51,7 @@ export default function Account(props) {
             <Grid container direction="column" pl={10} pr={10}>
                 <Grid item>
                     <Typography variant="h4" fontWeight={600} style={{ color: '#2A2828' }}>
-                        Mon compte
+                        {t('app:account:title')}
                     </Typography>
                 </Grid>
 
@@ -60,19 +59,19 @@ export default function Account(props) {
                     <Grid container direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
                         <Grid item>
                             <Typography variant="body" fontWeight={100} fontSize={18} style={{ color: '#414040' }}>
-                                Paramètres de compte
+                                {t('app:account:subtitle')}
                             </Typography>
                         </Grid>
                         <Grid item>
                             <Button variant={"text"} onClick={() => handleLogOut()} sx={{ borderColor: "#3F07A8", color: "#3F07A8", fontWeight: "bold" }}
-                                color="error">Se déconnecter</Button>
+                                color="error">{t('app:account:disconnect')}</Button>
                         </Grid>
                     </Grid>
                 </Grid>
 
                 <Divider style={{ backgroundColor: "#A4A3A3" }} />
 
-                <AvatarSection  user={user}/>
+                <AvatarSection user={user} />
 
                 <Divider style={{ backgroundColor: "#E1D2FC" }} />
 

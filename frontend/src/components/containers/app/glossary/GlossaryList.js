@@ -5,10 +5,6 @@ import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
-import UserService from "../../../../services/app/user.service";
-
-import { DataList } from './DataList';
-import {useEffect} from "react";
 import ProfileDefault from "../../../../assets/images/example/default.png";
 
 export default function GlossaryList(props) {
@@ -28,7 +24,7 @@ export default function GlossaryList(props) {
     };
 
     return (
-        <List sx={{ width: '100%', maxWidth: 350, maxHeight:'60vh', overflow: 'scroll' }}>
+        <List sx={{ width: '100%', maxWidth: 350, maxHeight: '60vh', overflow: 'scroll' }}>
             {firstLetters.map((firstLetter) => {
                 {
                     const filtered_options = options.filter(x => x.firstLetter.includes(firstLetter) && (x.firstName.toLowerCase().startsWith(props.searchValue.toLowerCase()) || x.lastName.toLowerCase().startsWith(props.searchValue.toLowerCase())))

@@ -1,29 +1,23 @@
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { DataGrid } from '@mui/x-data-grid';
 import CircleIcon from '@mui/icons-material/Circle';
 import EditIcon from '@mui/icons-material/Edit';
-import {Chip} from "@mui/material";
+import { Chip } from "@mui/material";
 import Typography from '@mui/material/Typography';
 import * as App_Routes from "../../../../navigation/app/Routes";
 
 function TeamsGrid(props) {
 
+    const { t } = useTranslation();
     let navigate = useNavigate();
-
-    const handleClick = () => {
-        console.info('You clicked the Chip.');
-    };
-
-    const handleDelete = () => {
-        console.info('You clicked the delete icon.');
-    };
 
     const columns = [
         {
             field: 'name', width: 300, headerAlign: 'center', align: "center", resizable: false,
             renderHeader: () => (
                 <Typography sx={{ fontSize: 20, fontWeight: 'bold' }}>
-                    Nom
+                    {t('app:teams:main.name')}
                 </Typography>
             )
         },
@@ -31,7 +25,7 @@ function TeamsGrid(props) {
             field: 'color', width: 250, headerAlign: 'center', align: "center", resizable: false,
             renderHeader: () => (
                 <Typography sx={{ fontSize: 20, fontWeight: 'bold' }}>
-                    Couleur
+                    {t('app:teams:main.color')}
                 </Typography>
             ),
             renderCell: (params) => {
@@ -42,7 +36,7 @@ function TeamsGrid(props) {
             field: 'size', width: 300, headerAlign: 'center', align: "center",
             renderHeader: () => (
                 <Typography sx={{ fontSize: 20, fontWeight: 'bold' }}>
-                    Nombre de salariés
+                    {t('app:teams:main.nb_salaries')}
                 </Typography>
             )
         },
@@ -51,7 +45,7 @@ function TeamsGrid(props) {
             renderCell: (params) => {
                 return (
                     <Chip
-                        label="Modifier"
+                        label={t('generic:update')}
                         color="primary"
                         sx={{ borderColor: "#3F07A8", color: "#3F07A8" }}
                         onClick={() => navigate(App_Routes.TEAMSETTING + params.row.id)}

@@ -1,18 +1,19 @@
-import { Avatar, Divider, ListItemIcon, ListItemText, Menu, Typography } from "@mui/material";
+import { Avatar, ListItemIcon, ListItemText, Menu, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import ManWorkingIcon from "../../../molecules/icons/ManWorkingIcon";
 import OfficeIcon from "../../../molecules/icons/OfficeIcon";
 import AwayIcon from "../../../molecules/icons/AwayIcon";
-import { useTheme } from "@mui/material/styles";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import { useState } from "react";
-import { ContentPaste } from "@mui/icons-material";
 import ToDefineIcon from "../../../molecules/icons/ToDefineIcon";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
 import OffIcon from "../../../molecules/icons/OffIcon";
 
 function PlanningElement(props) {
+
+    const { t } = useTranslation();
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -68,7 +69,7 @@ function PlanningElement(props) {
                                 <Typography textAlign={"center"}
                                     style={{ color: props.past ? '#D3D3D3' : props.current ? '#008946' : '#008946', width: '100%' }}
                                     fontSize={props.current ? 18 : 16}
-                                    fontWeight={props.current ? 600 : 500}>Bureau</Typography>
+                                    fontWeight={props.current ? 600 : 500}>{t('app:statuses:office')}</Typography>
                             </Grid>
                         </Grid>
                     </Button>
@@ -85,25 +86,25 @@ function PlanningElement(props) {
                             <ListItemIcon>
                                 <ToDefineIcon />
                             </ListItemIcon>
-                            <ListItemText>A définir</ListItemText>
+                            <ListItemText>{t('app:statuses:to_be_defined')}</ListItemText>
                         </MenuItem>
                         <MenuItem onClick={() => modifyChoice(2)}>
                             <ListItemIcon>
                                 <ManWorkingIcon />
                             </ListItemIcon>
-                            <ListItemText>Télétravail</ListItemText>
+                            <ListItemText>{t('app:statuses:home_working')}</ListItemText>
                         </MenuItem>
                         <MenuItem onClick={() => modifyChoice(3)}>
                             <ListItemIcon>
                                 <AwayIcon />
                             </ListItemIcon>
-                            <ListItemText>Déplacement</ListItemText>
+                            <ListItemText>{t('app:statuses:on_the_go')}</ListItemText>
                         </MenuItem>
                         <MenuItem onClick={() => modifyChoice(4)}>
                             <ListItemIcon>
                                 <OffIcon />
                             </ListItemIcon>
-                            <ListItemText>Off</ListItemText>
+                            <ListItemText>{t('app:statuses:off')}</ListItemText>
                         </MenuItem>
                     </Menu>
                 </div>
@@ -144,7 +145,7 @@ function PlanningElement(props) {
                                 <Typography textAlign={"center"}
                                     style={{ color: props.past ? '#D3D3D3' : props.current ? '#0070C0' : '#0070C0', width: '100%' }}
                                     fontSize={props.current ? 18 : 16}
-                                    fontWeight={props.current ? 600 : 500}>Télétravail</Typography>
+                                    fontWeight={props.current ? 600 : 500}>{t('app:statuses:home_working')}</Typography>
                             </Grid>
                         </Grid>
                     </Button>
@@ -161,25 +162,25 @@ function PlanningElement(props) {
                             <ListItemIcon>
                                 <ToDefineIcon />
                             </ListItemIcon>
-                            <ListItemText>A définir</ListItemText>
+                            <ListItemText>{t('app:statuses:to_be_defined')}</ListItemText>
                         </MenuItem>
                         <MenuItem onClick={() => modifyChoice(1)}>
                             <ListItemIcon>
                                 <OfficeIcon />
                             </ListItemIcon>
-                            <ListItemText>Au bureau</ListItemText>
+                            <ListItemText>{t('app:statuses:office')}</ListItemText>
                         </MenuItem>
                         <MenuItem onClick={() => modifyChoice(3)}>
                             <ListItemIcon>
                                 <AwayIcon />
                             </ListItemIcon>
-                            <ListItemText>Déplacement</ListItemText>
+                            <ListItemText>{t('app:statuses:on_the_go')}</ListItemText>
                         </MenuItem>
                         <MenuItem onClick={() => modifyChoice(4)}>
                             <ListItemIcon>
                                 <OffIcon />
                             </ListItemIcon>
-                            <ListItemText>Off</ListItemText>
+                            <ListItemText>{t('app:statuses:off')}</ListItemText>
                         </MenuItem>
                     </Menu>
                 </div>
@@ -220,7 +221,7 @@ function PlanningElement(props) {
                                 <Typography textAlign={"center"}
                                     style={{ color: props.past ? '#D3D3D3' : props.current ? '#7030A0' : '#7030A0', width: '100%' }}
                                     fontSize={props.current ? 18 : 16}
-                                    fontWeight={props.current ? 600 : 500}>Déplacement</Typography>
+                                    fontWeight={props.current ? 600 : 500}>{t('app:statuses:on_the_go')}</Typography>
                             </Grid>
                         </Grid>
                     </Button>
@@ -237,25 +238,25 @@ function PlanningElement(props) {
                             <ListItemIcon>
                                 <ToDefineIcon />
                             </ListItemIcon>
-                            <ListItemText>A définir</ListItemText>
+                            <ListItemText>{t('app:statuses:to_be_defined')}</ListItemText>
                         </MenuItem>
                         <MenuItem onClick={() => modifyChoice(1)}>
                             <ListItemIcon>
                                 <OfficeIcon />
                             </ListItemIcon>
-                            <ListItemText>Au bureau</ListItemText>
+                            <ListItemText>{t('app:statuses:office')}</ListItemText>
                         </MenuItem>
                         <MenuItem onClick={() => modifyChoice(2)}>
                             <ListItemIcon>
                                 <ManWorkingIcon />
                             </ListItemIcon>
-                            <ListItemText>Télétravail</ListItemText>
+                            <ListItemText>{t('app:statuses:home_working')}</ListItemText>
                         </MenuItem>
                         <MenuItem onClick={() => modifyChoice(4)}>
                             <ListItemIcon>
                                 <OffIcon />
                             </ListItemIcon>
-                            <ListItemText>Off</ListItemText>
+                            <ListItemText>{t('app:statuses:off')}</ListItemText>
                         </MenuItem>
                     </Menu>
                 </div>
@@ -296,7 +297,7 @@ function PlanningElement(props) {
                                 <Typography textAlign={"center"}
                                     style={{ color: props.past ? '#D3D3D3' : props.current ? '#FFA800' : '#FFA800', width: '100%' }}
                                     fontSize={props.current ? 18 : 16}
-                                    fontWeight={props.current ? 600 : 500}>Off</Typography>
+                                    fontWeight={props.current ? 600 : 500}>{t('app:statuses:off')}</Typography>
                             </Grid>
                         </Grid>
                     </Button>
@@ -313,25 +314,25 @@ function PlanningElement(props) {
                             <ListItemIcon>
                                 <ToDefineIcon />
                             </ListItemIcon>
-                            <ListItemText>A définir</ListItemText>
+                            <ListItemText>{t('app:statuses:to_be_defined')}</ListItemText>
                         </MenuItem>
                         <MenuItem onClick={() => modifyChoice(1)}>
                             <ListItemIcon>
                                 <OfficeIcon />
                             </ListItemIcon>
-                            <ListItemText>Au bureau</ListItemText>
+                            <ListItemText>{t('app:statuses:office')}</ListItemText>
                         </MenuItem>
                         <MenuItem onClick={() => modifyChoice(2)}>
                             <ListItemIcon>
                                 <ManWorkingIcon />
                             </ListItemIcon>
-                            <ListItemText>Télétravail</ListItemText>
+                            <ListItemText>{t('app:statuses:home_working')}</ListItemText>
                         </MenuItem>
                         <MenuItem onClick={() => modifyChoice(3)}>
                             <ListItemIcon>
                                 <AwayIcon />
                             </ListItemIcon>
-                            <ListItemText>Déplacement</ListItemText>
+                            <ListItemText>{t('app:statuses:on_the_go')}</ListItemText>
                         </MenuItem>
                     </Menu>
                 </div>
@@ -371,7 +372,7 @@ function PlanningElement(props) {
                             <Grid item xs={12} style={{ position: 'absolute', bottom: 0, width: '100%' }}>
                                 <Typography textAlign={"center"}
                                     style={{ color: props.past ? '#D3D3D3' : props.current ? '#d32f2f' : '#d32f2f', width: '100%' }}
-                                    fontSize={props.current ? 18 : 16} fontWeight={props.current ? 600 : 500}>{props.past ? 'Non déclaré' : 'A définir'}</Typography>
+                                    fontSize={props.current ? 18 : 16} fontWeight={props.current ? 600 : 500}>{props.past ? t('app:statuses:undeclared') : t('app:statuses:to_be_defined')}</Typography>
                             </Grid>
                         </Grid>
                     </Button>
@@ -388,25 +389,25 @@ function PlanningElement(props) {
                             <ListItemIcon>
                                 <OfficeIcon />
                             </ListItemIcon>
-                            <ListItemText>Au bureau</ListItemText>
+                            <ListItemText>{t('app:statuses:office')}</ListItemText>
                         </MenuItem>
                         <MenuItem onClick={() => modifyChoice(2)}>
                             <ListItemIcon>
                                 <ManWorkingIcon />
                             </ListItemIcon>
-                            <ListItemText>Télétravail</ListItemText>
+                            <ListItemText>{t('app:statuses:home_working')}</ListItemText>
                         </MenuItem>
                         <MenuItem onClick={() => modifyChoice(3)}>
                             <ListItemIcon>
                                 <AwayIcon />
                             </ListItemIcon>
-                            <ListItemText>Déplacement</ListItemText>
+                            <ListItemText>{t('app:statuses:on_the_go')}</ListItemText>
                         </MenuItem>
                         <MenuItem onClick={() => modifyChoice(4)}>
                             <ListItemIcon>
                                 <OffIcon />
                             </ListItemIcon>
-                            <ListItemText>Off</ListItemText>
+                            <ListItemText>{t('app:statuses:off')}</ListItemText>
                         </MenuItem>
                     </Menu>
                 </div>

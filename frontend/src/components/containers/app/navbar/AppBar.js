@@ -3,19 +3,12 @@ import { styled, useTheme } from '@mui/material/styles';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import LightModeIcon from '@mui/icons-material/LightMode';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import { Badge, ListItemButton } from "@mui/material";
-import LangSwitcher from "../../../molecules/navbar/LangSwitcher";
 import WeatherService from "../../../../services/app/weather.service";
 import { useEffect, useState } from "react";
 import moment from "moment";
 import "moment/min/locales";
-import ListItemText from "@mui/material/ListItemText";
 import useAuth from "../../../context/auth/AuthHelper";
 
 const drawerWidth = 200;
@@ -49,12 +42,12 @@ const AppBarStyle = styled(MuiAppBar, {
 
 export default function AppBar(props) {
     const theme = useTheme();
-    let navigate = useNavigate();
     const { t } = useTranslation();
+    const { i18n } = useTranslation()
     const [temp, setTemp] = useState(0);
     const [weatherIcon, setWeatherIcon] = useState('');
     const context = useAuth();
-    const day = moment().tz("Europe/London").locale('fr');
+    const day = moment().tz("Europe/London").locale(i18n.language);
 
     useEffect(async () => {
         await WeatherService.getWeather("Paris").then((res) => {
@@ -76,7 +69,7 @@ export default function AppBar(props) {
                     variant: 'body2',
                     textAlign: 'center'
                 }}>
-                    <span style={{fontWeight:400}}>{t('app:navbar:welcome')}</span>
+                    <span style={{ fontWeight: 400 }}>{t('app:appbar:welcome')}</span>
                     {` ${context.user.firstName} !`}
                 </Typography>
 
@@ -92,7 +85,7 @@ export default function AppBar(props) {
                     fontSize={28}
                     align='center'
                 >
-                    <span style={{fontWeight:500}}>{day.format('dddd')} {day.format('DD')}</span> {day.format('MMMM')} {day.format('YYYY')}
+                    <span style={{ fontWeight: 500 }}>{day.format('dddd')} {day.format('DD')}</span> {day.format('MMMM')} {day.format('YYYY')}
                 </Typography>
 
                 <div style={{ flexGrow: 1 }} />

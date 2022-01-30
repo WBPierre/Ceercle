@@ -4,8 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Grid from "@mui/material/Grid";
 import CustomContainer from "../../components/containers/app/CustomContainer";
-import load_profile from "../../assets/images/app/load_profile.jpeg";
-import load_profile_2 from "../../assets/images/app/load_profile_2.jpeg";
 import SearchGlossary from "../../components/containers/app/glossary/SearchGlossary";
 import InfoByUser from "../../components/containers/app/glossary/InfoByUser";
 
@@ -20,9 +18,9 @@ export default function Glossary() {
     };
     return (
         <CustomContainer>
-            <Grid wrap={"nowrap"} container direction={"row"} style={{ height:'100%' }}>
+            <Grid wrap={"nowrap"} container direction={"row"} style={{ height: '100%' }}>
 
-                <Grid item md={4} mt={2} style={{height:'100%'}}>
+                <Grid item md={4} mt={2} style={{ height: '100%' }}>
                     <SearchGlossary newUserToDisplay={(x) => newUserToDisplay(x)} />
                 </Grid>
 
