@@ -2,8 +2,8 @@ import CustomContainer from "../../components/containers/app/CustomContainer";
 
 function Stats(props){
     return (
-        <CustomContainer>
-        </CustomContainer>
+        <div>
+        </div>
     )
 }
 export default Stats;

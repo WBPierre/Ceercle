@@ -17,21 +17,15 @@ export default function Glossary() {
         setUserToDisplay(newUser);
     };
     return (
-        <CustomContainer>
             <Grid wrap={"nowrap"} container direction={"row"} style={{ height: '100%' }}>
-
                 <Grid item md={4} mt={2} style={{ height: '100%' }}>
                     <SearchGlossary newUserToDisplay={(x) => newUserToDisplay(x)} />
                 </Grid>
-
                 <Grid item md={8}>
                     {userToDisplay !== 0 &&
                         <InfoByUser userToDisplay={userToDisplay} />
                     }
                 </Grid>
-
             </Grid>
-        </CustomContainer >
-
     );
 }

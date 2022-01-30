@@ -56,7 +56,7 @@ export default function WorkPolicy() {
 
 
     return (
-        <CustomContainer>
+        <div>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" textColor="secondary"
                     indicatorColor="secondary">
@@ -78,7 +78,7 @@ export default function WorkPolicy() {
             <TabPanel value={value} index={3}>
                 <Integration />
             </TabPanel>
-        </CustomContainer >
+        </div >
 
     );
 }

@@ -79,7 +79,6 @@ function Login() {
     }
 
     return (
-
         <Container style={{ minHeight: '100vh', display: 'flex', minWidth: '100%', backgroundColor: theme.palette.background.paper }}>
             <Container maxWidth="sm">
                 <Grid container direction="column" alignItems="center" >
