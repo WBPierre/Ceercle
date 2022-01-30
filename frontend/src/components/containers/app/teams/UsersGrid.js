@@ -11,9 +11,12 @@ import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import TeamService from "../../../../services/app/team.service";
 import { useSnackbar } from "notistack";
-
+import ProfileDefault from "../../../../assets/images/example/default.png";
+import UserService from "../../../../services/app/user.service";
 
 function UsersGrid(props) {
+
+
 
     let navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
@@ -69,7 +72,7 @@ function UsersGrid(props) {
         {
             field: 'avatar', width: 200, headerAlign: 'center', align: "center", resizable: false, headerName: "",
             renderCell: (params) => {
-                return <Avatar src={params.row.avatar} sx={{ width: 35, height: 35 }} />
+                return < Avatar src={params.row.avatar === null ? ProfileDefault : params.row.avatar} sx={{ width: 40, height: 40 }} />
             }
         },
         {

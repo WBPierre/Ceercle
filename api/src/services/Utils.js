@@ -1,8 +1,8 @@
 const Moment = require("moment");
-const {add} = require("nodemon/lib/rules");
-exports.dateFormater = function(date, format){
+const { add } = require("nodemon/lib/rules");
+exports.dateFormater = function (date, format) {
     const map = {
-        mm: date.getMonth()+1,
+        mm: date.getMonth() + 1,
         dd: date.getDate(),
         yyyy: date.getFullYear(),
         hh: date.getHours(),
@@ -21,11 +21,11 @@ exports.getDurationInMilliseconds = function (start) {
 }
 
 
-exports.getCurrentWeek = function(index) {
+exports.getCurrentWeek = function (index) {
     const now = Moment().tz('Europe/Paris');
-    if(now.day() === 0){
+    if (now.day() === 0) {
         now.add(1, 'days');
-    }else if(now.day() === 6){
+    } else if (now.day() === 6) {
         now.add(2, 'days');
     }
     let weekStart = now.clone().startOf('isoWeek');
@@ -36,24 +36,24 @@ exports.getCurrentWeek = function(index) {
     let days = [];
 
     for (let i = 0; i <= 4; i++) {
-        const day = Moment(weekStart).add(i+(7*index), 'days').format("YYYY-MM-DD")
+        const day = Moment(weekStart).add(i + (7 * index), 'days').format("YYYY-MM-DD")
         let obj = {
-            day : day,
-            morning : 0,
-            afternoon : 0,
+            day: day,
+            morning: 0,
+            afternoon: 0,
             current: currentDay === day ? true : false,
-            past: currentDay > Moment(weekStart).add(i+(7*index), 'days').format("YYYY-MM-DD")
+            past: currentDay > Moment(weekStart).add(i + (7 * index), 'days').format("YYYY-MM-DD")
         }
         days.push(obj)
     }
     return days
 }
 
-exports.getUsersWeekTimeSheets = function(index) {
+exports.getUsersWeekTimeSheets = function (index) {
     const now = Moment().tz('Europe/Paris');
-    if(now.day() === 0){
+    if (now.day() === 0) {
         now.add(1, 'days');
-    }else if(now.day() === 6){
+    } else if (now.day() === 6) {
         now.add(2, 'days');
     }
     let weekStart = now.clone().startOf('isoWeek');
@@ -64,15 +64,15 @@ exports.getUsersWeekTimeSheets = function(index) {
 
     let days = [];
     for (let i = 0; i <= 4; i++) {
-        const day = Moment(weekStart).add(i+(7*index), 'days').format("YYYY-MM-DD")
+        const day = Moment(weekStart).add(i + (7 * index), 'days').format("YYYY-MM-DD")
         let obj = {
-            day : day,
-            type:{
-                0:[],
-                1:[],
-                2:[],
-                3:[],
-                4:[]
+            day: day,
+            type: {
+                0: [],
+                1: [],
+                2: [],
+                3: [],
+                4: []
             }
         }
         days.push(obj)
@@ -101,11 +101,23 @@ exports.generateTree = function (list) {
     return roots;
 }
 
-exports.calculateTreeSum = function(tree) {
-    if(tree.elements.length !== 0){
+exports.calculateTreeSum = function (tree) {
+    if (tree.elements.length !== 0) {
         tree.elements.forEach(child => {
             tree.used += this.calculateTreeSum(child);
         });
     }
     return tree.used;
+}
+
+exports.extractLeafFromTree = function (tree) {
+    if (tree.elements.length == 0) {
+        return [tree]
+    } else {
+        let leaves_list = []
+        for (let i = 0; i < tree.elements.length; i++) {
+            leaves_list = leaves_list.concat(exports.extractLeafFromTree(tree.elements[i]))
+        }
+        return (leaves_list)
+    }
 }
