@@ -46,9 +46,6 @@ function Office(props) {
                             {t('app:dashboard:desk.my_desk')}
                         </Typography>
                     </Grid>
-                    <Grid item>
-                        <Button variant={"text"} style={{ backgroundColor: 'transparent' }} onClick={() => handleOpen()}>Go to</Button>
-                    </Grid>
                 </Grid>
             </Grid>
             <Grid item xs={12}>
