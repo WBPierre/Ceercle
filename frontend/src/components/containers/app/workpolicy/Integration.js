@@ -27,9 +27,6 @@ function Integration(props) {
                                 <Grid item>
                                     <img src={Payfit} style={{ height: 60 }} />
                                 </Grid>
-                                <Grid item>
-                                    <Typography>(coming soon)</Typography>
-                                </Grid>
                             </Grid>
                         </AccordionSummary>
                         <AccordionDetails>
@@ -49,9 +46,6 @@ function Integration(props) {
                             <Grid container direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
                                 <Grid item>
                                     <img src={BambooHR} style={{ height: 50 }} />
-                                </Grid>
-                                <Grid item>
-                                    <Typography>(coming soon)</Typography>
                                 </Grid>
                             </Grid>
                         </AccordionSummary>

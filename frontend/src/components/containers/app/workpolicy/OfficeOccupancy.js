@@ -35,14 +35,15 @@ export default function OfficeOccupancy() {
 
     const [officesList, setOfficesList] = React.useState([{ "name": " ", "capacity": 10, "occupancy": "100%" }]);
 
-    async function listOffices() {
-        const res = await OfficeService.listOffices();
-        setOfficesList(res.data)
+    async function getOfficesElements() {
+        const res = await OfficeService.listOfficesElements(parseInt(context.user.company.id));
+        setOfficesList(res.data);
         setOccupancy(parseInt(res.data[office].maxCapacity / 10))
     }
 
     useEffect(() => {
-        listOffices();
+        getOfficesElements();
+
     }, []);
 
     const { enqueueSnackbar } = useSnackbar();
@@ -54,7 +55,7 @@ export default function OfficeOccupancy() {
     const saveOccupancy = async () => {
         if (validateOccupancy()) {
             const resources = {
-                officeId: officesList[office].id,
+                officeElementId: officesList[office].id,
                 maxCapacity: occupancy * 10
             };
             await OfficeService.updateOccupancy(resources).then(async (res) => {
@@ -73,12 +74,12 @@ export default function OfficeOccupancy() {
                 variant: 'warning'
             });
         }
-        listOffices()
+        getOfficesElements()
     }
 
 
     const cancel = () => {
-        listOffices()
+        getOfficesElements()
     }
 
     if (officesList == null) {

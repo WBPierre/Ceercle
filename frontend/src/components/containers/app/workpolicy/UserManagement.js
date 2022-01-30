@@ -6,8 +6,6 @@ import { Button, Chip, Grid } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 
 
-
-
 function UserManagement() {
 
     const { t } = useTranslation();
@@ -51,7 +49,6 @@ function UserManagement() {
         async function getUsers() {
             await UserService.getUsers().then((res) => {
                 setUsers(res.data);
-                console.log(res.data);
             })
         }
         getUsers();

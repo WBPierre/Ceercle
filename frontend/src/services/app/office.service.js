@@ -13,8 +13,12 @@ class OfficeService {
         return this.request.get('/office/listOffices');
     }
 
+    async listOfficesElements(companyId) {
+        return this.request.get('/officeElement/byCompany/' + companyId);
+    }
+
     async updateOccupancy(resources) {
-        return this.request.post('/office/updateOccupancy', resources);
+        return this.request.post('/officeElement/updateOccupancy', resources);
     }
 
     async getOfficeElements(officeId, day) {

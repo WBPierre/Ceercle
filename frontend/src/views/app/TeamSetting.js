@@ -137,7 +137,7 @@ function Teams() {
                 'id': res.data.users[i].id,
                 'name': res.data.users[i].name,
                 'position': res.data.users[i].position,
-                'avatar': example1
+                'avatar': res.data.users[i].avatar
             }
             listUsersTemp.push(object);
         }
