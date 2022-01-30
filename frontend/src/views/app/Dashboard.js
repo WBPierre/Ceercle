@@ -26,43 +26,41 @@ export default function Dashboard(props) {
     const [daySelected, setDaySelected] = useState(day.format('YYYY-MM-DD'));
 
     return (
-        <CustomContainer>
-            <Grid wrap={"nowrap"} container direction={"column"} spacing={1}>
-                <Grid item>
-                    <PlanningBoard />
-                </Grid>
-                <Grid item xs={12} mb={2}>
-                    <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"}>
-                        <Grid item xs={4}>
-                            <Divider color="#3B3838" />
-                        </Grid>
-                        <Grid item xs={4} textAlign={"center"}>
-                            <Button variant="text" disableRipple={true} sx={{ color: "#3B3838", cursor: 'default' }}>
-                                {t('app:dashboard:today')}
-                            </Button>
-                        </Grid>
-                        <Grid item xs={4}>
-                            <Divider color="#3B3838" />
-                        </Grid>
+        <Grid wrap={"nowrap"} container direction={"column"} spacing={1}>
+            <Grid item>
+                <PlanningBoard />
+            </Grid>
+            <Grid item xs={12} mb={2}>
+                <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"}>
+                    <Grid item xs={4}>
+                        <Divider color="#3B3838" />
                     </Grid>
-                </Grid>
-                <Grid item xs={12}>
-                    <Grid container direction={"row"} spacing={1} justifyContent={"space-around"}>
-                        {context.user.company.activeOfficeHandler &&
-                            <Grid item xs={12} md={4} style={{ borderRadius: '25px' }} component={Paper}>
-                                <Office day={daySelected} />
-                            </Grid>
-                        }
-                        <Grid item xs={12} md={context.user.company.activeOfficeHandler ? 3 : 5} style={{ borderRadius: '25px' }} component={Paper}>
-                            <Team day={daySelected} />
-                        </Grid>
-                        <Grid item xs={12} md={context.user.company.activeOfficeHandler ? 4 : 5} style={{ borderRadius: '25px' }} component={Paper}>
-                            <Mood day={daySelected} />
-                        </Grid>
+                    <Grid item xs={4} textAlign={"center"}>
+                        <Button variant="text" disableRipple={true} sx={{ color: "#3B3838", cursor: 'default' }}>
+                            {t('app:dashboard:today')}
+                        </Button>
+                    </Grid>
+                    <Grid item xs={4}>
+                        <Divider color="#3B3838" />
                     </Grid>
                 </Grid>
             </Grid>
-        </CustomContainer>
+            <Grid item xs={12}>
+                <Grid container direction={"row"} spacing={1} justifyContent={"space-around"}>
+                    {context.user.company.activeOfficeHandler &&
+                        <Grid item xs={12} md={4} style={{ borderRadius: '25px' }} component={Paper}>
+                            <Office day={daySelected} />
+                        </Grid>
+                    }
+                    <Grid item xs={12} md={context.user.company.activeOfficeHandler ? 3 : 5} style={{ borderRadius: '25px' }} component={Paper}>
+                        <Team day={daySelected} />
+                    </Grid>
+                    <Grid item xs={12} md={context.user.company.activeOfficeHandler ? 4 : 5} style={{ borderRadius: '25px' }} component={Paper}>
+                        <Mood day={daySelected} />
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
 
     );
 }

@@ -150,7 +150,7 @@ function Teams() {
 
 
     return (
-        <CustomContainer>
+        <div>
 
             <Grid container direction="column" spacing={3}>
                 <Grid item>
@@ -252,7 +252,7 @@ function Teams() {
 
             <UserAddModal openModal={openAddUser} handleModalClose={handleAddUserClose} teamId={id} />
 
-        </CustomContainer >
+        </div >
     )
 }
 

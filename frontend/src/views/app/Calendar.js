@@ -24,7 +24,6 @@ export default function Calendar(props) {
     }
 
     return (
-        <CustomContainer>
             <Grid wrap={"nowrap"} container direction={"column"} spacing={1} >
                 <Grid item mt={2}>
                     <FilterBar handleFilters={handleFilters} week={week} />
@@ -33,7 +32,5 @@ export default function Calendar(props) {
                     <CalendarDisplay filters={filters} handleWeek={handleWeek} />
                 </Grid>
             </Grid>
-        </CustomContainer >
-
     );
 }

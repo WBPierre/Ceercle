@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import {useState} from "react";
 import {styled} from "@mui/material/styles";
 import Container from "@mui/material/Container";
+import {useLocation} from "react-router-dom";
 
 const drawerWidth = 200;
 
@@ -38,6 +39,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 function CustomContainer(props){
 
+    const location = useLocation();
+
     const [open, setOpen] = useState(window.innerWidth > 900 ? true : false);
 
     const handleDrawerOpen = () => {
@@ -49,19 +52,25 @@ function CustomContainer(props){
         console.log("call");
     };
 
-    return(
-        <Box sx={{ display: 'flex', minHeight:'100vh'}}>
-            <AppBar open={open} handleDrawerOpen={handleDrawerOpen} handleDrawerClose={handleDrawerClose}/>
-            <DrawerCustom open={open} handleDrawerOpen={handleDrawerOpen} handleDrawerClose={handleDrawerClose}/>
-            <Main open={open} style={{backgroundColor:'#FDF9F6'}}>
-                <DrawerHeader />
-                <Container>
-                    {props.children}
-                </Container>
-            </Main>
-        </Box>
-    )
 
+    if(location.pathname === "/app/" || location.pathname === "/"){
+        return (
+            props.children
+        )
+    }else{
+        return(
+            <Box sx={{ display: 'flex', minHeight:'100vh'}}>
+                <AppBar open={open} handleDrawerOpen={handleDrawerOpen} handleDrawerClose={handleDrawerClose}/>
+                <DrawerCustom open={open} handleDrawerOpen={handleDrawerOpen} handleDrawerClose={handleDrawerClose}/>
+                <Main open={open} style={{backgroundColor:'#FDF9F6'}}>
+                    <DrawerHeader />
+                    <Container>
+                        {props.children}
+                    </Container>
+                </Main>
+            </Box>
+        )
+    }
 }
 
 export default CustomContainer;

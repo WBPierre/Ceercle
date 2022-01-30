@@ -52,11 +52,10 @@ function Teams() {
     }, []);
 
     if (listTeams === null) {
-        return (<CustomContainer />)
+        return (<div />)
     }
-
     return (
-        <CustomContainer>
+        <div>
             <TeamAddModal openModal={openModal} handleModalClose={handleModalClose} handleAddTeam={handleAddTeam} />
 
             <Grid container direction="column" spacing={1}>
@@ -88,7 +87,7 @@ function Teams() {
                 </Grid>
 
             </Grid>
-        </CustomContainer>
+        </div>
     )
 }
 
