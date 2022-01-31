@@ -2,6 +2,7 @@
   "my_planning": "Mon planning",
   "today": "Aujourd'hui",
   "snackbar_success": "Déclaration enregistrée",
+  "no_reservation": "Aucune réservation",
   "desk": {
     "my_desk": "Mon bureau",
     "my_reservation": "Ma réservation",
@@ -11,9 +12,15 @@
     "where_to_book": "Où souhaitez-vous réserver ?",
     "select_office": "Sélectionnez votre bureau",
     "confirm": "Confirmez votre réservation",
-    "your_booking": "Votre réservation à ",
+    "your_booking": "Ma réservation",
     "yes": "Oui",
-    "no": "Non"
+    "no": "Non",
+    "office": "Bureau",
+    "floor": "Etage",
+    "room": "Salle",
+    "desk": "Place",
+    "select": "Sélectionner",
+    "free": "Placement libre"
   },
   "team": {
     "my_team": "Mon équipe",

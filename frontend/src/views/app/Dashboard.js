@@ -8,16 +8,19 @@ import Office from "../../components/containers/app/dashboard/Office";
 import Team from "../../components/containers/app/dashboard/Team";
 import Mood from "../../components/containers/app/dashboard/Mood";
 import CustomContainer from "../../components/containers/app/CustomContainer";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import PlanningBoard from "../../components/containers/app/dashboard/PlanningBoard";
 import useAuth from "../../components/context/auth/AuthHelper";
 import moment from "moment";
+import TimeService from "../../services/app/time.service";
 
 export default function Dashboard(props) {
 
     const { t } = useTranslation();
     const context = useAuth();
     const day = moment().tz("Europe/Paris");
+    const [update, setUpdate] = useState(false);
+
     if (day.day() === 0) {
         day.add(1, 'days');
     } else if (day.day() === 6) {
@@ -25,10 +28,15 @@ export default function Dashboard(props) {
     }
     const [daySelected, setDaySelected] = useState(day.format('YYYY-MM-DD'));
 
+
+    const updateTimeSheet = async () => {
+        setUpdate(!update);
+    }
+
     return (
         <Grid wrap={"nowrap"} container direction={"column"} spacing={1}>
             <Grid item>
-                <PlanningBoard />
+                <PlanningBoard update={update}/>
             </Grid>
             <Grid item xs={12} mb={2}>
                 <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"}>
@@ -49,7 +57,7 @@ export default function Dashboard(props) {
                 <Grid container direction={"row"} spacing={1} justifyContent={"space-around"}>
                     {context.user.company.activeOfficeHandler &&
                         <Grid item xs={12} md={4} style={{ borderRadius: '25px' }} component={Paper}>
-                            <Office day={daySelected} />
+                            <Office day={daySelected} updateTimeSheet={updateTimeSheet}/>
                         </Grid>
                     }
                     <Grid item xs={12} md={context.user.company.activeOfficeHandler ? 3 : 5} style={{ borderRadius: '25px' }} component={Paper}>

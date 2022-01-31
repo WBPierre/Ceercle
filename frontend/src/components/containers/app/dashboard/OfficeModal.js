@@ -1,4 +1,4 @@
-import { Chip, Divider, Modal } from "@mui/material";
+import {Chip, Divider, InputBase, Modal, Paper} from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import BookingService from "../../../../services/app/booking.service";
@@ -10,6 +10,10 @@ import Button from "@mui/material/Button";
 import { useTranslation } from "react-i18next";
 import IconButton from "@mui/material/IconButton";
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import * as React from "react";
 
 const style = {
     position: 'absolute',
@@ -27,13 +31,15 @@ function OfficeModal(props) {
 
     const { t } = useTranslation();
     const context = useAuth();
-    const [list, setList] = useState([]);
+
+    const [officeId, setOfficeId] = useState(0);
+    const [floorId, setFloorId] = useState(0);
+    const [roomId, setRoomId] = useState(0);
+    const [deskId, setDeskId] = useState(0);
     const [officeList, setOfficeList] = useState([]);
-    const [officeId, setOfficeId] = useState(null);
-    const [elementItem, setElementItem] = useState([]);
-    const [officeItem, setOfficeItem] = useState({});
-    const [confirm, setConfirm] = useState(false);
-    const [ind, setInd] = useState(0);
+    const [floorList, setFloorList] = useState([]);
+    const [roomList, setRoomList] = useState([]);
+    const [deskList, setDeskList] = useState([]);
 
     useEffect(() => {
         async function getOffices() {
@@ -43,13 +49,53 @@ function OfficeModal(props) {
         getOffices();
     }, []);
 
+    useEffect(() => {
+        async function getFloors(){
+            if(officeId !== 0){
+                const res = await OfficeService.getFloors(officeId);
+                setFloorList(res.data);
+            }
+        }
+        getFloors();
+    }, [officeId])
+
+    useEffect(() => {
+        async function getRooms(){
+            if(floorId !== 0){
+                const res = await OfficeService.getRooms(floorId);
+                setRoomList(res.data);
+            }
+        }
+        getRooms();
+    }, [floorId]);
+
+    useEffect(() => {
+        async function getDesks(){
+            if(roomId !== 0){
+                const res = await OfficeService.getDesks(roomId);
+                setDeskList(res.data);
+                if(res.data.length === 0){
+                    setDeskId(1);
+                }
+            }
+        }
+        getDesks();
+    }, [roomId]);
+
+    console.log(props.day)
+
 
     const confirmBooking = async () => {
         const resources = {
             day: props.day,
             morning: true,
             afternoon: true,
-            officeElementId: elementItem[elementItem.length - 1].id
+            officeElementId: null
+        }
+        if(deskList.length !== 0){
+            resources.officeElementId = deskId;
+        }else{
+            resources.officeElementId = roomId;
         }
         await BookingService.setBooking(resources).then((res) => {
             console.log(res)
@@ -58,50 +104,33 @@ function OfficeModal(props) {
     }
 
     const closeModal = (update) => {
-        setOfficeId(null);
-        setList([]);
-        setElementItem([]);
-        setOfficeItem({});
-        setConfirm(false);
-        setInd(0);
+        setOfficeId(0);
+        setFloorId(0);
+        setRoomId(0);
+        setDeskId(0);
         props.handleClose(update);
     }
 
-
-    const selectElement = async (item) => {
-        if (item.elements.length !== 0) {
-            setInd(ind + 1);
-            setList(list => [...list, item.elements]);
-        } else {
-            setConfirm(true);
-        }
-        setElementItem(list => [...list, item]);
+    const handleOfficeChange = (e) => {
+        setOfficeId(e.target.value);
+        setFloorId(0)
+        setRoomId(0);
+        setDeskId(0);
     }
 
-    const selectOffice = async (item) => {
-        setOfficeItem(item);
-        const res = await OfficeService.getOfficeElements(item.id, props.day);
-        let arr = [];
-        arr[0] = res.data;
-        setList(arr);
-        setOfficeId(item.id);
-        setInd(0);
-    };
+    const handleFloorChange = (e) => {
+        setFloorId(e.target.value);
+        setRoomId(0);
+        setDeskId(0);
+    }
 
-    const goBack = () => {
-        setConfirm(false);
-        if (list.length === 1) {
-            setOfficeId(null);
-            setList([]);
-        } else {
-            let arrtmp = elementItem;
-            let arr = list;
-            arr.pop();
-            arrtmp.pop();
-            setList(arr);
-            setElementItem(arrtmp);
-        }
-        setInd(ind - 1);
+    const handleRoomChange = (e) => {
+        setRoomId(e.target.value);
+        setDeskId(0);
+    }
+
+    const handleDeskChange = (e) => {
+        setDeskId(e.target.value);
     }
 
     if (officeList.length === 0) {
@@ -117,84 +146,193 @@ function OfficeModal(props) {
             disableEnforceFocus
         >
             <Box sx={style} style={{ borderRadius: '25px', outline: 'none' }}>
-                <Typography id="modal-modal-title" variant="h6" component="h2">
-                    {confirm ? t('app:dashboard:desk.confirm') : t('app:dashboard:desk.where_to_book')}
+                <Typography id="modal-modal-title" variant="h6" component="h2" fontSize={24}>
+                    {t('app:dashboard:desk.your_booking')}
                 </Typography>
                 <Divider />
-                <Typography variant="text">
-                    {officeId ? t('app:dashboard:desk.your_booking') + officeItem.name : t('app:dashboard:desk.select_office')}
-                </Typography>
-                {!confirm ? (
-                    <div>
-                        {officeId !== null &&
-                            <IconButton color="primary" aria-label="return back" component="span" onClick={() => goBack()}>
-                                <ChevronLeftIcon />
-                            </IconButton>
-                        }
-                        {officeId === null ? (
-
-                            <Grid container alignItems={"center"} justifyContent={"center"} mt={5} spacing={1}>
-                                {officeList.map((item, index) => {
-                                    return (
-                                        <Grid item key={index} >
-                                            <Chip label={item.name} style={{ fontSize: 24, padding: 5, color: 'white' }} color={"primary"} onClick={() => selectOffice(item)} />
-                                        </Grid>
-                                    )
-                                })}
+                <Grid container direction={"column"} spacing={2} mt={2}>
+                    <Grid item>
+                        <Grid container direction={"row"} alignItems={"center"}>
+                            <Grid item xs={3}>
+                                <Typography fontSize={22} color={"secondary"}>{t('app:dashboard:desk.office')}</Typography>
                             </Grid>
-                        ) : (
-                            <Grid container alignItems={"center"} justifyContent={"center"} spacing={5}>
-                                {list[list.length - 1].map((item, index) => {
-                                    return (
-                                        <Grid item key={item.id}>
-                                            <Chip component={Grid} style={{ fontSize: 24, padding: 5, color: 'white' }} color={"primary"} onClick={() => selectElement(item)}
-                                                label={<Grid container direction={"row"} alignItems={"center"} spacing={3} style={{ padding: 5 }}>
-                                                    <Grid item xs={8}>
-                                                        <Typography style={{ color: item.color, fontSize: 24 }}>
-                                                            {item.name}
-                                                        </Typography>
-                                                    </Grid>
-                                                    <Grid item xs={4}>
-                                                        <Typography style={{ color: item.color, fontSize: 14 }}>
-                                                            ({item.capacity - item.used}/{item.capacity})
-                                                        </Typography>
-                                                    </Grid>
-                                                </Grid>}
-                                            />
-                                        </Grid>
-                                    )
-                                })}
-                            </Grid>
-                        )}
-                    </div>
-                ) : (
-                    <Grid container direction={"column"} spacing={3} mt={3}>
-                        <Grid item>
-                            <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} spacing={2}>
-                                <Grid item>
-                                    <Typography style={{ fontSize: 24 }}>{officeItem.name}</Typography>
-                                </Grid>
-                                {elementItem.map((el) => {
-                                    return (
-                                        <Grid item>
-                                            <Typography style={{ fontSize: 24, color: el.color }}>{` ${el.name}`}</Typography>
-                                        </Grid>
-                                    )
-                                })}
-                            </Grid>
-                        </Grid>
-                        <Grid item>
-                            <Grid container direction={"row"}>
-                                <Grid item md={6} textAlign={"center"}>
-                                    <Button onClick={() => closeModal(false)}>{t('app:dashboard:desk.no')}</Button>
-                                </Grid>
-                                <Grid item md={6} textAlign={"center"}>
-                                    <Button variant={"contained"} onClick={() => confirmBooking()}>{t('app:dashboard:desk.yes')}</Button>
-                                </Grid>
+                            <Grid item xs={9}>
+                                <Chip component={FormControl} style={{ backgroundColor: 'white' }} variant={"outlined"} label={
+                                    <FormControl fullWidth sx={{ width: 200 }}>
+                                        <Select
+                                            labelId="demo-simple-select-label"
+                                            id="demo-simple-select"
+                                            value={officeId}
+                                            onChange={handleOfficeChange}
+                                            disabled={false}
+                                            variant={"standard"}
+                                            input={<InputBase />}
+                                        >
+                                            <MenuItem key={-1} value={0} disabled>{t('app:dashboard:desk.select')}</MenuItem>
+                                            {officeList.map((o, index) => {
+                                                if(officeList.length === 1){
+                                                    return(
+                                                        <MenuItem key={index} value={o.id} selected>{o.name}</MenuItem>
+                                                    )
+                                                }else{
+                                                    return(
+                                                        <MenuItem key={index} value={o.id}>{o.name}</MenuItem>
+                                                    )
+                                                }
+                                            })}
+                                        </Select>
+                                    </FormControl>
+                                } />
                             </Grid>
                         </Grid>
                     </Grid>
-                )}
+                    <Grid item>
+                        <Grid container direction={"row"} alignItems={"center"}>
+                            <Grid item xs={3}>
+                                <Typography fontSize={22} color={"secondary"}>{t('app:dashboard:desk.floor')}</Typography>
+                            </Grid>
+                            <Grid item xs={9}>
+                                <Chip component={FormControl} style={{ backgroundColor: 'white' }} disabled={officeId === 0} variant={"outlined"} label={
+                                    <FormControl fullWidth sx={{ width: 200 }}>
+                                        <Select
+                                            labelId="demo-simple-select-label"
+                                            id="demo-simple-select"
+                                            value={floorId}
+                                            onChange={handleFloorChange}
+                                            disabled={false}
+                                            variant={"standard"}
+                                            input={<InputBase />}
+                                        >
+                                            <MenuItem key={-1} value={0} disabled>{t('app:dashboard:desk.select')}</MenuItem>
+                                            {floorList.map((o, index) => {
+                                                if(floorList.length === 1){
+                                                    return(
+                                                        <MenuItem key={index} value={o.id} selected>{o.name}  ({o.capacity}.p)</MenuItem>
+                                                    )
+                                                }else{
+                                                    return(
+                                                        <MenuItem key={index} value={o.id}>{o.name}  ({o.capacity}.p)</MenuItem>
+                                                    )
+                                                }
+
+                                            })}
+                                        </Select>
+                                    </FormControl>
+                                } />
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid item>
+                        <Grid container direction={"row"} alignItems={"center"}>
+                            <Grid item xs={3}>
+                                <Typography fontSize={22} color={"secondary"}>{t('app:dashboard:desk.room')}</Typography>
+                            </Grid>
+                            <Grid item xs={9}>
+                                <Chip component={FormControl} style={{ backgroundColor: 'white' }}  disabled={floorId === 0}  variant={"outlined"} label={
+                                    <FormControl fullWidth sx={{ width: 200 }}>
+                                        <Select
+                                            labelId="demo-simple-select-label"
+                                            id="demo-simple-select"
+                                            value={roomId}
+                                            onChange={handleRoomChange}
+                                            disabled={false}
+                                            variant={"standard"}
+                                            input={<InputBase />}
+                                        >
+                                            <MenuItem value={0} disabled key={-1}>{t('app:dashboard:desk.select')}</MenuItem>
+                                            {roomList.map((o, index) => {
+                                                if(roomList.length === 1){
+                                                    return(
+                                                        <MenuItem key={index} value={o.id} selected>{o.name}  ({o.capacity}.p)</MenuItem>
+                                                    )
+                                                }else{
+                                                    return(
+                                                        <MenuItem key={index} value={o.id}>{o.name}  ({o.capacity}.p)</MenuItem>
+                                                    )
+                                                }
+                                            })}
+                                        </Select>
+                                    </FormControl>
+                                } />
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid item>
+                        <Grid container direction={"row"} alignItems={"center"}>
+                            <Grid item xs={3}>
+                                <Typography fontSize={22} color={"secondary"}>{t('app:dashboard:desk.desk')}</Typography>
+                            </Grid>
+                            <Grid item xs={9}>
+                                <Chip component={FormControl} style={{ backgroundColor: 'white' }} disabled={roomId === 0} variant={"outlined"} label={
+                                    <FormControl fullWidth sx={{ width: 200 }}>
+                                        <Select
+                                            labelId="demo-simple-select-label"
+                                            id="demo-simple-select"
+                                            value={deskId}
+                                            onChange={handleDeskChange}
+                                            disabled={false}
+                                            variant={"standard"}
+                                            input={<InputBase />}
+                                        >
+                                            <MenuItem value={0} key={-1} disabled>{t('app:dashboard:desk.select')}</MenuItem>
+                                            {floorId !== 0 && deskList.length === 0 ? (
+                                                <MenuItem value={1} key={0} selected>{t('app:dashboard:desk.free')}</MenuItem>
+                                            ):(
+                                                deskList.map((o, index) => {
+                                                        if(deskList.length === 1){
+                                                            return(
+                                                                <MenuItem key={index} value={o.id} selected>{o.name}  ({o.capacity}.p)</MenuItem>
+                                                            )
+                                                        }else{
+                                                            return(
+                                                                <MenuItem key={index} value={o.id}>{o.name}  ({o.capacity}.p)</MenuItem>
+                                                            )
+                                                        }
+                                                    })
+                                            )}
+
+                                        </Select>
+                                    </FormControl>
+                                } />
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid item>
+                        <Paper>
+                            <Grid container direction={"row"} justifyContent={"space-evenly"}>
+                                <Grid item>
+                                    {officeId !== 0 && officeList.length !== 0 &&
+                                        <Typography color={"secondary"} fontSize={24} p={2}>{officeList.find(o => o.id === officeId).name}</Typography>
+                                    }
+                                </Grid>
+                                <Grid item>
+                                    {floorId !== 0 && floorList.length !== 0 &&
+                                    <Typography color={"secondary"} fontSize={24} p={2}>{floorList.find(o => o.id === floorId).name}</Typography>
+                                    }
+                                </Grid>
+                                <Grid item>
+                                    {roomId !== 0 &&
+                                        <Typography color={"secondary"} fontSize={24} p={2}>{roomList.find(o => o.id === roomId).name}</Typography>
+                                    }
+                                </Grid>
+                                {roomId !== 0 &&
+                                <Grid item>
+                                    {deskList.length !== 0 ? (
+                                        deskId !== 0 && <Typography color={"secondary"} fontSize={24} p={2}>{deskList.find(o => o.id === deskId).name}</Typography>
+                                    ):(
+                                        <Typography color={"secondary"} fontSize={24} p={2}>{t('app:dashboard:desk.free')}</Typography>
+                                    )}
+                                </Grid>
+                                }
+                            </Grid>
+                        </Paper>
+                    </Grid>
+                    {roomId !== 0 &&
+                        <Grid item textAlign={"center"}>
+                            <Button onClick={() => confirmBooking()} color={"primary"} variant={"contained"}>{t('app:dashboard:desk.confirm')}</Button>
+                        </Grid>
+                    }
+                </Grid>
             </Box>
         </Modal>
     )

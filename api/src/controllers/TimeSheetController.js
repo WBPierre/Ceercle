@@ -5,7 +5,9 @@ const Utils = require('../services/Utils');
 const {Op} = require('sequelize');
 const Security = require("../services/Security");
 const User = require("../models/User");
-
+const OfficeBooking = require("../models/OfficeBooking");
+const OfficeElement = require("../models/OfficeElement");
+const Office = require('../models/Office');
 
 // Moment warning
 Moment.suppressDeprecationWarnings = true;
@@ -164,13 +166,51 @@ exports.getTimeSheet = async function(req, res, next) {
                 },
                 userId: res.locals.auth.user.id
             }
-        }).then((record)=> {
+        }).then(async (record)=> {
             if(record.length === 0){
                 res.json({week});
             }else{
                 for(let i = 0; i < record.length; i++){
+                    let resa = [];
+                    if(record[i].morning === 1){
+                        const reservation = await OfficeBooking.findOne({
+                            where:{
+                                day:record[i].day,
+                                userId: res.locals.auth.user.id
+                            }
+                        })
+                        if(reservation){
+                            let officeElementId = reservation.officeElementId;
+                            while(officeElementId !== null) {
+                                const element = await OfficeElement.findOne({
+                                    where:{
+                                        id: officeElementId
+                                    }
+                                });
+                                if(element) {
+                                    officeElementId = element.parentId;
+                                    if(resa.length === 0) {
+                                        resa.push({name: element.name, color:element.color, type: element.type, capacity: element.capacity, maxCapacity: element.maxCapacity});
+                                    }else {
+                                        resa.unshift({name: element.name, color:element.color, type: element.type, capacity: element.capacity, maxCapacity: element.maxCapacity});
+                                    }
+                                    if(element.parentId === null){
+                                        const parent = await Office.findOne({
+                                            where:{
+                                                id: element.officeId
+                                            }
+                                        });
+                                        if(parent){
+                                            resa.unshift({name: parent.name, capacity: parent.capacity, maxCapacity: parent.maxCapacity});
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                     week[week.map(e => { return e.day}).indexOf(Moment(record[i].day).format("YYYY-MM-DD"))].morning = record[i].morning;
                     week[week.map(e => { return e.day}).indexOf(Moment(record[i].day).format("YYYY-MM-DD"))].afternoon = record[i].afternoon;
+                    week[week.map(e => { return e.day}).indexOf(Moment(record[i].day).format("YYYY-MM-DD"))].reservation = resa;
                 }
                 res.json({week})
             }

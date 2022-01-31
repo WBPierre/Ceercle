@@ -9,6 +9,18 @@ class OfficeService {
         return this.request.get('/office/' + id);
     }
 
+    async getFloors(id) {
+        return this.request.get('/officeElement/floors/' + id);
+    }
+
+    async getRooms(id) {
+        return this.request.get('/officeElement/rooms/' + id);
+    }
+
+    async getDesks(id) {
+        return this.request.get('/officeElement/desks/' + id);
+    }
+
     async listOffices() {
         return this.request.get('/office/listOffices');
     }

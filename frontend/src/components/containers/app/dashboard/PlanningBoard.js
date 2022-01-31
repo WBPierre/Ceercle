@@ -13,14 +13,14 @@ import moment from "moment";
 import "moment/min/locales";
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import Card from "@mui/material/Card";
-import {Typography} from "@mui/material";
+import {Chip, Typography} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {useSnackbar} from "notistack";
 import * as App_Routes from "../../../../navigation/app/Routes";
 import { useTranslation } from "react-i18next";
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
-
-function PlanningBoard() {
+function PlanningBoard(props) {
     const { i18n } = useTranslation();
     const lang = i18n.language;
     const { t } = useTranslation();
@@ -32,6 +32,15 @@ function PlanningBoard() {
     const [orientation, setOrientation] = useState(true);
     const { enqueueSnackbar } = useSnackbar();
 
+    useEffect(() => {
+        updateTimeSheet();
+    }, [props.update]);
+
+    const updateTimeSheet = async () => {
+        await TimeService.getTimeSheet(index).then((res) => {
+            setWeek(res.data.week);
+        })
+    }
 
     useEffect(() => {
         const getTimeSheet = async () => {
@@ -40,7 +49,7 @@ function PlanningBoard() {
             })
         }
         getTimeSheet();
-    }, [])
+    }, []);
 
     const handlePrevious = async () => {
         let ind = index - 1;
@@ -87,31 +96,41 @@ function PlanningBoard() {
     return (
         <Paper elevation={1} square style={{ borderRadius: '25px', minHeight: '30vh' }}>
             <Grid container direction={"column"} spacing={2} justifyContent={"center"} alignItems={"center"} paddingBottom={"1%"}>
-                <Grid item xs={12}>
-                    <Grid container direction={"column"}>
-                        <Grid item xs={12}>
-                            <Button variant="text" onClick={() => navigate(App_Routes.CALENDAR)} endIcon={<ExitToAppIcon style={{ fontSize: 22 }} />} disableRipple={true} style={{ fontWeight: 500, backgroundColor: 'transparent', textTransform: 'none', fontSize: 26, color: 'black' }}>
-                                {t('app:dashboard:my_planning')}
-                            </Button>
+                <Grid item xs={12} style={{width:'100%'}}>
+                    <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} maxWidth={true}>
+                        <Grid item xs={2} textAlign={"center"}>
+                            <Chip
+                                label="Company rules"
+                                icon={<CheckCircleIcon style={{color:'green'}}/>}
+                                onClick={() => console.log("display rules")}
+                            />
                         </Grid>
-                        <Grid item>
-                            <Typography textAlign={"center"} fontSize={16}>
+                        <Grid item xs={2} textAlign={"right"}>
+                            <IconButton onClick={() => handlePrevious()} aria-label="previous" size={"medium"}>
+                                <ChevronLeftIcon fontSize={"large"} />
+                            </IconButton>
+                        </Grid>
+                        <Grid item xs={4} textAlign={"center"}>
+                            <Typography textAlign={"center"} fontSize={22} fontWeight={500}>
                                 {moment(week[0].day).date()} {moment(week[0].day).locale(lang).format('MMMM')} - {moment(week[4].day).date()} {moment(week[4].day).locale(lang).format('MMMM')}
                             </Typography>
+                        </Grid>
+                        <Grid item xs={2} textAlign={"left"}>
+                            <IconButton onClick={() => handleNext()} disabled={index === 2} aria-label="previous" size={"medium"}>
+                                <ChevronRightIcon fontSize={"large"} />
+                            </IconButton>
+                        </Grid>
+                        <Grid item xs={2} textAlign={"right"}>
+                            <IconButton onClick={() => navigate(App_Routes.CALENDAR)} aria-label="previous" size={"medium"}>
+                                <ExitToAppIcon fontSize={"large"} />
+                            </IconButton>
                         </Grid>
                     </Grid>
                 </Grid>
 
                 <Grid item xs={12} style={{ width: '100%' }}>
                     <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"}>
-                        <Grid item xs={1} textAlign={"right"} style={{ zIndex: 2 }}>
-                            <IconButton onClick={() => handlePrevious()} aria-label="previous" size={"large"}>
-                                <ChevronLeftIcon fontSize={"large"} />
-                            </IconButton>
-                        </Grid>
-
-
-                        <Grid item xs={10} style={{ zIndex: 1 }}>
+                        <Grid item xs={12} style={{ zIndex: 1 }}>
                             {week !== undefined && week.length !== 0 &&
                                 <div style={{ width: '100%' }}>
                                     <Fade left={orientation} right={!orientation} spy={index} when={anim}
@@ -120,50 +139,51 @@ function PlanningBoard() {
                                             <Grid item flexGrow={1} component={Paper} style={{ boxShadow: 'none' }}>
                                                 <PlanningElement
                                                     modify={declareDay}
-                                                    from={week[0].morning}
-                                                    day={t('app:date_elements:Mon')} date={week[0].day}
-                                                    current={week[0].current} past={week[0].past} />
+                                                    data={week[0]}
+                                                    day={t('app:date_elements:Mon')}
+                                                    updateOffice={updateTimeSheet}
+                                                />
                                             </Grid>
                                             <Grid item flexGrow={1} component={Paper} style={{ boxShadow: 'none' }}>
                                                 <PlanningElement
                                                     modify={declareDay}
-                                                    from={week[1].morning}
-                                                    day={t('app:date_elements:Tue')} date={week[1].day}
-                                                    current={week[1].current} past={week[1].past} />
+                                                    data={week[1]}
+                                                    day={t('app:date_elements:Tue')}
+                                                    updateOffice={updateTimeSheet}
+                                                />
                                             </Grid>
                                             <Grid item flexGrow={1} component={Paper} style={{ boxShadow: 'none' }}>
                                                 <PlanningElement
                                                     modify={declareDay}
-                                                    from={week[2].morning}
-                                                    day={t('app:date_elements:Wed')} date={week[2].day}
-                                                    current={week[2].current} past={week[2].past} />
+                                                    data={week[2]}
+                                                    day={t('app:date_elements:Wed')}
+                                                    updateOffice={updateTimeSheet}
+                                                />
                                             </Grid>
                                             <Grid item flexGrow={1} component={Paper} style={{ boxShadow: 'none' }}>
                                                 <PlanningElement
                                                     modify={declareDay}
-                                                    from={week[3].morning}
-                                                    day={t('app:date_elements:Thu')} date={week[3].day}
-                                                    current={week[3].current} past={week[3].past} />
+                                                    data={week[3]}
+                                                    day={t('app:date_elements:Thu')}
+                                                    updateOffice={updateTimeSheet}
+                                                />
                                             </Grid>
                                             <Grid item flexGrow={1} component={Paper} style={{ boxShadow: 'none' }}>
                                                 <PlanningElement
                                                     modify={declareDay}
-                                                    from={week[4].morning}
-                                                    day={t('app:date_elements:Fri')} date={week[4].day}
-                                                    current={week[4].current} past={week[4].past} />
+                                                    data={week[4]}
+                                                    day={t('app:date_elements:Fri')}
+                                                    updateOffice={updateTimeSheet}
+                                                />
                                             </Grid>
                                         </Grid>
                                     </Fade>
                                 </div>
                             }
                         </Grid>
-                        <Grid item xs={1} textAlign={"left"} style={{ zIndex: 2 }}>
-                            <IconButton onClick={() => handleNext()} disabled={index === 2} aria-label="previous" size={"large"}>
-                                <ChevronRightIcon fontSize={"large"} />
-                            </IconButton>
-                        </Grid>
                     </Grid>
                 </Grid>
+
             </Grid>
         </Paper>
     )
