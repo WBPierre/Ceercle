@@ -1,5 +1,5 @@
-const {DataTypes} = require('sequelize');
-const {db} =  require("./../../config/database");
+const { DataTypes } = require('sequelize');
+const { db } = require("./../../config/database");
 const User = require('./User');
 const Team = require('./Team');
 const Office = require('./Office');
@@ -10,9 +10,13 @@ const Company = db.define('company', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    activeOfficeHandler:{
+    activeOfficeHandler: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
+    },
+    ruleScope: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
     },
     officeMinimum: {
         type: DataTypes.INTEGER,
@@ -26,23 +30,23 @@ const Company = db.define('company', {
         type: DataTypes.INTEGER,
         defaultValue: 100
     },
-    mondayMandatoryStatus:{
+    mondayMandatoryStatus: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
     },
-    tuesdayMandatoryStatus:{
+    tuesdayMandatoryStatus: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
     },
-    wednesdayMandatoryStatus:{
+    wednesdayMandatoryStatus: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
     },
-    thursdayMandatoryStatus:{
+    thursdayMandatoryStatus: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
     },
-    fridayMandatoryStatus:{
+    fridayMandatoryStatus: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
     }
