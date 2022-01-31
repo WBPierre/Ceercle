@@ -67,6 +67,7 @@ exports.getHRRules = async function (req, res, next) {
                     res.send();
                 } else {
                     res.status(200).json({
+                        ruleScope: record.ruleScope,
                         officeMinimum: record.officeMinimum,
                         officeMaximum: record.officeMaximum,
                         mondayMandatoryStatus: record.mondayMandatoryStatus,
@@ -101,6 +102,7 @@ exports.updateHRRules = async function (req, res, next) {
                     res.send();
                 } else {
                     let to_update = {
+                        ruleScope: req.body.ruleScope,
                         officeMinimum: req.body.officeMinimum,
                         officeMaximum: req.body.officeMaximum,
                         mondayMandatoryStatus: req.body.mondayMandatoryStatus,
@@ -159,6 +161,7 @@ exports.validate = (method) => {
         }
         case 'updateHRRules': {
             return [
+                body('ruleScope', 'ruleScope is not a number').isNumeric(),
                 body('officeMinimum', 'officeMinimum is not a number').isNumeric(),
                 body('officeMaximum', 'officeMaximum is not a number').isNumeric(),
                 body('mondayMandatoryStatus', 'mondayMandatoryStatus is not a number').isNumeric(),
@@ -173,7 +176,7 @@ exports.validate = (method) => {
             return [
                 body('name', 'name doesn\'t exist').exists(),
                 body('name', 'name is not a string').isString(),
-                body('activeOfficeHandler', 'activeOfficeHandler is not a boolean').isBoolean(),
+                body('activeOfficeHandler', 'activeOfficeHandler is not a boolean').isBoolean(), //add ruleScope!!!
                 body('officeMinimum', 'officeMinimum is not a number').isNumeric(),
                 body('officeMaximum', 'officeMaximum is not a number').isNumeric(),
                 body('maxCapacity', 'maxCapacity is not a number').isNumeric(),

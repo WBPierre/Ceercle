@@ -49,6 +49,19 @@ exports.getCurrentWeek = function (index) {
     return days
 }
 
+exports.getCurrentMonth = function (index) {
+    const now = Moment().tz('Europe/Paris');
+    if (now.day() === 0) {
+        now.add(1, 'days');
+    } else if (now.day() === 6) {
+        now.add(2, 'days');
+    }
+    now.add(7 * index, 'days')
+    let monthStart = now.clone().startOf('isoMonth');
+    let monthEnd = now.clone().endOf('isoMonth');
+    return [monthStart, monthEnd]
+}
+
 exports.getUsersWeekTimeSheets = function (index) {
     const now = Moment().tz('Europe/Paris');
     if (now.day() === 0) {

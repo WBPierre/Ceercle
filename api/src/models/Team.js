@@ -13,6 +13,10 @@ const Team = db.define('team', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    ruleScope: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
     officeMinimum: {
         type: DataTypes.INTEGER,
         defaultValue: 0,

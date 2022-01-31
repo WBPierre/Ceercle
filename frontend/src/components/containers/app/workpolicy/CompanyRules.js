@@ -22,8 +22,14 @@ export default function CompanyRules() {
 
     const { t } = useTranslation();
 
-    const daysWorked = [0, 1, 2, 3, 4, 5]
+    const daysWorked = [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
     const statuses = [t('app:statuses:free'), t('app:statuses:office'), t('app:statuses:home_working')]
+    const scopes = [t('app:rh_parameters:company.week'), t('app:rh_parameters:company.month')]
+
+    const [ruleScope, setRuleScope] = React.useState(0);
+    const handleScope = (event) => {
+        setRuleScope(event.target.value);
+    };
 
     const [officeMinimum, setOfficeMinimum] = React.useState(null);
     const handleOfficeMinimum = (event) => {
@@ -63,6 +69,7 @@ export default function CompanyRules() {
 
     async function getHRRules() {
         const res = await CompanyService.getHRRules();
+        setRuleScope(res.data.ruleScope)
         setOfficeMinimum(res.data.officeMinimum);
         setOfficeMaximum(res.data.officeMaximum);
         setMondayMandatoryStatus(res.data.mondayMandatoryStatus);
@@ -80,13 +87,15 @@ export default function CompanyRules() {
     const { enqueueSnackbar } = useSnackbar();
 
     const validateHRRules = () => {
-        if (officeMinimum > officeMaximum) return false;
-        return true;
+        if (officeMinimum > officeMaximum) return 1;
+        if (officeMaximum > 4 && ruleScope == 0) return 2
+        return 0;
     }
 
     const saveHRRules = async () => {
-        if (validateHRRules()) {
+        if (validateHRRules() == 0) {
             const resources = {
+                ruleScope: ruleScope,
                 officeMinimum: officeMinimum,
                 officeMaximum: officeMaximum,
                 mondayMandatoryStatus: mondayMandatoryStatus,
@@ -106,9 +115,13 @@ export default function CompanyRules() {
                     });
                 }
             })
-        } else {
+        } else if (validateHRRules() == 1) {
             enqueueSnackbar(t('app:rh_parameters:company.snackbar_warning'), {
                 variant: 'warning'
+            });
+        } else {
+            enqueueSnackbar(t('app:snackbar:error'), {
+                variant: 'error'
             });
         }
     }
@@ -145,6 +158,25 @@ export default function CompanyRules() {
                 <Grid item mt={1}>
                     <Grid container direction="row" alignItems="center">
                         <Grid item md={3}>
+                            <FormControl sx={{ m: 1, width: 100 }} variant="standard">
+                                <InputLabel htmlFor="demo-customized-select-native">{t('app:rh_parameters:company:scope')}</InputLabel>
+                                <Select
+                                    id="demo-customized-select-native"
+                                    value={ruleScope}
+                                    onChange={handleScope}
+                                >
+                                    {scopes.map((scope, index) => {
+                                        return (
+                                            <MenuItem value={index}>{scope}</MenuItem>
+                                        )
+                                    }
+                                    )}
+
+                                </Select>
+                            </FormControl>
+                        </Grid>
+
+                        <Grid item md={3}>
                             <FormControl sx={{ m: 1, width: 70 }} variant="standard">
                                 <InputLabel htmlFor="demo-customized-select-native">Minimum</InputLabel>
                                 <Select
@@ -152,7 +184,7 @@ export default function CompanyRules() {
                                     value={officeMinimum}
                                     onChange={handleOfficeMinimum}
                                 >
-                                    {daysWorked.map((day, index) => {
+                                    {daysWorked.filter((day, index) => (day < 6) || (day > 5 && ruleScope == 1)).map((day, index) => {
                                         return (
                                             <MenuItem value={index}>{day}</MenuItem>
                                         )
@@ -170,7 +202,7 @@ export default function CompanyRules() {
                                     value={officeMaximum}
                                     onChange={handleOfficeMaximum}
                                 >
-                                    {daysWorked.map((day, index) => {
+                                    {daysWorked.filter((day, index) => (day < 6) || (day > 5 && ruleScope == 1)).map((day, index) => {
                                         return (
                                             <MenuItem value={index}>{day}</MenuItem>
                                         )
