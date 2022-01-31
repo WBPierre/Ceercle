@@ -50,28 +50,34 @@ exports.getOfficeBooking = async function(req, res, next) {
             if(!record){
                 res.json([]);
             }else{
-                const response = {};
-                const element = await OfficeElement.findOne({
-                    where:{
-                        id: record.officeElementId
-                    }
-                });
-                if(element){
-                    response.room = element.name;
-                    if(element.parentId !== null){
-                        const parent = await OfficeElement.findOne({
-                            where:{
-                                id: element.parentId
+                let resa = [];
+                let officeElementId = record.officeElementId;
+                while(officeElementId !== null) {
+                    const element = await OfficeElement.findOne({
+                        where:{
+                            id: officeElementId
+                        }
+                    });
+                    if(element) {
+                        officeElementId = element.parentId;
+                        if(resa.length === 0) {
+                            resa.push({id: element.id, name: element.name, color:element.color, type: element.type, capacity: element.capacity, maxCapacity: element.maxCapacity});
+                        }else {
+                            resa.unshift({id: element.id, name: element.name, color:element.color, type: element.type, capacity: element.capacity, maxCapacity: element.maxCapacity});
+                        }
+                        if(element.parentId === null){
+                            const parent = await Office.findOne({
+                                where:{
+                                    id: element.officeId
+                                }
+                            });
+                            if(parent){
+                                resa.unshift({id: parent.id, name: parent.name, capacity: parent.capacity, maxCapacity: parent.maxCapacity});
                             }
-                        });
-                        response.parent = parent.name;
+                        }
                     }
-                    const office = await element.getOffice();
-                    response.office = office.name;
-                    res.json(response);
-                }else{
-                    res.sendStatus(500);
                 }
+                res.json(resa);
 
             }
         })

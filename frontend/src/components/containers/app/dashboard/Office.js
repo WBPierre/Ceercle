@@ -22,6 +22,7 @@ function Office(props) {
         if (update) {
             const res = await BookingService.getBooking(props.day);
             setBooking(res.data);
+            props.updateTimeSheet();
         }
         setOpen(false);
     }
@@ -56,23 +57,15 @@ function Office(props) {
             <Grid item xs={12}>
                 {booking.length !== 0 ? (
                     <Grid container direction={"row"} alignItems={"center"} justifyContent={"space-around"}>
-                        <Grid item>
-                            <Typography variant={"h5"} color={"primary"}>
-                                {booking.office}
-                            </Typography>
-                        </Grid>
-                        {booking.parent &&
-                            <Grid item>
-                                <Typography variant={"h5"} color={"primary"}>
-                                    {booking.parent}
-                                </Typography>
-                            </Grid>
-                        }
-                        <Grid item>
-                            <Typography variant={"h5"} style={{ color: '#d32f2f' }}>
-                                {booking.room}
-                            </Typography>
-                        </Grid>
+                        {booking.map((b, index) => {
+                            return (
+                                <Grid item>
+                                    <Typography variant={"h5"} color={"secondary"}>
+                                        {b.name}
+                                    </Typography>
+                                </Grid>
+                            )
+                        })}
                     </Grid>
                 ) : (
                     <Grid container direction={"row"} alignItems={"center"} justifyContent={"space-around"}>
@@ -83,7 +76,6 @@ function Office(props) {
                         </Grid>
                     </Grid>
                 )}
-
             </Grid>
             {booking.length !== 0 ? (
                 <Grid item xs={12}>

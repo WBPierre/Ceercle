@@ -2,6 +2,7 @@
   "my_planning": "My agenda",
   "today": "Today",
   "snackbar_success": "Saved.",
+  "no_reservation": "No booking",
   "desk": {
     "my_desk": "My office",
     "my_reservation": "My booking",
@@ -11,9 +12,15 @@
     "where_to_book": "Where do you want to book?",
     "select_office": "Select your desk",
     "confirm": "Confirm your desk",
-    "your_booking": "Your booking at ",
+    "your_booking": "Your booking",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "office": "Office",
+    "floor": "Floor",
+    "room": "Room",
+    "desk": "Desk",
+    "select": "Select",
+    "free": "Free placement"
   },
   "team": {
     "my_team": "My team",

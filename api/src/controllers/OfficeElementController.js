@@ -6,6 +6,101 @@ const Utils = require("../services/Utils");
 const OfficeBooking = require('../models/OfficeBooking');
 
 
+exports.getFloors = async function(req, res, next) {
+    try {
+        const errors = validationResult(req);
+        console.log(errors);
+        if (!errors.isEmpty()) {
+            res.status(422).json({ errors: errors.array() });
+        }
+        const id = req.params.id;
+        let result = await OfficeElement.findAll({
+            where: {
+                officeId: id,
+                parentId: null
+            },
+            order: [['id', 'ASC']]
+        });
+
+        let arr = [];
+        for (let i = 0; i < result.length; i++) {
+            let obj = {
+                id: result[i].id,
+                name: result[i].name,
+                type: result[i].type,
+                color: result[i].color,
+                capacity: result[i].capacity
+            };
+            arr.push(obj);
+        }
+        res.json(arr);
+    } catch (err) {
+        return next(err)
+    }
+}
+
+exports.getRooms = async function(req, res, next) {
+    try {
+        const errors = validationResult(req);
+        console.log(errors);
+        if (!errors.isEmpty()) {
+            res.status(422).json({ errors: errors.array() });
+        }
+        const id = req.params.id;
+        let result = await OfficeElement.findAll({
+            where: {
+                parentId: id
+            },
+            order: [['id', 'ASC']]
+        });
+        let arr = [];
+        for (let i = 0; i < result.length; i++) {
+            let obj = {
+                id: result[i].id,
+                name: result[i].name,
+                type: result[i].type,
+                color: result[i].color,
+                capacity: result[i].capacity
+            };
+            arr.push(obj);
+        }
+        res.json(arr);
+    } catch (err) {
+        return next(err)
+    }
+}
+
+exports.getDesks = async function(req, res, next) {
+    try {
+        const errors = validationResult(req);
+        console.log(errors);
+        if (!errors.isEmpty()) {
+            res.status(422).json({ errors: errors.array() });
+        }
+        const id = req.params.id;
+        let result = await OfficeElement.findAll({
+            where: {
+                parentId: id
+            },
+            order: [['id', 'ASC']]
+        });
+        let arr = [];
+        for (let i = 0; i < result.length; i++) {
+            let obj = {
+                id: result[i].id,
+                name: result[i].name,
+                type: result[i].type,
+                color: result[i].color,
+                capacity: result[i].capacity
+            };
+            arr.push(obj);
+        }
+        res.json(arr);
+    } catch (err) {
+        return next(err)
+    }
+}
+
 exports.getOfficeElements = async function (req, res, next) {
     try {
         const errors = validationResult(req);
@@ -231,6 +326,24 @@ exports.deleteOfficeElement = async function (req, res, next) {
 exports.validate = (method) => {
     switch (method) {
         case 'getOfficeElements': {
+            return [
+                param('id', 'id doesn\'t exist').exists(),
+                param('id', 'id is not a number').isNumeric()
+            ]
+        }
+        case 'getFloors': {
+            return [
+                param('id', 'id doesn\'t exist').exists(),
+                param('id', 'id is not a number').isNumeric()
+            ]
+        }
+        case 'getRooms': {
+            return [
+                param('id', 'id doesn\'t exist').exists(),
+                param('id', 'id is not a number').isNumeric()
+            ]
+        }
+        case 'getDesks': {
             return [
                 param('id', 'id doesn\'t exist').exists(),
                 param('id', 'id is not a number').isNumeric()

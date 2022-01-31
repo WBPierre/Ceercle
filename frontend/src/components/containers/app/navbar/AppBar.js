@@ -61,17 +61,19 @@ export default function AppBar(props) {
         <AppBarStyle position="fixed" open={props.open} style={{ backgroundColor: theme.palette.background.paper }} elevation={0}>
             <Toolbar style={{ backgroundColor: "#FDF9F6", justifyContent: "center" }} >
 
+                {context.user !== null &&
+                    <Typography style={{
+                        color: '#1F4E79',
+                        fontSize: 23,
+                        fontWeight: 600,
+                        variant: 'body2',
+                        textAlign: 'center'
+                    }}>
+                        <span style={{ fontWeight: 400 }}>{t('app:appbar:welcome')}</span>
+                        {` ${context.user.firstName} !`}
+                    </Typography>
+                }
 
-                <Typography style={{
-                    color: '#1F4E79',
-                    fontSize: 23,
-                    fontWeight: 600,
-                    variant: 'body2',
-                    textAlign: 'center'
-                }}>
-                    <span style={{ fontWeight: 400 }}>{t('app:appbar:welcome')}</span>
-                    {` ${context.user.firstName} !`}
-                </Typography>
 
                 <div style={{ flexGrow: 1 }} />
 
