@@ -8,6 +8,7 @@ const User = require("../models/User");
 const OfficeBooking = require("../models/OfficeBooking");
 const OfficeElement = require("../models/OfficeElement");
 const Office = require('../models/Office');
+const Company = require('../models/Company')
 
 // Moment warning
 Moment.suppressDeprecationWarnings = true;
@@ -166,51 +167,51 @@ exports.getTimeSheet = async function (req, res, next) {
                 },
                 userId: res.locals.auth.user.id
             }
-        }).then(async (record)=> {
-            if(record.length === 0){
-                res.json({week});
-            }else{
-                for(let i = 0; i < record.length; i++){
+        }).then(async (record) => {
+            if (record.length === 0) {
+                res.json({ week });
+            } else {
+                for (let i = 0; i < record.length; i++) {
                     let resa = [];
-                    if(record[i].morning === 1){
+                    if (record[i].morning === 1) {
                         const reservation = await OfficeBooking.findOne({
-                            where:{
-                                day:record[i].day,
+                            where: {
+                                day: record[i].day,
                                 userId: res.locals.auth.user.id
                             }
                         })
-                        if(reservation){
+                        if (reservation) {
                             let officeElementId = reservation.officeElementId;
-                            while(officeElementId !== null) {
+                            while (officeElementId !== null) {
                                 const element = await OfficeElement.findOne({
-                                    where:{
+                                    where: {
                                         id: officeElementId
                                     }
                                 });
-                                if(element) {
+                                if (element) {
                                     officeElementId = element.parentId;
-                                    if(resa.length === 0) {
-                                        resa.push({name: element.name, color:element.color, type: element.type, capacity: element.capacity, maxCapacity: element.maxCapacity});
-                                    }else {
-                                        resa.unshift({name: element.name, color:element.color, type: element.type, capacity: element.capacity, maxCapacity: element.maxCapacity});
+                                    if (resa.length === 0) {
+                                        resa.push({ name: element.name, color: element.color, type: element.type, capacity: element.capacity, maxCapacity: element.maxCapacity });
+                                    } else {
+                                        resa.unshift({ name: element.name, color: element.color, type: element.type, capacity: element.capacity, maxCapacity: element.maxCapacity });
                                     }
-                                    if(element.parentId === null){
+                                    if (element.parentId === null) {
                                         const parent = await Office.findOne({
-                                            where:{
+                                            where: {
                                                 id: element.officeId
                                             }
                                         });
-                                        if(parent){
-                                            resa.unshift({name: parent.name, capacity: parent.capacity, maxCapacity: parent.maxCapacity});
+                                        if (parent) {
+                                            resa.unshift({ name: parent.name, capacity: parent.capacity, maxCapacity: parent.maxCapacity });
                                         }
                                     }
                                 }
                             }
                         }
                     }
-                    week[week.map(e => { return e.day}).indexOf(Moment(record[i].day).format("YYYY-MM-DD"))].morning = record[i].morning;
-                    week[week.map(e => { return e.day}).indexOf(Moment(record[i].day).format("YYYY-MM-DD"))].afternoon = record[i].afternoon;
-                    week[week.map(e => { return e.day}).indexOf(Moment(record[i].day).format("YYYY-MM-DD"))].reservation = resa;
+                    week[week.map(e => { return e.day }).indexOf(Moment(record[i].day).format("YYYY-MM-DD"))].morning = record[i].morning;
+                    week[week.map(e => { return e.day }).indexOf(Moment(record[i].day).format("YYYY-MM-DD"))].afternoon = record[i].afternoon;
+                    week[week.map(e => { return e.day }).indexOf(Moment(record[i].day).format("YYYY-MM-DD"))].reservation = resa;
                 }
                 res.json({ week })
             }
@@ -259,9 +260,18 @@ exports.getHasUserValidatedCompanyRules = async function (req, res, next) {
             return;
         }
 
-        const companyRuleScope = res.locals.auth.user.company.ruleScope
-        const companyOfficeMinimum = res.locals.auth.user.company.officeMinimum
-        const companyOfficeMaximum = res.locals.auth.user.company.officeMaximum
+        const company = await Company.findOne({
+            where: { id: res.locals.auth.user.company.id }
+        })
+        if (!company) {
+            res.status(404);
+            res.send();
+            return;
+        }
+
+        const companyRuleScope = company.ruleScope
+        const companyOfficeMinimum = company.officeMinimum
+        const companyOfficeMaximum = company.officeMaximum
         let userStatuses = [0, 0, 0, 0, 0]
 
         if (companyRuleScope === 0) {
@@ -279,7 +289,7 @@ exports.getHasUserValidatedCompanyRules = async function (req, res, next) {
                     res.json({ check: true });
                 } else {
                     for (let i = 0; i < record.length; i++) {
-                        userStatuses[record[i].morning.from] += 1
+                        userStatuses[record[i].morning] += 1
                     }
                     if (userStatuses[1] < companyOfficeMinimum || userStatuses[1] > companyOfficeMaximum) {
                         res.json({ check: false });
@@ -291,10 +301,11 @@ exports.getHasUserValidatedCompanyRules = async function (req, res, next) {
         } else {
             // Case where the scope is the month
             const month = Utils.getCurrentMonth(req.params.index);
+            console.log(month)
             await TimeSheet.findAll({
                 where: {
                     day: {
-                        [Op.between]: [Moment(new Date(month[0].day)), Moment(new Date(month[1].day))]
+                        [Op.between]: [month[0], month[1]]
                     },
                     userId: res.locals.auth.user.id
                 }
@@ -303,7 +314,7 @@ exports.getHasUserValidatedCompanyRules = async function (req, res, next) {
                     res.json({ check: true });
                 } else {
                     for (let i = 0; i < record.length; i++) {
-                        userStatuses[record[i].morning.from] += 1
+                        userStatuses[record[i].morning] += 1
                     }
                     if (userStatuses[1] < companyOfficeMinimum || userStatuses[1] > companyOfficeMaximum) {
                         res.json({ check: false });

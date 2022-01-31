@@ -13,12 +13,13 @@ import moment from "moment";
 import "moment/min/locales";
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import Card from "@mui/material/Card";
-import {Chip, Typography} from "@mui/material";
-import {useNavigate} from "react-router-dom";
-import {useSnackbar} from "notistack";
+import { Chip, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "notistack";
 import * as App_Routes from "../../../../navigation/app/Routes";
 import { useTranslation } from "react-i18next";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import ReportIcon from '@mui/icons-material/Report';
 
 function PlanningBoard(props) {
     const { i18n } = useTranslation();
@@ -26,6 +27,7 @@ function PlanningBoard(props) {
     const { t } = useTranslation();
     let navigate = useNavigate();
     const animationDuration = 500;
+    const [ruleRespected, setRuleRespected] = useState(true);
     const [week, setWeek] = useState([]);
     const [anim, setAnim] = useState(true);
     const [index, setIndex] = useState(0);
@@ -42,6 +44,12 @@ function PlanningBoard(props) {
         })
     }
 
+    const getHasUserValidatedCompanyRules = async () => {
+        await TimeService.getHasUserValidatedCompanyRules(index).then((res) => {
+            setRuleRespected(res.data.check)
+        })
+    }
+
     useEffect(() => {
         const getTimeSheet = async () => {
             await TimeService.getTimeSheet(index).then((res) => {
@@ -49,6 +57,7 @@ function PlanningBoard(props) {
             })
         }
         getTimeSheet();
+        getHasUserValidatedCompanyRules();
     }, []);
 
     const handlePrevious = async () => {
@@ -85,6 +94,7 @@ function PlanningBoard(props) {
         await TimeService.getTimeSheet(index).then((res) => {
             setWeek(res.data.week);
         })
+        await getHasUserValidatedCompanyRules();
         enqueueSnackbar(t('app:dashboard:snackbar_success'), {
             variant: 'success'
         });
@@ -96,12 +106,12 @@ function PlanningBoard(props) {
     return (
         <Paper elevation={1} square style={{ borderRadius: '25px', minHeight: '30vh' }}>
             <Grid container direction={"column"} spacing={2} justifyContent={"center"} alignItems={"center"} paddingBottom={"1%"}>
-                <Grid item xs={12} style={{width:'100%'}}>
+                <Grid item xs={12} style={{ width: '100%' }}>
                     <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} maxWidth={true}>
                         <Grid item xs={2} textAlign={"center"}>
                             <Chip
-                                label="Company rules"
-                                icon={<CheckCircleIcon style={{color:'green'}}/>}
+                                label={ruleRespected ? "Déclaration valide" : "Seuil dépassé"}
+                                icon={ruleRespected ? <CheckCircleIcon style={{ color: 'green' }} /> : <ReportIcon style={{ color: 'orange' }} />}
                                 onClick={() => console.log("display rules")}
                             />
                         </Grid>

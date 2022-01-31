@@ -58,8 +58,8 @@ exports.getCurrentMonth = function (index) {
         now.add(2, 'days');
     }
     now.add(7 * index, 'days')
-    let monthStart = now.clone().startOf('isoMonth');
-    let monthEnd = now.clone().endOf('isoMonth');
+    let monthStart = now.clone().startOf('month').format("YYYY-MM-DD");
+    let monthEnd = now.clone().endOf('month').format("YYYY-MM-DD");
     return [monthStart, monthEnd]
 }
 

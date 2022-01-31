@@ -10,7 +10,7 @@ class TimeService {
     }
 
     async getHasUserValidatedCompanyRules(index) {
-        return this.request.get('/hasUserValidatedCompanyRules/' + index);
+        return this.request.get('/time/hasUserValidatedCompanyRules/' + index);
     }
 
     async setTimeSheet(resources) {
