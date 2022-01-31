@@ -6,7 +6,11 @@ class TimeService {
     }
 
     async getTimeSheet(index) {
-        return this.request.get('/time/'+index);
+        return this.request.get('/time/' + index);
+    }
+
+    async getHasUserValidatedCompanyRules(index) {
+        return this.request.get('/hasUserValidatedCompanyRules/' + index);
     }
 
     async setTimeSheet(resources) {
@@ -14,11 +18,11 @@ class TimeService {
     }
 
     async getAllTimeSheet(index) {
-        return this.request.get('/time/all/'+index);
+        return this.request.get('/time/all/' + index);
     }
 
     async getTeamTimeSheet(day) {
-        return this.request.get('/time/team/'+day);
+        return this.request.get('/time/team/' + day);
     }
 }
 

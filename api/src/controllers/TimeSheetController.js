@@ -1,8 +1,8 @@
-const {param, body, validationResult} = require("express-validator");
+const { param, body, validationResult } = require("express-validator");
 const TimeSheet = require('../models/TimeSheet');
 const Moment = require('moment');
 const Utils = require('../services/Utils');
-const {Op} = require('sequelize');
+const { Op } = require('sequelize');
 const Security = require("../services/Security");
 const User = require("../models/User");
 const OfficeBooking = require("../models/OfficeBooking");
@@ -13,16 +13,16 @@ const Office = require('../models/Office');
 Moment.suppressDeprecationWarnings = true;
 
 
-exports.getTeamTimeSheet = async function(req, res, next) {
+exports.getTeamTimeSheet = async function (req, res, next) {
     const user = await User.findOne({
-        where:{
+        where: {
             id: res.locals.auth.user.id
         }
     });
-    if(!user) {
+    if (!user) {
         res.status(403);
         res.send();
-    }else{
+    } else {
         let obj = {
             0: [],
             1: [],
@@ -32,37 +32,37 @@ exports.getTeamTimeSheet = async function(req, res, next) {
         }
         let day = req.params.day;
         const teams = await user.getTeams();
-        for(let i = 0; i < teams.length; i++) {
+        for (let i = 0; i < teams.length; i++) {
             let users = await teams[i].getUsers();
             let colleagues = users.filter(x => x.id !== res.locals.auth.user.id);
-            for(let j = 0; j < colleagues.length; j++){
+            for (let j = 0; j < colleagues.length; j++) {
                 await TimeSheet.findOne({
-                    where:{
+                    where: {
                         day: day,
                         userId: colleagues[j].id
                     }
                 }).then((record) => {
                     let found = false;
-                    if(!record){
-                        for(let h = 0; h < obj[0].length; h++){
-                            if(obj[0][h].firstName === colleagues[j].firstName && obj[0][h].lastName === colleagues[j].lastName){
+                    if (!record) {
+                        for (let h = 0; h < obj[0].length; h++) {
+                            if (obj[0][h].firstName === colleagues[j].firstName && obj[0][h].lastName === colleagues[j].lastName) {
                                 found = true;
                             }
                         }
-                        if(!found){
+                        if (!found) {
                             obj[0].push({
                                 firstName: colleagues[j].firstName,
                                 lastName: colleagues[j].lastName,
                                 profilePicturePath: colleagues[j].profilePicturePath
                             })
                         }
-                    }else{
-                        for(let h = 0; h < obj[record.morning].length; h++){
-                            if(obj[record.morning][h].firstName === colleagues[j].firstName && obj[record.morning][h].lastName === colleagues[j].lastName){
+                    } else {
+                        for (let h = 0; h < obj[record.morning].length; h++) {
+                            if (obj[record.morning][h].firstName === colleagues[j].firstName && obj[record.morning][h].lastName === colleagues[j].lastName) {
                                 found = true;
                             }
                         }
-                        if(!found){
+                        if (!found) {
                             obj[record.morning].push({
                                 firstName: colleagues[j].firstName,
                                 lastName: colleagues[j].lastName,
@@ -77,7 +77,7 @@ exports.getTeamTimeSheet = async function(req, res, next) {
     }
 }
 
-exports.getUsersTimeSheet = async function(req, res, next) {
+exports.getUsersTimeSheet = async function (req, res, next) {
     try {
         const errors = validationResult(req);
 
@@ -87,56 +87,56 @@ exports.getUsersTimeSheet = async function(req, res, next) {
         }
         const week = Utils.getUsersWeekTimeSheets(req.params.index);
         const users = await User.findAll({
-            where:{
+            where: {
                 companyId: res.locals.auth.user.company.id
             }
         });
         // id: {[Op.ne]:res.locals.auth.user.id}
-        for(let i = 0; i < week.length; i++){
+        for (let i = 0; i < week.length; i++) {
             week[i].totalUsers = users.length;
         }
-        for(const user of users){
+        for (const user of users) {
             await TimeSheet.findAll({
-                where:{
-                    day:{
-                        [Op.between]: [Moment(new Date(week[0].day)), Moment(new Date(week[week.length-1].day))]
+                where: {
+                    day: {
+                        [Op.between]: [Moment(new Date(week[0].day)), Moment(new Date(week[week.length - 1].day))]
                     },
                     userId: user.id
                 }
-            }).then(async (record)=> {
-                if(record.length === 0){
+            }).then(async (record) => {
+                if (record.length === 0) {
                     let obj = {
-                        fullName: user.firstName +' '+ user.lastName,
+                        fullName: user.firstName + ' ' + user.lastName,
                         morning: 0,
                         afternoon: 0,
                         profilePicturePath: user.profilePicturePath,
                         teams: await user.getTeams()
                     }
-                    for(let i = 0; i < week.length; i++){
+                    for (let i = 0; i < week.length; i++) {
                         week[i].type[0].push(obj);
                     }
-                }else{
-                    for(let j = 0; j < week.length; j++){
+                } else {
+                    for (let j = 0; j < week.length; j++) {
                         let obj = {
-                            fullName: user.firstName +' '+ user.lastName,
+                            fullName: user.firstName + ' ' + user.lastName,
                             morning: 0,
                             afternoon: 0,
                             profilePicturePath: user.profilePicturePath,
                             teams: await user.getTeams()
                         }
                         let found = false;
-                        for(let i = 0; i < record.length; i++){
-                            if(week[j].day === record[i].day){
+                        for (let i = 0; i < record.length; i++) {
+                            if (week[j].day === record[i].day) {
                                 found = true;
                                 obj.morning = record[i].morning;
                                 obj.afternoon = record[i].afternoon;
                                 week[j].type[record[i].morning].push(obj);
-                                if(record[i].morning !== record[i].afternoon){
+                                if (record[i].morning !== record[i].afternoon) {
                                     week[j].type[record[i].afternoon].push(obj);
                                 }
                             }
                         }
-                        if(!found){
+                        if (!found) {
                             week[j].type[0].push(obj);
                         }
                     }
@@ -144,13 +144,13 @@ exports.getUsersTimeSheet = async function(req, res, next) {
             })
         }
         res.json(week);
-    } catch(err) {
+    } catch (err) {
         return next(err)
     }
 }
 
 
-exports.getTimeSheet = async function(req, res, next) {
+exports.getTimeSheet = async function (req, res, next) {
     try {
         const errors = validationResult(req);
 
@@ -160,9 +160,9 @@ exports.getTimeSheet = async function(req, res, next) {
         }
         const week = Utils.getCurrentWeek(req.params.index);
         await TimeSheet.findAll({
-            where:{
-                day:{
-                    [Op.between]: [Moment(new Date(week[0].day)), Moment(new Date(week[week.length-1].day))]
+            where: {
+                day: {
+                    [Op.between]: [Moment(new Date(week[0].day)), Moment(new Date(week[week.length - 1].day))]
                 },
                 userId: res.locals.auth.user.id
             }
@@ -212,15 +212,15 @@ exports.getTimeSheet = async function(req, res, next) {
                     week[week.map(e => { return e.day}).indexOf(Moment(record[i].day).format("YYYY-MM-DD"))].afternoon = record[i].afternoon;
                     week[week.map(e => { return e.day}).indexOf(Moment(record[i].day).format("YYYY-MM-DD"))].reservation = resa;
                 }
-                res.json({week})
+                res.json({ week })
             }
         })
-    } catch(err) {
+    } catch (err) {
         return next(err)
     }
 }
 
-exports.setTimeSheet = async function (req, res, next){
+exports.setTimeSheet = async function (req, res, next) {
     try {
         const errors = validationResult(req);
 
@@ -230,21 +230,90 @@ exports.setTimeSheet = async function (req, res, next){
         }
         req.body.userId = res.locals.auth.user.id
         await TimeSheet.findOne({
-            where:{
+            where: {
                 day: req.body.day,
                 userId: res.locals.auth.user.id
             }
-        }).then(async (record)=> {
-            if(!record){
+        }).then(async (record) => {
+            if (!record) {
                 const timesheet = await TimeSheet.create(req.body)
                 res.json(timesheet);
-            }else{
-                record.update({morning: req.body.morning, afternoon: req.body.afternoon}).then((updated) => {
+            } else {
+                record.update({ morning: req.body.morning, afternoon: req.body.afternoon }).then((updated) => {
                     res.json(updated);
                 })
             }
         })
-    } catch(err) {
+    } catch (err) {
+        return next(err)
+    }
+}
+
+
+exports.getHasUserValidatedCompanyRules = async function (req, res, next) {
+    try {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            res.status(422).json({ errors: errors.array() });
+            return;
+        }
+
+        const companyRuleScope = res.locals.auth.user.company.ruleScope
+        const companyOfficeMinimum = res.locals.auth.user.company.officeMinimum
+        const companyOfficeMaximum = res.locals.auth.user.company.officeMaximum
+        let userStatuses = [0, 0, 0, 0, 0]
+
+        if (companyRuleScope === 0) {
+            // Case where the scope is the week
+            const week = Utils.getCurrentWeek(req.params.index);
+            await TimeSheet.findAll({
+                where: {
+                    day: {
+                        [Op.between]: [Moment(new Date(week[0].day)), Moment(new Date(week[week.length - 1].day))]
+                    },
+                    userId: res.locals.auth.user.id
+                }
+            }).then((record) => {
+                if (record.length === 0) {
+                    res.json({ check: true });
+                } else {
+                    for (let i = 0; i < record.length; i++) {
+                        userStatuses[record[i].morning.from] += 1
+                    }
+                    if (userStatuses[1] < companyOfficeMinimum || userStatuses[1] > companyOfficeMaximum) {
+                        res.json({ check: false });
+                    } else {
+                        res.json({ check: true });
+                    }
+                }
+            })
+        } else {
+            // Case where the scope is the month
+            const month = Utils.getCurrentMonth(req.params.index);
+            await TimeSheet.findAll({
+                where: {
+                    day: {
+                        [Op.between]: [Moment(new Date(month[0].day)), Moment(new Date(month[1].day))]
+                    },
+                    userId: res.locals.auth.user.id
+                }
+            }).then((record) => {
+                if (record.length === 0) {
+                    res.json({ check: true });
+                } else {
+                    for (let i = 0; i < record.length; i++) {
+                        userStatuses[record[i].morning.from] += 1
+                    }
+                    if (userStatuses[1] < companyOfficeMinimum || userStatuses[1] > companyOfficeMaximum) {
+                        res.json({ check: false });
+                    } else {
+                        res.json({ check: true });
+                    }
+                }
+            })
+        }
+    } catch (err) {
         return next(err)
     }
 }
@@ -257,7 +326,7 @@ exports.validate = (method) => {
                 param('index', 'index is not a number').isNumeric()
             ]
         }
-        case 'setTimeSheet':{
+        case 'setTimeSheet': {
             return [
                 body('day', 'day doesn\'t exist').exists(),
                 body('day', 'day is not a number').isString(),
