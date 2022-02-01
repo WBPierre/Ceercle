@@ -1,4 +1,4 @@
-import {Chip, Divider, InputBase, Modal, Paper} from "@mui/material";
+import {Chip, Divider, InputBase, Modal} from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import BookingService from "../../../../services/app/booking.service";
@@ -9,11 +9,11 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import { useTranslation } from "react-i18next";
 import IconButton from "@mui/material/IconButton";
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import * as React from "react";
+import CloseIcon from '@mui/icons-material/Close';
 
 const style = {
     position: 'absolute',
@@ -40,6 +40,33 @@ function OfficeModal(props) {
     const [floorList, setFloorList] = useState([]);
     const [roomList, setRoomList] = useState([]);
     const [deskList, setDeskList] = useState([]);
+
+    useEffect(() => {
+        async function getBooking(){
+            if(props.booking.length !== 0){
+                let res = await OfficeService.getOffices(context.user.company.id);
+                setOfficeList(res.data);
+                res = await OfficeService.getFloors(props.booking[0].id);
+                setFloorList(res.data);
+                res = await OfficeService.getRooms(props.booking[1].id);
+                setRoomList(res.data);
+                res = await OfficeService.getDesks(props.booking[2].id);
+                setDeskList(res.data);
+                setOfficeId(props.booking[0].id)
+                setFloorId(props.booking[1].id)
+                setRoomId(props.booking[2].id)
+                if(res.data.length === 0){
+                    setDeskId(1);
+                }
+            }else{
+                setOfficeId(0);
+                setFloorId(0);
+                setRoomId(0);
+                setDeskId(0);
+            }
+        }
+        getBooking();
+    }, [props]);
 
     useEffect(() => {
         async function getOffices() {
@@ -82,7 +109,6 @@ function OfficeModal(props) {
         getDesks();
     }, [roomId]);
 
-    console.log(props.day)
 
 
     const confirmBooking = async () => {
@@ -97,17 +123,11 @@ function OfficeModal(props) {
         }else{
             resources.officeElementId = roomId;
         }
-        await BookingService.setBooking(resources).then((res) => {
-            console.log(res)
-        })
+        await BookingService.setBooking(resources);
         closeModal(true);
     }
 
     const closeModal = (update) => {
-        setOfficeId(0);
-        setFloorId(0);
-        setRoomId(0);
-        setDeskId(0);
         props.handleClose(update);
     }
 
@@ -146,9 +166,19 @@ function OfficeModal(props) {
             disableEnforceFocus
         >
             <Box sx={style} style={{ borderRadius: '25px', outline: 'none' }}>
-                <Typography id="modal-modal-title" variant="h6" component="h2" fontSize={24}>
-                    {t('app:dashboard:desk.your_booking')}
-                </Typography>
+                <Grid container direction={"row"} justifyContent={"space-between"}>
+                    <Grid item>
+                        <Typography id="modal-modal-title" variant="h6" component="h2" fontSize={24}>
+                            {t('app:dashboard:desk.your_booking')}
+                        </Typography>
+                    </Grid>
+                    <Grid item>
+                        <IconButton aria-label="close modal" onClick={() => closeModal(false)}>
+                            <CloseIcon />
+                        </IconButton>
+                    </Grid>
+                </Grid>
+
                 <Divider />
                 <Grid container direction={"column"} spacing={2} mt={2}>
                     <Grid item>
@@ -275,7 +305,7 @@ function OfficeModal(props) {
                                             input={<InputBase />}
                                         >
                                             <MenuItem value={0} key={-1} disabled>{t('app:dashboard:desk.select')}</MenuItem>
-                                            {floorId !== 0 && deskList.length === 0 ? (
+                                            {roomId !== 0 && deskList.length === 0 ? (
                                                 <MenuItem value={1} key={0} selected>{t('app:dashboard:desk.free')}</MenuItem>
                                             ):(
                                                 deskList.map((o, index) => {
@@ -297,41 +327,9 @@ function OfficeModal(props) {
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Grid item>
-                        <Paper>
-                            <Grid container direction={"row"} justifyContent={"space-evenly"}>
-                                <Grid item>
-                                    {officeId !== 0 && officeList.length !== 0 &&
-                                        <Typography color={"secondary"} fontSize={24} p={2}>{officeList.find(o => o.id === officeId).name}</Typography>
-                                    }
-                                </Grid>
-                                <Grid item>
-                                    {floorId !== 0 && floorList.length !== 0 &&
-                                    <Typography color={"secondary"} fontSize={24} p={2}>{floorList.find(o => o.id === floorId).name}</Typography>
-                                    }
-                                </Grid>
-                                <Grid item>
-                                    {roomId !== 0 &&
-                                        <Typography color={"secondary"} fontSize={24} p={2}>{roomList.find(o => o.id === roomId).name}</Typography>
-                                    }
-                                </Grid>
-                                {roomId !== 0 &&
-                                <Grid item>
-                                    {deskList.length !== 0 ? (
-                                        deskId !== 0 && <Typography color={"secondary"} fontSize={24} p={2}>{deskList.find(o => o.id === deskId).name}</Typography>
-                                    ):(
-                                        <Typography color={"secondary"} fontSize={24} p={2}>{t('app:dashboard:desk.free')}</Typography>
-                                    )}
-                                </Grid>
-                                }
-                            </Grid>
-                        </Paper>
+                    <Grid item textAlign={"center"}>
+                        <Button disabled={officeId === 0 || floorId === 0 || roomId === 0 || deskId === 0} onClick={() => confirmBooking()} color={"primary"} variant={"contained"}>{t('app:dashboard:desk.confirm')}</Button>
                     </Grid>
-                    {roomId !== 0 &&
-                        <Grid item textAlign={"center"}>
-                            <Button onClick={() => confirmBooking()} color={"primary"} variant={"contained"}>{t('app:dashboard:desk.confirm')}</Button>
-                        </Grid>
-                    }
                 </Grid>
             </Box>
         </Modal>

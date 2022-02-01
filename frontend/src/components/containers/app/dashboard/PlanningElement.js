@@ -11,9 +11,7 @@ import moment from "moment";
 import { useTranslation } from "react-i18next";
 import OffIcon from "../../../molecules/icons/OffIcon";
 import useAuth from "../../../context/auth/AuthHelper";
-import OfficeModal from "./OfficeModal";
 import * as React from "react";
-import BookingService from "../../../../services/app/booking.service";
 
 function PlanningElement(props) {
 
@@ -96,23 +94,8 @@ function PlanningElement(props) {
         }
     }
 
-    const [openOffice, setOpenOffice] = useState(false);
-
-    const handleOpenOffice = () => {
-        setOpenOffice(true);
-    }
-    const handleCloseOffice = async (update) => {
-        if(update){
-            props.updateOffice();
-        }
-        setOpenOffice(false);
-    }
-
     return(
         <div style={{ width: '100%', height: '100%' }}>
-            {props.data.morning === 1 &&
-                <OfficeModal open={openOffice} handleClose={(update) => handleCloseOffice(update)} handleOpen={handleOpenOffice} day={moment(props.data.day, 'YYYY-MM-DD').format('YYYY-MM-DD')} />
-            }
             <Grid container direction={"column"} style={{position:'relative'}}>
                 <Grid item xs={12}>
                     <Grid item xs={12} style={{backgroundColor: props.data.current ? getActiveBGColor() : ''}}>
@@ -163,31 +146,31 @@ function PlanningElement(props) {
                             'aria-labelledby': 'basic-button',
                         }}
                     >
-                        <MenuItem style={{display:props.data.morning === 0 ? 'none' : 'flex'}} onClick={() => modifyChoice(0)}>
+                        <MenuItem key={0} style={{display:props.data.morning === 0 ? 'none' : 'flex'}} onClick={() => modifyChoice(0)}>
                             <ListItemIcon>
                                 <ToDefineIcon />
                             </ListItemIcon>
                             <ListItemText>{t('app:statuses:to_be_defined')}</ListItemText>
                         </MenuItem>
-                        <MenuItem style={{display:props.data.morning === 1 ? 'none' : 'flex'}}  onClick={() => modifyChoice(1)}>
+                        <MenuItem key={1} style={{display:props.data.morning === 1 ? 'none' : 'flex'}}  onClick={() => modifyChoice(1)}>
                             <ListItemIcon>
                                 <OfficeIcon />
                             </ListItemIcon>
                             <ListItemText>{t('app:statuses:office')}</ListItemText>
                         </MenuItem>
-                        <MenuItem style={{display:props.data.morning === 2 ? 'none' : 'flex'}} onClick={() => modifyChoice(2)}>
+                        <MenuItem key={2} style={{display:props.data.morning === 2 ? 'none' : 'flex'}} onClick={() => modifyChoice(2)}>
                             <ListItemIcon>
                                 <ManWorkingIcon />
                             </ListItemIcon>
                             <ListItemText>{t('app:statuses:home_working')}</ListItemText>
                         </MenuItem>
-                        <MenuItem style={{display:props.data.morning === 3 ? 'none' : 'flex'}} onClick={() => modifyChoice(3)}>
+                        <MenuItem key={3} style={{display:props.data.morning === 3 ? 'none' : 'flex'}} onClick={() => modifyChoice(3)}>
                             <ListItemIcon>
                                 <AwayIcon />
                             </ListItemIcon>
                             <ListItemText>{t('app:statuses:on_the_go')}</ListItemText>
                         </MenuItem>
-                        <MenuItem style={{display:props.data.morning === 4 ? 'none' : 'flex'}} onClick={() => modifyChoice(4)}>
+                        <MenuItem key={4} style={{display:props.data.morning === 4 ? 'none' : 'flex'}} onClick={() => modifyChoice(4)}>
                             <ListItemIcon>
                                 <OffIcon />
                             </ListItemIcon>
@@ -197,7 +180,7 @@ function PlanningElement(props) {
                 </Grid>
                 {context.user.company.activeOfficeHandler &&
                     <Grid item xs={12} style={{width:'100%', textAlign:"center"}}>
-                        <Button onClick={() => handleOpenOffice()} disabled={props.data.morning !== 1 || props.data.past} style={{textOverflow: 'ellipsis' ,fontSize: 12, textTransform:'none', width:'100%', textAlign:"center", color: props.data.morning !== 1 ? 'transparent' : props.data.past ? '#D3D3D3' : 'inherit'}}>
+                        <Button onClick={() => props.openOffice(moment(props.data.day).format('YYYY-MM-DD'), props.data.reservation)} disabled={props.data.morning !== 1 || props.data.past} style={{textOverflow: 'ellipsis' ,fontSize: 12, textTransform:'none', width:'100%', textAlign:"center", color: props.data.morning !== 1 ? 'transparent' : props.data.past ? '#D3D3D3' : 'inherit'}}>
                             {props.data.morning === 1 && reservationString()}
                             {props.data.morning !== 1 && reservationString()}
                         </Button>
