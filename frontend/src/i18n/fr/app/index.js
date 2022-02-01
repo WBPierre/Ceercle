@@ -1,4 +1,5 @@
 import account_fr from "./account.json"
+import alerts_HR_rules_fr from "./alerts_HR_rules.json"
 import appbar_fr from "./appbar.json";
 import calendar_fr from "./calendar.json";
 import dashboard_fr from "./dashboard.json";
@@ -13,6 +14,7 @@ import errors_fr from "./errors.json";
 
 const resources = {
     account: account_fr,
+    alerts_HR_rules: alerts_HR_rules_fr,
     appbar: appbar_fr,
     calendar: calendar_fr,
     dashboard: dashboard_fr,

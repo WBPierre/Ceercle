@@ -20,6 +20,24 @@ import * as App_Routes from "../../../../navigation/app/Routes";
 import { useTranslation } from "react-i18next";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ReportIcon from '@mui/icons-material/Report';
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
+import { styled } from '@mui/material/styles';
+import HRRulesCheckDisplay from "./HRRulesCheckDisplay";
+
+
+const HtmlTooltip = styled(({ className, ...props }) => (
+    <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+    [`& .${tooltipClasses.tooltip}`]: {
+        backgroundColor: '#f5f5f9',
+        color: 'rgba(0, 0, 0, 0.87)',
+        maxWidth: 220,
+        fontSize: theme.typography.pxToRem(12),
+        border: '1px solid #dadde9',
+    },
+}));
+
+
 
 function PlanningBoard(props) {
     const { i18n } = useTranslation();
@@ -65,8 +83,8 @@ function PlanningBoard(props) {
         enqueueSnackbar(t('app:dashboard:snackbar_success'), {
             variant: 'success'
         });
-        let before = props.week.find(x=>x.day === day);
-        if(before.reservation.length !== 0){
+        let before = props.week.find(x => x.day === day);
+        if (before.reservation.length !== 0) {
             await BookingService.removeBooking(before.day);
             enqueueSnackbar(t('app:dashboard:desk_remove'), {
                 variant: 'success'
@@ -84,11 +102,7 @@ function PlanningBoard(props) {
                 <Grid item xs={12} style={{ width: '100%' }}>
                     <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} maxWidth={true}>
                         <Grid item xs={2} textAlign={"center"}>
-                            <Chip
-                                label={props.ruleRespected ? "Déclaration valide" : "Seuil dépassé"}
-                                icon={props.ruleRespected ? <CheckCircleIcon style={{ color: 'green' }} /> : <ReportIcon style={{ color: 'orange' }} />}
-                                onClick={() => console.log("display rules")}
-                            />
+                            <HRRulesCheckDisplay ruleRespected={props.ruleRespected} />
                         </Grid>
                         <Grid item xs={2} textAlign={"right"}>
                             <IconButton onClick={() => handlePrevious()} aria-label="previous" size={"medium"}>

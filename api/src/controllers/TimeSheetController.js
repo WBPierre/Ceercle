@@ -193,7 +193,7 @@ exports.getTimeSheet = async function (req, res, next) {
                                     if (resa.length === 0) {
                                         resa.push({ id: element.id, name: element.name, color: element.color, type: element.type, capacity: element.capacity, maxCapacity: element.maxCapacity });
                                     } else {
-                                        resa.unshift({ id:element.id, name: element.name, color: element.color, type: element.type, capacity: element.capacity, maxCapacity: element.maxCapacity });
+                                        resa.unshift({ id: element.id, name: element.name, color: element.color, type: element.type, capacity: element.capacity, maxCapacity: element.maxCapacity });
                                     }
                                     if (element.parentId === null) {
                                         const parent = await Office.findOne({
@@ -270,60 +270,96 @@ exports.getHasUserValidatedCompanyRules = async function (req, res, next) {
         }
 
         const companyRuleScope = company.ruleScope
-        const companyOfficeMinimum = company.officeMinimum
         const companyOfficeMaximum = company.officeMaximum
-        let userStatuses = [0, 0, 0, 0, 0]
+        const companyRemoteMaximum = company.remoteMaximum
+        const mondayMandatoryStatus = company.mondayMandatoryStatus
+        const tuesdayMandatoryStatus = company.tuesdayMandatoryStatus
+        const wednesdayMandatoryStatus = company.wednesdayMandatoryStatus
+        const thursdayMandatoryStatus = company.thursdayMandatoryStatus
+        const fridayMandatoryStatus = company.fridayMandatoryStatus
+        companyMandatoryStatuses = [mondayMandatoryStatus, tuesdayMandatoryStatus, wednesdayMandatoryStatus, thursdayMandatoryStatus, fridayMandatoryStatus]
+        let userStatusesForWeek = [0, 0, 0, 0, 0]
+        let userStatusesForMonth = [0, 0, 0, 0, 0]
+        let userStatusesByDayForWeek = [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]
 
-        if (companyRuleScope === 0) {
-            // Case where the scope is the week
-            const week = Utils.getCurrentWeek(req.params.index);
-            await TimeSheet.findAll({
-                where: {
-                    day: {
-                        [Op.between]: [Moment(new Date(week[0].day)), Moment(new Date(week[week.length - 1].day))]
-                    },
-                    userId: res.locals.auth.user.id
+        const week = Utils.getCurrentWeek(req.params.index);
+        await TimeSheet.findAll({
+            order: [['day', 'ASC']],
+            where: {
+                day: {
+                    [Op.between]: [Moment(new Date(week[0].day)), Moment(new Date(week[week.length - 1].day))]
+                },
+                userId: res.locals.auth.user.id
+            }
+        }).then((record) => {
+            if (record.length === 0) {
+                res.json({
+                    check: true, checkFailed: null,
+                    companyOfficeMaximum: companyOfficeMaximum, companyRemoteMaximum: companyRemoteMaximum, companyRuleScope: companyRuleScope,
+                    userOffice: 0, userRemote: 0
+                });
+            } else {
+                for (let i = 0; i < record.length; i++) {
+                    userStatusesForWeek[record[i].morning] += 0.5
+                    userStatusesForWeek[record[i].afternoon] += 0.5
+                    userStatusesByDayForWeek[i][0] = record[i].morning
+                    userStatusesByDayForWeek[i][1] = record[i].afternoon
                 }
-            }).then((record) => {
-                if (record.length === 0) {
-                    res.json({ check: true });
-                } else {
-                    for (let i = 0; i < record.length; i++) {
-                        userStatuses[record[i].morning] += 1
-                    }
-                    if (userStatuses[1] < companyOfficeMinimum || userStatuses[1] > companyOfficeMaximum) {
-                        res.json({ check: false });
-                    } else {
-                        res.json({ check: true });
-                    }
+            }
+        })
+
+        const month = Utils.getCurrentMonth(req.params.index);
+        await TimeSheet.findAll({
+            where: {
+                day: {
+                    [Op.between]: [month[0], month[1]]
+                },
+                userId: res.locals.auth.user.id
+            }
+        }).then((record) => {
+            if (record.length === 0) {
+                res.json({
+                    check: true,
+                    companyOfficeMaximum: companyOfficeMaximum, companyRemoteMaximum: companyRemoteMaximum, companyRuleScope: companyRuleScope,
+                    userOffice: 0, userRemote: 0
+                });
+            } else {
+                for (let i = 0; i < record.length; i++) {
+                    userStatusesForMonth[record[i].morning] += 0.5
+                    userStatusesForMonth[record[i].afternoon] += 0.5
                 }
-            })
-        } else {
-            // Case where the scope is the month
-            const month = Utils.getCurrentMonth(req.params.index);
-            console.log(month)
-            await TimeSheet.findAll({
-                where: {
-                    day: {
-                        [Op.between]: [month[0], month[1]]
-                    },
-                    userId: res.locals.auth.user.id
-                }
-            }).then((record) => {
-                if (record.length === 0) {
-                    res.json({ check: true });
-                } else {
-                    for (let i = 0; i < record.length; i++) {
-                        userStatuses[record[i].morning] += 1
-                    }
-                    if (userStatuses[1] < companyOfficeMinimum || userStatuses[1] > companyOfficeMaximum) {
-                        res.json({ check: false });
-                    } else {
-                        res.json({ check: true });
-                    }
-                }
-            })
+            }
+        })
+
+        let userOffice = userStatusesForWeek[1]
+        let userRemote = userStatusesForWeek[2]
+        let check = true;
+
+        if (companyRuleScope === 0 && (userStatusesForWeek[1] > companyOfficeMaximum || userStatusesForWeek[2] > companyRemoteMaximum)) {
+            check = false
         }
+
+        if (companyRuleScope === 1 && (userStatusesForMonth[1] > companyOfficeMaximum || userStatusesForMonth[2] > companyRemoteMaximum)) {
+            check = false
+            userOffice = userStatusesForMonth[1]
+            userRemote = userStatusesForMonth[2]
+        }
+
+        if (!Utils.checkIfWeekCompliantToHRRules(companyMandatoryStatuses, userStatusesByDayForWeek)) {
+            check = false
+            console.log(companyMandatoryStatuses)
+            console.log(userStatusesByDayForWeek)
+        }
+
+        res.json({
+            check: check,
+            companyOfficeMaximum: companyOfficeMaximum, companyRemoteMaximum: companyRemoteMaximum, companyRuleScope: companyRuleScope,
+            mondayMandatoryStatus: mondayMandatoryStatus, tuesdayMandatoryStatus: tuesdayMandatoryStatus, wednesdayMandatoryStatus: wednesdayMandatoryStatus,
+            thursdayMandatoryStatus: thursdayMandatoryStatus, fridayMandatoryStatus: fridayMandatoryStatus,
+            userStatusesByDayForWeek: userStatusesByDayForWeek,
+            userOffice: userOffice, userRemote: userRemote
+        });
+
     } catch (err) {
         return next(err)
     }

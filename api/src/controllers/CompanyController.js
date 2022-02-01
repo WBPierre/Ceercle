@@ -68,7 +68,7 @@ exports.getHRRules = async function (req, res, next) {
                 } else {
                     res.status(200).json({
                         ruleScope: record.ruleScope,
-                        officeMinimum: record.officeMinimum,
+                        remoteMaximum: record.remoteMaximum,
                         officeMaximum: record.officeMaximum,
                         mondayMandatoryStatus: record.mondayMandatoryStatus,
                         tuesdayMandatoryStatus: record.tuesdayMandatoryStatus,
@@ -103,7 +103,7 @@ exports.updateHRRules = async function (req, res, next) {
                 } else {
                     let to_update = {
                         ruleScope: req.body.ruleScope,
-                        officeMinimum: req.body.officeMinimum,
+                        remoteMaximum: req.body.remoteMaximum,
                         officeMaximum: req.body.officeMaximum,
                         mondayMandatoryStatus: req.body.mondayMandatoryStatus,
                         tuesdayMandatoryStatus: req.body.tuesdayMandatoryStatus,
@@ -162,7 +162,7 @@ exports.validate = (method) => {
         case 'updateHRRules': {
             return [
                 body('ruleScope', 'ruleScope is not a number').isNumeric(),
-                body('officeMinimum', 'officeMinimum is not a number').isNumeric(),
+                body('remoteMaximum', 'remoteMaximum is not a number').isNumeric(),
                 body('officeMaximum', 'officeMaximum is not a number').isNumeric(),
                 body('mondayMandatoryStatus', 'mondayMandatoryStatus is not a number').isNumeric(),
                 body('tuesdayMandatoryStatus', 'tuesdayMandatoryStatus is not a number').isNumeric(),
@@ -176,7 +176,7 @@ exports.validate = (method) => {
             return [
                 body('name', 'name doesn\'t exist').exists(),
                 body('name', 'name is not a string').isString(),
-                body('activeOfficeHandler', 'activeOfficeHandler is not a boolean').isBoolean(), //add ruleScope!!!
+                body('activeOfficeHandler', 'activeOfficeHandler is not a boolean').isBoolean(), //add ruleScope!!! + add remoteMaximum & remoteMaximum
                 body('officeMinimum', 'officeMinimum is not a number').isNumeric(),
                 body('officeMaximum', 'officeMaximum is not a number').isNumeric(),
                 body('maxCapacity', 'maxCapacity is not a number').isNumeric(),

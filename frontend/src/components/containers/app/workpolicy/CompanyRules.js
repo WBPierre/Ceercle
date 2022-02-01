@@ -22,7 +22,7 @@ export default function CompanyRules() {
 
     const { t } = useTranslation();
 
-    const daysWorked = [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+    const daysWorked = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
     const statuses = [t('app:statuses:free'), t('app:statuses:office'), t('app:statuses:home_working')]
     const scopes = [t('app:rh_parameters:company.week'), t('app:rh_parameters:company.month')]
 
@@ -31,9 +31,9 @@ export default function CompanyRules() {
         setRuleScope(event.target.value);
     };
 
-    const [officeMinimum, setOfficeMinimum] = React.useState(null);
-    const handleOfficeMinimum = (event) => {
-        setOfficeMinimum(event.target.value);
+    const [remoteMaximum, setRemoteMaximum] = React.useState(null);
+    const handleRemoteMaximum = (event) => {
+        setRemoteMaximum(event.target.value);
     };
 
     const [officeMaximum, setOfficeMaximum] = React.useState(0);
@@ -70,7 +70,7 @@ export default function CompanyRules() {
     async function getHRRules() {
         const res = await CompanyService.getHRRules();
         setRuleScope(res.data.ruleScope)
-        setOfficeMinimum(res.data.officeMinimum);
+        setRemoteMaximum(res.data.remoteMaximum);
         setOfficeMaximum(res.data.officeMaximum);
         setMondayMandatoryStatus(res.data.mondayMandatoryStatus);
         setTuesdayMandatoryStatus(res.data.tuesdayMandatoryStatus);
@@ -87,16 +87,18 @@ export default function CompanyRules() {
     const { enqueueSnackbar } = useSnackbar();
 
     const validateHRRules = () => {
-        if (officeMinimum > officeMaximum) return 1;
-        if (officeMaximum > 4 && ruleScope == 0) return 2
-        return 0;
+        if (remoteMaximum > 5 && ruleScope == 0) return false;
+        if (officeMaximum > 5 && ruleScope == 0) return false;
+        if ((officeMaximum + remoteMaximum) < 5 && ruleScope == 0) return false;
+        if ((officeMaximum + remoteMaximum) < 20 && ruleScope == 1) return false;
+        return true;
     }
 
     const saveHRRules = async () => {
-        if (validateHRRules() == 0) {
+        if (validateHRRules()) {
             const resources = {
                 ruleScope: ruleScope,
-                officeMinimum: officeMinimum,
+                remoteMaximum: remoteMaximum,
                 officeMaximum: officeMaximum,
                 mondayMandatoryStatus: mondayMandatoryStatus,
                 tuesdayMandatoryStatus: tuesdayMandatoryStatus,
@@ -115,13 +117,9 @@ export default function CompanyRules() {
                     });
                 }
             })
-        } else if (validateHRRules() == 1) {
+        } else {
             enqueueSnackbar(t('app:rh_parameters:company.snackbar_warning'), {
                 variant: 'warning'
-            });
-        } else {
-            enqueueSnackbar(t('app:snackbar:error'), {
-                variant: 'error'
             });
         }
     }
@@ -130,7 +128,7 @@ export default function CompanyRules() {
         getHRRules();
     }
 
-    if (officeMinimum === null) {
+    if (remoteMaximum === null) {
         return (< SettingSectionTemplate title={t('app:rh_parameters:company.title')} description={t('app:rh_parameters:company.subtitle')} />)
     }
     return (
@@ -151,7 +149,7 @@ export default function CompanyRules() {
 
                 <Grid item mt={3}>
                     <Typography variant="body" fontWeight={300} fontSize={17} style={{ color: '#414040', fontStyle: "italic" }}>
-                        {t('app:rh_parameters:company.days_worked_at_office')}
+                        {t('app:rh_parameters:company.max_days')}
                     </Typography>
                 </Grid>
 
@@ -178,11 +176,11 @@ export default function CompanyRules() {
 
                         <Grid item md={3}>
                             <FormControl sx={{ m: 1, width: 70 }} variant="standard">
-                                <InputLabel htmlFor="demo-customized-select-native">Minimum</InputLabel>
+                                <InputLabel htmlFor="demo-customized-select-native">{t('app:statuses:home_working')}</InputLabel>
                                 <Select
                                     id="demo-customized-select-native"
-                                    value={officeMinimum}
-                                    onChange={handleOfficeMinimum}
+                                    value={remoteMaximum}
+                                    onChange={handleRemoteMaximum}
                                 >
                                     {daysWorked.filter((day, index) => (day < 6) || (day > 5 && ruleScope == 1)).map((day, index) => {
                                         return (
@@ -196,7 +194,7 @@ export default function CompanyRules() {
                         </Grid>
                         <Grid item md={3}>
                             <FormControl sx={{ m: 1, width: 70 }} variant="standard">
-                                <InputLabel htmlFor="demo-customized-select-native">Maximum</InputLabel>
+                                <InputLabel htmlFor="demo-customized-select-native">{t('app:statuses:office')}</InputLabel>
                                 <Select
                                     id="demo-customized-select-native"
                                     value={officeMaximum}
