@@ -14,6 +14,14 @@ const Company = db.define('company', {
         type: DataTypes.BOOLEAN,
         defaultValue: false
     },
+    admin: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+    },
+    restrictive_rules:{
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+    },
     ruleScope: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
@@ -49,8 +57,15 @@ const Company = db.define('company', {
     fridayMandatoryStatus: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
+    },
+    activation_day: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    active: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
     }
-
 }, {
     timestamps: true,
     freezeTableName: true

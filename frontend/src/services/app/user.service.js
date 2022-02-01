@@ -5,6 +5,10 @@ class UserService {
         this.request = ApiService
     }
 
+    async verifyInvitation(token){
+        return this.request.get('/users/invitation/verify/'+token);
+    }
+
     async getUsers() {
         return this.request.get('/users/');
     }

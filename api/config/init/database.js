@@ -18,7 +18,7 @@ async function generateCeercle(){
             }
         }).then(async (record) => {
             if(!record) {
-                const company = await Company.create({name:'Ceercle'});
+                const company = await Company.create({name:'Ceercle', admin: true, active: true});
                 return company.id;
             }else{
                 return record.id;

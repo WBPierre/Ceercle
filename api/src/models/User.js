@@ -6,11 +6,11 @@ const User = db.define('user', {
     // Model attributes are defined here
     firstName: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
     lastName: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
     email: {
         type: DataTypes.STRING,
@@ -18,7 +18,7 @@ const User = db.define('user', {
     },
     password: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
     phoneNumber: {
         type: DataTypes.STRING
@@ -84,6 +84,14 @@ const User = db.define('user', {
         allowNull: true
     },
     bannerPath:{
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    activation_token:{
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    activation_day:{
         type: DataTypes.STRING,
         allowNull: true
     }

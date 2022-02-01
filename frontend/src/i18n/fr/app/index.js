@@ -9,6 +9,7 @@ import rh_parameters_fr from "./rh_parameters.json";
 import snackbar_fr from "./snackbar.json";
 import statuses_fr from "./statuses.json";
 import teams_fr from "./teams.json";
+import errors_fr from "./errors.json";
 
 const resources = {
     account: account_fr,
@@ -21,7 +22,8 @@ const resources = {
     rh_parameters: rh_parameters_fr,
     snackbar: snackbar_fr,
     statuses: statuses_fr,
-    teams: teams_fr
+    teams: teams_fr,
+    errors: errors_fr
 }
 
 export default resources;

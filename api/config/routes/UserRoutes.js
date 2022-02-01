@@ -14,5 +14,6 @@ router.put('/password', [isUserAuthenticated, UserController.validate('updatePas
 router.put('/settings', [isUserAuthenticated, UserController.validate('updateUserSettings')], UserController.updateUserSettings);
 router.post('/uploadProfile', [isUserAuthenticated], UserController.uploadProfile);
 router.post('/uploadBanner', [isUserAuthenticated], UserController.uploadBanner);
+router.get('/invitation/verify/:token', UserController.validate('verifyInvitation'), UserController.verifyInvitation);
 
 module.exports = router;

@@ -53,7 +53,7 @@ function CustomContainer(props){
     };
 
 
-    if(location.pathname === "/app/" || location.pathname === "/"){
+    if(location.pathname === "/app/" || location.pathname === "/" || location.pathname.includes("invitation")){
         return (
             props.children
         )

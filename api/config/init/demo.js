@@ -256,7 +256,7 @@ async function generateTestCompany(){
             }
         }).then(async (record) => {
         if(!record) {
-            const company = await Company.create({name:'Démo', activeOfficeHandler: true});
+            const company = await Company.create({name:'Démo', activeOfficeHandler: true, active: true});
             return company.id;
         }else{
             return record.id;

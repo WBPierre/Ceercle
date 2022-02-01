@@ -36,5 +36,7 @@
   "subject": "Subject",
   "invalid_field": "Invalid field",
   "more_information": "More information",
-  "contact_us": "Contact us"
+  "contact_us": "Contact us",
+  "password_confirm": "Password confirmation",
+  "create_account": "Create account"
 }

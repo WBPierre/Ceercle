@@ -11,6 +11,29 @@ exports.listAllUsers = async function (req, res) {
     res.json(users);
 }
 
+exports.verifyInvitation = async function(req, res, next) {
+    try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            res.status(422).json({errors: errors.array()});
+            return;
+        }
+        const user = await User.findOne({
+            where:{
+                activation_token: req.params.token
+            }
+        })
+        if(!user){
+            res.status(404);
+            res.send();
+        }else{
+            res.json({email: user.email});
+        }
+    } catch (err) {
+        return next(err)
+    }
+}
+
 exports.listGlossaryUsers = async function (req, res) {
     const users = await User.findAll({
         order: [['createdAt', 'DESC']],
@@ -301,6 +324,12 @@ exports.validate = (method) => {
             return [
                 param('id', 'id doesn\'t exist').exists(),
                 param('id', 'id is not a number').isNumeric()
+            ]
+        }
+        case 'verifyInvitation': {
+            return [
+                param('token', 'token doesn\'t exist').exists(),
+                param('token', 'token is not a number').isString()
             ]
         }
         case 'createUser': {
