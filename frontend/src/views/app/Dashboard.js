@@ -13,13 +13,21 @@ import PlanningBoard from "../../components/containers/app/dashboard/PlanningBoa
 import useAuth from "../../components/context/auth/AuthHelper";
 import moment from "moment";
 import TimeService from "../../services/app/time.service";
+import OfficeModal from "../../components/containers/app/dashboard/OfficeModal";
+import {useSnackbar} from "notistack";
 
 export default function Dashboard(props) {
 
     const { t } = useTranslation();
     const context = useAuth();
     const day = moment().tz("Europe/Paris");
-    const [update, setUpdate] = useState(false);
+    const [week, setWeek] = useState([]);
+    const [booking, setBooking] = useState([]);
+    const [ruleRespected, setRuleRespected] = useState(false);
+    const [openOffice, setOpenOffice] = useState(false);
+    const [dayOffice, setDayOffice] = useState(null);
+    const [index, setIndex] = useState(0);
+    const { enqueueSnackbar } = useSnackbar();
 
     if (day.day() === 0) {
         day.add(1, 'days');
@@ -28,15 +36,59 @@ export default function Dashboard(props) {
     }
     const [daySelected, setDaySelected] = useState(day.format('YYYY-MM-DD'));
 
+    useEffect(() => {
+        const getTimeSheet = async () => {
+            await TimeService.getTimeSheet(index).then((res) => {
+                setWeek(res.data.week);
+                setBooking(res.data.week.find(x=>x.current).reservation);
+            })
+        }
+        getTimeSheet();
+        getHasUserValidatedCompanyRules(index);
+    }, []);
 
-    const updateTimeSheet = async () => {
-        setUpdate(!update);
+    const getHasUserValidatedCompanyRules = async (ind) => {
+        await TimeService.getHasUserValidatedCompanyRules(ind).then((res) => {
+            setRuleRespected(res.data.check)
+        })
     }
+
+    const getTimeSheet = async (ind) => {
+        setIndex(ind);
+        await TimeService.getTimeSheet(ind).then((res) => {
+            setWeek(res.data.week);
+            if(ind === 0){
+                setBooking(res.data.week.find(x=>x.current).reservation);
+            }
+            getHasUserValidatedCompanyRules(ind);
+        })
+    }
+
+
+    const handleOpenOffice = (daySelected, booking) => {
+        setDayOffice(daySelected);
+        setBooking(booking);
+        setOpenOffice(true);
+    }
+    const handleCloseOffice = async (update) => {
+        setOpenOffice(false);
+        if(update){
+            await getTimeSheet(index);
+            enqueueSnackbar(t('app:dashboard:desk_modification'), {
+                variant: 'success'
+            });
+        }
+    }
+
+
+
+
 
     return (
         <Grid wrap={"nowrap"} container direction={"column"} spacing={1}>
+            <OfficeModal open={openOffice} handleClose={(update) => handleCloseOffice(update)} day={dayOffice} booking={booking} />
             <Grid item>
-                <PlanningBoard update={update}/>
+                <PlanningBoard getTimeSheet={ (index) => getTimeSheet(index)} week={week} ruleRespected={ruleRespected} handleOpenOffice={(day, booking) => handleOpenOffice(day, booking)}/>
             </Grid>
             <Grid item xs={12} mb={2}>
                 <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"}>
@@ -57,7 +109,7 @@ export default function Dashboard(props) {
                 <Grid container direction={"row"} spacing={1} justifyContent={"space-around"}>
                     {context.user.company.activeOfficeHandler &&
                         <Grid item xs={12} md={4} style={{ borderRadius: '25px' }} component={Paper}>
-                            <Office day={daySelected} updateTimeSheet={updateTimeSheet}/>
+                            <Office day={daySelected} reservation={booking} handleOpenOffice={(day, booking) => handleOpenOffice(day, booking)}/>
                         </Grid>
                     }
                     <Grid item xs={12} md={context.user.company.activeOfficeHandler ? 3 : 5} style={{ borderRadius: '25px' }} component={Paper}>

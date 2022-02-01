@@ -191,9 +191,9 @@ exports.getTimeSheet = async function (req, res, next) {
                                 if (element) {
                                     officeElementId = element.parentId;
                                     if (resa.length === 0) {
-                                        resa.push({ name: element.name, color: element.color, type: element.type, capacity: element.capacity, maxCapacity: element.maxCapacity });
+                                        resa.push({ id: element.id, name: element.name, color: element.color, type: element.type, capacity: element.capacity, maxCapacity: element.maxCapacity });
                                     } else {
-                                        resa.unshift({ name: element.name, color: element.color, type: element.type, capacity: element.capacity, maxCapacity: element.maxCapacity });
+                                        resa.unshift({ id:element.id, name: element.name, color: element.color, type: element.type, capacity: element.capacity, maxCapacity: element.maxCapacity });
                                     }
                                     if (element.parentId === null) {
                                         const parent = await Office.findOne({
@@ -202,7 +202,7 @@ exports.getTimeSheet = async function (req, res, next) {
                                             }
                                         });
                                         if (parent) {
-                                            resa.unshift({ name: parent.name, capacity: parent.capacity, maxCapacity: parent.maxCapacity });
+                                            resa.unshift({ id: parent.id, name: parent.name, capacity: parent.capacity, maxCapacity: parent.maxCapacity });
                                         }
                                     }
                                 }

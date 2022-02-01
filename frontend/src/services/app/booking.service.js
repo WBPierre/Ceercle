@@ -12,6 +12,10 @@ class BookingService{
     async setBooking(resources){
         return this.request.post('/officeBooking', resources);
     }
+
+    async removeBooking(day){
+        return this.request.delete('/officeBooking/'+day);
+    }
 }
 
 export default new BookingService();

@@ -3,6 +3,35 @@ const {validationResult, param, body} = require("express-validator");
 const OfficeElement = require("../models/OfficeElement");
 const Office = require("../models/Office");
 
+
+exports.removeOfficeBooking = async function(req, res, next){
+    try {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            res.status(422).json({ errors: errors.array() });
+            return;
+        }
+        await OfficeBooking.findOne({
+            where:{
+                day: req.params.day,
+                userId: res.locals.auth.user.id
+            }
+        }).then(async (record)=> {
+            if(!record){
+                res.status(404);
+                res.send();
+            }else{
+                await record.destroy();
+                res.status(200);
+                res.send();
+            }
+        })
+    } catch(err) {
+        return next(err)
+    }
+}
+
 exports.setOfficeBooking = async function (req, res, next){
     try {
         const errors = validationResult(req);
@@ -89,6 +118,12 @@ exports.getOfficeBooking = async function(req, res, next) {
 exports.validate = (method) => {
     switch (method) {
         case 'getOfficeBooking': {
+            return [
+                param('day', 'day doesn\'t exist').exists(),
+                param('day', 'day is not a number').isString()
+            ]
+        }
+        case 'removeOfficeBooking': {
             return [
                 param('day', 'day doesn\'t exist').exists(),
                 param('day', 'day is not a number').isString()

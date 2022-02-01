@@ -42,7 +42,7 @@ exports.getCurrentWeek = function (index) {
             morning: 0,
             afternoon: 0,
             current: currentDay === day ? true : false,
-            reservation: null,
+            reservation: [],
             past: currentDay > Moment(weekStart).add(i + (7 * index), 'days').format("YYYY-MM-DD")
         }
         days.push(obj)

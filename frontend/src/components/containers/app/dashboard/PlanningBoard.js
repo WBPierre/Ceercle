@@ -7,12 +7,12 @@ import PlanningElement from "./PlanningElement";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Paper from "@mui/material/Paper";
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import TimeService from "../../../../services/app/time.service";
+import BookingService from "../../../../services/app/booking.service";
 import moment from "moment";
 import "moment/min/locales";
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import Card from "@mui/material/Card";
 import { Chip, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
@@ -27,60 +27,31 @@ function PlanningBoard(props) {
     const { t } = useTranslation();
     let navigate = useNavigate();
     const animationDuration = 500;
-    const [ruleRespected, setRuleRespected] = useState(true);
-    const [week, setWeek] = useState([]);
     const [anim, setAnim] = useState(true);
     const [index, setIndex] = useState(0);
     const [orientation, setOrientation] = useState(true);
     const { enqueueSnackbar } = useSnackbar();
 
-    useEffect(() => {
-        updateTimeSheet();
-    }, [props.update]);
-
-    const updateTimeSheet = async () => {
-        await TimeService.getTimeSheet(index).then((res) => {
-            setWeek(res.data.week);
-        })
-    }
-
-    const getHasUserValidatedCompanyRules = async () => {
-        await TimeService.getHasUserValidatedCompanyRules(index).then((res) => {
-            setRuleRespected(res.data.check)
-        })
-    }
-
-    useEffect(() => {
-        const getTimeSheet = async () => {
-            await TimeService.getTimeSheet(index).then((res) => {
-                setWeek(res.data.week);
-            })
-        }
-        getTimeSheet();
-        getHasUserValidatedCompanyRules();
-    }, []);
 
     const handlePrevious = async () => {
         let ind = index - 1;
-        const res = await TimeService.getTimeSheet(ind);
         setOrientation(true);
         setAnim(!anim);
         setIndex(index - 1);
-        setTimeout(() => {
-            setAnim(true)
-            setWeek(res.data.week);
+        setTimeout(async () => {
+            props.getTimeSheet(ind);
+            setAnim(true);
         }, animationDuration)
     }
 
     const handleNext = async () => {
         let ind = index + 1;
-        const res = await TimeService.getTimeSheet(ind);
         setOrientation(false);
         setAnim(!anim);
         setIndex(index + 1);
-        setTimeout(() => {
-            setAnim(true)
-            setWeek(res.data.week);
+        setTimeout(async () => {
+            props.getTimeSheet(ind);
+            setAnim(true);
         }, animationDuration)
     }
 
@@ -91,16 +62,20 @@ function PlanningBoard(props) {
             afternoon: choice
         }
         await TimeService.setTimeSheet(resources);
-        await TimeService.getTimeSheet(index).then((res) => {
-            setWeek(res.data.week);
-        })
-        await getHasUserValidatedCompanyRules();
         enqueueSnackbar(t('app:dashboard:snackbar_success'), {
             variant: 'success'
         });
+        let before = props.week.find(x=>x.day === day);
+        if(before.reservation.length !== 0){
+            await BookingService.removeBooking(before.day);
+            enqueueSnackbar(t('app:dashboard:desk_remove'), {
+                variant: 'success'
+            });
+        }
+        await props.getTimeSheet(index);
     }
 
-    if (week === undefined || week.length === 0) {
+    if (props.week === undefined || props.week.length === 0) {
         return (<div />)
     }
     return (
@@ -110,8 +85,8 @@ function PlanningBoard(props) {
                     <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} maxWidth={true}>
                         <Grid item xs={2} textAlign={"center"}>
                             <Chip
-                                label={ruleRespected ? "Déclaration valide" : "Seuil dépassé"}
-                                icon={ruleRespected ? <CheckCircleIcon style={{ color: 'green' }} /> : <ReportIcon style={{ color: 'orange' }} />}
+                                label={props.ruleRespected ? "Déclaration valide" : "Seuil dépassé"}
+                                icon={props.ruleRespected ? <CheckCircleIcon style={{ color: 'green' }} /> : <ReportIcon style={{ color: 'orange' }} />}
                                 onClick={() => console.log("display rules")}
                             />
                         </Grid>
@@ -122,7 +97,7 @@ function PlanningBoard(props) {
                         </Grid>
                         <Grid item xs={4} textAlign={"center"}>
                             <Typography textAlign={"center"} fontSize={22} fontWeight={500}>
-                                {moment(week[0].day).date()} {moment(week[0].day).locale(lang).format('MMMM')} - {moment(week[4].day).date()} {moment(week[4].day).locale(lang).format('MMMM')}
+                                {moment(props.week[0].day).date()} {moment(props.week[0].day).locale(lang).format('MMMM')} - {moment(props.week[4].day).date()} {moment(props.week[4].day).locale(lang).format('MMMM')}
                             </Typography>
                         </Grid>
                         <Grid item xs={2} textAlign={"left"}>
@@ -141,7 +116,7 @@ function PlanningBoard(props) {
                 <Grid item xs={12} style={{ width: '100%' }}>
                     <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"}>
                         <Grid item xs={12} style={{ zIndex: 1 }}>
-                            {week !== undefined && week.length !== 0 &&
+                            {props.week !== undefined && props.week.length !== 0 &&
                                 <div style={{ width: '100%' }}>
                                     <Fade left={orientation} right={!orientation} spy={index} when={anim}
                                         duration={animationDuration} opposite distance={"10%"} cascade>
@@ -149,41 +124,41 @@ function PlanningBoard(props) {
                                             <Grid item flexGrow={1} component={Paper} style={{ boxShadow: 'none' }}>
                                                 <PlanningElement
                                                     modify={declareDay}
-                                                    data={week[0]}
+                                                    data={props.week[0]}
                                                     day={t('app:date_elements:Mon')}
-                                                    updateOffice={updateTimeSheet}
+                                                    openOffice={(day, booking) => props.handleOpenOffice(day, booking)}
                                                 />
                                             </Grid>
                                             <Grid item flexGrow={1} component={Paper} style={{ boxShadow: 'none' }}>
                                                 <PlanningElement
                                                     modify={declareDay}
-                                                    data={week[1]}
+                                                    data={props.week[1]}
                                                     day={t('app:date_elements:Tue')}
-                                                    updateOffice={updateTimeSheet}
+                                                    openOffice={(day, booking) => props.handleOpenOffice(day, booking)}
                                                 />
                                             </Grid>
                                             <Grid item flexGrow={1} component={Paper} style={{ boxShadow: 'none' }}>
                                                 <PlanningElement
                                                     modify={declareDay}
-                                                    data={week[2]}
+                                                    data={props.week[2]}
                                                     day={t('app:date_elements:Wed')}
-                                                    updateOffice={updateTimeSheet}
+                                                    openOffice={(day, booking) => props.handleOpenOffice(day, booking)}
                                                 />
                                             </Grid>
                                             <Grid item flexGrow={1} component={Paper} style={{ boxShadow: 'none' }}>
                                                 <PlanningElement
                                                     modify={declareDay}
-                                                    data={week[3]}
+                                                    data={props.week[3]}
                                                     day={t('app:date_elements:Thu')}
-                                                    updateOffice={updateTimeSheet}
+                                                    openOffice={(day, booking) => props.handleOpenOffice(day, booking)}
                                                 />
                                             </Grid>
                                             <Grid item flexGrow={1} component={Paper} style={{ boxShadow: 'none' }}>
                                                 <PlanningElement
                                                     modify={declareDay}
-                                                    data={week[4]}
+                                                    data={props.week[4]}
                                                     day={t('app:date_elements:Fri')}
-                                                    updateOffice={updateTimeSheet}
+                                                    openOffice={(day, booking) => props.handleOpenOffice(day, booking)}
                                                 />
                                             </Grid>
                                         </Grid>
@@ -193,7 +168,6 @@ function PlanningBoard(props) {
                         </Grid>
                     </Grid>
                 </Grid>
-
             </Grid>
         </Paper>
     )

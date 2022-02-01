@@ -212,7 +212,7 @@ function Team(props) {
                                 {team[2].map((e, index) => {
                                     if (index < 3) {
                                         return (
-                                            <Grid item>
+                                            <Grid item key={index}>
                                                 <Avatar alt="Remy Sharp" src={e.profilePicturePath === null ? ProfileDefault : e.profilePicturePath} sx={{ width: 30, height: 30 }} />
                                             </Grid>
                                         )
@@ -484,9 +484,9 @@ function Team(props) {
                             <MenuItem onClick={handleClose5} disableTouchRipple style={{ color: '#008946', cursor: 'default', backgroundColor: 'transparent' }}>
                                 <OfficeIcon sx={{ width: 32, height: 32, marginRight: 2, backgroundColor: '#C3E4B6' }} /> <span style={{ color: '#008946', fontWeight: 500 }}>{t('app:statuses:office')}</span>
                             </MenuItem>
-                            {team[1].map((item) => {
+                            {team[1].map((item, index) => {
                                 return (
-                                    <MenuItem onClick={handleClose5} style={{ marginLeft: 5 }}>
+                                    <MenuItem key={index} onClick={handleClose5} style={{ marginLeft: 5 }}>
                                         <Avatar sx={{ width: 30, height: 30, marginRight: 2 }} alt={item.fullName} src={item.profilePicturePath === null ? ProfileDefault : item.profilePicturePath} />
                                         {`${item.firstName} ${item.lastName}`}
                                     </MenuItem>
@@ -499,9 +499,9 @@ function Team(props) {
                             <MenuItem onClick={handleClose5} disableTouchRipple style={{ color: '#0070C0', cursor: 'default', backgroundColor: 'transparent' }}>
                                 <ManWorkingIcon sx={{ width: 28, height: 28, marginRight: 2, backgroundColor: '#DAEFFA' }} /> <span style={{ color: '#0070C0', fontWeight: 500 }}>{t('app:statuses:home_working')}</span>
                             </MenuItem>
-                            {team[2].map((item) => {
+                            {team[2].map((item, index) => {
                                 return (
-                                    <MenuItem onClick={handleClose5} style={{ marginLeft: 5 }}>
+                                    <MenuItem key={index} onClick={handleClose5} style={{ marginLeft: 5 }}>
                                         <Avatar sx={{ width: 30, height: 30, marginRight: 2 }} alt={item.fullName} src={item.profilePicturePath === null ? ProfileDefault : item.profilePicturePath} />
                                         {`${item.firstName} ${item.lastName}`}
                                     </MenuItem>
@@ -514,9 +514,9 @@ function Team(props) {
                             <MenuItem onClick={handleClose5} disableTouchRipple style={{ color: '#7030A0', cursor: 'default', backgroundColor: 'transparent' }}>
                                 <AwayIcon sx={{ width: 32, height: 32, marginRight: 2, backgroundColor: '#E6DCF1' }} /> <span style={{ color: '#7030A0', fontWeight: 500 }}>{t('app:statuses:on_the_go')}</span>
                             </MenuItem>
-                            {team[3].map((item) => {
+                            {team[3].map((item, index) => {
                                 return (
-                                    <MenuItem onClick={handleClose5} style={{ marginLeft: 5 }}>
+                                    <MenuItem key={index} onClick={handleClose5} style={{ marginLeft: 5 }}>
                                         <Avatar sx={{ width: 30, height: 30, marginRight: 2 }} alt={item.fullName} src={item.profilePicturePath === null ? ProfileDefault : item.profilePicturePath} />
                                         {`${item.firstName} ${item.lastName}`}
                                     </MenuItem>
@@ -529,9 +529,9 @@ function Team(props) {
                             <MenuItem onClick={handleClose5} disableTouchRipple style={{ color: '#FFA800', cursor: 'default', backgroundColor: 'transparent' }}>
                                 <OffIcon sx={{ width: 32, height: 32, marginRight: 2, backgroundColor: '#FBE7B4' }} /> <span style={{ color: '#FFA800', fontWeight: 500 }}>{t('app:statuses:off')}</span>
                             </MenuItem>
-                            {team[4].map((item) => {
+                            {team[4].map((item, index) => {
                                 return (
-                                    <MenuItem onClick={handleClose5} style={{ marginLeft: 5 }}>
+                                    <MenuItem key={index} onClick={handleClose5} style={{ marginLeft: 5 }}>
                                         <Avatar sx={{ width: 30, height: 30, marginRight: 2 }} alt={item.fullName} src={item.profilePicturePath === null ? ProfileDefault : item.profilePicturePath} />
                                         {`${item.firstName} ${item.lastName}`}
                                     </MenuItem>
