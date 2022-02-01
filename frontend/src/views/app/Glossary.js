@@ -3,7 +3,6 @@ import { useTheme } from '@mui/material/styles';
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Grid from "@mui/material/Grid";
-import CustomContainer from "../../components/containers/app/CustomContainer";
 import SearchGlossary from "../../components/containers/app/glossary/SearchGlossary";
 import InfoByUser from "../../components/containers/app/glossary/InfoByUser";
 

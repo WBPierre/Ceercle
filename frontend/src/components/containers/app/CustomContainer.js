@@ -6,6 +6,8 @@ import {useState} from "react";
 import {styled} from "@mui/material/styles";
 import Container from "@mui/material/Container";
 import {useLocation} from "react-router-dom";
+import {Typography} from "@mui/material";
+import Grid from "@mui/material/Grid";
 
 const drawerWidth = 200;
 
@@ -60,14 +62,23 @@ function CustomContainer(props){
     }else{
         return(
             <Box sx={{ display: 'flex', minHeight:'100vh'}}>
-                <AppBar open={open} handleDrawerOpen={handleDrawerOpen} handleDrawerClose={handleDrawerClose}/>
-                <DrawerCustom open={open} handleDrawerOpen={handleDrawerOpen} handleDrawerClose={handleDrawerClose}/>
-                <Main open={open} style={{backgroundColor:'#FDF9F6'}}>
-                    <DrawerHeader />
-                    <Container>
-                        {props.children}
-                    </Container>
-                </Main>
+                <Box sx={{ display: { xs: 'none', md: 'flex' }, flex:1}}>
+                    <AppBar open={open} handleDrawerOpen={handleDrawerOpen} handleDrawerClose={handleDrawerClose}/>
+                    <DrawerCustom open={open} handleDrawerOpen={handleDrawerOpen} handleDrawerClose={handleDrawerClose}/>
+                    <Main open={open} style={{backgroundColor:'#FDF9F6'}}>
+                        <DrawerHeader />
+                        <Container>
+                            {props.children}
+                        </Container>
+                    </Main>
+                </Box>
+                <Box sx={{ display: { xs: 'flex', md: 'none' }, flex:1}}>
+                    <Grid container direction={"row"} style={{flex:1}} alignItems={"center"} justifyContent={"center"}>
+                        <Grid item>
+                            <Typography>Version mobile en cours de construction</Typography>
+                        </Grid>
+                    </Grid>
+                </Box>
             </Box>
         )
     }

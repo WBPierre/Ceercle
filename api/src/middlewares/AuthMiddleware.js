@@ -52,7 +52,7 @@ exports.isCeercle = (req, res, next) => {
                     res.status(403);
                     res.send();
                 } else {
-                    if (companyRecord.name !== "Ceercle") {
+                    if (!companyRecord.admin) {
                         res.status(403);
                         res.send();
                     } else {

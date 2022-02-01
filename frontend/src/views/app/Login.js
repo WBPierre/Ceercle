@@ -26,6 +26,7 @@ import { useCookies } from 'react-cookie';
 import useAuth from "../../components/context/auth/AuthHelper";
 import TokenService from "../../services/token.service";
 import * as App_Routes from "../../navigation/app/Routes";
+import {useSnackbar} from "notistack";
 
 function Login() {
     const { i18n } = useTranslation();
@@ -36,6 +37,7 @@ function Login() {
     const [password, setPassword] = useState('');
     const [cookies, setCookie] = useCookies(['token']);
     const context = useAuth();
+    const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
         if(context.isAuth) {
@@ -63,6 +65,10 @@ function Login() {
                 await setAuth(res.data);
                 navigate(App_Routes.DASHBOARD)
             }
+        }).catch((error) => {
+            enqueueSnackbar(t('app:errors:login'), {
+                variant: 'warning'
+            });
         });
     }
 
@@ -185,7 +191,8 @@ function Login() {
                                     fullWidth
                                     onClick={() => login()}
                                     variant="contained"
-                                    sx={{ mt: 3, mb: 2, backgroundColor: '#3F07A8' }}
+                                    color={"secondary"}
+                                    sx={{ mt: 3, mb: 2 }}
                                 >
                                     {t('public:login:connect_my_self')}
                                 </Button>

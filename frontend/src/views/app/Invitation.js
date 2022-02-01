@@ -26,13 +26,14 @@ function Invitation(){
     const theme = useTheme();
     let navigate = useNavigate();
     const {token} = useParams();
+    const [email, setEmail] = useState('');
+    const [companyName, setCompanyName] = useState('');
     const [lastName, setLastName] = useState('');
     const [lastNameError, setLastNameError] = useState(false);
     const [firstName, setFirstName] = useState('');
     const [firstNameError, setFirstNameError] = useState(false);
     const [phoneNumber, setPhoneNumber] = useState('');
     const [phoneNumberError, setPhoneNumberError] = useState(false);
-    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordError, setPasswordError] = useState(false);
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -44,8 +45,9 @@ function Invitation(){
         async function verifyToken() {
             await UserService.verifyInvitation(token).then((res) => {
                 setEmail(res.data.email);
+                setCompanyName(res.data.companyName);
             }).catch((e) => {
-                //navigate(App_Routes.LOGIN);
+                navigate(App_Routes.LOGIN);
             })
         }
         verifyToken();
@@ -114,7 +116,17 @@ function Invitation(){
 
     const submitForm = async () => {
         if(validate()){
-            console.log("VALID");
+            const resources = {
+                firstName: firstName,
+                lastName: lastName,
+                phoneNumber: phoneNumber,
+                position: position,
+                password: password,
+                token: token
+            }
+            await UserService.createUserFromInvitation(resources).then(()=> {
+                navigate(App_Routes.LOGIN);
+            })
         }
     }
 
@@ -153,7 +165,7 @@ function Invitation(){
                         >
 
                             <Typography component="h1" variant="h5" color="#3F07A8">
-                                {t('public:login:my_account')}
+                                {t('public:login:my_account')} - {companyName}
                             </Typography>
 
                             <Box component="form" noValidate sx={{ mt: 1 }}>

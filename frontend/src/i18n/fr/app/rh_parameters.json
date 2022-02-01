@@ -25,7 +25,11 @@
   },
   "users": {
     "tab_name": "Utilisateurs",
-    "add_user": "Ajouter un utilisateur"
+    "add_user": "Ajouter un utilisateur",
+    "delete_user": "Voulez-vous supprimer cet utilisateur ? Cette action sera reporté sur votre prochaine facture.",
+    "delete_user_title": "Supprimer un utilisateur",
+    "create_link_user": "Créer un lien d'invitation",
+    "enter_email": "Merci de renseigner l'email du collaborateur que vous souhaitez inviter dans Ceercle. Votre collaborateur recevra un email avec un lien pour créer un compte. Dès que cet utilisateur se sera inscrit, cela sera reporté sur votre prochaine facture automatiquement."
   },
   "integration": {
     "tab_name": "Intégrations",

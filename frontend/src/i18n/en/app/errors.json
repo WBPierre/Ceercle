@@ -1,5 +1,6 @@
 {
   "password": "Password must have at least 8 characters.",
   "confirmPassword": "Passwords are different.",
-  "text": "Incorrect entry"
+  "text": "Incorrect entry",
+  "login": "Wrong identifiers"
 }

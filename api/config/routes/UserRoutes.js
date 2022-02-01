@@ -15,5 +15,7 @@ router.put('/settings', [isUserAuthenticated, UserController.validate('updateUse
 router.post('/uploadProfile', [isUserAuthenticated], UserController.uploadProfile);
 router.post('/uploadBanner', [isUserAuthenticated], UserController.uploadBanner);
 router.get('/invitation/verify/:token', UserController.validate('verifyInvitation'), UserController.verifyInvitation);
-
+router.post('/invitation/validate', UserController.validate('createUserFromInvitation'), UserController.createUserFromInvitation);
+router.post('/invitation/create', [isAdminUser, UserController.validate('createInvitation')], UserController.createInvitation);
+router.get('/disable/:id', [isAdminUser, UserController.validate('disableUser')], UserController.disableUser);
 module.exports = router;

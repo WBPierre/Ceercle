@@ -1,4 +1,3 @@
-const MoodRoutes = require("./routes/MoodRoutes");
 module.exports = function(server) {
     const UserRoutes = require('./routes/UserRoutes');
     const ContactRoutes = require('./routes/ContactRoutes');

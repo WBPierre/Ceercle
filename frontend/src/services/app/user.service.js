@@ -9,6 +9,18 @@ class UserService {
         return this.request.get('/users/invitation/verify/'+token);
     }
 
+    async createUserFromInvitation(){
+        return this.request.post('/users/invitation/validate');
+    }
+
+    async createInvitation(resources){
+        return this.request.post('/users/invitation/create', resources)
+    }
+
+    async disableUser(id){
+        return this.request.get('/users/disable/'+id)
+    }
+
     async getUsers() {
         return this.request.get('/users/');
     }

@@ -4,7 +4,7 @@ const { body, param, validationResult } = require('express-validator')
 
 /*
 exports.preview = async function (req, res, next) {
-    res.render('contact', {firstName: 'Will', lastName: 'Will'});
+    res.render('invitation', {firstName: 'Will', lastName: 'Will'});
 }
 */
 
@@ -16,7 +16,6 @@ exports.sendContact = async function (req, res, next){
             res.status(422).json({ errors: errors.array() });
             return;
         }
-
         const contact = await Contact.create(req.body);
         await Mailer.sendContact(req.body);
         res.json(contact)

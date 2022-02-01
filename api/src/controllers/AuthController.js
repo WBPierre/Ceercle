@@ -124,7 +124,7 @@ exports.login = async function (req, res, next) {
                 }
             }).then(async (record) => {
                 if (!record) {
-                    res.status(404);
+                    res.status(403);
                     res.send();
                 } else {
                     if (record.active) {
