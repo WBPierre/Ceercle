@@ -18,7 +18,7 @@ const Company = db.define('company', {
         type: DataTypes.BOOLEAN,
         defaultValue: false
     },
-    restrictive_rules:{
+    restrictive_rules: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
     },
@@ -32,7 +32,15 @@ const Company = db.define('company', {
     },
     officeMaximum: {
         type: DataTypes.INTEGER,
-        defaultValue: 3,
+        defaultValue: 5,
+    },
+    remoteMinimum: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    remoteMaximum: {
+        type: DataTypes.INTEGER,
+        defaultValue: 5,
     },
     maxCapacity: {
         type: DataTypes.INTEGER,

@@ -8,13 +8,13 @@ import Office from "../../components/containers/app/dashboard/Office";
 import Team from "../../components/containers/app/dashboard/Team";
 import Mood from "../../components/containers/app/dashboard/Mood";
 import CustomContainer from "../../components/containers/app/CustomContainer";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import PlanningBoard from "../../components/containers/app/dashboard/PlanningBoard";
 import useAuth from "../../components/context/auth/AuthHelper";
 import moment from "moment";
 import TimeService from "../../services/app/time.service";
 import OfficeModal from "../../components/containers/app/dashboard/OfficeModal";
-import {useSnackbar} from "notistack";
+import { useSnackbar } from "notistack";
 
 export default function Dashboard(props) {
 
@@ -40,7 +40,7 @@ export default function Dashboard(props) {
         const getTimeSheet = async () => {
             await TimeService.getTimeSheet(index).then((res) => {
                 setWeek(res.data.week);
-                setBooking(res.data.week.find(x=>x.current).reservation);
+                setBooking(res.data.week.find(x => x.current).reservation);
             })
         }
         getTimeSheet();
@@ -49,7 +49,7 @@ export default function Dashboard(props) {
 
     const getHasUserValidatedCompanyRules = async (ind) => {
         await TimeService.getHasUserValidatedCompanyRules(ind).then((res) => {
-            setRuleRespected(res.data.check)
+            setRuleRespected(res.data)
         })
     }
 
@@ -57,8 +57,8 @@ export default function Dashboard(props) {
         setIndex(ind);
         await TimeService.getTimeSheet(ind).then((res) => {
             setWeek(res.data.week);
-            if(ind === 0){
-                setBooking(res.data.week.find(x=>x.current).reservation);
+            if (ind === 0) {
+                setBooking(res.data.week.find(x => x.current).reservation);
             }
             getHasUserValidatedCompanyRules(ind);
         })
@@ -72,7 +72,7 @@ export default function Dashboard(props) {
     }
     const handleCloseOffice = async (update) => {
         setOpenOffice(false);
-        if(update){
+        if (update) {
             await getTimeSheet(index);
             enqueueSnackbar(t('app:dashboard:desk_modification'), {
                 variant: 'success'
@@ -88,7 +88,7 @@ export default function Dashboard(props) {
         <Grid wrap={"nowrap"} container direction={"column"} spacing={1}>
             <OfficeModal open={openOffice} handleClose={(update) => handleCloseOffice(update)} day={dayOffice} booking={booking} />
             <Grid item>
-                <PlanningBoard getTimeSheet={ (index) => getTimeSheet(index)} week={week} ruleRespected={ruleRespected} handleOpenOffice={(day, booking) => handleOpenOffice(day, booking)}/>
+                <PlanningBoard getTimeSheet={(index) => getTimeSheet(index)} week={week} ruleRespected={ruleRespected} handleOpenOffice={(day, booking) => handleOpenOffice(day, booking)} />
             </Grid>
             <Grid item xs={12} mb={2}>
                 <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"}>
@@ -109,7 +109,7 @@ export default function Dashboard(props) {
                 <Grid container direction={"row"} spacing={1} justifyContent={"space-around"}>
                     {context.user.company.activeOfficeHandler &&
                         <Grid item xs={12} md={4} style={{ borderRadius: '25px' }} component={Paper}>
-                            <Office day={daySelected} reservation={booking} handleOpenOffice={(day, booking) => handleOpenOffice(day, booking)}/>
+                            <Office day={daySelected} reservation={booking} handleOpenOffice={(day, booking) => handleOpenOffice(day, booking)} />
                         </Grid>
                     }
                     <Grid item xs={12} md={context.user.company.activeOfficeHandler ? 3 : 5} style={{ borderRadius: '25px' }} component={Paper}>

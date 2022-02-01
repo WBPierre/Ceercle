@@ -5,13 +5,13 @@
     "subtitle": "Définissez vos règles de travail hybride, à l'échelle de l'entreprise ou des équipes.",
     "company_level_info": "Pour l'entreprise",
     "warning": "Attention, ces réglages remplaceront les règles spécifiques à chaque équipe.",
-    "days_worked_at_office": "Nombre de jours travaillés au bureau",
+    "max_days": "Nombre maximal de jours",
     "scope": "Granularité",
     "week": "Semaine",
     "month": "Mois",
     "set_up_by_day": "Spécification par jour",
     "snackbar_success": "Paramètres enregistrés",
-    "snackbar_warning": "Attention, le nombre de jours travaillés minimum est supérieur au nombre de jours travaillés maximum."
+    "snackbar_warning": "Les valeurs proposées ne sont pas compatibles avec le remplissage du calendrier."
   },
   "offices": {
     "tab_name": "Paramétrage des bureaux",

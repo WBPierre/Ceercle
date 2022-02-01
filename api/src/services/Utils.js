@@ -135,3 +135,15 @@ exports.extractLeafFromTree = function (tree) {
         return (leaves_list)
     }
 }
+
+exports.checkIfWeekCompliantToHRRules = function (companyMandatoryStatuses, userStatusesByDayForWeek) {
+    for (let i = 0; i < 5; i++) {
+        if (companyMandatoryStatuses[i] == 1) {
+            return !(userStatusesByDayForWeek[i][0] == 2 || userStatusesByDayForWeek[i][1] == 2)
+        }
+        if (companyMandatoryStatuses[i] == 2) {
+            return !(userStatusesByDayForWeek[i][0] == 1 || userStatusesByDayForWeek[i][1] == 1)
+        }
+    }
+    return true
+}

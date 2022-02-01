@@ -5,13 +5,13 @@
     "subtitle": "Set-up your hybrid work rules.",
     "company_level_info": "For the company",
     "warning": "Warning: these rules will overwrite the ones in place within each team.",
-    "days_worked_at_office": "Days worked at the office",
+    "max_days": "Maximum number of days",
     "scope": "Scope",
     "week": "Week",
     "month": "Month",
     "set_up_by_day": "Specification by day",
     "snackbar_success": "Change saved.",
-    "snackbar_warning": "Warning, the minimum worked days at the office is larger than the maximum."
+    "snackbar_warning": "The suggested values are incompatible with a proper calendar declaration."
   },
   "offices": {
     "tab_name": "Offices set-up",
