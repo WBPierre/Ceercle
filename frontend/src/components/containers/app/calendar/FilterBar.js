@@ -27,7 +27,6 @@ function FilterBar(props) {
         async function getAllTeams() {
             await TeamService.listAllTeams().then((res) => {
                 setList(res.data);
-                console.log(res.data);
             })
         }
         getAllTeams();
@@ -83,9 +82,9 @@ function FilterBar(props) {
                                     input={<InputBase />}
                                 >
                                     <MenuItem value={0}>{t('app:calendar:team_search')}</MenuItem>
-                                    {list.map((team) => {
+                                    {list.map((team, index) => {
                                         return (
-                                            <MenuItem value={team.id}>{team.name}</MenuItem>
+                                            <MenuItem key={index} value={team.id}>{team.name}</MenuItem>
                                         )
                                     })}
                                 </Select>

@@ -156,7 +156,7 @@ function CalendarListElement(props) {
                                     {props.data.map((item, i) => {
                                         if (i < 3) {
                                             return (
-                                                <Grid item>
+                                                <Grid item key={i}>
                                                     <Avatar sx={{ width: 24, height: 24 }} alt={item.fullName} src={item.profilePicturePath === null ? ProfileDefault : item.profilePicturePath} />
                                                 </Grid>
                                             )
