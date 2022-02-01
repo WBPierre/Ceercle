@@ -84,17 +84,6 @@ export default function AvatarSection(props) {
                                                 variant="outlined"
                                             />
                                         </label>
-
-                                        <Chip
-                                            label={t('generic:delete')}
-                                            sx={{
-                                                borderColor: "#3C3B3D", color: "#3C3B3D", fontWeight: "bold"
-                                            }}
-                                            color="error"
-                                            onClick={cancel}
-                                            icon={<CancelIcon />}
-                                            variant="outlined"
-                                        />
                                     </Stack>
                                 </Grid>
                             </Grid>
@@ -134,17 +123,6 @@ export default function AvatarSection(props) {
                                                 variant="outlined"
                                             />
                                         </label>
-
-                                        <Chip
-                                            label={t('generic:delete')}
-                                            sx={{
-                                                borderColor: "#3C3B3D", color: "#3C3B3D", fontWeight: "bold"
-                                            }}
-                                            color="error"
-                                            onClick={cancel}
-                                            icon={<CancelIcon />}
-                                            variant="outlined"
-                                        />
                                     </Stack>
                                 </Grid>
                             </Grid>

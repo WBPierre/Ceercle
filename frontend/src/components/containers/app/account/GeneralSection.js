@@ -134,7 +134,6 @@ export default function GeneralSection(props) {
                     <FormControl sx={{ width: 300 }} variant="standard" disabled>
                         <TextField
                             id="filled-search"
-                            defaultValue={position}
                             value={position}
                             onChange={onChangePosition}
                             variant="standard"
@@ -173,7 +172,6 @@ export default function GeneralSection(props) {
                     <FormControl sx={{ width: 300 }} variant="standard" disabled>
                         <TextField
                             id="filled-search"
-                            defaultValue={phoneNumber}
                             onChange={onChangePhoneNumber}
                             value={phoneNumber}
                             variant="standard"

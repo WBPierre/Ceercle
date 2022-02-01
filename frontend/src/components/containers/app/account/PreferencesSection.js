@@ -282,7 +282,7 @@ export default function PreferencesSection(props) {
                         >
                             {timezones.map((tz, index) => {
                                 return (
-                                    <MenuItem value={index}>{tz}</MenuItem>
+                                    <MenuItem key={index} value={index}>{tz}</MenuItem>
                                 )
                             }
                             )}
@@ -306,7 +306,7 @@ export default function PreferencesSection(props) {
                         >
                             {languageOptions.map((lang, index) => {
                                 return (
-                                    <MenuItem value={index}>{lang}</MenuItem>
+                                    <MenuItem key={index} value={index}>{lang}</MenuItem>
                                 )
                             }
                             )}
@@ -333,7 +333,7 @@ export default function PreferencesSection(props) {
                         >
                             {statuses.map((status, index) => {
                                 return (
-                                    <MenuItem value={index}>{status}</MenuItem>
+                                    <MenuItem key={index} value={index}>{status}</MenuItem>
                                 )
                             }
                             )}
@@ -351,7 +351,7 @@ export default function PreferencesSection(props) {
                         >
                             {statuses.map((status, index) => {
                                 return (
-                                    <MenuItem value={index}>{status}</MenuItem>
+                                    <MenuItem key={index} value={index}>{status}</MenuItem>
                                 )
                             }
                             )}
@@ -369,7 +369,7 @@ export default function PreferencesSection(props) {
                         >
                             {statuses.map((status, index) => {
                                 return (
-                                    <MenuItem value={index}>{status}</MenuItem>
+                                    <MenuItem key={index} value={index}>{status}</MenuItem>
                                 )
                             }
                             )}
@@ -387,7 +387,7 @@ export default function PreferencesSection(props) {
                         >
                             {statuses.map((status, index) => {
                                 return (
-                                    <MenuItem value={index}>{status}</MenuItem>
+                                    <MenuItem key={index} value={index}>{status}</MenuItem>
                                 )
                             }
                             )}
@@ -405,7 +405,7 @@ export default function PreferencesSection(props) {
                         >
                             {statuses.map((status, index) => {
                                 return (
-                                    <MenuItem value={index}>{status}</MenuItem>
+                                    <MenuItem key={index} value={index}>{status}</MenuItem>
                                 )
                             }
                             )}

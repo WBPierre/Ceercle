@@ -167,7 +167,7 @@ export default function CompanyRules() {
                                 >
                                     {scopes.map((scope, index) => {
                                         return (
-                                            <MenuItem value={index}>{scope}</MenuItem>
+                                            <MenuItem value={index} key={index}>{scope}</MenuItem>
                                         )
                                     }
                                     )}
@@ -186,7 +186,7 @@ export default function CompanyRules() {
                                 >
                                     {daysWorked.filter((day, index) => (day < 6) || (day > 5 && ruleScope == 1)).map((day, index) => {
                                         return (
-                                            <MenuItem value={index}>{day}</MenuItem>
+                                            <MenuItem value={index} key={index}>{day}</MenuItem>
                                         )
                                     }
                                     )}
@@ -204,7 +204,7 @@ export default function CompanyRules() {
                                 >
                                     {daysWorked.filter((day, index) => (day < 6) || (day > 5 && ruleScope == 1)).map((day, index) => {
                                         return (
-                                            <MenuItem value={index}>{day}</MenuItem>
+                                            <MenuItem value={index} key={index}>{day}</MenuItem>
                                         )
                                     }
                                     )}
@@ -234,7 +234,7 @@ export default function CompanyRules() {
                                 >
                                     {statuses.map((status, index) => {
                                         return (
-                                            <MenuItem value={index}>{status}</MenuItem>
+                                            <MenuItem value={index} key={index}>{status}</MenuItem>
                                         )
                                     }
                                     )}
@@ -252,7 +252,7 @@ export default function CompanyRules() {
                                 >
                                     {statuses.map((status, index) => {
                                         return (
-                                            <MenuItem value={index}>{status}</MenuItem>
+                                            <MenuItem value={index} key={index}>{status}</MenuItem>
                                         )
                                     }
                                     )}
@@ -270,7 +270,7 @@ export default function CompanyRules() {
                                 >
                                     {statuses.map((status, index) => {
                                         return (
-                                            <MenuItem value={index}>{status}</MenuItem>
+                                            <MenuItem value={index} key={index}>{status}</MenuItem>
                                         )
                                     }
                                     )}
@@ -288,7 +288,7 @@ export default function CompanyRules() {
                                 >
                                     {statuses.map((status, index) => {
                                         return (
-                                            <MenuItem value={index}>{status}</MenuItem>
+                                            <MenuItem value={index} key={index}>{status}</MenuItem>
                                         )
                                     }
                                     )}
@@ -306,7 +306,7 @@ export default function CompanyRules() {
                                 >
                                     {statuses.map((status, index) => {
                                         return (
-                                            <MenuItem value={index}>{status}</MenuItem>
+                                            <MenuItem value={index} key={index}>{status}</MenuItem>
                                         )
                                     }
                                     )}

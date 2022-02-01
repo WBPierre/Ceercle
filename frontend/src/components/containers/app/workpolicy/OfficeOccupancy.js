@@ -108,7 +108,7 @@ export default function OfficeOccupancy() {
                                 >
                                     {officesList.map((off, index) => {
                                         return (
-                                            <MenuItem value={index}>{off.name}</MenuItem>
+                                            <MenuItem value={index} key={index}>{off.name}</MenuItem>
                                         )
                                     }
                                     )}
@@ -142,7 +142,7 @@ export default function OfficeOccupancy() {
                                 >
                                     {occupancies.map((off, index) => {
                                         return (
-                                            <MenuItem value={index}>{off}</MenuItem>
+                                            <MenuItem value={index} key={index}>{off}</MenuItem>
                                         )
                                     }
                                     )}

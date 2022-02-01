@@ -32,7 +32,6 @@ function UserAddModal(props) {
 
     const confirmAddUser = async () => {
         let object = { userId: value.id, teamId: parseInt(props.teamId) }
-        console.log(object);
         await TeamService.addUserToTeam(object)
         props.handleModalClose(true)
         setValue(null)
@@ -45,12 +44,11 @@ function UserAddModal(props) {
 
 
     const [value, setValue] = useState(null);
-    const [users, setUsers] = useState(null);
+    const [users, setUsers] = useState([]);
 
     async function listUsers() {
         const res = await UserService.getUsersNamesForTeam(props.teamId);
         setUsers(res.data);
-        console.log(res.data)
     }
 
     useEffect(() => {
