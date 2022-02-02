@@ -6,7 +6,7 @@ import Login from "../views/Login";
 import useAuth from "../components/context/auth/AuthHelper";
 import CompanyList from "../views/CompanyList";
 import Company from "../views/Company";
-import Office from "../views/Office";
+import Office from "../components/containers/company/Office";
 import OfficeElement from "../views/OfficeElement";
 import ProtectedRoute from "./ProtectedRoute";
 import {LOGIN} from "./Routes";

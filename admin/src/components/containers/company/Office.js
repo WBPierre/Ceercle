@@ -1,8 +1,8 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {useSnackbar} from "notistack";
 import {useEffect, useState} from "react";
-import OfficeService from "../services/admin/office.service";
-import CustomContainer from "../components/containers/CustomContainer";
+import OfficeService from "../../../services/admin/office.service";
+import CustomContainer from "../CustomContainer";
 import {
     Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
     Modal,
@@ -31,8 +31,7 @@ const style = {
     p: 4,
 };
 
-function Office(){
-    const {id} = useParams();
+function Office(props){
     const { enqueueSnackbar } = useSnackbar();
     let navigate = useNavigate();
     const [list, setList] = useState([]);
@@ -59,7 +58,7 @@ function Office(){
     };
 
     useEffect(async () => {
-        const res = await OfficeService.getOffices(id);
+        const res = await OfficeService.getOffices(props.company.id);
         setList(res.data);
     }, []);
 
@@ -126,7 +125,7 @@ function Office(){
             const resources = {
                 name: name,
                 capacity: capacity,
-                companyId: parseInt(id),
+                companyId: parseInt(props.company.id),
                 maxCapacity: maxCapacity,
                 address: address,
                 zipCode: zipCode,
@@ -177,7 +176,7 @@ function Office(){
                 })
             }
         }
-        const res = await OfficeService.getOffices(id);
+        const res = await OfficeService.getOffices(props.company.id);
         setList(res.data);
     }
 
@@ -205,7 +204,7 @@ function Office(){
                     variant: 'error'
                 });
             })
-            const res = await OfficeService.getOffices(id);
+            const res = await OfficeService.getOffices(props.company.id);
             setList(res.data);
         }
     }
@@ -214,7 +213,7 @@ function Office(){
     const handleClose = () => setOpen(false);
 
     return(
-        <CustomContainer>
+        <Paper style={{borderRadius: '25px', padding: '2%'}}>
             <Grid container direction={"column"} spacing={3}>
                 <Grid item>
                     <Dialog
@@ -312,7 +311,7 @@ function Office(){
                                             <TableCell align="right">{row.capacity}</TableCell>
                                             <TableCell align="right">{row.maxCapacity} %</TableCell>
                                             <TableCell align="right">{row.country}</TableCell>
-                                            <TableCell align="right"><Button variant={"contained"} color={"info"} onClick={() => navigate('/company/'+id+'/office/'+row.id)}>Manage</Button></TableCell>
+                                            <TableCell align="right"><Button variant={"contained"} color={"info"} onClick={() => navigate('/company/'+props.company.id+'/office/'+row.id)}>Manage</Button></TableCell>
                                             <TableCell align="right"><Button variant={"contained"} onClick={() => handleOpen(row)}>Update</Button></TableCell>
                                             <TableCell align="right"><Button variant={"contained"} color={"warning"} onClick={() => handleDeleteClickOpen(row.id)}>Delete</Button></TableCell>
                                         </TableRow>
@@ -323,7 +322,7 @@ function Office(){
                     </TableContainer>
                 </Grid>
             </Grid>
-        </CustomContainer>
+        </Paper>
     )
 }
 

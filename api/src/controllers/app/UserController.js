@@ -14,7 +14,8 @@ exports.listAllUsers = async function (req, res) {
     const users = await User.findAll({
         where:{
             companyId: res.locals.auth.user.company.id,
-            active: true
+            active: true,
+            isDeleted: false
         },
         order: [['createdAt', 'DESC']]
     });
@@ -37,8 +38,13 @@ exports.verifyInvitation = async function(req, res, next) {
             res.status(404);
             res.send();
         }else{
-            const company = await user.getCompany();
-            res.json({companyName: company.name, email: user.email});
+            if(user.active || user.isDeleted){
+                res.status(404);
+                res.send();
+            }else{
+                const company = await user.getCompany();
+                res.json({companyName: company.name, email: user.email});
+            }
         }
     } catch (err) {
         return next(err)
@@ -62,7 +68,7 @@ exports.disableUser = async function(req, res, next) {
             res.status(404);
             res.send();
         }else{
-            await user.update({active: false})
+            await user.update({isDeleted: true});
             res.status(200);
             res.send();
         }
@@ -138,7 +144,8 @@ exports.listGlossaryUsers = async function (req, res) {
         order: [['createdAt', 'DESC']],
         where:{
             companyId:  res.locals.auth.user.company.id,
-            active: true
+            active: true,
+            isDeleted: false
         }
     });
     let arr = [];
@@ -168,7 +175,9 @@ exports.listAllUsersNamesForTeam = async function (req, res, next) {
         await User.findAll(
             {
                 where: {
-                    companyId: res.locals.auth.user.company.id
+                    companyId: res.locals.auth.user.company.id,
+                    active: true,
+                    isDeleted: false
                 },
                 order: [['lastName', 'ASC'], ['firstName', 'ASC']]
             }).then(async (record) => {

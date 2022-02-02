@@ -20,7 +20,7 @@ function CreateCompany(props){
 
     const createCompany = async () => {
         let date = moment(activationDay, 'YYYY-MM-DD', true);
-        if(name.length > 2 && date.isValid()){
+        if(name.length > 2 && date.isValid() && date.diff(moment().format('YYYY-MM-DD')) > 0){
             const resources = {
                 name: name,
                 activationDay: activationDay,
@@ -98,7 +98,6 @@ function CreateCompany(props){
                                     id="activationDay"
                                     label="Activation day"
                                     name="activationDay"
-                                    autoComplete="given-name"
                                     placeholder={"YYYY-MM-DD"}
                                     value={activationDay}
                                     onChange={handleChange}
