@@ -35,7 +35,7 @@ exports.getTeamTimeSheet = async function (req, res, next) {
         const teams = await user.getTeams();
         for (let i = 0; i < teams.length; i++) {
             let users = await teams[i].getUsers();
-            let colleagues = users.filter(x => x.id !== res.locals.auth.user.id);
+            let colleagues = users.filter(x => x.id !== res.locals.auth.user.id && !x.isDeleted);
             for (let j = 0; j < colleagues.length; j++) {
                 await TimeSheet.findOne({
                     where: {
@@ -89,7 +89,9 @@ exports.getUsersTimeSheet = async function (req, res, next) {
         const week = Utils.getUsersWeekTimeSheets(req.params.index);
         const users = await User.findAll({
             where: {
-                companyId: res.locals.auth.user.company.id
+                companyId: res.locals.auth.user.company.id,
+                active: true,
+                isDeleted: false
             }
         });
         // id: {[Op.ne]:res.locals.auth.user.id}

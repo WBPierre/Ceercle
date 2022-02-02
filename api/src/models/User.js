@@ -94,6 +94,10 @@ const User = db.define('user', {
     activation_day:{
         type: DataTypes.STRING,
         allowNull: true
+    },
+    isDeleted:{
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
     }
 }, {
     timestamps: true,

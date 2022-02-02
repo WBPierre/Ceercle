@@ -89,7 +89,7 @@ function Users(props){
             sortable: false,
             renderCell: (params) => {
                 return <Chip
-                    label={params.active ? "Active" : params.activation_day == null ? 'Pending' : 'Disabled'}
+                    label={params.isDeleted ? "Disabled" : params.active ? "Active" : 'Pending'}
                     color="primary"
                 />;
             }
@@ -117,7 +117,7 @@ function Users(props){
 
     const disableUser = async () => {
         if(selectedUser !== 0){
-            //await UserService.disableUser(selectedUser);
+            await UserService.disableUser(selectedUser);
             handleCloseDisable();
             await getAllUsersOfCompany();
             enqueueSnackbar("Operation successful", {

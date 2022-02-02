@@ -29,6 +29,31 @@ exports.listUsersOfCompany = async function (req, res) {
     }
 }
 
+exports.disableUser = async function(req, res, next) {
+    try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            res.status(422).json({errors: errors.array()});
+            return;
+        }
+        const user = await User.findOne({
+            where:{
+                id: req.params.id
+            }
+        })
+        if(!user){
+            res.status(404);
+            res.send();
+        }else{
+            await user.update({isDeleted: true});
+            res.status(200);
+            res.send();
+        }
+    } catch (err) {
+        return next(err)
+    }
+}
+
 exports.createInvitation = async function(req, res, next) {
     try {
         const errors = validationResult(req);
@@ -86,6 +111,12 @@ exports.validate = (method) => {
             return [
                 param('companyId', 'companyId is not a string').exists(),
                 param('companyId', 'companyId is not a string').isNumeric()
+            ]
+        }
+        case 'disableUser': {
+            return [
+                param('id', 'id is not a string').exists(),
+                param('id', 'id is not a string').isNumeric()
             ]
         }
         case 'createInvitation': {

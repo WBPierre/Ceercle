@@ -69,7 +69,7 @@ exports.getTeam = async function (req, res, next) {
                 id: id,
             }
         });
-        users_linked = await team.getUsers({ order: [['lastName', 'ASC'], ['firstName', 'ASC']] })
+        users_linked = await team.getUsers({ where:{active: true, isDeleted: false},order: [['lastName', 'ASC'], ['firstName', 'ASC']] })
         let users_formatted = []
         for (let i = 0; i < users_linked.length; i++) {
             let user = {

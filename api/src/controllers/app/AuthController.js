@@ -127,7 +127,7 @@ exports.login = async function (req, res, next) {
                     res.status(403);
                     res.send();
                 } else {
-                    if (record.active) {
+                    if (record.active && !record.isDeleted) {
                         if (await Security.verifyPassword(password, record.password)) {
                             const company = await record.getCompany();
                             if(!company.active){
@@ -185,7 +185,7 @@ exports.verify = function (req, res, next) {
                 res.status(403);
                 res.send();
             }else{
-                if(!record.active){
+                if(!record.active || record.isDeleted){
                     res.status(403);
                     res.send();
                     return;
