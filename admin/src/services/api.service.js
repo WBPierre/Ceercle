@@ -1,10 +1,37 @@
 import axios from 'axios'
+import TokenService from "./token.service";
 
-class ApiService {
+class ApiService{
     constructor() {
         this.instance = axios.create({
-            baseURL: '/api/'
+            baseURL: '/api/admin'
         })
+        this.instance.interceptors.response.use(
+            (res) => {
+                return res;
+            },
+            async (err) => {
+                const originalConfig = err.config;
+                if(originalConfig.url !== "/auth/login" && err.response) {
+                    if(err.response.status === 401 && !originalConfig._retry) {
+                        originalConfig._retry = true;
+                        try {
+                            const rs = await this.instance.post('/auth/refreshToken', {
+                                refreshToken: TokenService.getLocalRefreshToken()
+                            });
+                            const {token} = rs.data;
+                            TokenService.setLocalAccessToken(token);
+                            this.setHeader(token);
+                            originalConfig.headers.Authorization = `Token ${token}`;
+                            return await this.instance(originalConfig);
+                        } catch (_error) {
+                            return Promise.reject(_error);
+                        }
+                    }
+                }
+                return Promise.reject(err);
+            }
+        )
     }
 
     setHeader(token) {
@@ -24,12 +51,12 @@ class ApiService {
         })
     }
 
-    get(url, config = {}) {
-        return this.request('GET', url, {}, config)
+    async get(url, config = {}) {
+        return this.request('GET', url, {}, config);
     }
 
-    post(url, data, config = {}) {
-        return this.request('POST', url, data, config)
+    async post(url, data, config = {}) {
+        return this.request('POST', url, data, config);
     }
 
     put(url, data, config = {}) {
@@ -45,4 +72,4 @@ class ApiService {
     }
 }
 
-export default new ApiService()
+export default new ApiService();

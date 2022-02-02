@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const CompanyController = require("../../src/controllers/CompanyController");
-const { isAdminUser, isCeercle } = require("../../src/middlewares/AuthMiddleware");
+const CompanyController = require("../../../src/controllers/app/CompanyController");
+const { isAdminUser, isCeercle } = require("../../../src/middlewares/AuthMiddleware");
 
 router.get('/', [isCeercle], CompanyController.listAllCompanies);
 router.get('/specific/:id', [isCeercle], CompanyController.getCompany);

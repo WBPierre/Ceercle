@@ -1,4 +1,4 @@
-const Company = require("../models/Company");
+const Company = require("../../models/Company");
 const { validationResult, param, body } = require("express-validator");
 
 exports.createCompany = async function (req, res, next) {
@@ -9,9 +9,11 @@ exports.createCompany = async function (req, res, next) {
             res.status(422).json({ errors: errors.array() });
             return;
         }
-        const { name } = req.body;
+        const { name, activationDay, invoiceType } = req.body;
         const company = await Company.create({
-            name
+            name: name,
+            activation_day: activationDay,
+            invoice_type: invoiceType
         });
         res.json(company);
     } catch (err) {
@@ -135,7 +137,7 @@ exports.getCompany = async function (req, res, next) {
             return;
         }
         const id = req.params.id;
-        const company = await Company.findAll({
+        const company = await Company.findOne({
             where: {
                 id: id,
             }
@@ -157,6 +159,10 @@ exports.validate = (method) => {
             return [
                 body('name', 'name doesn\'t exist').exists(),
                 body('name', 'name is not a string').isString(),
+                body('activationDay', 'activationDay doesn\'t exist').exists(),
+                body('activationDay', 'activationDay is not a string').isString(),
+                body('invoiceType', 'invoiceType doesn\'t exist').exists(),
+                body('invoiceType', 'invoiceType is not a string').isNumeric(),
             ]
         }
         case 'updateHRRules': {

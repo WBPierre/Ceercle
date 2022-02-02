@@ -1,7 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const requestParser = require('./requestParser');
-const Routes = require('./routes');
+const Routes = require('./routes/app_routes');
+const AdminRoutes = require('./routes/admin_routes');
 const {initDatabase} = require("./init/database");
 const {verifyDatabase} = require('./database');
 const {verifyFolderImplementation} = require('./init/upload');
@@ -26,5 +27,6 @@ init();
 requestParser(server);
 
 Routes(server);
+AdminRoutes(server);
 
 module.exports = server;

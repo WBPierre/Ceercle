@@ -1,6 +1,6 @@
 const {validationResult, param, body} = require("express-validator");
-const Mood = require("../models/Mood");
-const TimeSheet = require("../models/TimeSheet");
+const Mood = require("../../models/Mood");
+const TimeSheet = require("../../models/TimeSheet");
 
 exports.getMood = async function(req, res, next) {
     try {

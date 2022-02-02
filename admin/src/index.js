@@ -10,6 +10,7 @@ import CustomThemeProvider from "./components/context/theme/CustomThemeProvider"
 import {CssBaseline} from "@mui/material";
 import AuthProvider from "./components/context/auth/AuthProvider";
 
+
 ReactDOM.render(
   <React.StrictMode>
       <AuthProvider>

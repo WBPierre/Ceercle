@@ -1,14 +1,14 @@
 const { param, body, validationResult } = require("express-validator");
-const TimeSheet = require('../models/TimeSheet');
+const TimeSheet = require('../../models/TimeSheet');
 const Moment = require('moment');
-const Utils = require('../services/Utils');
+const Utils = require('../../services/Utils');
 const { Op } = require('sequelize');
-const Security = require("../services/Security");
-const User = require("../models/User");
-const OfficeBooking = require("../models/OfficeBooking");
-const OfficeElement = require("../models/OfficeElement");
-const Office = require('../models/Office');
-const Company = require('../models/Company')
+const Security = require("../../services/Security");
+const User = require("../../models/User");
+const OfficeBooking = require("../../models/OfficeBooking");
+const OfficeElement = require("../../models/OfficeElement");
+const Office = require('../../models/Office');
+const Company = require('../../models/Company')
 
 // Moment warning
 Moment.suppressDeprecationWarnings = true;

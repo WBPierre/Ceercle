@@ -10,7 +10,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import ListItemText from "@mui/material/ListItemText";
 import * as React from "react";
 import {styled, useTheme} from "@mui/material/styles";
-import iconPlanet from "../../../assets/images/generic/iconPlanet.png";
+import Logo from "../../../assets/images/logo/logo_2.png";
 import Typography from "@mui/material/Typography";
 import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
@@ -61,16 +61,16 @@ function DrawerCustom(props){
             open={true}
         >
             <DrawerHeader>
-                <img src={iconPlanet} style={{height:'20%', width:'20%'}} alt="logo" onClick={() => { navigate('/admin/')}} style={{cursor:'pointer'}}/>
+                <img src={Logo}  style={{ width: 50, height: 50,cursor:'pointer' }} alt="logo" onClick={() => { navigate(Admin_Routes.DASHBOARD)}}/>
                 <Typography
                     variant="h6"
                     noWrap
                     component="div"
-                    color="black"
+                    color="#3F07A8"
                     style={{fontWeight:800, fontSize:30}}
-                    onClick={() => { navigate('/admin/')}} style={{cursor:'pointer'}}
+                    onClick={() => { navigate(Admin_Routes.DASHBOARD)}} style={{cursor:'pointer'}}
                 >
-                    SpaceCorner Admin
+                    Ceercle Admin
                 </Typography>
                 <IconButton onClick={handleDrawerClose}>
                     {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}

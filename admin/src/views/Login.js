@@ -8,22 +8,15 @@ import {
     useTheme
 } from "@mui/material";
 import Button from '@mui/material/Button';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import {useNavigate} from "react-router-dom";
-import iconPlanet from "../assets/images/generic/iconPlanet.png";
-import GoogleIcon from "../components/molecules/icons/GoogleIcon";
-import MicrosoftIcon from "../components/molecules/icons/MicrosoftIcon";
-import SlackIcon from "../components/molecules/icons/SlackIcon";
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
+import Logo from "../assets/images/logo/logo_2.png";
 import {useEffect, useRef, useState} from "react";
 import AuthService from "../services/admin/auth.service";
 import ApiService from "../services/api.service";
-import { useCookies } from 'react-cookie';
+import TokenService from "../services/token.service";
 import useAuth from "../components/context/auth/AuthHelper";
+import * as Admin_Routes from "../navigation/Routes";
 
 function Login(){
     const { t } = useTranslation();
@@ -31,12 +24,11 @@ function Login(){
     let navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [cookies, setCookie] = useCookies(['token']);
     const context = useAuth();
 
     useEffect(() => {
         if(context.isAuth){
-            navigate('/dashboard')
+            navigate(Admin_Routes.DASHBOARD)
         }
     }, []);
 
@@ -57,17 +49,18 @@ function Login(){
             if(res.status !== 200){
                 console.log("Error to handle")
             }else{
-                await setAuth(res.data.token);
-                navigate('/admin')
+                await setAuth(res.data);
+                navigate(Admin_Routes.DASHBOARD)
             }
         });
     }
 
-    const setAuth = async (token) => {
-        setCookie('token', token);
-        ApiService.setHeader(token);
+    const setAuth = async (data) => {
+        TokenService.setLocalAccessToken(data.token);
+        TokenService.setLocalRefreshToken(data.refreshToken);
+        ApiService.setHeader(data.token);
         await AuthService.verify().then((res) => {
-            if(res.status === 200){
+            if (res.status === 200) {
                 context.updateAuth(true);
                 context.updateUser(res.data);
             }
@@ -81,7 +74,7 @@ function Login(){
                 <Grid container direction="column"  alignItems="center" > 
                 
                     <Grid item mt={7}>
-                        <img src={iconPlanet} alt="contact" />
+                        <img src={Logo}  style={{ width: 50, height: 50 }} alt="contact" />
                     </Grid>
 
                     <Grid item mb={3}>
@@ -89,11 +82,11 @@ function Login(){
                         <Typography
                             variant="h6"
                             component="div"
-                            color="#2F5597"
+                            color="primary"
                             style={{fontWeight:500}}
                             fontSize={24}
                         >
-                            { t('public:login:welcome')}
+                            Ceercle
                         </Typography>
                     </Grid>
                     

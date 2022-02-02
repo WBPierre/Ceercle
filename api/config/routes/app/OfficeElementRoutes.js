@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const OfficeElementController = require("../../src/controllers/OfficeElementController");
-const { isUserAuthenticated, isCeercle, isAdminUser } = require("../../src/middlewares/AuthMiddleware");
+const OfficeElementController = require("../../../src/controllers/app/OfficeElementController");
+const { isUserAuthenticated, isCeercle, isAdminUser } = require("../../../src/middlewares/AuthMiddleware");
 
 router.get('/floors/:id', [isUserAuthenticated, OfficeElementController.validate('getFloors')], OfficeElementController.getFloors)
 router.get('/rooms/:id', [isUserAuthenticated, OfficeElementController.validate('getRooms')], OfficeElementController.getRooms)

@@ -1,13 +1,13 @@
-const User = require("../models/User");
-const Company = require('../models/Company');
-const Security = require('../services/Security');
+const User = require("../../models/User");
+const Company = require('../../models/Company');
+const Security = require('../../services/Security');
 const { body, param, validationResult } = require('express-validator')
 const jwt = require("jsonwebtoken");
-const uploadProfile = require('../middlewares/UploadProfileMiddleware');
-const uploadBanner = require('../middlewares/UploadBannerMiddleware');
+const uploadProfile = require('../../middlewares/UploadProfileMiddleware');
+const uploadBanner = require('../../middlewares/UploadBannerMiddleware');
 const Moment = require('moment');
 const {v4: uuidv4} = require('uuid');
-const Mailer = require("../services/Mailer");
+const Mailer = require("../../services/Mailer");
 
 
 exports.listAllUsers = async function (req, res) {

@@ -65,6 +65,10 @@ const Company = db.define('company', {
     active: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
+    },
+    invoice_type:{
+        type: DataTypes.INTEGER,
+        defaultValue: 0
     }
 }, {
     timestamps: true,
