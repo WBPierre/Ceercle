@@ -5,12 +5,12 @@ class UserService {
         this.request = ApiService
     }
 
-    async getAllUsers() {
-        return this.request.get(`/users`)
+    async getAllUsersOfCompany(id){
+        return this.request.get('/users/'+id);
     }
 
-    async createUser() {
-        return this.request.get('/create')
+    async createInvitation(resources){
+        return this.request.post('/users/invitation/create', resources);
     }
 
 }

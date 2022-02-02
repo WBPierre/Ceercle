@@ -182,7 +182,6 @@ exports.validate = (method) => {
             return [
                 body('name', 'name doesn\'t exist').exists(),
                 body('name', 'name is not a string').isString(),
-                body('activeOfficeHandler', 'activeOfficeHandler is not a boolean').isBoolean(), //add ruleScope!!!
                 body('officeMinimum', 'officeMinimum is not a number').isNumeric(),
                 body('officeMaximum', 'officeMaximum is not a number').isNumeric(),
                 body('maxCapacity', 'maxCapacity is not a number').isNumeric(),
@@ -191,7 +190,6 @@ exports.validate = (method) => {
                 body('wednesdayMandatoryStatus', 'wednesdayMandatoryStatus is not a number').isNumeric(),
                 body('thursdayMandatoryStatus', 'thursdayMandatoryStatus is not a number').isNumeric(),
                 body('fridayMandatoryStatus', 'fridayMandatoryStatus is not a number').isNumeric(),
-
             ]
         }
     }

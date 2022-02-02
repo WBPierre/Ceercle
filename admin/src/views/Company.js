@@ -20,6 +20,9 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Parameters from "../components/containers/company/Parameters";
+import Office from "../components/containers/company/Office";
+import Information from "../components/containers/company/Information";
+import Users from "../components/containers/company/Users";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -73,19 +76,23 @@ function Company() {
             <Box sx={{ width: '100%' }}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <Tabs value={value} onChange={handleChangeTab} aria-label="basic tabs example">
-                        <Tab label="Item One" {...a11yProps(0)} />
+                        <Tab label="Information" {...a11yProps(0)} />
                         <Tab label="Parameters" {...a11yProps(1)} />
-                        <Tab label="Item Three" {...a11yProps(2)} />
+                        <Tab label="Office management" {...a11yProps(2)} />
+                        <Tab label="Users" {...a11yProps(2)} />
                     </Tabs>
                 </Box>
                 <TabPanel value={value} index={0}>
-                    Item One
+                    <Information company={company}/>
                 </TabPanel>
                 <TabPanel value={value} index={1}>
                     <Parameters company={company}/>
                 </TabPanel>
                 <TabPanel value={value} index={2}>
-                    Item Three
+                    <Office company={company}/>
+                </TabPanel>
+                <TabPanel value={value} index={3}>
+                    <Users company={company}/>
                 </TabPanel>
             </Box>
 
