@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  admin:
+    container_name: admin-prod
+    image: admin-prod
+    build:
+      dockerfile: Dockerfile
+      target: production
+      context: ./admin
+    restart: always
+    volumes:
+      - ./admin/nginx/:/etc/nginx/conf.d/:ro
+      - /admin/node_modules
+      - ./admin:/app
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot:ro
+      - ./certbot/conf/:/etc/nginx/ssl/:ro
+    ports:
+      - "80:80"
+      - "443:443"
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt:rw
+      - ./certbot/www:/var/www/certbot:rw
+    command: certonly --webroot -w /var/www/certbot --force-renewal --email contact@ceercle.io --cert-name admin.ceercle.io -d admin.ceercle.io -d www.admin.ceercle.io --agree-tos

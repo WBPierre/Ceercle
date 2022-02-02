@@ -1,4 +1,4 @@
-const Company = require("../models/Company");
+const Company = require("../../models/Company");
 const { validationResult, param, body } = require("express-validator");
 
 exports.createCompany = async function (req, res, next) {
@@ -9,9 +9,11 @@ exports.createCompany = async function (req, res, next) {
             res.status(422).json({ errors: errors.array() });
             return;
         }
-        const { name } = req.body;
+        const { name, activationDay, invoiceType } = req.body;
         const company = await Company.create({
-            name
+            name: name,
+            activation_day: activationDay,
+            invoice_type: invoiceType
         });
         res.json(company);
     } catch (err) {
@@ -68,7 +70,7 @@ exports.getHRRules = async function (req, res, next) {
                 } else {
                     res.status(200).json({
                         ruleScope: record.ruleScope,
-                        remoteMaximum: record.remoteMaximum,
+                        officeMinimum: record.officeMinimum,
                         officeMaximum: record.officeMaximum,
                         mondayMandatoryStatus: record.mondayMandatoryStatus,
                         tuesdayMandatoryStatus: record.tuesdayMandatoryStatus,
@@ -103,7 +105,7 @@ exports.updateHRRules = async function (req, res, next) {
                 } else {
                     let to_update = {
                         ruleScope: req.body.ruleScope,
-                        remoteMaximum: req.body.remoteMaximum,
+                        officeMinimum: req.body.officeMinimum,
                         officeMaximum: req.body.officeMaximum,
                         mondayMandatoryStatus: req.body.mondayMandatoryStatus,
                         tuesdayMandatoryStatus: req.body.tuesdayMandatoryStatus,
@@ -135,7 +137,7 @@ exports.getCompany = async function (req, res, next) {
             return;
         }
         const id = req.params.id;
-        const company = await Company.findAll({
+        const company = await Company.findOne({
             where: {
                 id: id,
             }
@@ -157,12 +159,16 @@ exports.validate = (method) => {
             return [
                 body('name', 'name doesn\'t exist').exists(),
                 body('name', 'name is not a string').isString(),
+                body('activationDay', 'activationDay doesn\'t exist').exists(),
+                body('activationDay', 'activationDay is not a string').isString(),
+                body('invoiceType', 'invoiceType doesn\'t exist').exists(),
+                body('invoiceType', 'invoiceType is not a string').isNumeric(),
             ]
         }
         case 'updateHRRules': {
             return [
                 body('ruleScope', 'ruleScope is not a number').isNumeric(),
-                body('remoteMaximum', 'remoteMaximum is not a number').isNumeric(),
+                body('officeMinimum', 'officeMinimum is not a number').isNumeric(),
                 body('officeMaximum', 'officeMaximum is not a number').isNumeric(),
                 body('mondayMandatoryStatus', 'mondayMandatoryStatus is not a number').isNumeric(),
                 body('tuesdayMandatoryStatus', 'tuesdayMandatoryStatus is not a number').isNumeric(),
@@ -176,7 +182,7 @@ exports.validate = (method) => {
             return [
                 body('name', 'name doesn\'t exist').exists(),
                 body('name', 'name is not a string').isString(),
-                body('activeOfficeHandler', 'activeOfficeHandler is not a boolean').isBoolean(), //add ruleScope!!! + add remoteMaximum & remoteMaximum
+                body('activeOfficeHandler', 'activeOfficeHandler is not a boolean').isBoolean(), //add ruleScope!!!
                 body('officeMinimum', 'officeMinimum is not a number').isNumeric(),
                 body('officeMaximum', 'officeMaximum is not a number').isNumeric(),
                 body('maxCapacity', 'maxCapacity is not a number').isNumeric(),

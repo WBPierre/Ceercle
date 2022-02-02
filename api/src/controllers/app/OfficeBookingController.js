@@ -1,7 +1,7 @@
-const OfficeBooking = require("../models/OfficeBooking");
+const OfficeBooking = require("../../models/OfficeBooking");
 const {validationResult, param, body} = require("express-validator");
-const OfficeElement = require("../models/OfficeElement");
-const Office = require("../models/Office");
+const OfficeElement = require("../../models/OfficeElement");
+const Office = require("../../models/Office");
 
 
 exports.removeOfficeBooking = async function(req, res, next){

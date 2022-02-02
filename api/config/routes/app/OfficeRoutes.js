@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const OfficeController = require("../../src/controllers/OfficeController");
-const { isAdminUser, isCeercle, isUserAuthenticated } = require("../../src/middlewares/AuthMiddleware");
+const OfficeController = require("../../../src/controllers/app/OfficeController");
+const { isAdminUser, isCeercle, isUserAuthenticated } = require("../../../src/middlewares/AuthMiddleware");
 
 router.get('/listOffices', [isAdminUser], OfficeController.listOffices);
 router.get('/:id', [isUserAuthenticated, OfficeController.validate('getOffices')], OfficeController.getOffices);

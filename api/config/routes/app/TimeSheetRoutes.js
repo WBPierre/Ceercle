@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const TimeSheetController = require("../../src/controllers/TimeSheetController");
-const { isUserAuthenticated } = require("../../src/middlewares/AuthMiddleware");
+const TimeSheetController = require("../../../src/controllers/app/TimeSheetController");
+const { isUserAuthenticated } = require("../../../src/middlewares/AuthMiddleware");
 
 router.get('/team/:day', [isUserAuthenticated, TimeSheetController.validate('getTeamTimeSheet')], TimeSheetController.getTeamTimeSheet);
 router.get('/:index', [isUserAuthenticated, TimeSheetController.validate('getTimeSheet')], TimeSheetController.getTimeSheet);

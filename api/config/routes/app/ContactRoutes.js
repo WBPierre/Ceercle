@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const ContactController = require("../../src/controllers/ContactController");
-const {isAdminUser, isCeercle} = require("../../src/middlewares/AuthMiddleware");
+const ContactController = require("../../../src/controllers/app/ContactController");
+const {isAdminUser, isCeercle} = require("../../../src/middlewares/AuthMiddleware");
 
 
 router.post('/', ContactController.validate('contactRequest'), ContactController.sendContact);

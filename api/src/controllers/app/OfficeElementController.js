@@ -1,9 +1,9 @@
-const Office = require('../models/Office');
-const OfficeElement = require('../models/OfficeElement');
+const Office = require('../../models/Office');
+const OfficeElement = require('../../models/OfficeElement');
 const { validationResult, param, body } = require("express-validator");
-const Team = require("../models/Team");
-const Utils = require("../services/Utils");
-const OfficeBooking = require('../models/OfficeBooking');
+const Team = require("../../models/Team");
+const Utils = require("../../services/Utils");
+const OfficeBooking = require('../../models/OfficeBooking');
 
 
 exports.getFloors = async function(req, res, next) {

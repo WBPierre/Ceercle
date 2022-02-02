@@ -1,5 +1,5 @@
-const Contact = require("../models/Contact");
-const Mailer = require('../services/Mailer');
+const Contact = require("../../models/Contact");
+const Mailer = require('../../services/Mailer');
 const { body, param, validationResult } = require('express-validator')
 
 /*

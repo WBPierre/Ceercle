@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const UserController = require('../../src/controllers/UserController');
-const ContactController = require("../../src/controllers/ContactController");
-const { isUserAuthenticated, isAdminUser } = require("../../src/middlewares/AuthMiddleware");
+const UserController = require('../../../src/controllers/app/UserController');
+const ContactController = require("../../../src/controllers/app/ContactController");
+const { isUserAuthenticated, isAdminUser } = require("../../../src/middlewares/AuthMiddleware");
 
 router.get('/', isAdminUser, UserController.listAllUsers);
 router.get('/namesForTeam/:teamIndex', isAdminUser, UserController.listAllUsersNamesForTeam);

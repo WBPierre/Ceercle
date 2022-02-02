@@ -1,6 +1,6 @@
-const Office = require('../models/Office');
+const Office = require('../../models/Office');
 const { validationResult, param, body } = require("express-validator");
-const Team = require("../models/Team");
+const Team = require("../../models/Team");
 
 
 exports.getOffices = async function (req, res, next) {

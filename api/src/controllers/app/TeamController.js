@@ -1,6 +1,6 @@
-const Team = require('../models/Team');
+const Team = require('../../models/Team');
 const { validationResult, param, body } = require("express-validator");
-const Company = require("../models/Company");
+const Company = require("../../models/Company");
 
 exports.createTeam = async function (req, res, next) {
     try {

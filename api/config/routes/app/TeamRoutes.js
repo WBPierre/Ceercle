@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const TeamController = require('../../src/controllers/TeamController');
-const { isAdminUser, isSpaceCorner, isUserAuthenticated } = require("../../src/middlewares/AuthMiddleware");
+const TeamController = require('../../../src/controllers/app/TeamController');
+const { isAdminUser, isSpaceCorner, isUserAuthenticated } = require("../../../src/middlewares/AuthMiddleware");
 
 router.get('/all', [isUserAuthenticated], TeamController.listAllTeams);
 router.get('/:id', [isUserAuthenticated, TeamController.validate('getTeam')], TeamController.getTeam);

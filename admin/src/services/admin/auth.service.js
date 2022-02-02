@@ -6,11 +6,11 @@ class AuthService{
     }
 
     async login(resources) {
-        return this.request.post('/auth/admin/login', resources);
+        return this.request.post('/auth/login', resources);
     }
 
     async verify(){
-        return this.request.get('/auth/admin/verify');
+        return this.request.get('/auth/verify');
     }
 }
 
