@@ -73,24 +73,39 @@ function PlanningBoard(props) {
         }, animationDuration)
     }
 
-    const declareDay = async (day, choice) => {
-        const resources = {
+    const declareDay = async (day, choice, half, order) => {
+        let previous = props.week.filter(x => x.day === day)[0];
+        let resources = {
             day: day,
-            morning: choice,
-            afternoon: choice
+            morning: previous.morning,
+            afternoon: previous.afternoon
         }
-        await TimeService.setTimeSheet(resources);
-        enqueueSnackbar(t('app:dashboard:snackbar_success'), {
-            variant: 'success'
-        });
-        let before = props.week.find(x => x.day === day);
-        if (before.reservation.length !== 0) {
-            await BookingService.removeBooking(before.day);
-            enqueueSnackbar(t('app:dashboard:desk_remove'), {
+        if(half){
+            if(order === 0){
+                resources.morning = choice;
+            }else{
+                resources.afternoon = choice
+            }
+        }else{
+            resources.morning = choice;
+            resources.afternoon = choice;
+        }
+        if(previous.morning !== choice || previous.afternoon !== choice) {
+            await TimeService.setTimeSheet(resources);
+            enqueueSnackbar(t('app:dashboard:snackbar_success'), {
                 variant: 'success'
             });
+            let before = props.week.find(x => x.day === day);
+            if (resources.morning !== 1 && resources.afternoon !== 1) {
+                if (before.reservation.length !== 0) {
+                    await BookingService.removeBooking(before.day);
+                    enqueueSnackbar(t('app:dashboard:desk_remove'), {
+                        variant: 'success'
+                    });
+                }
+            }
+            await props.getTimeSheet(index);
         }
-        await props.getTimeSheet(index);
     }
 
     if (props.week === undefined || props.week.length === 0) {
@@ -134,8 +149,8 @@ function PlanningBoard(props) {
                                 <div style={{ width: '100%' }}>
                                     <Fade left={orientation} right={!orientation} spy={index} when={anim}
                                         duration={animationDuration} opposite distance={"10%"} cascade>
-                                        <Grid container direction={"row"} justifyContent={"space-evenly"} flexWrap={"nowrap"}>
-                                            <Grid item flexGrow={1} component={Paper} style={{ boxShadow: 'none' }}>
+                                        <Grid container direction={"row"} justifyContent={"space-evenly"} flexWrap={"nowrap"} flexGrow={0}>
+                                            <Grid item  flexGrow={1} component={Paper} style={{ boxShadow: 'none', maxWidth:'20%' }}>
                                                 <PlanningElement
                                                     modify={declareDay}
                                                     data={props.week[0]}
@@ -143,7 +158,7 @@ function PlanningBoard(props) {
                                                     openOffice={(day, booking) => props.handleOpenOffice(day, booking)}
                                                 />
                                             </Grid>
-                                            <Grid item flexGrow={1} component={Paper} style={{ boxShadow: 'none' }}>
+                                            <Grid item flexGrow={1} component={Paper} style={{ boxShadow: 'none', maxWidth:'20%' }}>
                                                 <PlanningElement
                                                     modify={declareDay}
                                                     data={props.week[1]}
@@ -151,7 +166,7 @@ function PlanningBoard(props) {
                                                     openOffice={(day, booking) => props.handleOpenOffice(day, booking)}
                                                 />
                                             </Grid>
-                                            <Grid item flexGrow={1} component={Paper} style={{ boxShadow: 'none' }}>
+                                            <Grid item flexGrow={1} component={Paper} style={{ boxShadow: 'none', maxWidth:'20%' }}>
                                                 <PlanningElement
                                                     modify={declareDay}
                                                     data={props.week[2]}
@@ -159,7 +174,7 @@ function PlanningBoard(props) {
                                                     openOffice={(day, booking) => props.handleOpenOffice(day, booking)}
                                                 />
                                             </Grid>
-                                            <Grid item flexGrow={1} component={Paper} style={{ boxShadow: 'none' }}>
+                                            <Grid item flexGrow={1} component={Paper} style={{ boxShadow: 'none', maxWidth:'20%' }}>
                                                 <PlanningElement
                                                     modify={declareDay}
                                                     data={props.week[3]}
@@ -167,7 +182,7 @@ function PlanningBoard(props) {
                                                     openOffice={(day, booking) => props.handleOpenOffice(day, booking)}
                                                 />
                                             </Grid>
-                                            <Grid item flexGrow={1} component={Paper} style={{ boxShadow: 'none' }}>
+                                            <Grid item flexGrow={1} component={Paper} style={{ boxShadow: 'none', maxWidth:'20%' }}>
                                                 <PlanningElement
                                                     modify={declareDay}
                                                     data={props.week[4]}

@@ -5,185 +5,81 @@ import OfficeIcon from "../../../molecules/icons/OfficeIcon";
 import ManWorkingIcon from "../../../molecules/icons/ManWorkingIcon";
 import AwayIcon from "../../../molecules/icons/AwayIcon";
 import MenuItem from "@mui/material/MenuItem";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import TimeService from "../../../../services/app/time.service";
 import Button from "@mui/material/Button";
 import OffIcon from "../../../molecules/icons/OffIcon";
 import { useSnackbar } from "notistack";
+import useAuth from "../../../context/auth/AuthHelper";
+import Grid from "@mui/material/Grid";
+import CalendarUserButton from "./CalendarUserButton";
 
 function CalendarUser(props) {
 
     const { t } = useTranslation();
-    const [anchorEl, setAnchorEl] = useState(null);
-    const open = Boolean(anchorEl);
     const { enqueueSnackbar } = useSnackbar();
+    const [half, setHalf] = useState(false);
 
-
-    const getText = () => {
-        switch (props.data.morning) {
-            case 0:
-                return t('app:statuses:undeclared')
-            case 1:
-                return t('app:statuses:office')
-            case 2:
-                return t('app:statuses:home_working')
-            case 3:
-                return t('app:statuses:on_the_go')
-        }
+    const handleChange = (e) => {
+        setHalf(e.target.checked);
     }
 
-    const getIcon = () => {
-        switch (props.data.morning) {
-            case 0:
-                return (
-                    <ToDefineIcon />
-                )
-            case 1:
-                return (
-                    <OfficeIcon />
 
-                )
-            case 2:
-                return (
-                    <ManWorkingIcon />
-                )
-            case 3:
-                return (
-                    <AwayIcon />
-                )
-            case 4:
-                return (
-                    <OffIcon />
-                )
-        }
+    const modifyChoice = async (name, half, order) => {
+        await declareDay(props.data.day, name, half, order)
     }
 
-    const getColor = () => {
-        switch (props.data.morning) {
-            case 0:
-                return '#D3D3D3'
-            case 1:
-                return '#C3E4B6'
-            case 2:
-                return '#DAEFFA'
-            case 3:
-                return '#E6DCF1'
-            case 4:
-                return '#FBE7B4'
+    useEffect(() => {
+        if(props.data.morning !== props.data.afternoon){
+            setHalf(true);
+        }else{
+            setHalf(false);
         }
-    }
+    }, [props.data])
 
-    const modifyChoice = async (name) => {
-        handleClose();
-        await declareDay(props.data.day, name)
-    }
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
-    const handleClick = (event) => {
-        if (!props.data.past) {
-            setAnchorEl(event.currentTarget);
-        }
-    };
-
-    const declareDay = async (day, choice) => {
-        const resources = {
+    const declareDay = async (day, choice, half, order) => {
+        let resources = {
             day: day,
-            morning: choice,
-            afternoon: choice
+            morning: props.data.morning,
+            afternoon: props.data.afternoon
         }
-        await TimeService.setTimeSheet(resources);
-        enqueueSnackbar(t('app:calendar:snackbar_success'), {
-            variant: 'success'
-        });
+        if(half){
+            if(order === 0){
+                resources.morning = choice;
+            }else{
+                resources.afternoon = choice
+            }
+        }else{
+            resources.morning = choice;
+            resources.afternoon = choice;
+        }
+        if(props.data.morning !== choice || props.data.afternoon !== choice) {
+            await TimeService.setTimeSheet(resources);
+            enqueueSnackbar(t('app:calendar:snackbar_success'), {
+                variant: 'success'
+            });
+        }
         await props.updateData();
     }
 
-    const getBorder = () => {
-        if (!props.data.current) {
-            return 'none'
-        } else {
-            switch (props.data.morning) {
-                case 0:
-                    return '3px solid #D3D3D3'
-                case 1:
-                    return '3px solid #95E59A'
-                case 2:
-                    return '3px solid #8BCCEE'
-                case 3:
-                    return '3px solid #C7B3DA'
-                case 4:
-                    return '3px solid #FFA800'
-            }
-        }
-    }
-
     return (
-        <div>
-            <Button style={{
-                backgroundColor: 'transparent',
-                cursor: !props.data.past ? 'pointer' : 'default',
-                width: '100%'
-            }} disableRipple={true} onClick={handleClick} >
-                <Avatar sx={{ width: 75, height: 75 }} style={{
-                    border: getBorder(),
-                    backgroundColor: getColor()
-                }}>
-                    {getIcon()}
-                </Avatar>
-            </Button>
-            <Menu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                    'aria-labelledby': 'basic-button',
-                }}
-            >
-                {props.data.morning !== 0 &&
-                    <MenuItem onClick={() => modifyChoice(0)}>
-                        <ListItemIcon>
-                            <ToDefineIcon />
-                        </ListItemIcon>
-                        <ListItemText>{t('app:statuses:to_be_defined')}</ListItemText>
-                    </MenuItem>
-                }
-                {props.data.morning !== 1 &&
-                    <MenuItem onClick={() => modifyChoice(1)}>
-                        <ListItemIcon>
-                            <OfficeIcon />
-                        </ListItemIcon>
-                        <ListItemText>{t('app:statuses:office')}</ListItemText>
-                    </MenuItem>
-                }
-                {props.data.morning !== 2 &&
-                    <MenuItem onClick={() => modifyChoice(2)}>
-                        <ListItemIcon>
-                            <ManWorkingIcon />
-                        </ListItemIcon>
-                        <ListItemText>{t('app:statuses:home_working')}</ListItemText>
-                    </MenuItem>
-                }
-                {props.data.morning !== 3 &&
-                    <MenuItem onClick={() => modifyChoice(3)}>
-                        <ListItemIcon>
-                            <AwayIcon />
-                        </ListItemIcon>
-                        <ListItemText>{t('app:statuses:on_the_go')}</ListItemText>
-                    </MenuItem>
-                }
-                {props.data.morning !== 4 &&
-                    <MenuItem onClick={() => modifyChoice(4)}>
-                        <ListItemIcon>
-                            <OffIcon />
-                        </ListItemIcon>
-                        <ListItemText>{t('app:statuses:off')}</ListItemText>
-                    </MenuItem>
-                }
-            </Menu>
+        <div style={{height:'100%', width:'100%'}}>
+            {half ? (
+                <Grid container direction={"row"} sx={{width:'100%'}} spacing={0}>
+                    <Grid item xs={6}>
+                        <CalendarUserButton order={0} half={half} data={props.data} modifyChoice={(choice, half, order) => modifyChoice(choice, half, order)} changeHalf={handleChange}/>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <CalendarUserButton order={1} half={half} data={props.data} modifyChoice={(choice, half, order) => modifyChoice(choice, half, order)} changeHalf={handleChange}/>
+                    </Grid>
+                </Grid>
+            ):(
+                <Grid container direction={"row"} sx={{width:'100%'}} spacing={0}>
+                    <Grid item xs={12} sx={{width:'100%'}}>
+                        <CalendarUserButton order={0} half={half} data={props.data} modifyChoice={(choice, half, order) => modifyChoice(choice, half, order)} changeHalf={handleChange}/>
+                    </Grid>
+                </Grid>
+            )}
         </div>
     )
 }

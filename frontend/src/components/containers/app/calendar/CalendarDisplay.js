@@ -82,7 +82,7 @@ function CalendarDisplay(props) {
                     </Grid>
                 </Grid>
                 <Grid item>
-                    <Grid container direction={"row"}>
+                    <Grid container direction={"row"} >
                         <Grid item md={1} />
                         {week.map((day, i) => (
                             <Grid item md={2} key={i}>

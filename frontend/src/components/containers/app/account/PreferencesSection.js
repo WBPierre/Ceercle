@@ -317,13 +317,13 @@ export default function PreferencesSection(props) {
 
 
 
-                <Grid item mt={6}>
+                <Grid item mt={6} hidden={true}>
                     <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#414040' }}>
                         {t('app:account:preferences.default_statuses')}
                     </Typography>
                 </Grid>
 
-                <Grid item>
+                <Grid item hidden={true}>
                     <FormControl sx={{ width: 200 }} variant="standard">
                         <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements.Mon')}</InputLabel>
                         <Select
@@ -341,7 +341,7 @@ export default function PreferencesSection(props) {
                     </FormControl>
                 </Grid>
 
-                <Grid item>
+                <Grid item hidden={true}>
                     <FormControl sx={{ width: 200 }} variant="standard">
                         <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements.Tue')}</InputLabel>
                         <Select
@@ -359,7 +359,7 @@ export default function PreferencesSection(props) {
                     </FormControl>
                 </Grid>
 
-                <Grid item>
+                <Grid item hidden={true}>
                     <FormControl sx={{ width: 200 }} variant="standard">
                         <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements.Wed')}</InputLabel>
                         <Select
@@ -377,7 +377,7 @@ export default function PreferencesSection(props) {
                     </FormControl>
                 </Grid>
 
-                <Grid item>
+                <Grid item hidden={true}>
                     <FormControl sx={{ width: 200 }} variant="standard">
                         <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements.Thu')}</InputLabel>
                         <Select
@@ -395,7 +395,7 @@ export default function PreferencesSection(props) {
                     </FormControl>
                 </Grid>
 
-                <Grid item>
+                <Grid item hidden={true}>
                     <FormControl sx={{ width: 200 }} variant="standard">
                         <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements.Fri')}</InputLabel>
                         <Select
