@@ -38,5 +38,8 @@
   "more_information": "En savoir plus",
   "contact_us": "Contactez-nous",
   "password_confirm": "Confirmation du mot de passe",
-  "create_account": "Créer mon compte"
+  "create_account": "Créer mon compte",
+  "morning": "Matin",
+  "afternoon": "Après-midi",
+  "half": "Demi-journée"
 }

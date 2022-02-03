@@ -23,6 +23,7 @@ export default function Dashboard(props) {
     const day = moment().tz("Europe/Paris");
     const [week, setWeek] = useState([]);
     const [booking, setBooking] = useState([]);
+    const [currentBooking, setCurrentBooking] = useState([]);
     const [ruleRespected, setRuleRespected] = useState(false);
     const [openOffice, setOpenOffice] = useState(false);
     const [dayOffice, setDayOffice] = useState(null);
@@ -40,7 +41,7 @@ export default function Dashboard(props) {
         const getTimeSheet = async () => {
             await TimeService.getTimeSheet(index).then((res) => {
                 setWeek(res.data.week);
-                setBooking(res.data.week.find(x => x.current).reservation);
+                setCurrentBooking(res.data.week.find(x => x.current).reservation);
             })
         }
         getTimeSheet();
@@ -58,7 +59,7 @@ export default function Dashboard(props) {
         await TimeService.getTimeSheet(ind).then((res) => {
             setWeek(res.data.week);
             if (ind === 0) {
-                setBooking(res.data.week.find(x => x.current).reservation);
+                setCurrentBooking(res.data.week.find(x => x.current).reservation);
             }
             getHasUserValidatedCompanyRules(ind);
         })
@@ -109,7 +110,7 @@ export default function Dashboard(props) {
                 <Grid container direction={"row"} spacing={1} justifyContent={"space-around"}>
                     {context.user.company.activeOfficeHandler &&
                         <Grid item xs={12} md={4} style={{ borderRadius: '25px' }} component={Paper}>
-                            <Office day={daySelected} reservation={booking} handleOpenOffice={(day, booking) => handleOpenOffice(day, booking)} />
+                            <Office day={daySelected} reservation={currentBooking} handleOpenOffice={(day, booking) => handleOpenOffice(day, booking)} />
                         </Grid>
                     }
                     <Grid item xs={12} md={context.user.company.activeOfficeHandler ? 3 : 5} style={{ borderRadius: '25px' }} component={Paper}>

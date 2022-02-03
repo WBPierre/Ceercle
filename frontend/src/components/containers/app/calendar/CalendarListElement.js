@@ -41,11 +41,16 @@ function CalendarListElement(props) {
     };
 
     const getMidDayText = (item) => {
-        return ""
-        if (item.morning === props.type) {
-            return "Le matin"
-        } else {
-            return "L'après-midi"
+        if(item.morning !== item.afternoon){
+            if(item.morning === props.type){
+                return t('generic:morning')
+            }else{
+                if(item.afternoon === props.type){
+                    return t('generic:afternoon')
+                }
+            }
+        }else{
+            return "";
         }
     }
 

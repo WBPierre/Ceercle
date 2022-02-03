@@ -1,60 +1,43 @@
-import {Avatar, Fab, ListItemIcon, ListItemText, Menu, Typography} from "@mui/material";
+import {Avatar, Divider, Fab, ListItemIcon, ListItemText, Menu, Switch, Typography} from "@mui/material";
 import Grid from "@mui/material/Grid";
 import ManWorkingIcon from "../../../molecules/icons/ManWorkingIcon";
 import OfficeIcon from "../../../molecules/icons/OfficeIcon";
 import AwayIcon from "../../../molecules/icons/AwayIcon";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import ToDefineIcon from "../../../molecules/icons/ToDefineIcon";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
 import OffIcon from "../../../molecules/icons/OffIcon";
 import useAuth from "../../../context/auth/AuthHelper";
 import * as React from "react";
+import PlanningButton from "./PlanningButton";
 
 function PlanningElement(props) {
 
     const { t } = useTranslation();
-
-    const [anchorEl, setAnchorEl] = useState(null);
-    const open = Boolean(anchorEl);
+    const [half, setHalf] = useState(false);
     const context = useAuth();
 
-    const handleClick = (event) => {
-        if (!props.data.past) {
-            setAnchorEl(event.currentTarget);
-        }
-    };
-
-    const modifyChoice = (name) => {
-        props.modify(props.data.day, name)
-        handleClose();
-    }
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
-    const getActiveBGColor = () => {
-        switch(props.data.morning){
-            case 0: return "#F2F2F2";
-            case 1: return "#F7FEF5"
-            case 2: return "#F3F7FE"
-            case 3: return "#FAF6FF"
-            case 4: return "#FEFAF1"
-        }
+    const handleChange = (e) => {
+        setHalf(e.target.checked);
     }
 
-
-    const getIcon = () => {
-        switch(props.data.morning){
-            case 0: return (<AwayIcon sx={{ width: 40, height: 40, display: 'none' }} />);
-            case 1: return (<OfficeIcon sx={{ width: 40, height: 40 }} />)
-            case 2: return (<ManWorkingIcon sx={{ width: 40, height: 40 }} />)
-            case 3: return (<AwayIcon sx={{ width: 40, height: 40 }} />)
-            case 4: return (<OffIcon sx={{ width: 40, height: 40 }} />)
+    useEffect(() => {
+        if(props.data.morning !== props.data.afternoon){
+            setHalf(true);
+        }else{
+            setHalf(false);
         }
+    }, [props.data])
+
+
+
+    const modifyChoice = (name, half, order) => {
+        props.modify(props.data.day, name, half, order)
     }
+
 
     const getTextColor = () => {
         switch(props.data.morning){
@@ -63,26 +46,6 @@ function PlanningElement(props) {
             case 2: return "#0070C0"
             case 3: return "#7030A0"
             case 4: return "#FFA800"
-        }
-    }
-
-    const getBgColor = () => {
-        switch(props.data.morning){
-            case 0: return "#D3D3D3";
-            case 1: return "#C3E4B6"
-            case 2: return "#DAEFFA"
-            case 3: return "#E6DCF1"
-            case 4: return "#FBE7B4"
-        }
-    }
-
-    const getText = () => {
-        switch(props.data.morning){
-            case 0: return props.data.past ? t('app:statuses:undeclared') : t('app:statuses:to_be_defined');
-            case 1: return t('app:statuses:office')
-            case 2: return t('app:statuses:home_working')
-            case 3: return t('app:statuses:on_the_go')
-            case 4: return t('app:statuses:off')
         }
     }
 
@@ -98,7 +61,7 @@ function PlanningElement(props) {
         <div style={{ width: '100%', height: '100%' }}>
             <Grid container direction={"column"} style={{position:'relative'}}>
                 <Grid item xs={12}>
-                    <Grid item xs={12} style={{backgroundColor: props.data.current ? getActiveBGColor() : ''}}>
+                    <Grid item xs={12}>
                         <Typography textAlign={"center"} style={{ color: props.data.current ? getTextColor() : '#C00000' }}
                                     fontSize={20}
                                     fontWeight={props.data.current ? 600 : 500}>{props.day}</Typography>
@@ -107,77 +70,22 @@ function PlanningElement(props) {
                                     fontWeight={props.data.current ? 600 : 500}>{moment(props.data.day, 'YYYY-MM-DD').date()}</Typography>
                     </Grid>
                 </Grid>
-                <Grid item xs={12}>
-                    <Button disableRipple={true} style={{
-                        textTransform: 'none',
-                        backgroundColor: props.data.current ? getActiveBGColor() : '',
-                        cursor: !props.data.past ? 'pointer' : 'default',
-                        flex:1,
-                        width:'100%'
-                    }} id="basic-button"
-                            aria-controls="basic-menu"
-                            aria-haspopup="true"
-                            aria-expanded={open ? 'true' : undefined}
-                            onClick={handleClick}>
-                        <Grid container direction={"column"} spacing={1}>
-                            <Grid item style={{ display: 'flex', justifyContent: 'center' }}>
-                                <Avatar sx={{ width: 65, height: 65 }}
-                                        style={{
-                                            border: props.data.current ? `3px solid ${getTextColor()}` : 'none',
-                                            backgroundColor: props.data.past ? '#D3D3D3' : getBgColor()
-                                        }}>
-                                    {getIcon()}
-                                </Avatar>
+                    <Grid item xs={12} sx={{width:'100%'}}>
+                        {half ? (
+                            <Grid container direction={"row"} sx={{width:'100%'}}>
+                                <Grid item xs={6} sx={{width:'50%'}}>
+                                    <PlanningButton order={0} half={half} data={props.data} modifyChoice={(choice, half, order) => modifyChoice(choice, half, order)} changeHalf={handleChange}/>
+                                </Grid>
+                                <Grid item xs={6} sx={{width:'50%'}}>
+                                    <PlanningButton order={1} half={half} data={props.data} modifyChoice={(choice, half, order) => modifyChoice(choice, half, order)} changeHalf={handleChange}/>
+                                </Grid>
                             </Grid>
-                            <Grid item xs={12} my={2} mb={1} style={{width: '100%' }}>
-                                <Typography textAlign={"center"}
-                                            style={{ color: props.data.past ? '#D3D3D3' : getTextColor(), width: '100%' }}
-                                            fontSize={props.data.current ? 18 : 16}
-                                            fontWeight={props.data.current ? 600 : 500}>{getText()}</Typography>
+                        ):(
+                            <Grid item xs={12} sx={{width:'100%'}}>
+                                <PlanningButton order={0} half={half} data={props.data} modifyChoice={(choice, half, order) => modifyChoice(choice, half, order)} changeHalf={handleChange}/>
                             </Grid>
-                        </Grid>
-                    </Button>
-                    <Menu
-                        id="basic-menu"
-                        anchorEl={anchorEl}
-                        open={open}
-                        onClose={handleClose}
-                        MenuListProps={{
-                            'aria-labelledby': 'basic-button',
-                        }}
-                    >
-                        <MenuItem key={0} style={{display:props.data.morning === 0 ? 'none' : 'flex'}} onClick={() => modifyChoice(0)}>
-                            <ListItemIcon>
-                                <ToDefineIcon />
-                            </ListItemIcon>
-                            <ListItemText>{t('app:statuses:to_be_defined')}</ListItemText>
-                        </MenuItem>
-                        <MenuItem key={1} style={{display:props.data.morning === 1 ? 'none' : 'flex'}}  onClick={() => modifyChoice(1)}>
-                            <ListItemIcon>
-                                <OfficeIcon />
-                            </ListItemIcon>
-                            <ListItemText>{t('app:statuses:office')}</ListItemText>
-                        </MenuItem>
-                        <MenuItem key={2} style={{display:props.data.morning === 2 ? 'none' : 'flex'}} onClick={() => modifyChoice(2)}>
-                            <ListItemIcon>
-                                <ManWorkingIcon />
-                            </ListItemIcon>
-                            <ListItemText>{t('app:statuses:home_working')}</ListItemText>
-                        </MenuItem>
-                        <MenuItem key={3} style={{display:props.data.morning === 3 ? 'none' : 'flex'}} onClick={() => modifyChoice(3)}>
-                            <ListItemIcon>
-                                <AwayIcon />
-                            </ListItemIcon>
-                            <ListItemText>{t('app:statuses:on_the_go')}</ListItemText>
-                        </MenuItem>
-                        <MenuItem key={4} style={{display:props.data.morning === 4 ? 'none' : 'flex'}} onClick={() => modifyChoice(4)}>
-                            <ListItemIcon>
-                                <OffIcon />
-                            </ListItemIcon>
-                            <ListItemText>{t('app:statuses:off')}</ListItemText>
-                        </MenuItem>
-                    </Menu>
-                </Grid>
+                        )}
+                    </Grid>
                 {context.user.company.activeOfficeHandler &&
                     <Grid item xs={12} style={{width:'100%', textAlign:"center"}}>
                         <Button onClick={() => props.openOffice(moment(props.data.day).format('YYYY-MM-DD'), props.data.reservation)} disabled={props.data.morning !== 1 || props.data.past} style={{textOverflow: 'ellipsis' ,fontSize: 12, textTransform:'none', width:'100%', textAlign:"center", color: props.data.morning !== 1 ? 'transparent' : props.data.past ? '#D3D3D3' : 'inherit'}}>
