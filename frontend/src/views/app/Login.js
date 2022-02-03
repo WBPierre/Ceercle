@@ -81,6 +81,11 @@ function Login() {
                 context.updateAuth(true);
                 context.updateUser(res.data);
             }
+            if(res.data.lang.includes("Français")){
+                i18n.changeLanguage("fr");
+            }else{
+                i18n.changeLanguage("en");
+            }
         });
     }
 
