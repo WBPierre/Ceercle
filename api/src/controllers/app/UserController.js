@@ -273,7 +273,7 @@ exports.uploadProfile = async function (req, res, next) {
             })
         res.status(200).send({ path: url });
     } catch (err) {
-        res.status(500).send({
+        res.status(403).send({
             message: `Could not upload the file: ${req.file.originalname}. ${err}`,
         });
     }

@@ -26,6 +26,10 @@ export default function AvatarSection(props) {
         formData.append('file', event.target.files[0]);
         UserService.uploadProfile(formData).then((res) => {
             setProfilePicture(res.data.path);
+        }).catch((err) => {
+            enqueueSnackbar(t('app:errors:max_file'), {
+                variant: 'warning'
+            });
         })
     }
 
@@ -34,6 +38,10 @@ export default function AvatarSection(props) {
         formData.append('file', event.target.files[0]);
         UserService.uploadBanner(formData).then((res) => {
             setBannerPicture(res.data.path);
+        }).catch((err) => {
+            enqueueSnackbar(t('app:errors:max_file'), {
+                variant: 'warning'
+            });
         })
     }
 

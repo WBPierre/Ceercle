@@ -2,5 +2,6 @@
   "password": "Password must have at least 8 characters.",
   "confirmPassword": "Passwords are different.",
   "text": "Incorrect entry",
-  "login": "Wrong identifiers"
+  "login": "Wrong identifiers",
+  "max_file": "Error while uploading. Max File Size : 2MB."
 }
