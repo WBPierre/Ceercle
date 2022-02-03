@@ -9,6 +9,10 @@ class CompanyService{
         return this.request.get('/company/');
     }
 
+    async getStats(id){
+        return this.request.get('/company/stats/'+id);
+    }
+
     async createCompany(resources) {
         return this.request.post('/company/', resources);
     }

@@ -199,7 +199,7 @@ function Parameters(props){
                         <Grid item md={10}>
                             <Stack direction="row" spacing={1} alignItems="center">
                                 <Typography>No</Typography>
-                                <Switch value={active} disabled onChange={handleChange} name={"active"}  inputProps={{ 'aria-label': 'ant design' }} />
+                                <Switch value={active} checked={active} disabled onChange={handleChange} name={"active"} />
                                 <Typography>Yes</Typography>
                             </Stack>
                         </Grid>
@@ -239,7 +239,7 @@ function Parameters(props){
                         <Grid item md={10}>
                             <Stack direction="row" spacing={1} alignItems="center">
                                 <Typography>No</Typography>
-                                <Switch value={activeOffice} onChange={handleChange} name={"activeOffice"}  inputProps={{ 'aria-label': 'ant design' }} />
+                                <Switch value={activeOffice} checked={activeOffice} onChange={handleChange} name={"activeOffice"}  />
                                 <Typography>Yes</Typography>
                             </Stack>
                         </Grid>

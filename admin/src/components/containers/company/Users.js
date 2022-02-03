@@ -82,6 +82,21 @@ function Users(props){
             width: 130
         },
         {
+            field: 'admin',
+            headerName: '',
+            width: 130,
+            headerAlign: 'center', align: "center", resizable: false,
+            sortable: false,
+            renderCell: (params) => {
+                if(params.row.isAdmin){
+                    return <Chip
+                        label={"ADMIN"}
+                        color="primary"
+                    />;
+                }
+            }
+        },
+        {
             field: 'status',
             headerName: '',
             width: 130,
@@ -89,8 +104,8 @@ function Users(props){
             sortable: false,
             renderCell: (params) => {
                 return <Chip
-                    label={params.isDeleted ? "Disabled" : params.active ? "Active" : 'Pending'}
-                    color="primary"
+                    label={params.row.isDeleted ? "Disabled" : params.row.active ? "Active" : 'Pending'}
+                    color={params.row.isDeleted ? "error" : params.row.active ? "success" : 'warning'}
                 />;
             }
         },
@@ -101,11 +116,11 @@ function Users(props){
             headerAlign: 'center', align: "right", flex: 1, resizable: false,
             sortable: false,
             renderCell: (params) => {
-                if(params.active){
+                if(params.row.active){
                     return <Chip
                         label="Disable"
                         color="primary"
-                        onClick={() => handleClickOpenDisable(params.id)}
+                        onClick={() => handleClickOpenDisable(params.row.id)}
                         sx={{ borderColor: "#3F07A8", color: "#3F07A8" }}
                         icon={<DesktopAccessDisabledIcon />}
                         variant="outlined"
@@ -173,7 +188,7 @@ function Users(props){
     }
 
     return(
-        <Paper style={{borderRadius:'25px', padding: '2%'}}>
+        <Paper style={{borderRadius:'25px', padding: '2%', height:'100%'}}>
             <Dialog
                 open={openDisable}
                 onClose={handleCloseDisable}
@@ -265,11 +280,11 @@ function Users(props){
                     </Button>
                 </DialogActions>
             </Dialog>
-            <Grid container direction={"column"} spacing={1}>
+            <Grid container direction={"column"} spacing={1} style={{height:'100%'}}>
                 <Grid item xs={12} textAlign={"right"}>
                     <Button variant={"contained"} color={"primary"} onClick={() => handleClickOpenInvit()}>Add a user</Button>
                 </Grid>
-                <Grid item style={{ height: '60vh' }}>
+                <Grid item style={{ height: '75vh' }}>
                     <DataGrid
                         rows={users}
                         columns={columns}

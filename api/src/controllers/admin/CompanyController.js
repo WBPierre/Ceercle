@@ -1,5 +1,6 @@
 const Company = require("../../models/Company");
 const { validationResult, param, body } = require("express-validator");
+const moment = require("moment");
 
 exports.createCompany = async function (req, res, next) {
     try {
@@ -21,6 +22,39 @@ exports.createCompany = async function (req, res, next) {
     }
 }
 
+exports.getStats = async function (req, res, next) {
+    try {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            res.status(422).json({ errors: errors.array() });
+            return;
+        }
+        const company = await Company.findOne({
+            where:{
+                id: req.params.companyId
+            }
+        });
+        if(!company){
+            res.status(404);
+            res.send();
+        }else{
+            let activeUsers = await company.countUsers({where:{active: true, isDeleted: false}});
+            let response = {
+                activeUsers: activeUsers,
+                pendingUsers: await company.countUsers({where:{active: false, isDeleted: false}}),
+                disabledUsers: await company.countUsers({where:{active: true, isDeleted: true}}),
+                invoice_type: company.invoice_type,
+                teams: await company.countTeams(),
+                currentInvoiceValue: activeUsers * (company.invoice_type === 0 ? 3.5 : 3) // PRICE MONTHLY = 3.5 HT PRICE YEARLY 3 HT
+            }
+            res.json(response);
+        }
+
+    } catch (err) {
+        return next(err)
+    }
+}
 exports.updateCompany = async function (req, res, next) {
     try {
         const errors = validationResult(req);
@@ -153,6 +187,12 @@ exports.validate = (method) => {
             return [
                 param('id', 'id doesn\'t exist').exists(),
                 param('id', 'id is not a number').isNumeric()
+            ]
+        }
+        case 'getStats': {
+            return [
+                param('companyId', 'companyId doesn\'t exist').exists(),
+                param('companyId', 'companyId is not a number').isNumeric()
             ]
         }
         case 'createCompany': {
