@@ -88,9 +88,9 @@ function PlanningElement(props) {
                     </Grid>
                 {context.user.company.activeOfficeHandler &&
                     <Grid item xs={12} style={{width:'100%', textAlign:"center"}}>
-                        <Button onClick={() => props.openOffice(moment(props.data.day).format('YYYY-MM-DD'), props.data.reservation)} disabled={props.data.morning !== 1 || props.data.past} style={{textOverflow: 'ellipsis' ,fontSize: 12, textTransform:'none', width:'100%', textAlign:"center", color: props.data.morning !== 1 ? 'transparent' : props.data.past ? '#D3D3D3' : 'inherit'}}>
-                            {props.data.morning === 1 && reservationString()}
-                            {props.data.morning !== 1 && reservationString()}
+                        <Button onClick={() => props.openOffice(moment(props.data.day).format('YYYY-MM-DD'), props.data.reservation)} disabled={(props.data.morning !== 1 && props.data.afternoon !== 1) || props.data.past} style={{textOverflow: 'ellipsis' ,fontSize: 12, textTransform:'none', width:'100%', textAlign:"center", color: (props.data.morning !== 1 && props.data.afternoon !== 1) ? 'transparent' : props.data.past ? '#D3D3D3' : 'inherit'}}>
+                            {(props.data.morning === 1 || props.data.afternoon === 1) && reservationString()}
+                            {(props.data.morning !== 1 && props.data.afternoon !== 1) && reservationString()}
                         </Button>
                     </Grid>
                 }
