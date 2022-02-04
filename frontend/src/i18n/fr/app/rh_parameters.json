@@ -11,7 +11,8 @@
     "month": "Mois",
     "set_up_by_day": "Spécification par jour",
     "snackbar_success": "Paramètres enregistrés",
-    "snackbar_warning": "Les valeurs proposées ne sont pas compatibles avec le remplissage du calendrier."
+    "snackbar_warning": "Les valeurs proposées ne sont pas compatibles avec le remplissage du calendrier.",
+    "restrictive": "Règles restrictives"
   },
   "offices": {
     "tab_name": "Paramétrage des bureaux",
