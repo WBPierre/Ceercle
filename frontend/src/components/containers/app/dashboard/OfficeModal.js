@@ -114,8 +114,8 @@ function OfficeModal(props) {
     const confirmBooking = async () => {
         const resources = {
             day: props.day,
-            morning: true,
-            afternoon: true,
+            morning: props.resaType === 0 || props.resaType === 1,
+            afternoon: props.resaType === 0 || props.resaType === 2,
             officeElementId: null
         }
         if(deskList.length !== 0){
