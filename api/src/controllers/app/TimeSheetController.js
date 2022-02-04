@@ -175,7 +175,7 @@ exports.getTimeSheet = async function (req, res, next) {
             } else {
                 for (let i = 0; i < record.length; i++) {
                     let resa = [];
-                    if (record[i].morning === 1) {
+                    if (record[i].morning === 1 || record[i].afternoon === 1) {
                         const reservation = await OfficeBooking.findOne({
                             where: {
                                 day: record[i].day,

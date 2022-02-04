@@ -155,7 +155,7 @@ function PlanningBoard(props) {
                                                     modify={declareDay}
                                                     data={props.week[0]}
                                                     day={t('app:date_elements:Mon')}
-                                                    openOffice={(day, booking) => props.handleOpenOffice(day, booking)}
+                                                    openOffice={(day, booking, type) => props.handleOpenOffice(day, booking, type)}
                                                 />
                                             </Grid>
                                             <Grid item flexGrow={1} component={Paper} style={{ boxShadow: 'none', maxWidth:'20%' }}>
@@ -163,7 +163,7 @@ function PlanningBoard(props) {
                                                     modify={declareDay}
                                                     data={props.week[1]}
                                                     day={t('app:date_elements:Tue')}
-                                                    openOffice={(day, booking) => props.handleOpenOffice(day, booking)}
+                                                    openOffice={(day, booking, type) => props.handleOpenOffice(day, booking, type)}
                                                 />
                                             </Grid>
                                             <Grid item flexGrow={1} component={Paper} style={{ boxShadow: 'none', maxWidth:'20%' }}>
@@ -171,7 +171,7 @@ function PlanningBoard(props) {
                                                     modify={declareDay}
                                                     data={props.week[2]}
                                                     day={t('app:date_elements:Wed')}
-                                                    openOffice={(day, booking) => props.handleOpenOffice(day, booking)}
+                                                    openOffice={(day, booking, type) => props.handleOpenOffice(day, booking, type)}
                                                 />
                                             </Grid>
                                             <Grid item flexGrow={1} component={Paper} style={{ boxShadow: 'none', maxWidth:'20%' }}>
@@ -179,7 +179,7 @@ function PlanningBoard(props) {
                                                     modify={declareDay}
                                                     data={props.week[3]}
                                                     day={t('app:date_elements:Thu')}
-                                                    openOffice={(day, booking) => props.handleOpenOffice(day, booking)}
+                                                    openOffice={(day, booking, type) => props.handleOpenOffice(day, booking, type)}
                                                 />
                                             </Grid>
                                             <Grid item flexGrow={1} component={Paper} style={{ boxShadow: 'none', maxWidth:'20%' }}>
@@ -187,7 +187,7 @@ function PlanningBoard(props) {
                                                     modify={declareDay}
                                                     data={props.week[4]}
                                                     day={t('app:date_elements:Fri')}
-                                                    openOffice={(day, booking) => props.handleOpenOffice(day, booking)}
+                                                    openOffice={(day, booking, type) => props.handleOpenOffice(day, booking, type)}
                                                 />
                                             </Grid>
                                         </Grid>
