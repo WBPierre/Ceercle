@@ -68,6 +68,7 @@ exports.getHRRules = async function (req, res, next) {
                 } else {
                     res.status(200).json({
                         ruleScope: record.ruleScope,
+                        restrictiveRules: record.restrictive_rules,
                         remoteMaximum: record.remoteMaximum,
                         officeMaximum: record.officeMaximum,
                         mondayMandatoryStatus: record.mondayMandatoryStatus,
@@ -105,6 +106,7 @@ exports.updateHRRules = async function (req, res, next) {
                         ruleScope: req.body.ruleScope,
                         remoteMaximum: req.body.remoteMaximum,
                         officeMaximum: req.body.officeMaximum,
+                        restrictive_rules: req.body.restrictiveRules,
                         mondayMandatoryStatus: req.body.mondayMandatoryStatus,
                         tuesdayMandatoryStatus: req.body.tuesdayMandatoryStatus,
                         wednesdayMandatoryStatus: req.body.wednesdayMandatoryStatus,
@@ -164,6 +166,7 @@ exports.validate = (method) => {
                 body('ruleScope', 'ruleScope is not a number').isNumeric(),
                 body('remoteMaximum', 'remoteMaximum is not a number').isNumeric(),
                 body('officeMaximum', 'officeMaximum is not a number').isNumeric(),
+                body('restrictiveRules', 'restrictiveRules is not a boolean').isBoolean(), //add ruleScope!!! + add remoteMaximum & remoteMaximum
                 body('mondayMandatoryStatus', 'mondayMandatoryStatus is not a number').isNumeric(),
                 body('tuesdayMandatoryStatus', 'tuesdayMandatoryStatus is not a number').isNumeric(),
                 body('wednesdayMandatoryStatus', 'wednesdayMandatoryStatus is not a number').isNumeric(),

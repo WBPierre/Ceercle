@@ -20,6 +20,7 @@ import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import RuleIcon from '@mui/icons-material/Rule';
 import EqualizerIcon from '@mui/icons-material/Equalizer';
 import * as App_Routes from "../../../../navigation/app/Routes";
+import useAuth from "../../../context/auth/AuthHelper";
 
 
 const drawerWidth = 200;
@@ -38,6 +39,7 @@ export default function DrawerCustom(props) {
     let navigate = useNavigate();
     const { t } = useTranslation();
     const location = useLocation();
+    const context = useAuth();
 
     const activeRoutes = location.pathname.split('/');
 
@@ -129,64 +131,80 @@ export default function DrawerCustom(props) {
                     />
                 </ListItem>
                 <Divider style={{ marginTop: 20 }} />
-                <ListItem>
-                    <ListItemText
-                        primaryTypographyProps={{
-                            color: "#FFFFFF",
-                            fontWeight: 200,
-                            fontSize: 15,
-                            variant: 'body2',
-                            textAlign: 'center',
-                            fontStyle: "italic"
-                        }}
-                        primary={t('app:navbar:rh_section')}
-                    />
-                </ListItem>
-                <ListItem disabled button onClick={() => navigate(App_Routes.STATS)} style={{ backgroundColor: activeRoutes[activeRoutes.length - 1] === "stats" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)' }}>
-                    <ListItemIcon>
-                        <EqualizerIcon sx={{ fontSize: activeRoutes[activeRoutes.length - 1] === "stats" ? 25 : 22, color: "#FFFFFF" }} />
-                    </ListItemIcon>
-                    <ListItemText
-                        primaryTypographyProps={{
-                            color: activeRoutes[activeRoutes.length - 1] === "stats" ? '#FFFFFF' : "#FFFFFF",
-                            fontWeight: activeRoutes[activeRoutes.length - 1] === "stats" ? 700 : 200,
-                            fontSize: 18,
-                            variant: 'body2',
-                            textAlign: 'left'
-                        }}
-                        primary={t('app:navbar:statistics')}
-                    />
-                </ListItem>
-                <ListItem button onClick={() => navigate(App_Routes.WORKPOLICY)} style={{ backgroundColor: activeRoutes[activeRoutes.length - 1] === "workpolicy" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)' }}>
-                    <ListItemIcon>
-                        <RuleIcon sx={{ fontSize: activeRoutes[activeRoutes.length - 1] === "workpolicy" ? 25 : 22, color: "#FFFFFF" }} />
-                    </ListItemIcon>
-                    <ListItemText
-                        primaryTypographyProps={{
-                            color: activeRoutes[activeRoutes.length - 1] === "workpolicy" ? '#FFFFFF' : "#FFFFFF",
-                            fontWeight: activeRoutes[activeRoutes.length - 1] === "workpolicy" ? 700 : 200,
-                            fontSize: 18,
-                            variant: 'body2',
-                            textAlign: 'left'
-                        }}
-                        primary={t('app:navbar:parameters')}
-                    />
-                </ListItem>
-                <ListItem button onClick={() => navigate(App_Routes.TEAMS)} style={{ backgroundColor: activeRoutes[activeRoutes.length - 1] === "teams" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)' }}>
-                    <ListItemIcon>
-                        <ConnectWithoutContactIcon sx={{ fontSize: activeRoutes[activeRoutes.length - 1] === "teams" ? 25 : 22, color: "#FFFFFF" }} />
-                    </ListItemIcon>
-                    <ListItemText
-                        primaryTypographyProps={{
-                            color: activeRoutes[activeRoutes.length - 1] === "teams" ? '#FFFFFF' : "#FFFFFF",
-                            fontWeight: activeRoutes[activeRoutes.length - 1] === "teams" ? 700 : 200,
-                            fontSize: 18,
-                            variant: 'body2',
-                            textAlign: 'left'
-                        }}
-                        primary={t('app:navbar:teams')}
-                    />
-                </ListItem>
+                {context.user.isAdmin &&
+                <div>
+                    <ListItem>
+                        <ListItemText
+                            primaryTypographyProps={{
+                                color: "#FFFFFF",
+                                fontWeight: 200,
+                                fontSize: 15,
+                                variant: 'body2',
+                                textAlign: 'center',
+                                fontStyle: "italic"
+                            }}
+                            primary={t('app:navbar:rh_section')}
+                        />
+                    </ListItem>
+                    <ListItem disabled button onClick={() => navigate(App_Routes.STATS)}
+                              style={{backgroundColor: activeRoutes[activeRoutes.length - 1] === "stats" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)'}}>
+                        <ListItemIcon>
+                            <EqualizerIcon sx={{
+                                fontSize: activeRoutes[activeRoutes.length - 1] === "stats" ? 25 : 22,
+                                color: "#FFFFFF"
+                            }}/>
+                        </ListItemIcon>
+                        <ListItemText
+                            primaryTypographyProps={{
+                                color: activeRoutes[activeRoutes.length - 1] === "stats" ? '#FFFFFF' : "#FFFFFF",
+                                fontWeight: activeRoutes[activeRoutes.length - 1] === "stats" ? 700 : 200,
+                                fontSize: 18,
+                                variant: 'body2',
+                                textAlign: 'left'
+                            }}
+                            primary={t('app:navbar:statistics')}
+                        />
+                    </ListItem>
+                    <ListItem button onClick={() => navigate(App_Routes.WORKPOLICY)}
+                              style={{backgroundColor: activeRoutes[activeRoutes.length - 1] === "workpolicy" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)'}}>
+                        <ListItemIcon>
+                            <RuleIcon sx={{
+                                fontSize: activeRoutes[activeRoutes.length - 1] === "workpolicy" ? 25 : 22,
+                                color: "#FFFFFF"
+                            }}/>
+                        </ListItemIcon>
+                        <ListItemText
+                            primaryTypographyProps={{
+                                color: activeRoutes[activeRoutes.length - 1] === "workpolicy" ? '#FFFFFF' : "#FFFFFF",
+                                fontWeight: activeRoutes[activeRoutes.length - 1] === "workpolicy" ? 700 : 200,
+                                fontSize: 18,
+                                variant: 'body2',
+                                textAlign: 'left'
+                            }}
+                            primary={t('app:navbar:parameters')}
+                        />
+                    </ListItem>
+                    <ListItem button onClick={() => navigate(App_Routes.TEAMS)}
+                              style={{backgroundColor: activeRoutes[activeRoutes.length - 1] === "teams" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)'}}>
+                        <ListItemIcon>
+                            <ConnectWithoutContactIcon sx={{
+                                fontSize: activeRoutes[activeRoutes.length - 1] === "teams" ? 25 : 22,
+                                color: "#FFFFFF"
+                            }}/>
+                        </ListItemIcon>
+                        <ListItemText
+                            primaryTypographyProps={{
+                                color: activeRoutes[activeRoutes.length - 1] === "teams" ? '#FFFFFF' : "#FFFFFF",
+                                fontWeight: activeRoutes[activeRoutes.length - 1] === "teams" ? 700 : 200,
+                                fontSize: 18,
+                                variant: 'body2',
+                                textAlign: 'left'
+                            }}
+                            primary={t('app:navbar:teams')}
+                        />
+                    </ListItem>
+                </div>
+                }
             </List>
             <Box sx={{ flexGrow: 1 }} />
             <Divider />

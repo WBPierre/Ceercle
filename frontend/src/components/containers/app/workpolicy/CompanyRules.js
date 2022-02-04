@@ -17,6 +17,7 @@ import CompanyService from '../../../../services/app/company.service';
 
 
 import SettingSectionTemplate from '../account/SettingSectionTemplate';
+import {Switch} from "@mui/material";
 
 export default function CompanyRules() {
 
@@ -66,12 +67,18 @@ export default function CompanyRules() {
         setFridayMandatoryStatus(event.target.value);
     };
 
+    const [restrictiveRules, setRestrictiveRules] = React.useState(false);
+    const handleChangeRestrictiveRules = (event) => {
+        setRestrictiveRules(event.target.checked);
+    }
+
 
     async function getHRRules() {
         const res = await CompanyService.getHRRules();
         setRuleScope(res.data.ruleScope)
         setRemoteMaximum(res.data.remoteMaximum);
         setOfficeMaximum(res.data.officeMaximum);
+        setRestrictiveRules(res.data.restrictiveRules);
         setMondayMandatoryStatus(res.data.mondayMandatoryStatus);
         setTuesdayMandatoryStatus(res.data.tuesdayMandatoryStatus);
         setWednesdayMandatoryStatus(res.data.wednesdayMandatoryStatus);
@@ -100,6 +107,7 @@ export default function CompanyRules() {
                 ruleScope: ruleScope,
                 remoteMaximum: remoteMaximum,
                 officeMaximum: officeMaximum,
+                restrictiveRules: restrictiveRules,
                 mondayMandatoryStatus: mondayMandatoryStatus,
                 tuesdayMandatoryStatus: tuesdayMandatoryStatus,
                 wednesdayMandatoryStatus: wednesdayMandatoryStatus,
@@ -144,6 +152,20 @@ export default function CompanyRules() {
                     <Typography variant="body" fontWeight={400} fontSize={14} style={{ color: '#2A2828' }}>
                         {t('app:rh_parameters:company.warning')}
                     </Typography>
+                </Grid>
+
+                <Grid item mt={3}>
+                    <Typography variant="body" fontWeight={300} fontSize={17} style={{ color: '#414040', fontStyle: "italic" }}>
+                        {t('app:rh_parameters:company.restrictive')}
+                    </Typography>
+                </Grid>
+
+                <Grid item mt={1}>
+                    <Stack direction="row" spacing={1} alignItems="center">
+                        <Typography>{t('generic:no')}</Typography>
+                        <Switch value={restrictiveRules} checked={restrictiveRules} onChange={handleChangeRestrictiveRules} name={"restrictiveRules"} />
+                        <Typography>{t('generic:yes')}</Typography>
+                    </Stack>
                 </Grid>
 
 
