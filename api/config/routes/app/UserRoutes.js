@@ -5,6 +5,8 @@ const ContactController = require("../../../src/controllers/app/ContactControlle
 const { isUserAuthenticated, isAdminUser } = require("../../../src/middlewares/AuthMiddleware");
 
 router.get('/', isAdminUser, UserController.listAllUsers);
+router.get('/company/all', isAdminUser, UserController.getUserForCompany);
+router.get('/userInTeam/:userId/:teamId', [isAdminUser, UserController.validate('getUserInTeam')], UserController.getUserInTeam);
 router.get('/namesForTeam/:teamIndex', isAdminUser, UserController.listAllUsersNamesForTeam);
 router.get('/list/all', isUserAuthenticated, UserController.listGlossaryUsers);
 router.get('/current', isUserAuthenticated, UserController.getUserInfo);

@@ -8,10 +8,8 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import UserManagement from "../../components/containers/app/workpolicy/UserManagement";
-import Integration from "../../components/containers/app/workpolicy/Integration";
-import Chart from 'chart.js/auto';
-import { getRelativePosition } from 'chart.js/helpers';
+import Attendance from "../../components/containers/app/stats/Attendance";
+
 
 
 function TabPanel(props) {
@@ -47,20 +45,6 @@ function a11yProps(index) {
     };
 }
 
-const chart = new Chart(ctx, {
-    type: 'line',
-    data: data,
-    options: {
-        onClick: (e) => {
-            const canvasPosition = getRelativePosition(e, chart);
-
-            // Substitute the appropriate scale IDs
-            const dataX = chart.scales.x.getValueForPixel(canvasPosition.x);
-            const dataY = chart.scales.y.getValueForPixel(canvasPosition.y);
-        }
-    }
-});
-
 function Stats() {
 
     const { t } = useTranslation();
@@ -81,7 +65,7 @@ function Stats() {
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
-                {chart}
+
             </TabPanel>
             <TabPanel value={value} index={1}>
                 aaa

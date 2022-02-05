@@ -147,3 +147,23 @@ exports.checkIfWeekCompliantToHRRules = function (companyMandatoryStatuses, user
     }
     return true
 }
+
+exports.selectBusinessDays = function (startDate, endDate) {
+    const Sunday = 0;
+    const Saturday = 6;
+    let business_days_list = []
+    let business_days_count = [0, 0, 0, 0, 0];
+    let nb_business_days = 0
+
+    const newDate = startDate.clone();
+
+    while ((moment.duration(endDate.diff(newDate)).asDays() >= 0)) {
+        if (newDate.day() !== Sunday && newDate.day() !== Saturday) {
+            business_days_list.push(newDate)
+            business_days_count[newDate.day() - 1] += 1
+            nb_business_days += 1
+        }
+        newDate.add(1, 'days');
+    }
+    return business_days_list, business_days_count, nb_business_days;
+}

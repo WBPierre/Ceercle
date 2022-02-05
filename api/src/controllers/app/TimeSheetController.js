@@ -367,12 +367,123 @@ exports.getHasUserValidatedCompanyRules = async function (req, res, next) {
     }
 }
 
+
+exports.getTimeSheetStats = async function (req, res, next) {
+    //Filters variables
+    let collaboratorSearchId = req.params.collaborator;
+    let teamSearchId = req.params.team;
+    let startDay = req.params.startDay;
+    let endDay = req.params.endDay;
+
+    // Helper variables
+    let users_targeted = []
+    let business_days_list, business_days_count, nb_business_days = Utils.selectBusinessDays(startDate, endDate)
+
+    // Initialize output variables
+    let pieData = [0, 0, 0, 0, 0]
+    let byWeekdayData = [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]]
+    let historicData = []
+
+    // Load the associated users
+    if (collaboratorSearchId > 0) {
+        const user_targeted = await User.findOne({
+            where: {
+                id: collaboratorSearchId
+            }
+        });
+        if (!user_targeted) {
+            res.status(403);
+            res.send();
+        } else {
+            users_targeted = [user_targeted]
+        }
+    } else {
+        if (teamSearchId > 0) {
+            users_targeted = await User.findAll({
+                where: {
+                    teamId: {
+                        [Op.in]: contains(teamSearchId) ////ISSSSSSUUUUUE HERE HELP
+                    }
+                }
+            });
+            if (!users_targeted) {
+                res.status(403);
+                res.send();
+            }
+        } else {
+            users_targeted = await User.findAll({
+                where: {
+                    companyId: res.locals.auth.user.company.id
+                }
+            });
+            if (!users_targeted) {
+                res.status(403);
+                res.send();
+            }
+        }
+    }
+
+    // Compute the values
+    for (let i = 0; i < users_targeted.length; i++) {
+        await TimeSheet.findAll({
+            order: [['day', 'ASC']],
+            where: {
+                day: {
+                    [Op.between]: [startDay, endDay]
+                },
+                userId: users_targeted[i].id
+            }
+        }).then((record) => {
+            if (record.length === 0) {
+                for (let i = 0; i < record.length; i++) {
+                    let day = record[i].day
+                    let morning = record[i].morning
+                    let afternoon = record[i].afternoon
+
+                    // Fill Pie Chart
+                    pieData[morning] += 0.5
+                    pieData[afternoon] += 0.5
+
+                    // Fill weekdays Bar Chart
+                    byWeekdayData[Moment(day).format("YYYY-MM-DD").day()][morning] += 0.5
+                    byWeekdayData[Moment(day).format("YYYY-MM-DD").day()][afternoon] += 0.5
+
+                    // Fill historic Area Chart
+                }
+                res.json({
+                    pieData: pieData,
+                    byWeekdayData: byWeekdayData,
+                    historicData: historicData
+                });
+
+            } else {
+                res.status(404);
+                res.send();
+                return;
+            }
+        })
+    }
+
+}
+
 exports.validate = (method) => {
     switch (method) {
         case 'getTimeSheet': {
             return [
                 param('index', 'index doesn\'t exist').exists(),
                 param('index', 'index is not a number').isNumeric()
+            ]
+        }
+        case 'getTimeSheetStats': {
+            return [
+                param('collaborator', 'collaborator doesn\'t exist').exists(),
+                param('collaborator', 'collaborator is not a number').isNumeric(),
+                param('team', 'team doesn\'t exist').exists(),
+                param('team', 'team is not a number').isNumeric(),
+                param('startDate', 'startDate doesn\'t exist').exists(),
+                param('startDate', 'startDate is not a date').isDate(),
+                param('endDate', 'endDate doesn\'t exist').exists(),
+                param('endDate', 'endDate is not a date').isDate()
             ]
         }
         case 'setTimeSheet': {
