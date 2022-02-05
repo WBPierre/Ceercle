@@ -16,6 +16,7 @@ import TimeService from "../../services/app/time.service";
 import OfficeModal from "../../components/containers/app/dashboard/OfficeModal";
 import { useSnackbar } from "notistack";
 
+
 export default function Dashboard(props) {
 
     const { t } = useTranslation();
@@ -42,7 +43,11 @@ export default function Dashboard(props) {
         const getTimeSheet = async () => {
             await TimeService.getTimeSheet(index).then((res) => {
                 setWeek(res.data.week);
-                setCurrentBooking(res.data.week.find(x => x.current).reservation);
+                if(res.data.week.find(x => x.current)){
+                    setCurrentBooking(res.data.week.find(x => x.current).reservation);
+                }else{
+                    setCurrentBooking(res.data.week[0].reservation);
+                }
             })
         }
         getTimeSheet();
