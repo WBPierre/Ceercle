@@ -14,6 +14,7 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import * as React from "react";
 import CloseIcon from '@mui/icons-material/Close';
+import {useSnackbar} from "notistack";
 
 const style = {
     position: 'absolute',
@@ -31,6 +32,7 @@ function OfficeModal(props) {
 
     const { t } = useTranslation();
     const context = useAuth();
+    const { enqueueSnackbar } = useSnackbar();
 
     const [officeId, setOfficeId] = useState(0);
     const [floorId, setFloorId] = useState(0);
@@ -48,9 +50,9 @@ function OfficeModal(props) {
                 setOfficeList(res.data);
                 res = await OfficeService.getFloors(props.booking[0].id);
                 setFloorList(res.data);
-                res = await OfficeService.getRooms(props.booking[1].id);
+                res = await OfficeService.getRooms(props.booking[1].id, props.day);
                 setRoomList(res.data);
-                res = await OfficeService.getDesks(props.booking[2].id);
+                res = await OfficeService.getDesks(props.booking[2].id, props.day);
                 setDeskList(res.data);
                 setOfficeId(props.booking[0].id)
                 setFloorId(props.booking[1].id)
@@ -63,24 +65,32 @@ function OfficeModal(props) {
                 setFloorId(0);
                 setRoomId(0);
                 setDeskId(0);
+                getOffices();
             }
         }
         getBooking();
     }, [props]);
 
     useEffect(() => {
-        async function getOffices() {
-            const res = await OfficeService.getOffices(context.user.company.id);
-            setOfficeList(res.data);
-        }
         getOffices();
     }, []);
+
+    async function getOffices() {
+        const res = await OfficeService.getOffices(context.user.company.id);
+        setOfficeList(res.data);
+        if(res.data.length === 1){
+            setOfficeId(res.data[0].id);
+        }
+    }
 
     useEffect(() => {
         async function getFloors(){
             if(officeId !== 0){
                 const res = await OfficeService.getFloors(officeId);
                 setFloorList(res.data);
+                if(res.data.length === 1){
+                    setFloorId(res.data[0].id)
+                }
             }
         }
         getFloors();
@@ -89,8 +99,11 @@ function OfficeModal(props) {
     useEffect(() => {
         async function getRooms(){
             if(floorId !== 0){
-                const res = await OfficeService.getRooms(floorId);
+                const res = await OfficeService.getRooms(floorId, props.day);
                 setRoomList(res.data);
+                if(res.data.length === 1 && res.data[0].available.available) {
+                    setRoomId(res.data[0].id)
+                }
             }
         }
         getRooms();
@@ -99,10 +112,14 @@ function OfficeModal(props) {
     useEffect(() => {
         async function getDesks(){
             if(roomId !== 0){
-                const res = await OfficeService.getDesks(roomId);
+                const res = await OfficeService.getDesks(roomId, props.day);
                 setDeskList(res.data);
                 if(res.data.length === 0){
                     setDeskId(1);
+                }else{
+                    if(res.data.length === 1 && res.data[0].available.available){
+                        setDeskId(res.data[0].id);
+                    }
                 }
             }
         }
@@ -123,7 +140,11 @@ function OfficeModal(props) {
         }else{
             resources.officeElementId = roomId;
         }
-        await BookingService.setBooking(resources);
+        await BookingService.setBooking(resources).catch((err) => {
+            enqueueSnackbar(t('app:errors.officeAlreadyBooked'), {
+                variant: 'error'
+            });
+        });
         closeModal(true);
     }
 
@@ -237,7 +258,7 @@ function OfficeModal(props) {
                                             {floorList.map((o, index) => {
                                                 if(floorList.length === 1){
                                                     return(
-                                                        <MenuItem key={index} value={o.id} selected>{o.name}  ({o.capacity}.p)</MenuItem>
+                                                        <MenuItem key={index} value={o.id} selected>{o.name}</MenuItem>
                                                     )
                                                 }else{
                                                     return(
@@ -272,12 +293,19 @@ function OfficeModal(props) {
                                             <MenuItem value={0} disabled key={-1}>{t('app:dashboard:desk.select')}</MenuItem>
                                             {roomList.map((o, index) => {
                                                 if(roomList.length === 1){
-                                                    return(
-                                                        <MenuItem key={index} value={o.id} selected>{o.name}  ({o.capacity}.p)</MenuItem>
-                                                    )
+                                                    if(o.available.available){
+                                                        return(
+                                                            <MenuItem key={index} value={o.id} selected>{o.name}  ({o.capacity - o.available.used}/{o.capacity}.p)</MenuItem>
+                                                        )
+                                                    }else{
+                                                        return(
+                                                            <MenuItem key={index} value={o.id} selected disabled={!o.available.available}>{o.name}  ({o.capacity - o.available.used}/{o.capacity}.p)</MenuItem>
+                                                        )
+                                                    }
+
                                                 }else{
                                                     return(
-                                                        <MenuItem key={index} value={o.id}>{o.name}  ({o.capacity}.p)</MenuItem>
+                                                        <MenuItem key={index} value={o.id} disabled={!o.available.available}>{o.name}  ({o.capacity - o.available.used}/{o.capacity}.p)</MenuItem>
                                                     )
                                                 }
                                             })}

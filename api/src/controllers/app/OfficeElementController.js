@@ -4,12 +4,12 @@ const { validationResult, param, body } = require("express-validator");
 const Team = require("../../models/Team");
 const Utils = require("../../services/Utils");
 const OfficeBooking = require('../../models/OfficeBooking');
+const OfficeElementService = require("../../services/OfficeElementService");
 
 
 exports.getFloors = async function(req, res, next) {
     try {
         const errors = validationResult(req);
-        console.log(errors);
         if (!errors.isEmpty()) {
             res.status(422).json({ errors: errors.array() });
         }
@@ -42,7 +42,6 @@ exports.getFloors = async function(req, res, next) {
 exports.getRooms = async function(req, res, next) {
     try {
         const errors = validationResult(req);
-        console.log(errors);
         if (!errors.isEmpty()) {
             res.status(422).json({ errors: errors.array() });
         }
@@ -60,7 +59,8 @@ exports.getRooms = async function(req, res, next) {
                 name: result[i].name,
                 type: result[i].type,
                 color: result[i].color,
-                capacity: result[i].capacity
+                capacity: result[i].capacity,
+                available: await OfficeElementService.verifyRoomOccupancy(result[i].id, req.params.day)
             };
             arr.push(obj);
         }
@@ -73,7 +73,6 @@ exports.getRooms = async function(req, res, next) {
 exports.getDesks = async function(req, res, next) {
     try {
         const errors = validationResult(req);
-        console.log(errors);
         if (!errors.isEmpty()) {
             res.status(422).json({ errors: errors.array() });
         }
@@ -91,7 +90,8 @@ exports.getDesks = async function(req, res, next) {
                 name: result[i].name,
                 type: result[i].type,
                 color: result[i].color,
-                capacity: result[i].capacity
+                capacity: result[i].capacity,
+                available: await OfficeElementService.verifyRoomOccupancy(result[i].id, req.params.day)
             };
             arr.push(obj);
         }
@@ -340,13 +340,17 @@ exports.validate = (method) => {
         case 'getRooms': {
             return [
                 param('id', 'id doesn\'t exist').exists(),
-                param('id', 'id is not a number').isNumeric()
+                param('id', 'id is not a number').isNumeric(),
+                param('day', 'day doesn\'t exist').exists(),
+                param('day', 'day is not a string').isString()
             ]
         }
         case 'getDesks': {
             return [
                 param('id', 'id doesn\'t exist').exists(),
-                param('id', 'id is not a number').isNumeric()
+                param('id', 'id is not a number').isNumeric(),
+                param('day', 'day doesn\'t exist').exists(),
+                param('day', 'day is not a string').isString()
             ]
         }
         case 'createOfficeElement': {

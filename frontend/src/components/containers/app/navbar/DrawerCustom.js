@@ -146,7 +146,7 @@ export default function DrawerCustom(props) {
                             primary={t('app:navbar:rh_section')}
                         />
                     </ListItem>
-                    <ListItem disabled button onClick={() => navigate(App_Routes.STATS)}
+                    <ListItem button onClick={() => navigate(App_Routes.STATS)}
                               style={{backgroundColor: activeRoutes[activeRoutes.length - 1] === "stats" ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0)'}}>
                         <ListItemIcon>
                             <EqualizerIcon sx={{

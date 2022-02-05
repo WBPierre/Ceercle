@@ -22,7 +22,8 @@
     "room": "Salle",
     "desk": "Place",
     "select": "Sélectionner",
-    "free": "Placement libre"
+    "free": "Placement libre",
+    "noBooking": "Vous n'allez pas au bureau"
   },
   "team": {
     "my_team": "Mon équipe",

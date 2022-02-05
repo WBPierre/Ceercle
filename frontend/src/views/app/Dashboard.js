@@ -18,34 +18,41 @@ import { useSnackbar } from "notistack";
 
 
 export default function Dashboard(props) {
-
-    const { t } = useTranslation();
-    const context = useAuth();
     const day = moment().tz("Europe/Paris");
-    const [week, setWeek] = useState([]);
-    const [booking, setBooking] = useState([]);
-    const [currentBooking, setCurrentBooking] = useState([]);
-    const [ruleRespected, setRuleRespected] = useState(false);
-    const [openOffice, setOpenOffice] = useState(false);
-    const [dayOffice, setDayOffice] = useState(null);
-    const [resaType, setResaType] = useState(0);
-    const [index, setIndex] = useState(0);
-    const { enqueueSnackbar } = useSnackbar();
-
     if (day.day() === 0) {
         day.add(1, 'days');
     } else if (day.day() === 6) {
         day.add(2, 'days');
     }
+    const { t } = useTranslation();
+    const context = useAuth();
+    const [week, setWeek] = useState([]);
+    const [booking, setBooking] = useState([]);
+
+    const [currentBooking, setCurrentBooking] = useState([]);
+    const [canBookOffice, setCanBookOffice] = useState(false);
+    const [ruleRespected, setRuleRespected] = useState(false);
+    const [openOffice, setOpenOffice] = useState(false);
+    const [dayOffice, setDayOffice] = useState(day.format('YYYY-MM-DD'));
+    const [resaType, setResaType] = useState(0);
+    const [index, setIndex] = useState(0);
+    const { enqueueSnackbar } = useSnackbar();
+
+
+
     const [daySelected, setDaySelected] = useState(day.format('YYYY-MM-DD'));
+
 
     useEffect(() => {
         const getTimeSheet = async () => {
             await TimeService.getTimeSheet(index).then((res) => {
                 setWeek(res.data.week);
-                if(res.data.week.find(x => x.current)){
-                    setCurrentBooking(res.data.week.find(x => x.current).reservation);
+                let current = res.data.week.find(x => x.current);
+                if(current){
+                    setCanBookOffice(current.morning || current.afternoon);
+                    setCurrentBooking(current.reservation);
                 }else{
+                    setCanBookOffice(res.data.week[0].morning === 1 || res.data.week[0].afternoon === 1);
                     setCurrentBooking(res.data.week[0].reservation);
                 }
             })
@@ -65,7 +72,14 @@ export default function Dashboard(props) {
         await TimeService.getTimeSheet(ind).then((res) => {
             setWeek(res.data.week);
             if (ind === 0) {
-                setCurrentBooking(res.data.week.find(x => x.current).reservation);
+                let current = res.data.week.find(x => x.current);
+                if(current){
+                    setCanBookOffice(current.morning || current.afternoon);
+                    setCurrentBooking(current.reservation);
+                }else{
+                    setCanBookOffice(res.data.week[0].morning === 1 || res.data.week[0].afternoon === 1);
+                    setCurrentBooking(res.data.week[0].reservation);
+                }
             }
             getHasUserValidatedCompanyRules(ind);
         })
@@ -118,7 +132,7 @@ export default function Dashboard(props) {
                 <Grid container direction={"row"} spacing={1} justifyContent={"space-around"}>
                     {context.user.company.activeOfficeHandler &&
                         <Grid item xs={12} md={4} style={{ borderRadius: '25px' }} component={Paper}>
-                            <Office day={daySelected} reservation={currentBooking} handleOpenOffice={(day, booking) => handleOpenOffice(day, booking)} />
+                            <Office day={daySelected} canBookOffice={canBookOffice} reservation={currentBooking} handleOpenOffice={(day, booking) => handleOpenOffice(day, booking)} />
                         </Grid>
                     }
                     <Grid item xs={12} md={context.user.company.activeOfficeHandler ? 3 : 5} style={{ borderRadius: '25px' }} component={Paper}>

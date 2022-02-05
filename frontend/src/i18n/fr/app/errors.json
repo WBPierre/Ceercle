@@ -3,5 +3,6 @@
   "confirmPassword": "Les mots de passe sont différents.",
   "text": "Entrée invalide",
   "login": "Identifiants erronés",
-  "max_file": "Erreur. Taille maximale du fichier : 2MB."
+  "max_file": "Erreur. Taille maximale du fichier : 2MB.",
+  "officeAlreadyBooked": "Action impossible"
 }

@@ -2,7 +2,7 @@ const OfficeBooking = require("../../models/OfficeBooking");
 const {validationResult, param, body} = require("express-validator");
 const OfficeElement = require("../../models/OfficeElement");
 const Office = require("../../models/Office");
-
+const OfficeElementService = require('../../services/OfficeElementService');
 
 exports.removeOfficeBooking = async function(req, res, next){
     try {
@@ -41,22 +41,29 @@ exports.setOfficeBooking = async function (req, res, next){
             return;
         }
 
-        req.body.userId = res.locals.auth.user.id
-        await OfficeBooking.findOne({
-            where:{
-                day: req.body.day,
-                userId: res.locals.auth.user.id
-            }
-        }).then(async (record)=> {
-            if(!record){
-                const officeBooking = await OfficeBooking.create(req.body)
-                res.json(officeBooking);
-            }else{
-                record.update({morning: req.body.morning, afternoon: req.body.afternoon, officeElementId: req.body.officeElementId}).then((updated) => {
-                    res.json(updated);
-                })
-            }
-        })
+        const {available, used} = await OfficeElementService.verifyRoomOccupancy(req.body.officeElementId, req.body.day);
+        if(!available){
+            res.status(403);
+            res.send();
+        }else{
+            req.body.userId = res.locals.auth.user.id
+            await OfficeBooking.findOne({
+                where:{
+                    day: req.body.day,
+                    userId: res.locals.auth.user.id
+                }
+            }).then(async (record)=> {
+                if(!record){
+                    const officeBooking = await OfficeBooking.create(req.body)
+                    res.json(officeBooking);
+                }else{
+                    record.update({morning: req.body.morning, afternoon: req.body.afternoon, officeElementId: req.body.officeElementId}).then((updated) => {
+                        res.json(updated);
+                    })
+                }
+            })
+        }
+
     } catch(err) {
         return next(err)
     }
