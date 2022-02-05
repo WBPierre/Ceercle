@@ -131,7 +131,7 @@ export default function DrawerCustom(props) {
                     />
                 </ListItem>
                 <Divider style={{ marginTop: 20 }} />
-                {context.user.isAdmin &&
+                {context.user && context.user.isAdmin &&
                 <div>
                     <ListItem>
                         <ListItemText
