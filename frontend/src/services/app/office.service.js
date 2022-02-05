@@ -13,12 +13,12 @@ class OfficeService {
         return this.request.get('/officeElement/floors/' + id);
     }
 
-    async getRooms(id) {
-        return this.request.get('/officeElement/rooms/' + id);
+    async getRooms(id, day) {
+        return this.request.get('/officeElement/rooms/' + id+'/'+day);
     }
 
-    async getDesks(id) {
-        return this.request.get('/officeElement/desks/' + id);
+    async getDesks(id, day) {
+        return this.request.get('/officeElement/desks/' + id+'/'+day);
     }
 
     async listOffices() {

@@ -154,13 +154,13 @@ export default function CompanyRules() {
                     </Typography>
                 </Grid>
 
-                <Grid item mt={3}>
+                <Grid item mt={3} hidden={true}>
                     <Typography variant="body" fontWeight={300} fontSize={17} style={{ color: '#414040', fontStyle: "italic" }}>
                         {t('app:rh_parameters:company.restrictive')}
                     </Typography>
                 </Grid>
 
-                <Grid item mt={1}>
+                <Grid item mt={1} hidden={true}>
                     <Stack direction="row" spacing={1} alignItems="center">
                         <Typography>{t('generic:no')}</Typography>
                         <Switch value={restrictiveRules} checked={restrictiveRules} onChange={handleChangeRestrictiveRules} name={"restrictiveRules"} />

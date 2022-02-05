@@ -22,7 +22,8 @@
     "room": "Room",
     "desk": "Desk",
     "select": "Select",
-    "free": "Free placement"
+    "free": "Free placement",
+    "noBooking": "You are not going to the office"
   },
   "team": {
     "my_team": "My team",

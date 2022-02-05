@@ -54,11 +54,16 @@ function Office(props) {
             <Grid item xs={12}>
                 <Grid container direction={"row"} spacing={1} justifyContent={"center"} alignItems={"center"}>
                     <Grid item>
-                        {props.reservation.length !== 0 ? (
-                            <Button variant={"contained"} onClick={() => props.handleOpenOffice(props.day, props.reservation)}>{t('app:dashboard:desk.modify')}</Button>
-                        ) : (
-                            <Button variant={"contained"} onClick={() => props.handleOpenOffice(props.day, props.reservation)}>{t('app:dashboard:desk.book')}</Button>
+                        {props.canBookOffice ?
+                            props.reservation.length !== 0 ? (
+                                <Button variant={"contained"} onClick={() => props.handleOpenOffice(props.day, props.reservation)}>{t('app:dashboard:desk.modify')}</Button>
+                            ) : (
+                                <Button variant={"contained"} onClick={() => props.handleOpenOffice(props.day, props.reservation)}>{t('app:dashboard:desk.book')}</Button>
+                            )
+                        :(
+                            <Button variant={"contained"} disabled>{t('app:dashboard:desk.noBooking')}</Button>
                         )}
+
                     </Grid>
                 </Grid>
             </Grid>
