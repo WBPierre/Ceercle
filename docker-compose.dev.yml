@@ -53,7 +53,7 @@ services :
     depends_on:
       - api
     ports:
-      - "81:2000"
+      - "81:3000"
 
   postgres:
     image: postgres:14.0
