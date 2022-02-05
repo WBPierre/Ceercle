@@ -36,7 +36,7 @@ function Attendance() {
     }
 
     async function refreshDataCharts() {
-        const res = await TimeService.getTimeSheetStats();
+        const res = await TimeService.getTimeSheetStats(filters);
         setPieData(res.data.pieData)
         setByWeekdayData(res.data.byWeekdayData);
         setHistoricData(res.data.historicData);

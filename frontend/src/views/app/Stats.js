@@ -60,18 +60,14 @@ function Stats() {
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" textColor="secondary"
                     indicatorColor="secondary">
                     <Tab label="Taux de présence" {...a11yProps(0)} />
-                    <Tab label="Occupaiton des bureaux" {...a11yProps(1)} />
-                    <Tab label="aaa" {...a11yProps(2)} />
+                    <Tab label="Occupation des bureaux" {...a11yProps(1)} />
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
-
+                <Attendance />
             </TabPanel>
             <TabPanel value={value} index={1}>
-                aaa
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-                bbb
+                Occupation des bureaux
             </TabPanel>
 
         </div>

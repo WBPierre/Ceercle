@@ -381,8 +381,8 @@ exports.getTimeSheetStats = async function (req, res, next) {
 
     // Initialize output variables
     let pieData = [0, 0, 0, 0, 0]
-    let byWeekdayData = [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]]
-    let historicData = []
+    let byWeekdayData = [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]] //careful: matrix is (status, weekDay)
+    let historicData = [Array.from({ length: business_days_list.length }, (_, i) => [0, 0, 0, 0, 0])]
 
     // Load the associated users
     if (collaboratorSearchId > 0) {
@@ -445,14 +445,15 @@ exports.getTimeSheetStats = async function (req, res, next) {
                     pieData[afternoon] += 0.5
 
                     // Fill weekdays Bar Chart
-                    byWeekdayData[Moment(day).format("YYYY-MM-DD").day()][morning] += 0.5
-                    byWeekdayData[Moment(day).format("YYYY-MM-DD").day()][afternoon] += 0.5
+                    byWeekdayData[morning][Moment(day).format("YYYY-MM-DD").day()] += 0.5
+                    byWeekdayData[afternoon][Moment(day).format("YYYY-MM-DD").day()] += 0.5
 
                     // Fill historic Area Chart
                 }
+
                 res.json({
-                    pieData: pieData,
-                    byWeekdayData: byWeekdayData,
+                    pieData: Utils.formatRatioList(pieData),
+                    byWeekdayData: Utils.formatRatioMatrixByColumn(byWeekdayData),
                     historicData: historicData
                 });
 

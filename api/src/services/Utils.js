@@ -167,3 +167,35 @@ exports.selectBusinessDays = function (startDate, endDate) {
     }
     return business_days_list, business_days_count, nb_business_days;
 }
+
+exports.formatRatioList = function (list) {
+    let cpt = 0
+    for (let i = 0; i < list.length; i++) {
+        cpt += list[i]
+    }
+    let result = []
+    for (let i = 0; i < list.length; i++) {
+        result.push(Math.round(list[i] / cpt * 100) / 100)
+    }
+    return result
+}
+
+exports.formatRatioMatrixByColumn = function (matrix) {
+    let cpt = Array.from({ length: matrix.length }, (_, i) => 0)
+    for (let i = 0; i < matrix.length; i++) {
+        for (let j = 0; j < matrix[i].length; j++) {
+            cpt[j] += matrix[i][j]
+        }
+    }
+
+    let results = []
+    for (let i = 0; i < matrix.length; i++) {
+        let result = []
+        for (let j = 0; j < matrix[i].length; j++) {
+            result.push(Math.round(matrix[i][j] / cpt[j] * 100) / 100)
+        }
+        results.push(result)
+    }
+
+    return results
+}
