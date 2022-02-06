@@ -6,13 +6,13 @@ const jwt = require("jsonwebtoken");
 const uploadProfile = require('../../middlewares/UploadProfileMiddleware');
 const uploadBanner = require('../../middlewares/UploadBannerMiddleware');
 const Moment = require('moment');
-const {v4: uuidv4} = require('uuid');
+const { v4: uuidv4 } = require('uuid');
 const Mailer = require("../../services/Mailer");
 
 
 exports.listAllUsers = async function (req, res) {
     const users = await User.findAll({
-        where:{
+        where: {
             companyId: res.locals.auth.user.company.id,
             active: true,
             isDeleted: false
@@ -22,28 +22,66 @@ exports.listAllUsers = async function (req, res) {
     res.json(users);
 }
 
-exports.verifyInvitation = async function(req, res, next) {
+exports.getUserForCompany = async function (req, res, next) {
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            res.status(422).json({errors: errors.array()});
+            res.status(422).json({ errors: errors.array() });
+            return;
+        }
+        await User.findAll(
+            {
+                where: {
+                    companyId: res.locals.auth.user.company.id,
+                    active: true,
+                    isDeleted: false
+                },
+                order: [['lastName', 'ASC'], ['firstName', 'ASC']]
+            }).then(async (record) => {
+                if (record.length == 0) {
+                    res.status(404);
+                    res.send();
+                } else {
+                    let users_formatted = []
+                    for (let i = 0; i < record.length; i++) {
+                        let user = {
+                            'id': record[i].id,
+                            'label': record[i].firstName + " " + record[i].lastName
+                        }
+                        users_formatted.push(user);
+                    }
+                    res.json(
+                        users_formatted
+                    )
+                }
+            })
+    } catch (err) {
+        return next(err)
+    }
+}
+
+exports.verifyInvitation = async function (req, res, next) {
+    try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            res.status(422).json({ errors: errors.array() });
             return;
         }
         const user = await User.findOne({
-            where:{
+            where: {
                 activation_token: req.params.token
             }
         })
-        if(!user){
+        if (!user) {
             res.status(404);
             res.send();
-        }else{
-            if(user.active || user.isDeleted){
+        } else {
+            if (user.active || user.isDeleted) {
                 res.status(404);
                 res.send();
-            }else{
+            } else {
                 const company = await user.getCompany();
-                res.json({companyName: company.name, email: user.email});
+                res.json({ companyName: company.name, email: user.email });
             }
         }
     } catch (err) {
@@ -51,24 +89,24 @@ exports.verifyInvitation = async function(req, res, next) {
     }
 }
 
-exports.disableUser = async function(req, res, next) {
+exports.disableUser = async function (req, res, next) {
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            res.status(422).json({errors: errors.array()});
+            res.status(422).json({ errors: errors.array() });
             return;
         }
         const user = await User.findOne({
-            where:{
+            where: {
                 id: req.params.id,
                 companyId: res.locals.auth.user.company.id
             }
         })
-        if(!user){
+        if (!user) {
             res.status(404);
             res.send();
-        }else{
-            await user.update({isDeleted: true});
+        } else {
+            await user.update({ isDeleted: true });
             res.status(200);
             res.send();
         }
@@ -77,25 +115,25 @@ exports.disableUser = async function(req, res, next) {
     }
 }
 
-exports.createUserFromInvitation = async function(req, res, next) {
+exports.createUserFromInvitation = async function (req, res, next) {
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            res.status(422).json({errors: errors.array()});
+            res.status(422).json({ errors: errors.array() });
             return;
         }
         const user = await User.findOne({
-            where:{
+            where: {
                 activation_token: req.body.token
             }
         })
-        if(!user){
+        if (!user) {
             res.status(404);
             res.send();
-        }else{
+        } else {
             const password = await Security.hashPassword(req.body.password);
             const currentDay = Moment().tz('Europe/Paris').format("YYYY-MM-DD");
-            await user.update({firstName: req.body.firstName, lastName: req.body.lastName, phoneNumber: req.body.phoneNumber, active: true, position: req.body.position, password: password, activation_day: currentDay})
+            await user.update({ firstName: req.body.firstName, lastName: req.body.lastName, phoneNumber: req.body.phoneNumber, active: true, position: req.body.position, password: password, activation_day: currentDay })
             res.status(200);
             res.send();
         }
@@ -108,30 +146,30 @@ exports.createInvitation = async function (req, res, next) {
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            res.status(422).json({errors: errors.array()});
+            res.status(422).json({ errors: errors.array() });
             return;
         }
         const user = await User.findOne({
-            where:{
+            where: {
                 email: req.body.email,
                 companyId: res.locals.auth.user.company.id
             }
         })
         const token = uuidv4()
-        if(!user){
-            await User.create({email: req.body.email, activation_token: token, companyId: res.locals.auth.user.company.id})
-        }else{
-            user.update({activation_token: token});
+        if (!user) {
+            await User.create({ email: req.body.email, activation_token: token, companyId: res.locals.auth.user.company.id })
+        } else {
+            user.update({ activation_token: token });
         }
         // SHOOT EMAIL
         let link;
-        if(process.env.NODE_ENV === "development"){
-             link = process.env.STORAGE_PROTOCOL+"://"+process.env.STORAGE_HOST+"/app/invitation/"+token;
-        }else{
-            link = "https://app.ceercle.io/invitation/"+token;
+        if (process.env.NODE_ENV === "development") {
+            link = process.env.STORAGE_PROTOCOL + "://" + process.env.STORAGE_HOST + "/app/invitation/" + token;
+        } else {
+            link = "https://app.ceercle.io/invitation/" + token;
         }
-        const company = await Company.findOne({where:{id: res.locals.auth.user.company.id}});
-        Mailer.sendInvitation(req.body.email, {companyName: company.name, link: link});
+        const company = await Company.findOne({ where: { id: res.locals.auth.user.company.id } });
+        Mailer.sendInvitation(req.body.email, { companyName: company.name, link: link });
         res.status(200);
         res.send();
     } catch (err) {
@@ -142,14 +180,14 @@ exports.createInvitation = async function (req, res, next) {
 exports.listGlossaryUsers = async function (req, res) {
     const users = await User.findAll({
         order: [['createdAt', 'DESC']],
-        where:{
-            companyId:  res.locals.auth.user.company.id,
+        where: {
+            companyId: res.locals.auth.user.company.id,
             active: true,
             isDeleted: false
         }
     });
     let arr = [];
-    for(let i = 0; i < users.length; i++){
+    for (let i = 0; i < users.length; i++) {
         let obj = {
             firstName: users[i].firstName,
             lastName: users[i].lastName,
@@ -242,6 +280,40 @@ exports.getUserInfo = async function (req, res, next) {
                         profilePicturePath: record.profilePicturePath,
                         bannerPath: record.bannerPath,
                         teams: await record.getTeams()
+                    });
+                }
+            })
+    } catch (err) {
+        return next(err)
+    }
+}
+
+exports.getUserInTeam = async function (req, res, next) {
+    try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            res.status(422).json({ errors: errors.array() });
+            return;
+        }
+        await User.findOne(
+            {
+                where: {
+                    id: req.params.userId
+                }
+            }).then(async (record) => {
+                if (!record) {
+                    res.status(404);
+                    res.send();
+                } else {
+                    let teams = record.getTeams()
+                    let flag = false;
+                    for (let i = 0, len = teams.length; i < len; i++) {
+                        if (teams[i].id == req.params.teamId) {
+                            flag = false
+                        }
+                    }
+                    res.status(200).json({
+                        check: flag
                     });
                 }
             })
@@ -441,7 +513,7 @@ exports.validate = (method) => {
                 param('id', 'id is not a number').isNumeric()
             ]
         }
-        case 'createInvitation':{
+        case 'createInvitation': {
             return [
                 body('email', 'email doesn\'t exist').exists(),
                 body('email', 'email is not an email').isEmail()
@@ -543,6 +615,14 @@ exports.validate = (method) => {
             return [
                 param('filename', 'filename is not a string').exists(),
                 param('filename', 'filename is not a string').isString()
+            ]
+        }
+        case 'getUserInTeam': {
+            return [
+                param('userId', 'userId doesn\'t exist').exists(),
+                param('userId', 'userId is not a number').isNumeric(),
+                param('teamId', 'teamId doesn\'t exist').exists(),
+                param('teamId', 'teamId is not a number').isNumeric()
             ]
         }
     }

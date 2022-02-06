@@ -5,20 +5,20 @@ class UserService {
         this.request = ApiService
     }
 
-    async verifyInvitation(token){
-        return this.request.get('/users/invitation/verify/'+token);
+    async verifyInvitation(token) {
+        return this.request.get('/users/invitation/verify/' + token);
     }
 
-    async createUserFromInvitation(){
+    async createUserFromInvitation() {
         return this.request.post('/users/invitation/validate');
     }
 
-    async createInvitation(resources){
+    async createInvitation(resources) {
         return this.request.post('/users/invitation/create', resources)
     }
 
-    async disableUser(id){
-        return this.request.get('/users/disable/'+id)
+    async disableUser(id) {
+        return this.request.get('/users/disable/' + id)
     }
 
     async getUsers() {
@@ -29,8 +29,16 @@ class UserService {
         return this.request.get('/users/list/all');
     }
 
+    async getUserForCompany() {
+        return this.request.get('/users/company/all');
+    }
+
     async getUserInfo() {
         return this.request.get('/users/current');
+    }
+
+    async getUserInTeam(resources) {
+        return this.request.get('/users/userInTeam/' + resources.userId + "/" + resources.teamId);
     }
 
     async getUsersNamesForTeam(teamIndex) {

@@ -24,6 +24,10 @@ class TimeService {
     async getTeamTimeSheet(day) {
         return this.request.get('/time/team/' + day);
     }
+
+    async getTimeSheetStats(filters) {
+        return this.request.get('/time/stats/' + filters.collaborator + "/" + filters.team + "/" + filters.startDate + "/" + filters.endDate);
+    }
 }
 
 export default new TimeService();

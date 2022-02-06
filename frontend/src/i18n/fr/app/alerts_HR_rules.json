@@ -1,4 +1,13 @@
 {
   "warning": "Déclaration non conforme",
-  "valid": "Déclaration valide"
+  "valid": "Déclaration valide",
+  "title": "Règles de travail hybride",
+  "attendance_rate": "Taux de présence par ",
+  "week": "semaine",
+  "month": "mois",
+  "max_office": "Nombre de jour maximal au bureau: ",
+  "max_remote": "Nombre de jour maximal en télétravail: ",
+  "remaining": "restant",
+  "plural": "s",
+  "mandatory_days": "Jours imposés"
 }

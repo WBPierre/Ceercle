@@ -5,6 +5,7 @@ const Utils = require('../../services/Utils');
 const { Op } = require('sequelize');
 const Security = require("../../services/Security");
 const User = require("../../models/User");
+const Team = require("../../models/Team");
 const OfficeBooking = require("../../models/OfficeBooking");
 const OfficeElement = require("../../models/OfficeElement");
 const Office = require('../../models/Office');
@@ -367,12 +368,133 @@ exports.getHasUserValidatedCompanyRules = async function (req, res, next) {
     }
 }
 
+
+exports.getTimeSheetStats = async function (req, res, next) {
+    //Filters variables
+    let collaboratorSearchId = req.params.collaborator;
+    let teamSearchId = req.params.team;
+    let startDate = req.params.startDate;
+    let endDate = req.params.endDate;
+
+    // Helper variables
+    let users_targeted = []
+    let { business_days_list, business_days_count, nb_business_days } = Utils.selectBusinessDays(startDate, endDate)
+
+    // Initialize output variables
+    let pieData = [0, 0, 0, 0, 0]
+    let byWeekdayData = [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]] //careful: matrix is (status, weekDay)
+    let historicData = [Array.from({ length: business_days_list.length }, (_, i) => 0),
+    Array.from({ length: business_days_list.length }, (_, i) => 0),
+    Array.from({ length: business_days_list.length }, (_, i) => 0),
+    Array.from({ length: business_days_list.length }, (_, i) => 0),
+    Array.from({ length: business_days_list.length }, (_, i) => 0)]
+
+    // Load the associated users
+    if (collaboratorSearchId > 0) {
+        const user_targeted = await User.findOne({
+            where: {
+                id: collaboratorSearchId
+            }
+        });
+        if (!user_targeted) {
+            res.status(403);
+            res.send();
+        } else {
+            users_targeted = [user_targeted]
+        }
+    } else {
+        if (teamSearchId > 0) {
+            const team = await Team.findOne({
+                where: {
+                    id: teamSearchId,
+                }
+            });
+            users_targeted = await team.getUsers({ where: { active: true, isDeleted: false }, order: [['lastName', 'ASC'], ['firstName', 'ASC']] })
+            if (!users_targeted) {
+                res.status(403);
+                res.send();
+            }
+        } else {
+            users_targeted = await User.findAll({
+                where: {
+                    companyId: res.locals.auth.user.company.id
+                }
+            });
+            if (!users_targeted) {
+                res.status(403);
+                res.send();
+            }
+        }
+    }
+
+    // Compute the values
+    for (let i = 0; i < users_targeted.length; i++) {
+        await TimeSheet.findAll({
+            order: [['day', 'ASC']],
+            where: {
+                day: {
+                    [Op.between]: [startDate, endDate]
+                },
+                userId: users_targeted[i].id
+            }
+        }).then((record) => {
+            for (let j = 0; j < business_days_list.length; j++) {
+                let day = business_days_list[j]
+                let morning = 0
+                let afternoon = 0
+                if (record) {
+                    let obj = record.find(x => x.day === day)
+                    if (obj) {
+                        morning = obj.morning
+                        afternoon = obj.afternoon
+                    }
+                }
+
+                // Fill Pie Chart
+                pieData[morning] += 0.5
+                pieData[afternoon] += 0.5
+
+                // Fill weekdays Bar Chart
+                byWeekdayData[morning][Moment(day).day() - 1] += 0.5
+                byWeekdayData[afternoon][Moment(day).day() - 1] += 0.5
+
+                // Fill historic Area Chart
+                historicData[morning][j] += 0.5
+                historicData[afternoon][j] += 0.5
+
+            }
+        })
+    }
+
+    res.json({
+        pieData: Utils.formatRatioList(pieData),
+        byWeekdayData: Utils.formatRatioMatrixByColumn(byWeekdayData),
+        historicData: Utils.formatRatioStackedMatrixByColumn(historicData),
+        business_days_list: business_days_list
+    });
+
+
+}
+
+
 exports.validate = (method) => {
     switch (method) {
         case 'getTimeSheet': {
             return [
                 param('index', 'index doesn\'t exist').exists(),
                 param('index', 'index is not a number').isNumeric()
+            ]
+        }
+        case 'getTimeSheetStats': {
+            return [
+                param('collaborator', 'collaborator doesn\'t exist').exists(),
+                param('collaborator', 'collaborator is not a number').isNumeric(),
+                param('team', 'team doesn\'t exist').exists(),
+                param('team', 'team is not a number').isNumeric(),
+                param('startDate', 'startDate doesn\'t exist').exists(),
+                param('startDate', 'startDate is not a date').isDate(),
+                param('endDate', 'endDate doesn\'t exist').exists(),
+                param('endDate', 'endDate is not a date').isDate()
             ]
         }
         case 'setTimeSheet': {

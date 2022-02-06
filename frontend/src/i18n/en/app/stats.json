@@ -1,0 +1,19 @@
+{
+  "attendance": {
+    "title": "Attendance rate",
+    "subtitle": "Analyze your teams statistics (office attendance, home working, etc.)",
+    "refresh": "Refresh",
+    "teams": "Teams",
+    "all_teams": "All teams",
+    "collaborators": "Collaboratorrs",
+    "search": "Search",
+    "start": "Start",
+    "end": "End",
+    "titlePie": "Average on period",
+    "titleStackedBar": "Average per weekday",
+    "titleArea": "Day by day data"
+  },
+  "occupancy": {
+    "title": "Office occupancy (released soon)"
+  }
+}
