@@ -29,6 +29,6 @@ ENV NODE_ENV production
 # Copy built assets from builder
 COPY --from=builder /app/build /usr/share/nginx/html
 # Expose port
-EXPOSE 81
+EXPOSE 80 443
 # Start nginx
 CMD ["nginx", "-g", "daemon off;"]
