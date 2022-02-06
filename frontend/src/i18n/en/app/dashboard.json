@@ -3,8 +3,8 @@
   "today": "Today",
   "snackbar_success": "Saved.",
   "no_reservation": "No booking",
-  "desk_modification": "Booking modified",
-  "desk_remove": "Booking canceled",
+  "desk_modification": "Office booking modified",
+  "desk_remove": "Office booking canceled",
   "desk": {
     "my_desk": "My office",
     "my_reservation": "My booking",
