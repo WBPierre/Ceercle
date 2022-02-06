@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { Line } from "react-chartjs-2";
 
 
@@ -53,6 +54,11 @@ function AttendanceDetailed(props) {
             data={data}
             options={{
                 plugins: {
+                    datalabels: {
+                        formatter: (value, ctx) => {
+                            return "";
+                        }
+                    },
                     title: {
                         display: true,
                         fontsize: 14,
@@ -67,11 +73,6 @@ function AttendanceDetailed(props) {
                         intersect: false,
                     },
                     responsive: true,
-                    scales: {
-                        y: {
-                            stacked: true
-                        }
-                    },
                     filler: {
                         propagate: false
                     },
