@@ -26,4 +26,4 @@ services:
     volumes:
       - ./certbot/conf:/etc/letsencrypt:rw
       - ./certbot/www:/var/www/certbot:rw
-    command: certonly --dry-run --force-renewal --email contact@ceercle.io --webroot -w /var/www/certbot --cert-name ceercle.io -d ceercle.io -d www.ceercle.io --cert-name app.ceercle.io --webroot -w /var/www/certbot -d app.ceercle.io -d www.app.ceercle.io --agree-tos
+    command: certonly --force-renewal --email contact@ceercle.io --webroot -w /var/www/certbot --cert-name ceercle.io -d ceercle.io -d www.ceercle.io --cert-name app.ceercle.io --webroot -w /var/www/certbot -d app.ceercle.io -d www.app.ceercle.io --agree-tos
