@@ -155,17 +155,18 @@ exports.selectBusinessDays = function (startDate, endDate) {
     let business_days_count = [0, 0, 0, 0, 0];
     let nb_business_days = 0
 
-    const newDate = startDate.clone();
+    const newDate = Moment(startDate, "YYYY-MM-DD")
+    const endDateFormatted = Moment(endDate, "YYYY-MM-DD")
 
-    while ((moment.duration(endDate.diff(newDate)).asDays() >= 0)) {
+    while ((Moment.duration(endDateFormatted.diff(newDate)).asDays() >= 0)) {
         if (newDate.day() !== Sunday && newDate.day() !== Saturday) {
-            business_days_list.push(newDate)
+            business_days_list.push(newDate.format("YYYY-MM-DD"))
             business_days_count[newDate.day() - 1] += 1
             nb_business_days += 1
         }
         newDate.add(1, 'days');
     }
-    return business_days_list, business_days_count, nb_business_days;
+    return { business_days_list, business_days_count, nb_business_days }
 }
 
 exports.formatRatioList = function (list) {
@@ -196,6 +197,30 @@ exports.formatRatioMatrixByColumn = function (matrix) {
         }
         results.push(result)
     }
+
+    return results
+}
+
+exports.formatRatioStackedMatrixByColumn = function (matrix) {
+    let cpt = Array.from({ length: matrix[0].length }, (_, i) => 0)
+    for (let i = 0; i < matrix.length; i++) {
+        for (let j = 0; j < matrix[i].length; j++) {
+            cpt[j] += matrix[i][j]
+        }
+    }
+
+    let results = []
+    for (let i = 0; i < matrix.length - 1; i++) {
+        let result = []
+        for (let j = 0; j < matrix[i].length; j++) {
+            result.push(Math.round(matrix[i][j] / cpt[j] * 100) / 100)
+            if (i !== 0) {
+                result[j] += results[i - 1][j]
+            }
+        }
+        results.push(result)
+    }
+    results.push(Array.from({ length: matrix[0].length }, (_, i) => 1))
 
     return results
 }

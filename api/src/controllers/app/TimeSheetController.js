@@ -5,6 +5,7 @@ const Utils = require('../../services/Utils');
 const { Op } = require('sequelize');
 const Security = require("../../services/Security");
 const User = require("../../models/User");
+const Team = require("../../models/Team");
 const OfficeBooking = require("../../models/OfficeBooking");
 const OfficeElement = require("../../models/OfficeElement");
 const Office = require('../../models/Office');
@@ -372,17 +373,21 @@ exports.getTimeSheetStats = async function (req, res, next) {
     //Filters variables
     let collaboratorSearchId = req.params.collaborator;
     let teamSearchId = req.params.team;
-    let startDay = req.params.startDay;
-    let endDay = req.params.endDay;
+    let startDate = req.params.startDate;
+    let endDate = req.params.endDate;
 
     // Helper variables
     let users_targeted = []
-    let business_days_list, business_days_count, nb_business_days = Utils.selectBusinessDays(startDate, endDate)
+    let { business_days_list, business_days_count, nb_business_days } = Utils.selectBusinessDays(startDate, endDate)
 
     // Initialize output variables
     let pieData = [0, 0, 0, 0, 0]
     let byWeekdayData = [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]] //careful: matrix is (status, weekDay)
-    let historicData = [Array.from({ length: business_days_list.length }, (_, i) => [0, 0, 0, 0, 0])]
+    let historicData = [Array.from({ length: business_days_list.length }, (_, i) => 0),
+    Array.from({ length: business_days_list.length }, (_, i) => 0),
+    Array.from({ length: business_days_list.length }, (_, i) => 0),
+    Array.from({ length: business_days_list.length }, (_, i) => 0),
+    Array.from({ length: business_days_list.length }, (_, i) => 0)]
 
     // Load the associated users
     if (collaboratorSearchId > 0) {
@@ -399,13 +404,12 @@ exports.getTimeSheetStats = async function (req, res, next) {
         }
     } else {
         if (teamSearchId > 0) {
-            users_targeted = await User.findAll({
+            const team = await Team.findOne({
                 where: {
-                    teamId: {
-                        [Op.in]: contains(teamSearchId) ////ISSSSSSUUUUUE HERE HELP
-                    }
+                    id: teamSearchId,
                 }
             });
+            users_targeted = await team.getUsers({ where: { active: true, isDeleted: false }, order: [['lastName', 'ASC'], ['firstName', 'ASC']] })
             if (!users_targeted) {
                 res.status(403);
                 res.send();
@@ -429,43 +433,49 @@ exports.getTimeSheetStats = async function (req, res, next) {
             order: [['day', 'ASC']],
             where: {
                 day: {
-                    [Op.between]: [startDay, endDay]
+                    [Op.between]: [startDate, endDate]
                 },
                 userId: users_targeted[i].id
             }
         }).then((record) => {
-            if (record.length === 0) {
-                for (let i = 0; i < record.length; i++) {
-                    let day = record[i].day
-                    let morning = record[i].morning
-                    let afternoon = record[i].afternoon
-
-                    // Fill Pie Chart
-                    pieData[morning] += 0.5
-                    pieData[afternoon] += 0.5
-
-                    // Fill weekdays Bar Chart
-                    byWeekdayData[morning][Moment(day).format("YYYY-MM-DD").day()] += 0.5
-                    byWeekdayData[afternoon][Moment(day).format("YYYY-MM-DD").day()] += 0.5
-
-                    // Fill historic Area Chart
+            for (let j = 0; j < business_days_list.length; j++) {
+                let day = business_days_list[j]
+                let morning = 0
+                let afternoon = 0
+                if (record) {
+                    let obj = record.find(x => x.day === day)
+                    if (obj) {
+                        morning = obj.morning
+                        afternoon = obj.afternoon
+                    }
                 }
 
-                res.json({
-                    pieData: Utils.formatRatioList(pieData),
-                    byWeekdayData: Utils.formatRatioMatrixByColumn(byWeekdayData),
-                    historicData: historicData
-                });
+                // Fill Pie Chart
+                pieData[morning] += 0.5
+                pieData[afternoon] += 0.5
 
-            } else {
-                res.status(404);
-                res.send();
-                return;
+                // Fill weekdays Bar Chart
+                byWeekdayData[morning][Moment(day).day() - 1] += 0.5
+                byWeekdayData[afternoon][Moment(day).day() - 1] += 0.5
+
+                // Fill historic Area Chart
+                historicData[morning][j] += 0.5
+                historicData[afternoon][j] += 0.5
+
             }
         })
     }
 
+    res.json({
+        pieData: Utils.formatRatioList(pieData),
+        byWeekdayData: Utils.formatRatioMatrixByColumn(byWeekdayData),
+        historicData: Utils.formatRatioStackedMatrixByColumn(historicData),
+        business_days_list: business_days_list
+    });
+
+
 }
+
 
 exports.validate = (method) => {
     switch (method) {
