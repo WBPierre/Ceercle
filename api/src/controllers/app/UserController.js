@@ -346,7 +346,7 @@ exports.uploadProfile = async function (req, res, next) {
         res.status(200).send({ path: url });
     } catch (err) {
         res.status(403).send({
-            message: `Could not upload the file: ${req.file.originalname}. ${err}`,
+            message: `Could not upload the file ${err}`,
         });
     }
 }
@@ -374,8 +374,8 @@ exports.uploadBanner = async function (req, res, next) {
             })
         res.status(200).send({ path: url });
     } catch (err) {
-        res.status(500).send({
-            message: `Could not upload the file: ${req.file.originalname}. ${err}`,
+        res.status(403).send({
+            message: `Could not upload the file ${err}`,
         });
     }
 }

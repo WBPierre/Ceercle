@@ -52,6 +52,47 @@ exports.generateDemoData = async function(){
     }
 }
 
+async function generateOneOffice(companyId){
+    const paris = await Office.findOne({
+        where:{
+            name: "Paris",
+            companyId: companyId
+        }
+    }).then(async (record) => {
+        if(!record) {
+            return await Office.create({name: "Paris", capacity: 30, companyId: companyId});
+        }else{
+            return record;
+        }
+    })
+    const paris_floor_1 = await OfficeElement.findOne({
+        where:{
+            name: "1er Etage",
+            officeId: paris.id
+        }
+    }).then(async (record) => {
+        if(!record) {
+            return await OfficeElement.create({name:"1er Etage", type: 0, color:'#2CCCE4', capacity: 20, officeId: paris.id});
+        }else{
+            return record;
+        }
+    })
+    const paris_room_1 = await OfficeElement.findOne({
+        where:{
+            name: "Salle Eiffel",
+            officeId: paris.id,
+            parentId: paris_floor_1.id
+        }
+    }).then(async (record) => {
+        if(!record) {
+            return await OfficeElement.create({name:"Salle Eiffel", type: 1, color:'#DCE775', capacity: 1, officeId: paris.id, parentId: paris_floor_1.id});
+        }else{
+            return record;
+        }
+    })
+}
+
+
 async function generateOffices(companyId){
     const paris = await Office.findOne({
         where:{
@@ -77,6 +118,19 @@ async function generateOffices(companyId){
             return record;
         }
     })
+    const newYork = await Office.findOne({
+        where:{
+            name: "New York",
+            companyId: companyId
+        }
+    }).then(async (record) => {
+        if(!record) {
+            return await Office.create({name:"New York", country: 'USA', capacity: 10, companyId: companyId});
+        }else{
+            return record;
+        }
+    })
+
     const paris_floor_1 = await OfficeElement.findOne({
         where:{
             name: "1er Etage",
@@ -225,6 +279,32 @@ async function generateOffices(companyId){
     }).then(async (record) => {
         if(!record) {
             return await OfficeElement.create({name:"Radiance", type: 1, color:'#BA68C8', capacity: 4, officeId: londres.id, parentId: londres_floor_2.id});
+        }else{
+            return record;
+        }
+    })
+
+    const newyork_floor_1 = await OfficeElement.findOne({
+        where:{
+            name: "57th Floor",
+            officeId: newYork.id
+        }
+    }).then(async (record) => {
+        if(!record) {
+            return await OfficeElement.create({name:"57th Floor", type: 0, color:'#2CCCE4', capacity: 10, officeId: newYork.id});
+        }else{
+            return record;
+        }
+    })
+    const newyork_room_1 = await OfficeElement.findOne({
+        where:{
+            name: "Open Space",
+            officeId: newYork.id,
+            parentId: newyork_floor_1.id
+        }
+    }).then(async (record) => {
+        if(!record) {
+            return await OfficeElement.create({name:"Open Space", type: 1, color:'#BA68C8', capacity: 10, officeId: newYork.id, parentId: newyork_floor_1.id});
         }else{
             return record;
         }

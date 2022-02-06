@@ -3,5 +3,6 @@
   "confirmPassword": "Passwords are different.",
   "text": "Incorrect entry",
   "login": "Wrong identifiers",
-  "max_file": "Error while uploading. Max File Size : 2MB."
+  "max_file": "Error while uploading. Max File Size : 2MB.",
+  "officeAlreadyBooked": "Impossible action"
 }
