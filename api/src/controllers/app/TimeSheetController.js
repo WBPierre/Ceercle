@@ -467,8 +467,8 @@ exports.getTimeSheetStats = async function (req, res, next) {
     }
 
     res.json({
-        pieData: Utils.formatRatioList(pieData),
-        byWeekdayData: Utils.formatRatioMatrixByColumn(byWeekdayData),
+        pieData: pieData, //Utils.formatRatioList(pieData),
+        byWeekdayData: byWeekdayData, //Utils.formatRatioMatrixByColumn(byWeekdayData),
         historicData: Utils.formatRatioStackedMatrixByColumn(historicData),
         business_days_list: business_days_list
     });

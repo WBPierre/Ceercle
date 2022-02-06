@@ -1,8 +1,9 @@
 import { useTranslation } from "react-i18next";
 import Chart from 'chart.js/auto';
 import { Doughnut } from "react-chartjs-2";
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-
+Chart.register(ChartDataLabels);
 
 function AttendancePie(props) {
     const { t } = useTranslation();
@@ -35,17 +36,27 @@ function AttendancePie(props) {
                         position: 'below',
 
                     },
-                    formatter: (value, ctx) => {
-                        let datasets = ctx.chart.data.datasets;
-                        if (datasets.indexOf(ctx.dataset) === datasets.length - 1) {
-                            let sum = datasets[0].data.reduce((a, b) => a + b, 0);
-                            let percentage = Math.round((value / sum) * 100) + '%';
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Percentage',
+                    },
+                    datalabels: {
+                        formatter: (value, ctx) => {
+                            let sum = 0;
+                            let dataArr = ctx.chart.data.datasets[0].data;
+                            dataArr.map(data => {
+                                sum += data;
+                            });
+                            let percentage = (value * 100 / sum).toFixed(0) + "%";
+                            if (value == 0) {
+                                percentage = ""
+                            }
                             return percentage;
                         }
                     }
                 }
-            }}
-            redraw={true}
+            }
+            }
         />
     );
 };

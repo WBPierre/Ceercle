@@ -152,7 +152,6 @@ function Attendance() {
             <Grid item mt={2}>
                 <AttendanceDetailed historicData={historicData} businessDaysList={businessDaysList} />
             </Grid>
-
         </Grid >
 
     )
