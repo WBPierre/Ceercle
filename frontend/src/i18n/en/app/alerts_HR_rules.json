@@ -1,4 +1,13 @@
 {
   "warning": "Declaration not allowed",
-  "valid": "Declaration compliant"
+  "valid": "Declaration compliant",
+  "title": "Hybrid work compliance",
+  "attendance_rate": "Attendance rate by ",
+  "week": "week",
+  "month": "month",
+  "max_office": "Max days at office: ",
+  "max_remote": "Max days remote: ",
+  "remaining": "remaining",
+  "plural": "",
+  "mandatory_days": "Mandatory days"
 }

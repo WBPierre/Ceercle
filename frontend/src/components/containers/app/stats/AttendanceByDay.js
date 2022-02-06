@@ -4,7 +4,7 @@ import { Bar } from "react-chartjs-2";
 
 
 
-function AttendancePie(props) {
+function AttendanceByDay(props) {
     const { t } = useTranslation();
 
     const data = {
@@ -12,33 +12,38 @@ function AttendancePie(props) {
         datasets: [
             {
                 label: t('app:statuses:undeclared'),
-                data: [12, 19, 3, 5, 2], //props.byWeekdayData[0]
+                data: props.byWeekdayData[0],
                 borderColor: '#88888A',
-                backgroundColor: '#E3E3E4'
+                backgroundColor: '#E3E3E4',
+                stack: 'Stack 0'
             },
             {
                 label: t('app:statuses:office'),
-                data: [12, 19, 3, 5, 2], //props.byWeekdayData[1]
+                data: props.byWeekdayData[1],
                 borderColor: '#008946',
-                backgroundColor: '#B6FFDB'
+                backgroundColor: '#B6FFDB',
+                stack: 'Stack 0',
             },
             {
                 label: t('app:statuses:home_working'),
-                data: [12, 19, 3, 5, 2], //props.byWeekdayData[2]
+                data: props.byWeekdayData[2],
                 borderColor: '#0070C0',
-                backgroundColor: '#B1DCFB'
+                backgroundColor: '#B1DCFB',
+                stack: 'Stack 0'
             },
             {
                 label: t('app:statuses:on_the_go'),
-                data: [12, 19, 3, 5, 2], //props.byWeekdayData[3]
+                data: props.byWeekdayData[3],
                 borderColor: "#7030A0",
-                backgroundColor: "#DBB2F9"
+                backgroundColor: "#DBB2F9",
+                stack: 'Stack 0'
             },
             {
                 label: t('app:statuses:off'),
-                data: [12, 19, 3, 5, 2], //props.byWeekdayData[4]
+                data: props.byWeekdayData[4],
                 borderColor: "#FFA800",
-                backgroundColor: "#FDE5B6"
+                backgroundColor: "#FDE5B6",
+                stack: 'Stack 0'
             }
         ],
         hoverOffset: 4
@@ -52,12 +57,15 @@ function AttendancePie(props) {
                     title: {
                         display: true,
                         fontsize: 14,
-                        text: 'Répartition moyenne par jour de la semaine'
+                        text: t('app:stats:attendance.titleStackedBar')
                     },
                     legend: {
                         display: true,
                         position: 'bottom',
 
+                    },
+                    interaction: {
+                        intersect: false,
                     },
                     responsive: true,
                     scales: {
@@ -74,4 +82,4 @@ function AttendancePie(props) {
     );
 };
 
-export default AttendancePie;
+export default AttendanceByDay;

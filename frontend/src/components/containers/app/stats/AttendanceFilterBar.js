@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import TeamService from "../../../../services/app/team.service";
+import UserService from "../../../../services/app/user.service";
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -9,7 +10,8 @@ import Grid from "@mui/material/Grid";
 import { Chip, InputBase, Typography } from "@mui/material";
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import AdapterMoment from '@mui/lab/AdapterMoment';
+import 'moment/locale/fr';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 import moment from "moment";
@@ -19,23 +21,6 @@ function FilterBar(props) {
     const { t } = useTranslation();
 
     const [teams, setTeams] = useState([]);
-    const [users, setUsers] = useState([]);
-
-    const [collaborator, setCollaborator] = useState(props.collaborator);
-    const [team, setTeam] = useState(props.team);
-    const [startDate, setStartDate] = useState(props.startDate);
-    const [endDate, setEndDate] = useState(props.endDate);
-
-    const refreshCharts = () => {
-        let filters = {
-            collaborator: collaborator,
-            team: team,
-            startDate: startDate,
-            endDate: endDate
-        }
-        props.refreshCharts(filters)
-    }
-
     const [users, setUsers] = useState([]);
 
     async function listUsers() {
@@ -55,105 +40,102 @@ function FilterBar(props) {
     }, []);
 
     return (
-        <Grid container direction={"row"} justifyContent={"space-around"}>
-            <Grid item xs={3}>
-                <Grid item>
-                    <Typography fontWeight={500} style={{ color: 'scondary' }}>Equipes</Typography>
-                </Grid>
-                <Grid item>
-                    <FormControl fullWidth sx={{ width: 150 }}>
-                        <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={team}
-                            onChange={(event, newTeam) => {
-                                setTeam(newTeam);
-                            }}
-                            disabled={false}
-                            variant={"standard"}
-                            input={<InputBase />}
-                        >
-                            <MenuItem value={0}>Toutes les équipes</MenuItem>
-                            {teams.map((team, index) => {
-                                return (
-                                    <MenuItem key={index} value={team.id}>{team.name}</MenuItem>
-                                )
-                            })}
-                        </Select>
-                    </FormControl>
+        <Grid container direction={"row"}>
+
+            <Grid item md={3}>
+                <Grid container direction={"column"} justifyContent={"space-around"} spacing={1}>
+                    <Grid item>
+                        <Typography fontWeight={500} style={{ color: 'scondary' }}>{t('app:stats:attendance.teams')}</Typography>
+                    </Grid>
+                    <Grid item>
+                        <FormControl fullWidth sx={{ width: 200, backgroundColor: 'white' }}>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={props.team}
+                                onChange={(event, newTeam) => {
+                                    props.setTeam(newTeam.props.value);
+                                }}
+                                disabled={false}
+                            >
+                                <MenuItem value={0}>{t('app:stats:attendance.all_teams')}</MenuItem>
+                                {teams.map((team, index) => {
+                                    return (
+                                        <MenuItem key={index} value={team.id}>{team.name}</MenuItem>
+                                    )
+                                })}
+                            </Select>
+                        </FormControl>
+                    </Grid>
                 </Grid>
             </Grid>
-            <Grid item xs={3}>
-                <Grid item>
-                    <Typography fontWeight={500} style={{ color: 'secondary' }}>Collaborateur</Typography>
-                </Grid>
-                <Grid item>
-                    <FormControl fullWidth sx={{ width: 200 }}>
-                        <Autocomplete
-                            value={collaborator}
-                            onChange={(event, newCollaborator) => {
-                                setCollaborator(newCollaborator);
-                            }}
-                            disablePortal
-                            id="combo-box-demo"
-                            options={users}
-                            sx={{ width: 200 }}
-                            renderInput={(params) => <TextField {...params} label="Collaborateur" />}
-                        />
-                    </FormControl>
-                </Grid>
 
+
+            <Grid item md={3}>
+                <Grid container direction={"column"} justifyContent={"space-around"} spacing={1}>
+                    <Grid item>
+                        <Typography fontWeight={500} style={{ color: 'secondary' }}>{t('app:stats:attendance.collaborators')}</Typography>
+                    </Grid>
+                    <Grid item>
+                        <FormControl fullWidth sx={{ width: 200, backgroundColor: 'white' }}>
+                            <Autocomplete
+                                value={props.collaborator}
+                                onChange={(event, newCollaborator) => {
+                                    props.setCollaborator(newCollaborator);
+                                }}
+                                disablePortal
+                                id="combo-box-demo"
+                                options={users}
+                                sx={{ width: 200 }}
+                                renderInput={(params) => <TextField {...params} label={t('app:stats:attendance.search')} />}
+                            />
+                        </FormControl>
+                    </Grid>
+                </Grid>
             </Grid>
 
-            <Grid item xs={3}>
-                <Grid item>
-                    <Typography fontWeight={500} style={{ color: 'secondary' }}>Dates</Typography>
-                </Grid>
-                <Grid item>
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                        <DatePicker
-                            label="Début"
-                            value={startDate}
-                            onChange={(newValue) => {
-                                setStartDate(newValue);
-                            }}
-                            renderInput={(params) => (
-                                <TextField {...params} helperText={params?.inputProps?.placeholder} />
-                            )}
-                            format="YYYY-MM-DD"
-                        />
-                    </LocalizationProvider>
-                    );
-                </Grid>
-                <Grid item>
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                        <DatePicker
-                            label="Fin"
-                            value={endDate}
-                            onChange={(newValue) => {
-                                setEndDate(newValue);
-                            }}
-                            renderInput={(params) => (
-                                <TextField {...params} helperText={params?.inputProps?.placeholder} />
-                            )}
-                            format="YYYY-MM-DD"
-                        />
-                    </LocalizationProvider>
-                    );
-                </Grid>
 
+            <Grid item md={3}>
+                <Grid container direction={"column"} justifyContent={"space-around"} spacing={1}>
+                    <Grid item>
+                        <Typography fontWeight={500} style={{ color: 'secondary' }}>Dates</Typography>
+                    </Grid>
+                    <Grid item>
+                        <LocalizationProvider dateAdapter={AdapterMoment} locale={'fr'}>
+                            <DatePicker
+                                label={t('app:stats:attendance.start')}
+                                value={props.startDate}
+                                onChange={(newValue) => {
+                                    props.setStartDate(newValue);
+                                }}
+                                renderInput={(params) => <TextField {...params} />}
+                            />
+                        </LocalizationProvider>
+                    </Grid>
+                </Grid>
             </Grid>
-            <Grid item xs={3}>
-                <Chip
-                    label="Rafraîchir"
-                    disabled={value == null}
-                    sx={{ borderColor: "#3F07A8", color: "#3F07A8", fontWeight: "bold" }}
-                    color="error"
-                    onClick={refreshCharts}
-                    variant="outlined"
-                />
 
+            <Grid item md={3}>
+                <Grid container direction={"column"} justifyContent={"space-around"} spacing={1}>
+                    <Grid item>
+                        <Typography fontWeight={500} style={{ color: 'white' }}> a</Typography>
+                    </Grid>
+
+                    <Grid item>
+                        <LocalizationProvider dateAdapter={AdapterMoment} locale={'fr'}>
+                            <DatePicker
+                                label={t('app:stats:attendance.end')}
+                                value={props.endDate}
+                                onChange={(newValue) => {
+                                    props.setEndDate(newValue);
+                                }}
+                                renderInput={(params) => <TextField {...params} />}
+                            />
+                        </LocalizationProvider>
+                    </Grid>
+                </Grid>
             </Grid>
+
         </Grid >
 
     )

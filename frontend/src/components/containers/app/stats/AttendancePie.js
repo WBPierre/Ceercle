@@ -12,7 +12,7 @@ function AttendancePie(props) {
         datasets: [
             {
                 label: 'Taux de présence',
-                data: [12, 19, 3, 5, 2], //props.pieData
+                data: props.pieData,
                 borderColor: ['#88888A', '#008946', '#0070C0', "#7030A0", "#FFA800"],
                 backgroundColor: ['#E3E3E4', '#B6FFDB', '#B1DCFB', "#DBB2F9", "#FDE5B6"]
             }
@@ -27,16 +27,25 @@ function AttendancePie(props) {
                 plugins: {
                     title: {
                         display: true,
-                        fontsize: 14,
-                        text: 'Répartition moyenne sur la période'
+                        fontsize: 16,
+                        text: t('app:stats:attendance.titlePie')
                     },
                     legend: {
                         display: true,
-                        position: 'bottom',
+                        position: 'below',
 
+                    },
+                    formatter: (value, ctx) => {
+                        let datasets = ctx.chart.data.datasets;
+                        if (datasets.indexOf(ctx.dataset) === datasets.length - 1) {
+                            let sum = datasets[0].data.reduce((a, b) => a + b, 0);
+                            let percentage = Math.round((value / sum) * 100) + '%';
+                            return percentage;
+                        }
                     }
                 }
             }}
+            redraw={true}
         />
     );
 };

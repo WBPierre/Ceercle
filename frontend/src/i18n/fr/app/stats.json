@@ -1,0 +1,19 @@
+{
+  "attendance": {
+    "title": "Taux de présence",
+    "subtitle": "Analysez les statistiques de vos équipes (taux de présence au bureau, en télétravail, etc.)",
+    "refresh": "Rafraîchir",
+    "teams": "Equipes",
+    "all_teams": "Toutes les équipes",
+    "collaborators": "Collaborateurs",
+    "search": "Recherche",
+    "start": "Début",
+    "end": "Fin",
+    "titlePie": "Moyenne sur la période",
+    "titleStackedBar": "Moyenne par jour de la semaine",
+    "titleArea": "Suivi historique"
+  },
+  "occupancy": {
+    "title": "Occupation des bureaux (en cours)"
+  }
+}

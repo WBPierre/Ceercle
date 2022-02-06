@@ -59,15 +59,15 @@ function Stats() {
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" textColor="secondary"
                     indicatorColor="secondary">
-                    <Tab label="Taux de présence" {...a11yProps(0)} />
-                    <Tab label="Occupation des bureaux" {...a11yProps(1)} />
+                    <Tab label={t('app:stats:attendance.title')} {...a11yProps(0)} />
+                    <Tab label={t('app:stats:occupancy.title')} {...a11yProps(1)} disabled />
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
                 <Attendance />
             </TabPanel>
             <TabPanel value={value} index={1}>
-                Occupation des bureaux
+                En cours
             </TabPanel>
 
         </div>
