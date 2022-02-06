@@ -95,7 +95,7 @@ function Invitation(){
             setFirstNameError(true);
             valid = false;
         }
-        if(phoneNumber.length < 10 || phoneNumber > 12){
+        if(phoneNumber.length < 10 || phoneNumber.length > 12){
             setPhoneNumberError(true);
             valid = false;
         }

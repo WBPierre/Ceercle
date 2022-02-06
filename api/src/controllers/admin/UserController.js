@@ -98,6 +98,9 @@ exports.createInvitation = async function(req, res, next) {
                     res.status(404);
                     res.send();
                 }
+            }else{
+                res.status(200);
+                res.send();
             }
         })
     } catch (err) {
