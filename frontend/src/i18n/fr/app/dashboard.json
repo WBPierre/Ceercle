@@ -4,7 +4,7 @@
   "snackbar_success": "Déclaration enregistrée",
   "no_reservation": "Aucune réservation",
   "desk_modification": "Réservation modifiée",
-  "desk_remove": "Réservation annulée",
+  "desk_remove": "Réservation de bureau annulée",
   "desk": {
     "my_desk": "Mon bureau",
     "my_reservation": "Ma réservation",

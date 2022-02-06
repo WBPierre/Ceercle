@@ -39,7 +39,6 @@ function Attendance() {
     }
 
     async function refreshDataCharts(start, end) {
-        console.log(startDate);
         let collaboratorId = -1
         if (collaborator) {
             collaboratorId = collaborator.id
