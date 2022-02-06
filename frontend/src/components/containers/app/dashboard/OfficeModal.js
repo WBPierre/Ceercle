@@ -262,7 +262,7 @@ function OfficeModal(props) {
                                                     )
                                                 }else{
                                                     return(
-                                                        <MenuItem key={index} value={o.id}>{o.name}  ({o.capacity}.p)</MenuItem>
+                                                        <MenuItem key={index} value={o.id}>{o.name}</MenuItem>
                                                     )
                                                 }
 
