@@ -14,8 +14,6 @@ services:
       - ./api:/api
       - ./certbot/conf:/api/letsencrypt/conf:ro
       - ./certbot/www:/api/letsencrypt/www:ro
-    depends_on:
-      - postgres
     ports:
       - "8080:8080"
 
@@ -38,18 +36,3 @@ services:
       - ./certbot/conf:/etc/letsencrypt:rw
       - ./certbot/www:/var/www/certbot:rw
     command: certonly --webroot -w /var/www/certbot --force-renewal --email contact@ceercle.io -d api.ceercle.io -d www.api.ceercle.io --agree-tos
-
-  postgres:
-    image: postgres:14.0
-    ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_USER: "admin"
-      POSTGRES_PASSWORD: "root"
-      POSTGRES_DB: "spacecorner"
-      PGDATA: /var/lib/postgresql/data
-    volumes:
-      - "postgres-data:/var/lib/postgresql/data"
-
-volumes:
-  postgres-data: ~
