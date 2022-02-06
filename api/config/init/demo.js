@@ -655,7 +655,7 @@ async function generateRandomProfile(companyId, teams) {
                     lastName: "Aignel",
                     email: "matthieu.aignel@demo.com",
                     position: 'Développeur',
-                    password: await Security.hashPassword("ahah"),
+                    password: await Security.hashPassword(uuidv4()),
                     phoneNumber: "0777777777",
                     profilePicturePath: profileUrl + "matthieu.jpg",
                     active: true,
