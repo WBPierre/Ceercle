@@ -9,8 +9,8 @@ class UserService {
         return this.request.get('/users/invitation/verify/' + token);
     }
 
-    async createUserFromInvitation() {
-        return this.request.post('/users/invitation/validate');
+    async createUserFromInvitation(resources) {
+        return this.request.post('/users/invitation/validate', resources);
     }
 
     async createInvitation(resources) {
