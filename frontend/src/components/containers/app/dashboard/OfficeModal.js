@@ -130,7 +130,7 @@ function OfficeModal(props) {
 
 
     const confirmBooking = async () => {
-        if(props.resources){
+        if (props.resources) {
             await TimeService.setTimeSheet(props.resources);
             enqueueSnackbar(t('app:dashboard:snackbar_success'), {
                 variant: 'success'
@@ -302,17 +302,17 @@ function OfficeModal(props) {
                                                 if (roomList.length === 1) {
                                                     if (o.available.available) {
                                                         return (
-                                                            <MenuItem key={index} value={o.id} selected>{o.name}  ({o.capacity - o.available.used}/{o.capacity}.p)</MenuItem>
+                                                            <MenuItem key={index} value={o.id} selected>{o.name}  ({parseInt(o.maxCapacity * o.capacity / 100) - o.available.used}/{parseInt(o.maxCapacity * o.capacity / 100)}.p)</MenuItem>
                                                         )
                                                     } else {
                                                         return (
-                                                            <MenuItem key={index} value={o.id} selected disabled={!o.available.available}>{o.name}  ({o.capacity - o.available.used}/{o.capacity}.p)</MenuItem>
+                                                            <MenuItem key={index} value={o.id} selected disabled={!o.available.available}>{o.name} ({parseInt(o.maxCapacity * o.capacity / 100) - o.available.used}/{parseInt(o.maxCapacity * o.capacity / 100)}.p)</MenuItem>
                                                         )
                                                     }
 
                                                 } else {
                                                     return (
-                                                        <MenuItem key={index} value={o.id} disabled={!o.available.available}>{o.name}  ({o.capacity - o.available.used}/{o.capacity}.p)</MenuItem>
+                                                        <MenuItem key={index} value={o.id} disabled={!o.available.available}>{o.name} ({parseInt(o.maxCapacity * o.capacity / 100) - o.available.used}/{parseInt(o.maxCapacity * o.capacity / 100)}.p)</MenuItem>
                                                     )
                                                 }
                                             })}

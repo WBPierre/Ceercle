@@ -29,7 +29,8 @@ exports.getFloors = async function (req, res, next) {
                 name: result[i].name,
                 type: result[i].type,
                 color: result[i].color,
-                capacity: result[i].capacity
+                capacity: result[i].capacity,
+                maxCapacity: result[i].maxCapacity
             };
             arr.push(obj);
         }
@@ -60,6 +61,7 @@ exports.getRooms = async function (req, res, next) {
                 type: result[i].type,
                 color: result[i].color,
                 capacity: result[i].capacity,
+                maxCapacity: result[i].maxCapacity,
                 available: await OfficeElementService.verifyRoomOccupancy(result[i].id, req.params.day)
             };
             arr.push(obj);
