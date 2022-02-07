@@ -30,6 +30,11 @@ exports.getStats = async function (req, res, next) {
             res.status(422).json({ errors: errors.array() });
             return;
         }
+        if(!req.params.companyId) {
+            res.status(404);
+            res.send();
+            return;
+        }
         const company = await Company.findOne({
             where:{
                 id: req.params.companyId
@@ -220,6 +225,8 @@ exports.validate = (method) => {
         }
         case 'updateCompany': {
             return [
+                param('id', 'id doesn\'t exist').exists(),
+                param('id', 'id is not a number').isNumeric(),
                 body('name', 'name doesn\'t exist').exists(),
                 body('name', 'name is not a string').isString(),
                 body('officeMinimum', 'officeMinimum is not a number').isNumeric(),

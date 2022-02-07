@@ -146,6 +146,7 @@ function CalendarUserButton(props){
             <Button style={{
                 backgroundColor: 'transparent',
                 cursor: !props.data.past ? 'pointer' : 'default',
+                textTransform: 'none',
                 flex:1,
                 width: '100%'
             }} disableRipple={true} id="basic-button"
