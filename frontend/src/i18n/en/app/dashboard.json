@@ -23,7 +23,8 @@
     "desk": "Desk",
     "select": "Select",
     "free": "Free placement",
-    "noBooking": "You are not going to the office"
+    "noBooking": "You are not going to the office",
+    "no_remaining_seat": "No available seat"
   },
   "team": {
     "my_team": "My team",
