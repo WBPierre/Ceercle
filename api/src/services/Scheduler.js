@@ -5,7 +5,6 @@ const Mailer = require('./Mailer');
 exports.activateCompanies = async function() {
     const toActivate = await Company.findAll({
         where:{
-            active: false,
             activation_day: moment().format('YYYY-MM-DD')
         }
     });
