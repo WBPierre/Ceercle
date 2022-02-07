@@ -11,17 +11,24 @@ import CalendarUser from "./CalendarUser";
 
 function CalendarDisplay(props) {
 
+    const [week, setWeek] = useState([]);
     const [index, setIndex] = useState(0);
     const [usersWeek, setUsersWeek] = useState([]);
 
 
     useEffect(() => {
+        const getTimeSheet = async () => {
+            await TimeService.getTimeSheet(index).then((res) => {
+                setWeek(res.data.week);
+                props.handleWeek(res.data.week);
+            })
+        }
         const getAllTimeSheet = async () => {
             await TimeService.getAllTimeSheet(index).then((res) => {
                 setUsersWeek(res.data);
-                props.handleWeek(res.data);
             })
         }
+        getTimeSheet();
         getAllTimeSheet();
     }, []);
 
@@ -29,9 +36,12 @@ function CalendarDisplay(props) {
         if (ind === undefined) {
             ind = index
         }
+        await TimeService.getTimeSheet(ind).then((res) => {
+            setWeek(res.data.week);
+            props.handleWeek(res.data.week);
+        })
         await TimeService.getAllTimeSheet(ind).then((res) => {
             setUsersWeek(res.data);
-            props.handleWeek(res.data);
         })
     }
 
@@ -47,7 +57,7 @@ function CalendarDisplay(props) {
         await updateData(ind);
     }
 
-    if (usersWeek.length === 0) {
+    if (week.length === 0 || usersWeek.length === 0) {
         return (<div />)
     } else {
         return (
@@ -59,7 +69,7 @@ function CalendarDisplay(props) {
                                 <ChevronLeftIcon sx={{ fontSize: 30 }} />
                             </IconButton>
                         </Grid>
-                        {usersWeek.map((day, i) => (
+                        {week.map((day, i) => (
                             <Grid item md={2} key={i}>
                                 <CalendarDateElement date={day} dayKey={i} />
                             </Grid>
@@ -71,11 +81,22 @@ function CalendarDisplay(props) {
                         </Grid>
                     </Grid>
                 </Grid>
+                <Grid item>
+                    <Grid container direction={"row"} >
+                        <Grid item md={1} />
+                        {week.map((day, i) => (
+                            <Grid item md={2} key={i}>
+                                <CalendarUser data={week[i]} updateData={updateData} />
+                            </Grid>
+                        ))}
+                        <Grid item md={1} />
+                    </Grid>
+                </Grid>
 
                 <Grid item mt={2}>
                     <Grid container direction={"row"}>
                         <Grid item md={1} />
-                        {usersWeek.map((day, i) => (
+                        {week.map((day, i) => (
                             <Grid item md={2} key={i}>
                                 <CalendarElement data={usersWeek[i]} dayKey={i} filters={props.filters} />
                             </Grid>

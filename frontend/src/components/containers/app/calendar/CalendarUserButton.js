@@ -145,15 +145,14 @@ function CalendarUserButton(props){
         <div style={{height:'100%', width:'100%'}}>
             <Button style={{
                 backgroundColor: 'transparent',
-                cursor: !props.data.past ? 'pointer' : 'default',
+                cursor: 'default',
                 textTransform: 'none',
                 flex:1,
                 width: '100%'
             }} disableRipple={true} id="basic-button"
                     aria-controls="basic-menu"
                     aria-haspopup="true"
-                    aria-expanded={open ? 'true' : undefined}
-                    onClick={handleClick}>
+                    aria-expanded={open ? 'true' : undefined}>
                 <Grid container direction={"column"} spacing={0}>
                     <Grid item>
                         <Typography textAlign={"center"} fontSize={10} style={{color: props.half ? '#b4b4b4' : 'transparent'}}>{props.half ? props.order === 0 ? t('generic:morning') : t('generic:afternoon') : 'UNDEFINED'}</Typography>
