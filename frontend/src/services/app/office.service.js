@@ -14,11 +14,15 @@ class OfficeService {
     }
 
     async getRooms(id, day) {
-        return this.request.get('/officeElement/rooms/' + id+'/'+day);
+        return this.request.get('/officeElement/rooms/' + id + '/' + day);
     }
 
     async getDesks(id, day) {
-        return this.request.get('/officeElement/desks/' + id+'/'+day);
+        return this.request.get('/officeElement/desks/' + id + '/' + day);
+    }
+
+    async isSeatAvailable(day, when) {
+        return this.request.get('/officeElement/isSeatAvailable/' + day + "/" + when);
     }
 
     async listOffices() {

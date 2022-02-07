@@ -23,7 +23,8 @@
     "desk": "Place",
     "select": "Sélectionner",
     "free": "Placement libre",
-    "noBooking": "Vous n'allez pas au bureau"
+    "noBooking": "Vous n'allez pas au bureau",
+    "no_remaining_seat": "Plus de siège disponible"
   },
   "team": {
     "my_team": "Mon équipe",

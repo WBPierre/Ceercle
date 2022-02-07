@@ -7,7 +7,7 @@ const OfficeBooking = require('../../models/OfficeBooking');
 const OfficeElementService = require("../../services/OfficeElementService");
 
 
-exports.getFloors = async function(req, res, next) {
+exports.getFloors = async function (req, res, next) {
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -39,7 +39,7 @@ exports.getFloors = async function(req, res, next) {
     }
 }
 
-exports.getRooms = async function(req, res, next) {
+exports.getRooms = async function (req, res, next) {
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -70,7 +70,7 @@ exports.getRooms = async function(req, res, next) {
     }
 }
 
-exports.getDesks = async function(req, res, next) {
+exports.getDesks = async function (req, res, next) {
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -100,6 +100,64 @@ exports.getDesks = async function(req, res, next) {
         return next(err)
     }
 }
+
+exports.isSeatAvailable = async function (req, res, next) {
+    try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            res.status(422).json({ errors: errors.array() });
+        }
+        let offices_with_elements = {}
+        let leafs = []
+        const offices = await Office.findAll({
+            where: {
+                companyId: res.locals.auth.user.company.id
+            }
+        })
+        if (offices.length > 0) {
+            for (let j = 0; j < offices.length; j++) {
+                let result = await OfficeElement.findAll({
+                    where: {
+                        officeId: offices[j].id
+                    },
+                    order: [['id', 'ASC']]
+                });
+                if (result.length > 0) {
+                    let arr = [];
+                    for (let i = 0; i < result.length; i++) {
+                        let obj = {
+                            id: result[i].id,
+                            name: result[i].name,
+                            type: result[i].type,
+                            color: result[i].color,
+                            capacity: result[i].capacity,
+                            maxCapacity: result[i].maxCapacity,
+                            parentId: result[i].parentId,
+                            officeId: result[i].officeId,
+                            elements: []
+                        };
+                        arr.push(obj);
+                    }
+                    const array = Utils.generateTree(arr);
+                    for (let i = 0; i < array.length; i++) {
+                        const leafs_office = Utils.extractLeafFromTree(array[i])
+                        leafs = leafs.concat(leafs_office)
+                    }
+                    offices_with_elements[offices[j].id] = array
+                }
+            }
+        }
+        let available = false
+        for (let i = 0; i < leafs.length; i++) {
+            let availableRoom = await OfficeElementService.verifyRoomOccupancy(leafs[i].id, req.params.day)
+            available = available || availableRoom["available"]
+        }
+        res.json({ available: available });
+    } catch (err) {
+        return next(err)
+    }
+}
+
 
 exports.getOfficeElements = async function (req, res, next) {
     try {
@@ -349,6 +407,12 @@ exports.validate = (method) => {
             return [
                 param('id', 'id doesn\'t exist').exists(),
                 param('id', 'id is not a number').isNumeric(),
+                param('day', 'day doesn\'t exist').exists(),
+                param('day', 'day is not a string').isString()
+            ]
+        }
+        case 'isSeatAvailable': {
+            return [
                 param('day', 'day doesn\'t exist').exists(),
                 param('day', 'day is not a string').isString()
             ]

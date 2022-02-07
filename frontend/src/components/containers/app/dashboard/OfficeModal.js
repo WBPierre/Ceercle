@@ -1,4 +1,4 @@
-import {Chip, Divider, InputBase, Modal} from "@mui/material";
+import { Chip, Divider, InputBase, Modal } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import BookingService from "../../../../services/app/booking.service";
@@ -15,7 +15,7 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import * as React from "react";
 import CloseIcon from '@mui/icons-material/Close';
-import {useSnackbar} from "notistack";
+import { useSnackbar } from "notistack";
 
 const style = {
     position: 'absolute',
@@ -45,8 +45,8 @@ function OfficeModal(props) {
     const [deskList, setDeskList] = useState([]);
 
     useEffect(() => {
-        async function getBooking(){
-            if(props.booking.length !== 0){
+        async function getBooking() {
+            if (props.booking.length !== 0) {
                 let res = await OfficeService.getOffices(context.user.company.id);
                 setOfficeList(res.data);
                 res = await OfficeService.getFloors(props.booking[0].id);
@@ -58,10 +58,10 @@ function OfficeModal(props) {
                 setOfficeId(props.booking[0].id)
                 setFloorId(props.booking[1].id)
                 setRoomId(props.booking[2].id)
-                if(res.data.length === 0){
+                if (res.data.length === 0) {
                     setDeskId(1);
                 }
-            }else{
+            } else {
                 setOfficeId(0);
                 setFloorId(0);
                 setRoomId(0);
@@ -79,17 +79,17 @@ function OfficeModal(props) {
     async function getOffices() {
         const res = await OfficeService.getOffices(context.user.company.id);
         setOfficeList(res.data);
-        if(res.data.length === 1){
+        if (res.data.length === 1) {
             setOfficeId(res.data[0].id);
         }
     }
 
     useEffect(() => {
-        async function getFloors(){
-            if(officeId !== 0){
+        async function getFloors() {
+            if (officeId !== 0) {
                 const res = await OfficeService.getFloors(officeId);
                 setFloorList(res.data);
-                if(res.data.length === 1){
+                if (res.data.length === 1) {
                     setFloorId(res.data[0].id)
                 }
             }
@@ -98,11 +98,11 @@ function OfficeModal(props) {
     }, [officeId])
 
     useEffect(() => {
-        async function getRooms(){
-            if(floorId !== 0){
+        async function getRooms() {
+            if (floorId !== 0) {
                 const res = await OfficeService.getRooms(floorId, props.day);
                 setRoomList(res.data);
-                if(res.data.length === 1 && res.data[0].available.available) {
+                if (res.data.length === 1 && res.data[0].available.available) {
                     setRoomId(res.data[0].id)
                 }
             }
@@ -111,14 +111,14 @@ function OfficeModal(props) {
     }, [floorId]);
 
     useEffect(() => {
-        async function getDesks(){
-            if(roomId !== 0){
+        async function getDesks() {
+            if (roomId !== 0) {
                 const res = await OfficeService.getDesks(roomId, props.day);
                 setDeskList(res.data);
-                if(res.data.length === 0){
+                if (res.data.length === 0) {
                     setDeskId(1);
-                }else{
-                    if(res.data.length === 1 && res.data[0].available.available){
+                } else {
+                    if (res.data.length === 1 && res.data[0].available.available) {
                         setDeskId(res.data[0].id);
                     }
                 }
@@ -142,9 +142,9 @@ function OfficeModal(props) {
             afternoon: props.resaType === 0 || props.resaType === 2,
             officeElementId: null
         }
-        if(deskList.length !== 0){
+        if (deskList.length !== 0) {
             resources.officeElementId = deskId;
-        }else{
+        } else {
             resources.officeElementId = roomId;
         }
         await BookingService.setBooking(resources).catch((err) => {
@@ -228,12 +228,12 @@ function OfficeModal(props) {
                                         >
                                             <MenuItem key={-1} value={0} disabled>{t('app:dashboard:desk.select')}</MenuItem>
                                             {officeList.map((o, index) => {
-                                                if(officeList.length === 1){
-                                                    return(
+                                                if (officeList.length === 1) {
+                                                    return (
                                                         <MenuItem key={index} value={o.id} selected>{o.name}</MenuItem>
                                                     )
-                                                }else{
-                                                    return(
+                                                } else {
+                                                    return (
                                                         <MenuItem key={index} value={o.id}>{o.name}</MenuItem>
                                                     )
                                                 }
@@ -263,12 +263,12 @@ function OfficeModal(props) {
                                         >
                                             <MenuItem key={-1} value={0} disabled>{t('app:dashboard:desk.select')}</MenuItem>
                                             {floorList.map((o, index) => {
-                                                if(floorList.length === 1){
-                                                    return(
+                                                if (floorList.length === 1) {
+                                                    return (
                                                         <MenuItem key={index} value={o.id} selected>{o.name}</MenuItem>
                                                     )
-                                                }else{
-                                                    return(
+                                                } else {
+                                                    return (
                                                         <MenuItem key={index} value={o.id}>{o.name}</MenuItem>
                                                     )
                                                 }
@@ -286,7 +286,7 @@ function OfficeModal(props) {
                                 <Typography fontSize={22} color={"secondary"}>{t('app:dashboard:desk.room')}</Typography>
                             </Grid>
                             <Grid item xs={9}>
-                                <Chip component={FormControl} style={{ backgroundColor: 'white' }}  disabled={floorId === 0}  variant={"outlined"} label={
+                                <Chip component={FormControl} style={{ backgroundColor: 'white' }} disabled={floorId === 0} variant={"outlined"} label={
                                     <FormControl fullWidth sx={{ width: 200 }}>
                                         <Select
                                             labelId="demo-simple-select-label"
@@ -299,19 +299,19 @@ function OfficeModal(props) {
                                         >
                                             <MenuItem value={0} disabled key={-1}>{t('app:dashboard:desk.select')}</MenuItem>
                                             {roomList.map((o, index) => {
-                                                if(roomList.length === 1){
-                                                    if(o.available.available){
-                                                        return(
+                                                if (roomList.length === 1) {
+                                                    if (o.available.available) {
+                                                        return (
                                                             <MenuItem key={index} value={o.id} selected>{o.name}  ({o.capacity - o.available.used}/{o.capacity}.p)</MenuItem>
                                                         )
-                                                    }else{
-                                                        return(
+                                                    } else {
+                                                        return (
                                                             <MenuItem key={index} value={o.id} selected disabled={!o.available.available}>{o.name}  ({o.capacity - o.available.used}/{o.capacity}.p)</MenuItem>
                                                         )
                                                     }
 
-                                                }else{
-                                                    return(
+                                                } else {
+                                                    return (
                                                         <MenuItem key={index} value={o.id} disabled={!o.available.available}>{o.name}  ({o.capacity - o.available.used}/{o.capacity}.p)</MenuItem>
                                                     )
                                                 }
@@ -342,18 +342,18 @@ function OfficeModal(props) {
                                             <MenuItem value={0} key={-1} disabled>{t('app:dashboard:desk.select')}</MenuItem>
                                             {roomId !== 0 && deskList.length === 0 ? (
                                                 <MenuItem value={1} key={0} selected>{t('app:dashboard:desk.free')}</MenuItem>
-                                            ):(
+                                            ) : (
                                                 deskList.map((o, index) => {
-                                                        if(deskList.length === 1){
-                                                            return(
-                                                                <MenuItem key={index} value={o.id} selected>{o.name}  ({o.capacity}.p)</MenuItem>
-                                                            )
-                                                        }else{
-                                                            return(
-                                                                <MenuItem key={index} value={o.id}>{o.name}  ({o.capacity}.p)</MenuItem>
-                                                            )
-                                                        }
-                                                    })
+                                                    if (deskList.length === 1) {
+                                                        return (
+                                                            <MenuItem key={index} value={o.id} selected>{o.name}  ({o.capacity}.p)</MenuItem>
+                                                        )
+                                                    } else {
+                                                        return (
+                                                            <MenuItem key={index} value={o.id}>{o.name}  ({o.capacity}.p)</MenuItem>
+                                                        )
+                                                    }
+                                                })
                                             )}
 
                                         </Select>
