@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import BookingService from "../../../../services/app/booking.service";
 import OfficeService from "../../../../services/app/office.service";
+import TimeService from "../../../../services/app/time.service";
 import { useEffect, useState } from "react";
 import useAuth from "../../../context/auth/AuthHelper";
 import Grid from "@mui/material/Grid";
@@ -129,6 +130,12 @@ function OfficeModal(props) {
 
 
     const confirmBooking = async () => {
+        if(props.resources){
+            await TimeService.setTimeSheet(props.resources);
+            enqueueSnackbar(t('app:dashboard:snackbar_success'), {
+                variant: 'success'
+            });
+        }
         const resources = {
             day: props.day,
             morning: props.resaType === 0 || props.resaType === 1,

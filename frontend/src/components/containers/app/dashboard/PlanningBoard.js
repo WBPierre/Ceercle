@@ -91,19 +91,24 @@ function PlanningBoard(props) {
             resources.afternoon = choice;
         }
         if(previous.morning !== choice || previous.afternoon !== choice) {
-            await TimeService.setTimeSheet(resources);
-            enqueueSnackbar(t('app:dashboard:snackbar_success'), {
-                variant: 'success'
-            });
-            let before = props.week.find(x => x.day === day);
-            if (resources.morning !== 1 && resources.afternoon !== 1) {
-                if (before.reservation.length !== 0) {
-                    await BookingService.removeBooking(before.day);
-                    enqueueSnackbar(t('app:dashboard:desk_remove'), {
-                        variant: 'success'
-                    });
+            if(previous.reservation.length === 0 && (resources.morning === 1 || resources.afternoon === 1)){
+                props.handleOpenOffice(day, previous.reservation, order, resources);
+            }else{
+                await TimeService.setTimeSheet(resources);
+                enqueueSnackbar(t('app:dashboard:snackbar_success'), {
+                    variant: 'success'
+                });
+                let before = props.week.find(x => x.day === day);
+                if (resources.morning !== 1 && resources.afternoon !== 1) {
+                    if (before.reservation.length !== 0) {
+                        await BookingService.removeBooking(before.day);
+                        enqueueSnackbar(t('app:dashboard:desk_remove'), {
+                            variant: 'success'
+                        });
+                    }
                 }
             }
+
             await props.getTimeSheet(index);
         }
     }

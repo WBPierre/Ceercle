@@ -36,6 +36,7 @@ export default function Dashboard(props) {
     const [dayOffice, setDayOffice] = useState(day.format('YYYY-MM-DD'));
     const [resaType, setResaType] = useState(0);
     const [index, setIndex] = useState(0);
+    const [timeSheetResources, setTimeSheetResources] = useState(undefined);
     const { enqueueSnackbar } = useSnackbar();
 
 
@@ -86,10 +87,11 @@ export default function Dashboard(props) {
     }
 
 
-    const handleOpenOffice = (daySelected, booking, type) => {
+    const handleOpenOffice = (daySelected, booking, type, resources) => {
         setDayOffice(daySelected);
         setBooking(booking);
         setResaType(type);
+        setTimeSheetResources(resources);
         setOpenOffice(true);
     }
 
@@ -109,9 +111,9 @@ export default function Dashboard(props) {
 
     return (
         <Grid wrap={"nowrap"} container direction={"column"} spacing={1}>
-            <OfficeModal open={openOffice} handleClose={(update) => handleCloseOffice(update)} day={dayOffice} booking={booking} resaType={resaType} />
+            <OfficeModal open={openOffice} resources={timeSheetResources} handleClose={(update) => handleCloseOffice(update)} day={dayOffice} booking={booking} resaType={resaType} />
             <Grid item>
-                <PlanningBoard getTimeSheet={(index) => getTimeSheet(index)} week={week} ruleRespected={ruleRespected} handleOpenOffice={(day, booking) => handleOpenOffice(day, booking)} />
+                <PlanningBoard getTimeSheet={(index) => getTimeSheet(index)} week={week} ruleRespected={ruleRespected} handleOpenOffice={(day, booking, type, resources) => handleOpenOffice(day, booking, type, resources)} />
             </Grid>
             <Grid item xs={12} mb={2}>
                 <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"}>
