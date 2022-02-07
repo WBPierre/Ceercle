@@ -199,7 +199,7 @@ function Parameters(props){
                         <Grid item md={10}>
                             <Stack direction="row" spacing={1} alignItems="center">
                                 <Typography>No</Typography>
-                                <Switch value={active} checked={active} disabled onChange={handleChange} name={"active"} />
+                                <Switch value={active} checked={active} onChange={handleChange} name={"active"} />
                                 <Typography>Yes</Typography>
                             </Stack>
                         </Grid>
