@@ -7,6 +7,6 @@ cron.schedule('* 1 * * 7', async () =>  {
     await generateDemoData();
 });
 
-cron.schedule('0 15 * * *', async () => {
+cron.schedule('0 13 * * *', async () => {
     await activateCompanies();
 })
