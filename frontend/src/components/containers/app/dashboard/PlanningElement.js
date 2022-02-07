@@ -36,9 +36,6 @@ function PlanningElement(props) {
 
     const modifyChoice = (name, half, order) => {
         props.modify(props.data.day, name, half, order)
-        if (name === 1) {
-            openOffice()
-        }
     }
 
 
