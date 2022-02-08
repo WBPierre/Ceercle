@@ -4,9 +4,9 @@ const { body, param, validationResult } = require('express-validator')
 
 /*
 exports.preview = async function (req, res, next) {
-    res.render('invitation', {firstName: 'Will', lastName: 'Will'});
-}
-*/
+    res.render('invitation', {companyName: 'The Bradery', token: 'Will'});
+}*/
+
 
 exports.sendContact = async function (req, res, next){
     try {
