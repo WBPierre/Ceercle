@@ -7,10 +7,10 @@
     <style type="text/css">
         /* ----- Custom Font Import ----- */
         @import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&subset=latin,latin-ext);
-
+        @import url(https://fonts.cdnfonts.com/css/sf-pro-display);
         /* ----- Text Styles ----- */
         table{
-            font-family: 'Lato', Arial, sans-serif;
+            font-family: 'SF Pro Display', Arial, sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-font-smoothing: antialiased;
             font-smoothing: antialiased;
@@ -156,18 +156,16 @@
 <table class="full-width-container" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" bgcolor="#eeeeee" style="width: 100%; height: 100%; padding: 30px 0 30px 0;">
     <tr>
         <td align="center" valign="top">
+
             <!-- / 700px container -->
-            <table class="container" border="0" cellpadding="0" cellspacing="0" width="700" bgcolor="#ffffff" style="width: 700px;">
+            <table class="container" border="0" cellpadding="0" cellspacing="0" width="700" bgcolor="#FFFFFF" style="width: 700px;">
                 <tr>
                     <td align="center" valign="top">
                         <!-- / Header -->
-                        <table class="container header" border="0" cellpadding="0" cellspacing="0" width="620" style="width: 620px;">
+                        <table class="container header" border="0" cellpadding="0" cellspacing="0" width="100%" style="width: 100%;">
                             <tr>
-                                <td style="padding: 30px 0 30px 0; border-bottom: solid 1px #eeeeee; width:60px;" align="left">
-                                    <img src="https://api.ceercle.io/public/assets/logo/logo_2.png" style="width:40px; height:40px;"/>
-                                </td>
-                                <td style="padding: 30px 0 30px 0; border-bottom: solid 1px #eeeeee;" align="left">
-                                    <a href="http://ceercle.io" style="font-size: 30px; text-decoration: none; color: #3F07A8;">Ceercle</a>
+                                <td align="left">
+                                    <img src="http://localhost:8080/public/assets/logo/mailHeader.png" style="width:100%; height: 200px"/>
                                 </td>
                             </tr>
                         </table>
@@ -176,20 +174,31 @@
                         <!-- / Hero subheader -->
                         <table class="container hero-subheader" border="0" cellpadding="0" cellspacing="0" width="620" style="width: 620px;">
                             <tr>
-                                <td class="hero-subheader__title" style="font-size: 28px; font-weight: bold; padding: 40px 0 15px 0;" align="left">Ceercle x {{companyName}}</td>
+                                <td class="hero-subheader__title" style="font-size: 28px; font-weight: bold; padding: 40px 0 15px 0;" align="left"><span style="color: #3F07A8">Ceercle</span> x {{companyName}}</td>
                             </tr>
 
                             <tr>
-                                <td class="hero-subheader__content" style="font-size: 16px; line-height: 27px; color: #969696; padding: 0 60px 90px 0;" align="left">
+                                <td class="hero-subheader__content" style="font-size: 16px; line-height: 27px; color: #969696; padding: 0 0 10px 0;" align="left">
                                     <table class="container" border="0" cellpadding="0" cellspacing="10" width="100%" style="padding-top: 25px;" align="center">
                                         <tr>
-                                            <td>Bonjour,</td>
+                                            <td style="color:#7F7F7F">Bonjour,</td>
                                         </tr>
                                         <tr>
-                                            <td>Vous avez été invité par un de vos collaborateurs à rejoindre la plateforme Ceercle. Cliquez sur le bouton ci-dessous pour créer votre compte :</td>
+                                            <td style="color:#7F7F7F">Bienvenue sur la plateforme collaborative Ceercle !</td>
                                         </tr>
                                         <tr>
-                                            <td><a href="{{link}}"><button style="background-color: #3F07A8; color: #FFF; border-radius:25px; font-weight: 600; border:none; font-size: 18px;">Créer mon compte</button></a></td>
+                                            <td style="color:#7F7F7F">Vous avez été invité par un de vos collaborateurs de {{companyName}}, il ne vous reste plus qu'à valider votre compte !</td>
+                                        </tr>
+                                        <tr></tr>
+                                        <tr>
+                                            <td style="color:#7F7F7F">Cliquez sur le bouton ci-dessous pour créer et activer votre compte :</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center" style="padding-top: 25px;">
+                                                <a href="{{link}}" style="align-content: center;">
+                                                    <button style="background-color: #3F07A8; color: #FFF; cursor: pointer; padding:15px; border-radius:25px; font-weight: 600; border:none; font-size: 18px;">Créer mon compte</button>
+                                                </a>
+                                            </td>
                                         </tr>
                                     </table>
                                 </td>
@@ -198,7 +207,7 @@
                         <!-- /// Hero subheader -->
 
                         <!-- / Divider -->
-                        <table class="container" border="0" cellpadding="0" cellspacing="0" width="100%" style="padding-top: 25px;" align="center">
+                        <table class="container" border="0" cellpadding="0" cellspacing="0" width="100%"  align="center">
                             <tr>
                                 <td align="center">
                                     <table class="container" border="0" cellpadding="0" cellspacing="0" width="620" align="center" style="border-bottom: solid 1px #eeeeee; width: 620px;">
@@ -218,12 +227,12 @@
                                     <table class="container" border="0" cellpadding="0" cellspacing="0" width="620" align="center" style="border-top: 1px solid #eeeeee; width: 620px;">
                                         <tr>
                                             <td style="text-align: center; padding: 50px 0 10px 0;">
-                                                <a href="#" style="font-size: 28px; text-decoration: none; color: #3F07A8;">Ceercle</a>
+                                                <a href="https://ceercle.io" target="_blank" style="font-size: 28px; text-decoration: none; color: #3F07A8;">Ceercle</a>
                                             </td>
                                         </tr>
 
                                         <tr>
-                                            <td style="color: #d5d5d5; text-align: center; font-size: 15px; padding: 10px 0 60px 0; line-height: 22px;">Copyright &copy; 2022 <a href="http://ceercle.io/" target="_blank" style="text-decoration: none; border-bottom: 1px solid #d5d5d5; color: #d5d5d5;">Ceercle</a>. <br />All rights reserved.</td>
+                                            <td style="color: #d5d5d5; text-align: center; font-size: 15px; padding: 10px 0 60px 0; line-height: 22px;">Copyright &copy; 2022 <a href="http://ceercle.io/" target="_blank" style="text-decoration: none; border-bottom: 1px solid #d5d5d5; color: #d5d5d5;">Ceercle.io</a><br />All rights reserved.</td>
                                         </tr>
                                     </table>
                                 </td>
