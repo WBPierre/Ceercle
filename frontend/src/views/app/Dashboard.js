@@ -50,7 +50,7 @@ export default function Dashboard(props) {
                 setWeek(res.data.week);
                 let current = res.data.week.find(x => x.current);
                 if(current){
-                    setCanBookOffice(current.morning || current.afternoon);
+                    setCanBookOffice(current.morning === 1 || current.afternoon === 1);
                     setCurrentBooking(current.reservation);
                 }else{
                     setCanBookOffice(res.data.week[0].morning === 1 || res.data.week[0].afternoon === 1);
@@ -75,7 +75,7 @@ export default function Dashboard(props) {
             if (ind === 0) {
                 let current = res.data.week.find(x => x.current);
                 if(current){
-                    setCanBookOffice(current.morning || current.afternoon);
+                    setCanBookOffice(current.morning === 1 || current.afternoon === 1);
                     setCurrentBooking(current.reservation);
                 }else{
                     setCanBookOffice(res.data.week[0].morning === 1 || res.data.week[0].afternoon === 1);
