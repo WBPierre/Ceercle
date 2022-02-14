@@ -30,7 +30,7 @@ function RulesCheckDisplay(props) {
     const statuses = [t('app:statuses:undeclared'), t('app:statuses:office'), t('app:statuses:home_working'), t('app:statuses:on_the_go'), t('app:statuses:off')]
 
     const formatUserStatus = (status) => {
-        if (status[0] == status[1]) {
+        if (status[0] === status[1]) {
             return statuses[status[0]]
         } else {
             return statuses[status[0]] + " - " + statuses[status[1]]
@@ -52,7 +52,7 @@ function RulesCheckDisplay(props) {
                             </Grid>
 
                             <Grid item mt={1}>
-                                <Typography color="inherit" fontSize={12} fontWeight="bold" style={{ textDecorationLine: 'underline' }}> {t('app:alerts_HR_rules:attendance_rate')}{props.ruleRespected.companyRuleScope == 0 ? t('app:alerts_HR_rules:week') : t('app:alerts_HR_rules:month')}</Typography>
+                                <Typography color="inherit" fontSize={12} fontWeight="bold" style={{ textDecorationLine: 'underline' }}> {t('app:alerts_HR_rules:attendance_rate')}{props.ruleRespected.companyRuleScope === 0 ? t('app:alerts_HR_rules:week') : t('app:alerts_HR_rules:month')}</Typography>
                             </Grid>
                             <Grid item>
                                 <span color="inherit" style={{ fontSize: "12px" }} >{t('app:alerts_HR_rules:max_office')}{props.ruleRespected.companyOfficeMaximum}</span>
@@ -80,23 +80,23 @@ function RulesCheckDisplay(props) {
                                 <Typography color="inherit" fontSize={12} fontWeight="bold" style={{ textDecorationLine: 'underline' }}> {t('app:alerts_HR_rules:mandatory_days')}</Typography>
                             </Grid>
                             <Grid item sx={{ display: { xs: props.ruleRespected.mondayMandatoryStatus > 0 ? 'block' : 'none', md: props.ruleRespected.mondayMandatoryStatus > 0 ? 'block' : 'none' } }}>
-                                <span color="inherit" style={{ fontSize: "12px" }}>{t('app:date_elements:Monday')}: {props.ruleRespected.mondayMandatoryStatus == 1 ? t('app:statuses:office') : t('app:statuses:home_working')}</span>
+                                <span color="inherit" style={{ fontSize: "12px" }}>{t('app:date_elements:Monday')}: {props.ruleRespected.mondayMandatoryStatus === 1 ? t('app:statuses:office') : t('app:statuses:home_working')}</span>
                                 <span color="inherit" style={{ fontSize: "9px" }}> ({formatUserStatus(props.ruleRespected.userStatusesByDayForWeek[0])})</span>
                             </Grid>
                             <Grid item sx={{ display: { xs: props.ruleRespected.tuesdayMandatoryStatus > 0 ? 'block' : 'none', md: props.ruleRespected.tuesdayMandatoryStatus > 0 ? 'block' : 'none' } }}>
-                                <span color="inherit" style={{ fontSize: "12px" }}>{t('app:date_elements:Tuesday')}: {props.ruleRespected.tuesdayMandatoryStatus == 1 ? t('app:statuses:office') : t('app:statuses:home_working')}</span>
+                                <span color="inherit" style={{ fontSize: "12px" }}>{t('app:date_elements:Tuesday')}: {props.ruleRespected.tuesdayMandatoryStatus === 1 ? t('app:statuses:office') : t('app:statuses:home_working')}</span>
                                 <span color="inherit" style={{ fontSize: "9px" }}> ({formatUserStatus(props.ruleRespected.userStatusesByDayForWeek[1])})</span>
                             </Grid>
                             <Grid item sx={{ display: { xs: props.ruleRespected.wednesdayMandatoryStatus > 0 ? 'block' : 'none', md: props.ruleRespected.wednesdayMandatoryStatus > 0 ? 'block' : 'none' } }}>
-                                <span color="inherit" style={{ fontSize: "12px" }}>{t('app:date_elements:Wednesday')}: {props.ruleRespected.wednesdayMandatoryStatus == 1 ? t('app:statuses:office') : t('app:statuses:home_working')}</span>
+                                <span color="inherit" style={{ fontSize: "12px" }}>{t('app:date_elements:Wednesday')}: {props.ruleRespected.wednesdayMandatoryStatus === 1 ? t('app:statuses:office') : t('app:statuses:home_working')}</span>
                                 <span color="inherit" style={{ fontSize: "9px" }}> ({formatUserStatus(props.ruleRespected.userStatusesByDayForWeek[2])})</span>
                             </Grid>
                             <Grid item sx={{ display: { xs: props.ruleRespected.thursdayMandatoryStatus > 0 ? 'block' : 'none', md: props.ruleRespected.thursdayMandatoryStatus > 0 ? 'block' : 'none' } }}>
-                                <span color="inherit" style={{ fontSize: "12px" }}>{t('app:date_elements:Thursday')}: {props.ruleRespected.thursdayMandatoryStatus == 1 ? t('app:statuses:office') : t('app:statuses:home_working')}</span>
+                                <span color="inherit" style={{ fontSize: "12px" }}>{t('app:date_elements:Thursday')}: {props.ruleRespected.thursdayMandatoryStatus === 1 ? t('app:statuses:office') : t('app:statuses:home_working')}</span>
                                 <span color="inherit" style={{ fontSize: "9px" }}> ({formatUserStatus(props.ruleRespected.userStatusesByDayForWeek[3])})</span>
                             </Grid>
                             <Grid item sx={{ display: { xs: props.ruleRespected.fridayMandatoryStatus > 0 ? 'block' : 'none', md: props.ruleRespected.fridayMandatoryStatus > 0 ? 'block' : 'none' } }}>
-                                <span color="inherit" style={{ fontSize: "12px" }}>{t('app:date_elements:Friday')}: {props.ruleRespected.fridayMandatoryStatus == 1 ? t('app:statuses:office') : t('app:statuses:home_working')}</span>
+                                <span color="inherit" style={{ fontSize: "12px" }}>{t('app:date_elements:Friday')}: {props.ruleRespected.fridayMandatoryStatus === 1 ? t('app:statuses:office') : t('app:statuses:home_working')}</span>
                                 <span color="inherit" style={{ fontSize: "9px" }}> ({formatUserStatus(props.ruleRespected.userStatusesByDayForWeek[4])})</span>
                             </Grid>
 

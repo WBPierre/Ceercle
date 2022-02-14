@@ -8,7 +8,6 @@ import { Avatar } from '@mui/material';
 import ProfileDefault from "../../../../assets/images/example/default.png";
 import BannerDefault from "../../../../assets/images/example/banner_default.jpg";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import CancelIcon from '@mui/icons-material/Cancel';
 import Stack from '@mui/material/Stack';
 import SettingSectionTemplate from './SettingSectionTemplate';
 import { useState } from "react";
@@ -17,7 +16,7 @@ import UserService from "../../../../services/app/user.service";
 export default function AvatarSection(props) {
 
     const { t } = useTranslation();
-
+    const { enqueueSnackbar } = useSnackbar();
     const [profilePicture, setProfilePicture] = useState(props.user.profilePicturePath);
     const [bannerPicture, setBannerPicture] = useState(props.user.bannerPath);
 
@@ -45,18 +44,6 @@ export default function AvatarSection(props) {
         })
     }
 
-    const { enqueueSnackbar } = useSnackbar();
-    const save = () => {
-        enqueueSnackbar(t('app:account:avatar.snackbar_save'), {
-            variant: 'success'
-        });
-    }
-
-    const cancel = () => {
-        enqueueSnackbar(t('app:account:avatar.snackbar_delete'), {
-            variant: 'success'
-        });
-    }
 
     return (
         <SettingSectionTemplate title={t('app:account:avatar.title')} description={t('app:account:avatar.subtitle')}>
@@ -103,7 +90,7 @@ export default function AvatarSection(props) {
                 <Grid item>
                     <Grid container direction="row">
                         <Grid item md={5}>
-                            <img src={bannerPicture === null ? BannerDefault : bannerPicture} style={{ height: '80%', width: '80%' }} />
+                            <img alt={'banner user'} src={bannerPicture === null ? BannerDefault : bannerPicture} style={{ height: '80%', width: '80%' }} />
                         </Grid>
                         <Grid item md={7}>
                             <Grid container direction="column" spacing={1}>

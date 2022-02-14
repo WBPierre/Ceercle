@@ -12,7 +12,8 @@
     "set_up_by_day": "Specification by day",
     "snackbar_success": "Change saved.",
     "snackbar_warning": "The suggested values are incompatible with a proper calendar declaration.",
-    "restrictive": "Restrictive rules"
+    "restrictive": "Restrictive rules",
+    "restrictive_info": "If activated, your collaborators must necessarily book a desk while declaring working from the office."
   },
   "offices": {
     "tab_name": "Offices set-up",

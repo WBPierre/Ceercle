@@ -1,16 +1,7 @@
-import { Avatar, ListItemIcon, ListItemText, Menu } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import ToDefineIcon from "../../../molecules/icons/ToDefineIcon";
-import OfficeIcon from "../../../molecules/icons/OfficeIcon";
-import ManWorkingIcon from "../../../molecules/icons/ManWorkingIcon";
-import AwayIcon from "../../../molecules/icons/AwayIcon";
-import MenuItem from "@mui/material/MenuItem";
 import {useEffect, useState} from "react";
 import TimeService from "../../../../services/app/time.service";
-import Button from "@mui/material/Button";
-import OffIcon from "../../../molecules/icons/OffIcon";
 import { useSnackbar } from "notistack";
-import useAuth from "../../../context/auth/AuthHelper";
 import Grid from "@mui/material/Grid";
 import CalendarUserButton from "./CalendarUserButton";
 

@@ -1,15 +1,9 @@
-import { Avatar, Divider, Fab, ListItemIcon, ListItemText, Menu, Switch, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
-import ManWorkingIcon from "../../../molecules/icons/ManWorkingIcon";
-import OfficeIcon from "../../../molecules/icons/OfficeIcon";
-import AwayIcon from "../../../molecules/icons/AwayIcon";
-import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import { useEffect, useState } from "react";
-import ToDefineIcon from "../../../molecules/icons/ToDefineIcon";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
-import OffIcon from "../../../molecules/icons/OffIcon";
 import useAuth from "../../../context/auth/AuthHelper";
 import * as React from "react";
 import PlanningButton from "./PlanningButton";
@@ -46,6 +40,8 @@ function PlanningElement(props) {
             case 2: return "#0070C0"
             case 3: return "#7030A0"
             case 4: return "#FFA800"
+            default:
+                return;
         }
     }
 

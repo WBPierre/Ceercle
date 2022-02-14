@@ -5,20 +5,17 @@ import { Avatar } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import Typography from '@mui/material/Typography';
 import {
-    Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+    Dialog, DialogActions, DialogTitle,
 } from "@mui/material";
 import { Button } from "@mui/material";
 import { useState } from "react";
 import TeamService from "../../../../services/app/team.service";
 import { useSnackbar } from "notistack";
 import ProfileDefault from "../../../../assets/images/example/default.png";
-import UserService from "../../../../services/app/user.service";
-import {useNavigate} from "react-router-dom";
 
 function UsersGrid(props) {
 
     const { t } = useTranslation();
-    let navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
 
     const handleClickOnDelete = (userId) => {

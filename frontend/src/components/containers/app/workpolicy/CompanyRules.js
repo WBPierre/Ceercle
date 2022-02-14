@@ -67,18 +67,22 @@ export default function CompanyRules() {
         setFridayMandatoryStatus(event.target.value);
     };
 
-    const [restrictiveRules, setRestrictiveRules] = React.useState(false);
+    const [officeBookingMandatory, setOfficeBookingMandatory] = React.useState(false);
     const handleChangeRestrictiveRules = (event) => {
-        setRestrictiveRules(event.target.checked);
+        setOfficeBookingMandatory(event.target.checked);
     }
+
+    const [activeOfficeHandler, setActiveOfficeHandler] = React.useState(false);
+
 
 
     async function getHRRules() {
         const res = await CompanyService.getHRRules();
+        setActiveOfficeHandler(res.data.activeOfficeHandler);
         setRuleScope(res.data.ruleScope)
         setRemoteMaximum(res.data.remoteMaximum);
         setOfficeMaximum(res.data.officeMaximum);
-        setRestrictiveRules(res.data.restrictiveRules);
+        setOfficeBookingMandatory(res.data.officeBookingMandatory);
         setMondayMandatoryStatus(res.data.mondayMandatoryStatus);
         setTuesdayMandatoryStatus(res.data.tuesdayMandatoryStatus);
         setWednesdayMandatoryStatus(res.data.wednesdayMandatoryStatus);
@@ -94,10 +98,10 @@ export default function CompanyRules() {
     const { enqueueSnackbar } = useSnackbar();
 
     const validateHRRules = () => {
-        if (remoteMaximum > 5 && ruleScope == 0) return false;
-        if (officeMaximum > 5 && ruleScope == 0) return false;
-        if ((officeMaximum + remoteMaximum) < 5 && ruleScope == 0) return false;
-        if ((officeMaximum + remoteMaximum) < 20 && ruleScope == 1) return false;
+        if (remoteMaximum > 5 && ruleScope === 0) return false;
+        if (officeMaximum > 5 && ruleScope === 0) return false;
+        if ((officeMaximum + remoteMaximum) < 5 && ruleScope === 0) return false;
+        if ((officeMaximum + remoteMaximum) < 20 && ruleScope === 1) return false;
         return true;
     }
 
@@ -107,7 +111,7 @@ export default function CompanyRules() {
                 ruleScope: ruleScope,
                 remoteMaximum: remoteMaximum,
                 officeMaximum: officeMaximum,
-                restrictiveRules: restrictiveRules,
+                officeBookingMandatory: officeBookingMandatory,
                 mondayMandatoryStatus: mondayMandatoryStatus,
                 tuesdayMandatoryStatus: tuesdayMandatoryStatus,
                 wednesdayMandatoryStatus: wednesdayMandatoryStatus,
@@ -154,16 +158,21 @@ export default function CompanyRules() {
                     </Typography>
                 </Grid>
 
-                <Grid item mt={3} hidden={true}>
+                <Grid item mt={3} hidden={!activeOfficeHandler}>
                     <Typography variant="body" fontWeight={300} fontSize={17} style={{ color: '#414040', fontStyle: "italic" }}>
                         {t('app:rh_parameters:company.restrictive')}
                     </Typography>
                 </Grid>
+                <Grid item hidden={!activeOfficeHandler}>
+                    <Typography variant="body" fontWeight={400} fontSize={14} style={{ color: '#2A2828' }}>
+                        {t('app:rh_parameters:company.restrictive_info')}
+                    </Typography>
+                </Grid>
 
-                <Grid item mt={1} hidden={true}>
+                <Grid item mt={1} hidden={!activeOfficeHandler}>
                     <Stack direction="row" spacing={1} alignItems="center">
                         <Typography>{t('generic:no')}</Typography>
-                        <Switch value={restrictiveRules} checked={restrictiveRules} onChange={handleChangeRestrictiveRules} name={"restrictiveRules"} />
+                        <Switch value={officeBookingMandatory} disabled={!activeOfficeHandler} checked={officeBookingMandatory} onChange={handleChangeRestrictiveRules} name={"restrictiveRules"} />
                         <Typography>{t('generic:yes')}</Typography>
                     </Stack>
                 </Grid>

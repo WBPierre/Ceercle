@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import Typography from '@mui/material/Typography';
 import TimeService from "../../../../services/app/time.service";
@@ -9,14 +9,11 @@ import AttendanceDetailed from "./AttendanceDetailed"
 import { Chip } from "@mui/material";
 import AttendanceFilterBar from "./AttendanceFilterBar"
 import AttendancePie from "./AttendancePie"
-import { useSnackbar } from "notistack";
 import moment from "moment";
 
 
 function Attendance() {
     const { t } = useTranslation();
-
-    const { enqueueSnackbar } = useSnackbar();
 
     const [pieData, setPieData] = useState(null)
     const [byWeekdayData, setByWeekdayData] = useState(null)
@@ -84,7 +81,7 @@ function Attendance() {
         setStartDate(start)
         setEndDate(end)
         refreshDataCharts(start, end);
-    }, []);
+    }, []); // eslint-disable-line
 
     useEffect(() => {
         setCollaborator({ id: -1, label: "" })

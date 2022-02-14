@@ -1,5 +1,4 @@
 import Grid from "@mui/material/Grid";
-import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import Fade from "react-reveal/Fade";
@@ -13,33 +12,18 @@ import BookingService from "../../../../services/app/booking.service";
 import moment from "moment";
 import "moment/min/locales";
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import { Chip, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import * as App_Routes from "../../../../navigation/app/Routes";
 import { useTranslation } from "react-i18next";
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import ReportIcon from '@mui/icons-material/Report';
-import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
-import { styled } from '@mui/material/styles';
 import HRRulesCheckDisplay from "./HRRulesCheckDisplay";
-
-
-const HtmlTooltip = styled(({ className, ...props }) => (
-    <Tooltip {...props} classes={{ popper: className }} />
-))(({ theme }) => ({
-    [`& .${tooltipClasses.tooltip}`]: {
-        backgroundColor: '#f5f5f9',
-        color: 'rgba(0, 0, 0, 0.87)',
-        maxWidth: 220,
-        fontSize: theme.typography.pxToRem(12),
-        border: '1px solid #dadde9',
-    },
-}));
+import useAuth from "../../../context/auth/AuthHelper";
 
 
 
 function PlanningBoard(props) {
+    const context = useAuth();
     const { i18n } = useTranslation();
     const lang = i18n.language;
     const { t } = useTranslation();
@@ -91,7 +75,7 @@ function PlanningBoard(props) {
             resources.afternoon = choice;
         }
         if(previous.morning !== choice || previous.afternoon !== choice) {
-            if(previous.reservation.length === 0 && (resources.morning === 1 || resources.afternoon === 1)){
+            if(context.user.company.activeOfficeHandler && context.user.company.officeBookingMandatory && previous.reservation.length === 0 && (resources.morning === 1 || resources.afternoon === 1)){
                 props.handleOpenOffice(day, previous.reservation, order, resources);
             }else{
                 await TimeService.setTimeSheet(resources);

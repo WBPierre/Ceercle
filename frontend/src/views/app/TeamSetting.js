@@ -1,11 +1,9 @@
 import { useTranslation } from "react-i18next";
-import CustomContainer from "../../components/containers/app/CustomContainer";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import UsersGrid from "../../components/containers/app/teams/UsersGrid";
 import Grid from "@mui/material/Grid";
 import Typography from '@mui/material/Typography';
-import { Divider } from "@mui/material";
 import { Button } from "@mui/material";
 import Chip from '@mui/material/Chip';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
@@ -17,12 +15,10 @@ import ColorPicker from "../../components/molecules/app/ColorPicker";
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {
-    Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+    Dialog, DialogActions, DialogTitle,
 } from "@mui/material";
-import example1 from "../../assets/images/example/1.jpg";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import TeamService from "../../services/app/team.service";
-import UserService from "../../services/app/user.service";
 import { useSnackbar } from "notistack";
 import * as App_Routes from "../../navigation/app/Routes";
 
@@ -40,6 +36,8 @@ function Teams() {
                 break;
             case 'color':
                 setColor(event.target.value);
+                break;
+            default:
                 break;
         }
     }
@@ -122,13 +120,11 @@ function Teams() {
 
 
     const [listUsers, setListUsers] = useState([]);
-    const [team, setTeam] = useState(null);
     const [name, setName] = useState('');
     const [color, setColor] = useState('');
 
     async function getTeam(index) {
         const res = await TeamService.getTeam(index);
-        setTeam(res.data);
         setName(res.data.name)
         setColor(res.data.color)
         let listUsersTemp = []
@@ -146,7 +142,7 @@ function Teams() {
 
     useEffect(() => {
         getTeam(id);
-    }, []);
+    }, [id]);
 
 
     return (

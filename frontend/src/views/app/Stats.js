@@ -1,9 +1,5 @@
 import * as React from 'react';
 import { useTranslation } from "react-i18next";
-import Typography from '@mui/material/Typography';
-import CustomContainer from "../../components/containers/app/CustomContainer";
-import OfficeOccupancy from '../../components/containers/app/workpolicy/OfficeOccupancy';
-import CompanyRules from '../../components/containers/app/workpolicy/CompanyRules';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';

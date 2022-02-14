@@ -3,10 +3,11 @@ const { validationResult, param, body } = require("express-validator");
 const moment = require("moment");
 
 exports.createCompany = async function (req, res, next) {
-    const { name, activationDay, invoiceType } = req.body;
+    const { name, activationDay, activationHour, invoiceType } = req.body;
     const company = await Company.create({
         name: name,
         activation_day: activationDay,
+        activationHour: activationHour,
         invoice_type: invoiceType
     });
     res.json(company);
@@ -94,6 +95,8 @@ exports.validate = (method) => {
                 body('activationDay', 'activationDay is not a string').isString(),
                 body('invoiceType', 'invoiceType doesn\'t exist').exists(),
                 body('invoiceType', 'invoiceType is not a string').isNumeric(),
+                body('activationHour', 'activationHour doesn\'t exist').exists(),
+                body('activationHour', 'activationHour is not numeric').isNumeric(),
             ]
         }
         case 'updateHRRules': {

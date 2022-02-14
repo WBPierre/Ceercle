@@ -25,7 +25,7 @@ function Integration(props) {
                         >
                             <Grid container direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
                                 <Grid item>
-                                    <img src={Payfit} style={{ height: 60 }} />
+                                    <img alt={"payfit incoming WIP"}  src={Payfit} style={{ height: 60 }} />
                                 </Grid>
                             </Grid>
                         </AccordionSummary>
@@ -45,7 +45,7 @@ function Integration(props) {
                         >
                             <Grid container direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
                                 <Grid item>
-                                    <img src={BambooHR} style={{ height: 50 }} />
+                                    <img alt={"BambooHR incoming WIP"} src={BambooHR} style={{ height: 50 }}/>
                                 </Grid>
                             </Grid>
                         </AccordionSummary>

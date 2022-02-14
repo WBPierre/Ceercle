@@ -70,11 +70,11 @@ function OfficeModal(props) {
             }
         }
         getBooking();
-    }, [props]);
+    }, [props]); //eslint-disable-line
 
     useEffect(() => {
         getOffices();
-    }, []);
+    }, []); //eslint-disable-line
 
     async function getOffices() {
         const res = await OfficeService.getOffices(context.user.company.id);
@@ -95,7 +95,7 @@ function OfficeModal(props) {
             }
         }
         getFloors();
-    }, [officeId])
+    }, [officeId]) //eslint-disable-line
 
     useEffect(() => {
         async function getRooms() {
@@ -108,7 +108,7 @@ function OfficeModal(props) {
             }
         }
         getRooms();
-    }, [floorId]);
+    }, [floorId]); //eslint-disable-line
 
     useEffect(() => {
         async function getDesks() {
@@ -125,7 +125,7 @@ function OfficeModal(props) {
             }
         }
         getDesks();
-    }, [roomId]);
+    }, [roomId]); //eslint-disable-line
 
 
 

@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 import Grid from "@mui/material/Grid";
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
@@ -39,32 +37,9 @@ TabPanel.propTypes = {
     value: PropTypes.number.isRequired,
 };
 
-function a11yProps(index) {
-    return {
-        id: `simple-tab-${index}`,
-        'aria-controls': `simple-tabpanel-${index}`,
-    };
-}
-
 
 export default function InfoByUser(props) {
     const theme = useTheme();
-    let navigate = useNavigate();
-    const { t } = useTranslation();
-
-    const [favorite, setFavorite] = React.useState(0);
-
-
-    const onClick = (event) => {
-        setFavorite(1 - favorite)
-    };
-
-    const [value, setValue] = React.useState(0);
-
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
-
     return (
         <Grid container direction="column" style={{ backgroundColor: theme.palette.background.paper }}>
             <Grid item minHeight="30vh" style={{ position: "relative" }}>

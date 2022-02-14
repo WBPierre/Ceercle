@@ -1,12 +1,9 @@
 import * as React from 'react';
-import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import Grid from "@mui/material/Grid";
 
 
 export default function SettingSectionTemplate(props) {
-
-    const theme = useTheme();
 
     return (
         <Grid item mt={3} mb={2}>

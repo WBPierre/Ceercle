@@ -21,6 +21,7 @@ function logWarning(...warnings){
     let showWarning = true;
     warnings.forEach(warning => {
         if (warning.includes("UNSAFE_")) showWarning = false;
+        if (warning.includes("use moment.updateLocale")) showWarning = false;
     });
     if(showWarning) warn(...warnings);
 }

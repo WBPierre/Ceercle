@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import { useCookies } from 'react-cookie';
 import ApiService from "../../../services/api.service";
 import AuthService from "../../../services/app/auth.service";
 import TokenService from "../../../services/token.service";

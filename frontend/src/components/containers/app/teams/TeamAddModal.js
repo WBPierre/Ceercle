@@ -69,7 +69,7 @@ function TeamAddModal(props) {
                     </Grid>
 
 
-                    <Grid item item mt={4}>
+                    <Grid item mt={4}>
                         <Grid container direction={"row"} justifyContent={"start"} alignItems={"center"}>
                             <Grid item md={6}>
                                 <BlockPicker color={color} onChangeComplete={handleChangeComplete} />
@@ -82,7 +82,7 @@ function TeamAddModal(props) {
                             </Grid>
                         </Grid>
 
-                        <Grid item item mt={4}>
+                        <Grid item mt={4}>
                             <Button fullWidth variant={"outlined"} onClick={validate}>{t('app:teams:main.add')}</Button>
                         </Grid>
                     </Grid>

@@ -1,7 +1,6 @@
 import { useTranslation } from "react-i18next";
 import Chart from 'chart.js/auto';
 import { Bar } from "react-chartjs-2";
-import ChartDataLabels from 'chartjs-plugin-datalabels';
 import ChartjsPluginStacked100 from "chartjs-plugin-stacked100";
 
 Chart.register(ChartjsPluginStacked100);

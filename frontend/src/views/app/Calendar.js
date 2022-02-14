@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Grid from "@mui/material/Grid";
-import CustomContainer from "../../components/containers/app/CustomContainer";
 import { useState } from "react";
 import FilterBar from "../../components/containers/app/calendar/FilterBar";
 import CalendarDisplay from "../../components/containers/app/calendar/CalendarDisplay";

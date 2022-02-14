@@ -7,14 +7,13 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
-import { Chip, InputBase, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import AdapterMoment from '@mui/lab/AdapterMoment';
 import 'moment/locale/fr';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
-import moment from "moment";
 
 function FilterBar(props) {
 

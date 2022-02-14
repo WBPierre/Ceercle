@@ -3,16 +3,8 @@ import Grid from "@mui/material/Grid";
 import logo from "../../assets/images/logo/logo_2.png";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import Tooltip from "@mui/material/Tooltip";
-import IconButton from "@mui/material/IconButton";
-import GoogleIcon from "../../components/molecules/icons/GoogleIcon";
-import MicrosoftIcon from "../../components/molecules/icons/MicrosoftIcon";
-import SlackIcon from "../../components/molecules/icons/SlackIcon";
 import {TextField, useTheme} from "@mui/material";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
-import Link from "@mui/material/Link";
 import * as React from "react";
 import {useTranslation} from "react-i18next";
 import {useNavigate, useParams} from "react-router-dom";
@@ -50,7 +42,7 @@ function Invitation(){
                 navigate(App_Routes.LOGIN);
             })
         }
-        verifyToken();
+        verifyToken(); // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
 

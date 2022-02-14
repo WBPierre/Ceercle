@@ -44,11 +44,11 @@ function AttendancePie(props) {
                         formatter: (value, ctx) => {
                             let sum = 0;
                             let dataArr = ctx.chart.data.datasets[0].data;
-                            dataArr.map(data => {
-                                sum += data;
-                            });
+                            dataArr.map((data) =>
+                                sum += data
+                            );
                             let percentage = (value * 100 / sum).toFixed(0) + "%";
-                            if (value == 0) {
+                            if (value === 0) {
                                 percentage = ""
                             }
                             return percentage;

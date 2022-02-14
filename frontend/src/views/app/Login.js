@@ -8,8 +8,6 @@ import {
     useTheme
 } from "@mui/material";
 import Button from '@mui/material/Button';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import { useNavigate } from "react-router-dom";
@@ -22,7 +20,6 @@ import Tooltip from '@mui/material/Tooltip';
 import { useEffect, useState } from "react";
 import AuthService from "../../services/app/auth.service";
 import ApiService from "../../services/api.service";
-import { useCookies } from 'react-cookie';
 import useAuth from "../../components/context/auth/AuthHelper";
 import TokenService from "../../services/token.service";
 import * as App_Routes from "../../navigation/app/Routes";
@@ -35,7 +32,6 @@ function Login() {
     let navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [cookies, setCookie] = useCookies(['token']);
     const context = useAuth();
     const { enqueueSnackbar } = useSnackbar();
 

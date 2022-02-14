@@ -14,6 +14,7 @@ function CalendarDateElement(props) {
             case 2: return (t('app:date_elements:Wed'));
             case 3: return (t('app:date_elements:Thu'));
             case 4: return (t('app:date_elements:Fri'));
+            default: return;
         }
     }
 

@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import PublicRooter from "./public/Router";
 import AppRooter from "./app/Router";
 import ScrollToTop from "./ScrollToTop";

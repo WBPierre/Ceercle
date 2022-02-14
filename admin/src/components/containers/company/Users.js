@@ -37,7 +37,6 @@ function Users(props){
     const getAllUsersOfCompany = async () => {
         await UserService.getAllUsersOfCompany(props.company.id).then((res) => {
             setUsers(res.data);
-            console.log(res.data);
         })
     }
 
@@ -164,6 +163,7 @@ function Users(props){
                 type: invitType,
                 companyId: props.company.id
             };
+            await getAllUsersOfCompany();
             if(!invitType){
                 if(moment(props.company.activation_day, 'YYYY-MM-DD', true).diff(moment().format('YYYY-MM-DD')) <= 0){
                     enqueueSnackbar("Company activation is already done.", {

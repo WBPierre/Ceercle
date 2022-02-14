@@ -30,7 +30,7 @@ function CalendarDisplay(props) {
         }
         getTimeSheet();
         getAllTimeSheet();
-    }, []);
+    }, []); //eslint-disable-line
 
     const updateData = async (ind) => {
         if (ind === undefined) {

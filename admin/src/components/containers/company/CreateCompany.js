@@ -2,20 +2,29 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
-import {Button, Divider, Stack, Switch, TextField, Typography} from "@mui/material";
+import {Button, Divider, FormControl, InputLabel, Select, Stack, Switch, TextField, Typography} from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import Grid from "@mui/material/Grid";
 import {useState} from "react";
 import moment from "moment";
 import {useSnackbar} from "notistack";
 import CompanyService from "../../../services/admin/company.service";
-
+import DateAdapter from '@mui/lab/AdapterMoment';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
+import 'moment/locale/fr';
+import MenuItem from "@mui/material/MenuItem";
 
 function CreateCompany(props){
     const [name, setName] = useState('');
-    const [activationDay, setActivationDay] = useState('');
+    const [activationDay, setActivationDay] = useState(null);
     const [invoiceType, setInvoiceType] = useState(false);
+    const [activationHour, setActivationHour] = useState(8);
     const { enqueueSnackbar } = useSnackbar();
+    let list = [];
+    for (let i = 0; i <= 23; i++) {
+        list.push(i);
+    }
 
 
     const createCompany = async () => {
@@ -24,6 +33,7 @@ function CreateCompany(props){
             const resources = {
                 name: name,
                 activationDay: activationDay,
+                activationHour: activationHour,
                 invoiceType: invoiceType ? 1 : 0
             }
             await CompanyService.createCompany(resources).then((res) => {
@@ -46,11 +56,11 @@ function CreateCompany(props){
             case 'name':
                 setName(e.target.value);
                 break;
-            case 'activationDay':
-                setActivationDay(e.target.value);
-                break;
             case 'invoiceType':
                 setInvoiceType(e.target.checked);
+                break;
+            case 'activationHour':
+                setActivationHour(e.target.value);
                 break;
         }
     }
@@ -64,7 +74,7 @@ function CreateCompany(props){
             <DialogTitle>Create a company</DialogTitle>
             <Divider/>
             <DialogContent>
-                <Grid container direction={"column"}>
+                <Grid container direction={"column"} spacing={1}>
                     <Grid item>
                         <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} spacing={5}>
                             <Grid item xs={4}>
@@ -91,17 +101,43 @@ function CreateCompany(props){
                                 <Typography>Activation day</Typography>
                             </Grid>
                             <Grid item xs={8}>
-                                <TextField
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    id="activationDay"
-                                    label="Activation day"
-                                    name="activationDay"
-                                    placeholder={"YYYY-MM-DD"}
-                                    value={activationDay}
-                                    onChange={handleChange}
-                                />
+                                <LocalizationProvider dateAdapter={DateAdapter} locale={'fr'}>
+                                    <DatePicker
+                                        disablePast
+                                        label="Activation day"
+                                        value={activationDay}
+                                        onChange={(newValue) => {
+                                            setActivationDay(moment(newValue).format('YYYY-MM-DD'));
+                                        }}
+                                        renderInput={(params) => <TextField {...params} />}
+                                    />
+                                </LocalizationProvider>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid item>
+                        <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} spacing={5}>
+                            <Grid item xs={4}>
+                                <Typography>Activation Hour</Typography>
+                            </Grid>
+                            <Grid item xs={8}>
+                                <FormControl fullWidth>
+                                    <InputLabel id="demo-simple-select-label">Hour</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={activationHour}
+                                        label="Hour"
+                                        name={"activationHour"}
+                                        onChange={handleChange}
+                                    >
+                                        {list.map((x) => {
+                                            return(
+                                                <MenuItem key={x} value={x}>{x}:00</MenuItem>
+                                            )
+                                        })}
+                                    </Select>
+                                </FormControl>
                             </Grid>
                         </Grid>
                     </Grid>
