@@ -44,105 +44,77 @@ exports.adminVerify = function (req, res, next) {
 }
 
 exports.adminLogin = async function (req, res, next) {
-    try {
-        const errors = validationResult(req);
-
-        if (!errors.isEmpty()) {
-            res.status(422).json({ errors: errors.array() });
-            return;
-        }
-        const { email, password } = req.body
-        await User.findOne(
-            {
-                where: {
-                    email: email
-                }
-            }).then(async (record) => {
-                if (!record) {
-                    res.status(404);
-                    res.send();
-                } else {
-                    if (record.active) {
-                        await Company.findOne({
-                            where: {
-                                id: record.companyId
-                            }
-                        }).then(async (companyRecord) => {
-                            if (!companyRecord) {
+    const { email, password } = req.body
+    await User.findOne(
+        {
+            where: {
+                email: email
+            }
+        }).then(async (record) => {
+            if (!record) {
+                res.status(404);
+                res.send();
+            } else {
+                if (record.active) {
+                    await Company.findOne({
+                        where: {
+                            id: record.companyId
+                        }
+                    }).then(async (companyRecord) => {
+                        if (!companyRecord) {
+                            res.status(403);
+                            res.send();
+                        } else {
+                            if (!companyRecord.admin) {
                                 res.status(403);
                                 res.send();
                             } else {
-                                if (!companyRecord.admin) {
-                                    res.status(403);
-                                    res.send();
-                                } else {
-                                    if (await Security.verifyPassword(password, record.password)) {
-                                        jwt.sign({
-                                            user: {
-                                                id: record.id,
-                                                firstName: record.firstName,
-                                                lastName: record.lastName,
-                                                email: record.email,
-                                                companyId: record.companyId,
-                                                active: record.active,
-                                                isAdmin: record.isAdmin
-                                            }
-                                        }, process.env.JWT_SECRET, { expiresIn: config.jwtExpiration }, async (err, token) => {
-                                            if (err) res.send(err);
-                                            let refreshToken = await RefreshToken.createToken(record.id);
-                                            res.json({ token: token, refreshToken: refreshToken });
-                                        });
-                                    }
+                                if (await Security.verifyPassword(password, record.password)) {
+                                    jwt.sign({
+                                        user: {
+                                            id: record.id,
+                                            companyId: record.companyId,
+                                            isAdmin: record.isAdmin
+                                        }
+                                    }, process.env.JWT_SECRET, { expiresIn: config.jwtExpiration }, async (err, token) => {
+                                        if (err) res.send(err);
+                                        let refreshToken = await RefreshToken.createToken(record.id);
+                                        res.json({ token: token, refreshToken: refreshToken });
+                                    });
                                 }
                             }
-                        })
-                    } else {
-                        res.status(403);
-                        res.send();
-                    }
+                        }
+                    })
+                } else {
+                    res.status(403);
+                    res.send();
                 }
-            });
-    } catch (err) {
-        return next(err)
-    }
+            }
+        });
 }
 
 exports.refreshToken = async function (req, res, next) {
-    try {
-        const errors = validationResult(req);
-
-        if (!errors.isEmpty()) {
-            res.status(422).json({ errors: errors.array() });
-            return;
-        }
-        let refreshToken = await RefreshToken.findOne({ where: { token: req.body.refreshToken } });
-        if (!refreshToken) {
-            res.sendStatus(403);
-            return;
-        }
-        if (RefreshToken.verifyExpiration(refreshToken)) {
-            RefreshToken.destroy({ where: { id: refreshToken.id } });
-            res.sendStatus(403);
-            return;
-        }
-        let user = await refreshToken.getUser();
-        let newAccessToken = await jwt.sign(
-            {
-                user: {
-                    id: user.id,
-                    firstName: user.firstName,
-                    lastName: user.lastName,
-                    email: user.email,
-                    company: await user.getCompany(),
-                    active: user.active,
-                    isAdmin: user.isAdmin,
-                }
-            },
-            process.env.JWT_SECRET, { expiresIn: config.jwtExpiration });
-        return res.json({ token: newAccessToken, refreshToken: refreshToken.token });
-    } catch (err) {
-        return next(err)
+    let refreshToken = await RefreshToken.findOne({ where: { token: req.body.refreshToken } });
+    if (!refreshToken) {
+        res.sendStatus(403);
+        return;
     }
+    if (RefreshToken.verifyExpiration(refreshToken)) {
+        RefreshToken.destroy({ where: { id: refreshToken.id } });
+        res.sendStatus(403);
+        return;
+    }
+    let user = await refreshToken.getUser();
+    let newAccessToken = await jwt.sign(
+        {
+            user: {
+                id: user.id,
+                companyId: user.companyId,
+                isAdmin: user.isAdmin,
+            }
+        },
+        process.env.JWT_SECRET, { expiresIn: config.jwtExpiration });
+    return res.json({ token: newAccessToken, refreshToken: refreshToken.token });
 }
 
 exports.validate = (method) => {

@@ -1,214 +1,133 @@
 const Team = require('../../models/Team');
-const { validationResult, param, body } = require("express-validator");
-const Company = require("../../models/Company");
+const { param, body } = require("express-validator");
 
 exports.createTeam = async function (req, res, next) {
-    try {
-        const errors = validationResult(req);
-
-        if (!errors.isEmpty()) {
-            res.status(422).json({ errors: errors.array() });
-            return;
-        }
-        let to_create = {
-            name: req.body.name,
-            color: req.body.color,
-            companyId: res.locals.auth.user.company.id
-        }
-        console.log(to_create);
-        await Team.create(to_create).then((resultat) => res.json(resultat))
-    } catch (err) {
-        return next(err)
+    let to_create = {
+        name: req.body.name,
+        color: req.body.color,
+        companyId: res.locals.auth.user.companyId
     }
+    await Team.create(to_create).then((resultat) => res.json(resultat))
 }
 
 exports.updateTeamDescription = async function (req, res, next) {
-    try {
-        const errors = validationResult(req);
-
-        if (!errors.isEmpty()) {
-            res.status(422).json({ errors: errors.array() });
-            return;
-        }
-        await Team.findOne(
-            {
-                where: {
-                    id: req.body.teamId
+    await Team.findOne(
+        {
+            where: {
+                id: req.body.teamId
+            }
+        }).then((record) => {
+            if (!record) {
+                res.status(404);
+                res.send();
+            } else {
+                to_update = {
+                    name: req.body.name,
+                    color: req.body.color
                 }
-            }).then((record) => {
-                if (!record) {
-                    res.status(404);
-                    res.send();
-                } else {
-                    to_update = {
-                        name: req.body.name,
-                        color: req.body.color
-                    }
-                    record.update(to_update).then((updated) => {
-                        res.json(updated);
-                    })
-                }
-            });
-    } catch (err) {
-        return next(err)
-    }
+                record.update(to_update).then((updated) => {
+                    res.json(updated);
+                })
+            }
+        });
 }
 
 
 exports.getTeam = async function (req, res, next) {
-    try {
-        const errors = validationResult(req);
-
-        if (!errors.isEmpty()) {
-            res.status(422).json({ errors: errors.array() });
-            return;
+    const id = req.params.id;
+    const team = await Team.findOne({
+        where: {
+            id: id,
         }
-        const id = req.params.id;
-        const team = await Team.findOne({
-            where: {
-                id: id,
-            }
-        });
-        users_linked = await team.getUsers({ where:{active: true, isDeleted: false},order: [['lastName', 'ASC'], ['firstName', 'ASC']] })
-        let users_formatted = []
-        for (let i = 0; i < users_linked.length; i++) {
-            let user = {
-                'id': users_linked[i].id,
-                'name': users_linked[i].firstName + " " + users_linked[i].lastName,
-                'position': users_linked[i].position,
-                'avatar': users_linked[i].profilePicturePath
-            }
-            users_formatted.push(user);
+    });
+    let users_linked = await team.getUsers({ where:{active: true, isDeleted: false},order: [['lastName', 'ASC'], ['firstName', 'ASC']] })
+    let users_formatted = []
+    for (let i = 0; i < users_linked.length; i++) {
+        let user = {
+            'id': users_linked[i].id,
+            'name': users_linked[i].firstName + " " + users_linked[i].lastName,
+            'position': users_linked[i].position,
+            'avatar': users_linked[i].profilePicturePath
         }
-        const team_formatted = {
-            id: team.id,
-            name: team.name,
-            color: team.color,
-            users: users_formatted
-        }
-        res.json(team_formatted);
-    } catch (err) {
-        return next(err)
+        users_formatted.push(user);
     }
+    const team_formatted = {
+        id: team.id,
+        name: team.name,
+        color: team.color,
+        users: users_formatted
+    }
+    res.json(team_formatted);
 }
 
 exports.listAllTeams = async function (req, res, next) {
-    try {
-        const errors = validationResult(req);
-
-        if (!errors.isEmpty()) {
-            res.status(422).json({ errors: errors.array() });
+    await Team.findAll(
+        {
+            where: {
+                companyId: res.locals.auth.user.companyId
+            }
         }
-        await Team.findAll(
-            {
-                where: {
-                    companyId: res.locals.auth.user.company.id
-                }
+    ).then(async (record) => {
+        let teams = [];
+        for (let i = 0; i < record.length; i++) {
+            let object = {
+                'id': record[i].id,
+                'name': record[i].name,
+                'color': record[i].color,
+                'size': (await record[i].getUsers()).length
             }
-        ).then(async (record) => {
-            if (record.length == 0) {
-                res.json([]);
-            } else {
-                let teams = []
-                for (let i = 0; i < record.length; i++) {
-                    let object = {
-                        'id': record[i].id,
-                        'name': record[i].name,
-                        'color': record[i].color,
-                        'size': (await record[i].getUsers()).length
-                    }
-                    teams.push(object);
-                }
-                res.json(teams);
-            }
-        });
-    } catch (err) {
-        return next(err)
-    }
+            teams.push(object);
+        }
+        res.json(teams);
+    });
 }
 
 exports.deleteTeam = async function (req, res, next) {
-    try {
-        const errors = validationResult(req);
-
-        if (!errors.isEmpty()) {
-            res.status(422).json({ errors: errors.array() });
-            return;
-        }
-        const id = req.params.id;
-        await Team.destroy(
-            {
-                where: {
-                    id: id
-                }
-            });
-        res.sendStatus(200);
-    } catch (err) {
-        return next(err)
-    }
+    const id = req.params.id;
+    await Team.destroy(
+        {
+            where: {
+                id: id
+            }
+        });
+    res.sendStatus(200);
 }
 
 exports.addUserToTeam = async function (req, res, next) {
-    try {
-        const errors = validationResult(req);
-
-        if (!errors.isEmpty()) {
-            res.status(422).json({ errors: errors.array() });
-            return;
-        }
-        console.log(res.body)
-        const teamId = req.body.teamId;
-        const userId = req.body.userId;
-        console.log(teamId)
-        console.log(userId)
-        await Team.findOne(
-            {
-                where: {
-                    id: teamId
-                }
-            }).then(async (record) => {
-                if (!record) {
-                    res.status(404);
-                    res.send();
-                } else {
-                    await record.addUser(userId)
-                    res.sendStatus(200);
-                }
-            })
-    } catch (err) {
-        return next(err)
-    }
+    const teamId = req.body.teamId;
+    const userId = req.body.userId;
+    await Team.findOne(
+        {
+            where: {
+                id: teamId
+            }
+        }).then(async (record) => {
+            if (!record) {
+                res.status(404);
+                res.send();
+            } else {
+                await record.addUser(userId)
+                res.sendStatus(200);
+            }
+        })
 }
 exports.deleteUserFromTeam = async function (req, res, next) {
-    try {
-        const errors = validationResult(req);
-
-        if (!errors.isEmpty()) {
-            res.status(422).json({ errors: errors.array() });
-            return;
-        }
-        console.log(res.body)
-        const teamId = req.body.teamId;
-        const userId = req.body.userId;
-        console.log(teamId)
-        console.log(userId)
-        await Team.findOne(
-            {
-                where: {
-                    id: teamId
-                }
-            }).then(async (record) => {
-                if (!record) {
-                    res.status(404);
-                    res.send();
-                } else {
-                    await record.removeUser(userId)
-                    res.sendStatus(200);
-                }
-            })
-    } catch (err) {
-        return next(err)
-    }
+    const teamId = req.body.teamId;
+    const userId = req.body.userId;
+    await Team.findOne(
+        {
+            where: {
+                id: teamId
+            }
+        }).then(async (record) => {
+            if (!record) {
+                res.status(404);
+                res.send();
+            } else {
+                await record.removeUser(userId)
+                res.sendStatus(200);
+            }
+        })
 }
 
 

@@ -6,163 +6,47 @@ const jwt = require('jsonwebtoken');
 const config = require('../../../config/auth.config');
 const RefreshToken = require("../../models/RefreshToken");
 
-exports.adminVerify = function (req, res, next) {
-    const authHeader = req.headers.authorization;
-
-    if (!authHeader) {
-        return res.sendStatus(400);
-    } else {
-        jwt.verify(authHeader.split(' ')[1], process.env.JWT_SECRET, async (err, authData) => {
-            if (err) return res.status(401).json(err);
-            if (authData.user.companyId === undefined) {
-                res.sendStatus(403);
+exports.login = async function (req, res, next) {
+    const { email, password } = req.body
+    await User.findOne(
+        {
+            where: {
+                email: email
+            }
+        }).then(async (record) => {
+            if (!record) {
+                res.status(403);
+                res.send();
             } else {
-                await Company.findOne({
-                    where: {
-                        id: authData.user.companyId
-                    }
-                }).then(async (companyRecord) => {
-                    if (!companyRecord) {
-                        res.status(403);
-                        res.send();
-                    } else {
-                        if (!companyRecord.admin) {
+                if (record.active && !record.isDeleted) {
+                    if (await Security.verifyPassword(password, record.password)) {
+                        const company = await record.getCompany();
+                        if(!company.active){
                             res.status(403);
                             res.send();
-                        } else {
-                            res.status(200).json({
-                                firstName: authData.user.firstName,
-                                lastName: authData.user.lastName,
-                                email: authData.user.email
-                            });
+                            return;
                         }
-                    }
-                })
-            }
-        });
-    }
-}
-
-exports.adminLogin = async function (req, res, next) {
-    try {
-        const errors = validationResult(req);
-
-        if (!errors.isEmpty()) {
-            res.status(422).json({ errors: errors.array() });
-            return;
-        }
-        const { email, password } = req.body
-        await User.findOne(
-            {
-                where: {
-                    email: email
-                }
-            }).then(async (record) => {
-                if (!record) {
-                    res.status(404);
-                    res.send();
-                } else {
-                    if (record.active) {
-                        await Company.findOne({
-                            where: {
-                                id: record.companyId
+                        jwt.sign({
+                            user: {
+                                id: record.id,
+                                companyId: record.companyId,
+                                isAdmin: record.isAdmin
                             }
-                        }).then(async (companyRecord) => {
-                            if (!companyRecord) {
-                                res.status(403);
-                                res.send();
-                            } else {
-                                if (!companyRecord.admin) {
-                                    res.status(403);
-                                    res.send();
-                                } else {
-                                    if (await Security.verifyPassword(password, record.password)) {
-                                        jwt.sign({
-                                            user: {
-                                                id: record.id,
-                                                firstName: record.firstName,
-                                                lastName: record.lastName,
-                                                email: record.email,
-                                                companyId: record.companyId,
-                                                active: record.active,
-                                                isAdmin: record.isAdmin
-                                            }
-                                        }, process.env.JWT_SECRET, { expiresIn: config.jwtExpiration }, async (err, token) => {
-                                            if (err) res.send(err);
-                                            let refreshToken = await RefreshToken.createToken(record.id);
-                                            res.json({ token: token, refreshToken: refreshToken });
-                                        });
-                                    }
-                                }
-                            }
-                        })
+                        }, process.env.JWT_SECRET, { expiresIn: config.jwtExpiration }, async (err, token) => {
+                            if (err) res.send(err);
+                            let refreshToken = await RefreshToken.createToken(record.id);
+                            res.json({ token: token, refreshToken: refreshToken });
+                        });
                     } else {
                         res.status(403);
                         res.send();
                     }
-                }
-            });
-    } catch (err) {
-        return next(err)
-    }
-}
-
-
-exports.login = async function (req, res, next) {
-    try {
-        const errors = validationResult(req);
-
-        if (!errors.isEmpty()) {
-            res.status(422).json({ errors: errors.array() });
-            return;
-        }
-        const { email, password } = req.body
-        await User.findOne(
-            {
-                where: {
-                    email: email
-                }
-            }).then(async (record) => {
-                if (!record) {
+                } else {
                     res.status(403);
                     res.send();
-                } else {
-                    if (record.active && !record.isDeleted) {
-                        if (await Security.verifyPassword(password, record.password)) {
-                            const company = await record.getCompany();
-                            if(!company.active){
-                                res.status(403);
-                                res.send();
-                                return;
-                            }
-                            jwt.sign({
-                                user: {
-                                    id: record.id,
-                                    firstName: record.firstName,
-                                    lastName: record.lastName,
-                                    email: record.email,
-                                    company: company,
-                                    active: record.active,
-                                    isAdmin: record.isAdmin,
-                                }
-                            }, process.env.JWT_SECRET, { expiresIn: config.jwtExpiration }, async (err, token) => {
-                                if (err) res.send(err);
-                                let refreshToken = await RefreshToken.createToken(record.id);
-                                res.json({ token: token, refreshToken: refreshToken });
-                            });
-                        } else {
-                            res.status(403);
-                            res.send();
-                        }
-                    } else {
-                        res.status(403);
-                        res.send();
-                    }
                 }
-            });
-    } catch (err) {
-        return next(err)
-    }
+            }
+        });
 }
 
 exports.verify = function (req, res, next) {
@@ -248,11 +132,7 @@ exports.refreshToken = async function (req, res, next) {
             {
                 user: {
                     id: user.id,
-                    firstName: user.firstName,
-                    lastName: user.lastName,
-                    email: user.email,
-                    company: await user.getCompany(),
-                    active: user.active,
+                    companyId: user.companyId,
                     isAdmin: user.isAdmin,
                 }
             },

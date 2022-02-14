@@ -204,7 +204,7 @@ export default function CompanyRules() {
                                     value={remoteMaximum}
                                     onChange={handleRemoteMaximum}
                                 >
-                                    {daysWorked.filter((day, index) => (day < 6) || (day > 5 && ruleScope == 1)).map((day, index) => {
+                                    {daysWorked.filter((day, index) => (day < 6) || (day > 5 && ruleScope === 1)).map((day, index) => {
                                         return (
                                             <MenuItem value={index} key={index}>{day}</MenuItem>
                                         )
@@ -222,7 +222,7 @@ export default function CompanyRules() {
                                     value={officeMaximum}
                                     onChange={handleOfficeMaximum}
                                 >
-                                    {daysWorked.filter((day, index) => (day < 6) || (day > 5 && ruleScope == 1)).map((day, index) => {
+                                    {daysWorked.filter((day, index) => (day < 6) || (day > 5 && ruleScope === 1)).map((day, index) => {
                                         return (
                                             <MenuItem value={index} key={index}>{day}</MenuItem>
                                         )
@@ -243,9 +243,9 @@ export default function CompanyRules() {
                 </Grid>
 
                 <Grid item mt={1}>
-                    <Grid container direction="column" spacing={1}>
-                        <Grid item>
-                            <FormControl sx={{ width: 200 }} variant="standard">
+                    <Grid container direction="row" spacing={1}>
+                        <Grid item xs={2}>
+                            <FormControl variant="standard">
                                 <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements:Mon')}</InputLabel>
                                 <Select
                                     id="demo-customized-select-native"
@@ -262,8 +262,8 @@ export default function CompanyRules() {
                             </FormControl>
                         </Grid>
 
-                        <Grid item>
-                            <FormControl sx={{ width: 200 }} variant="standard">
+                        <Grid item xs={2}>
+                            <FormControl variant="standard">
                                 <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements:Tue')}</InputLabel>
                                 <Select
                                     id="demo-customized-select-native"
@@ -280,8 +280,8 @@ export default function CompanyRules() {
                             </FormControl>
                         </Grid>
 
-                        <Grid item>
-                            <FormControl sx={{ width: 200 }} variant="standard">
+                        <Grid item xs={2}>
+                            <FormControl variant="standard">
                                 <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements:Wed')}</InputLabel>
                                 <Select
                                     id="demo-customized-select-native"
@@ -298,8 +298,8 @@ export default function CompanyRules() {
                             </FormControl>
                         </Grid>
 
-                        <Grid item>
-                            <FormControl sx={{ width: 200 }} variant="standard">
+                        <Grid item xs={2}>
+                            <FormControl variant="standard">
                                 <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements:Thu')}</InputLabel>
                                 <Select
                                     id="demo-customized-select-native"
@@ -316,8 +316,8 @@ export default function CompanyRules() {
                             </FormControl>
                         </Grid>
 
-                        <Grid item>
-                            <FormControl sx={{ width: 200 }} variant="standard">
+                        <Grid item xs={2}>
+                            <FormControl variant="standard">
                                 <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements:Fri')}</InputLabel>
                                 <Select
                                     id="demo-customized-select-native"

@@ -13,7 +13,7 @@ const Mailer = require("../../services/Mailer");
 exports.listAllUsers = async function (req, res) {
     const users = await User.findAll({
         where: {
-            companyId: res.locals.auth.user.company.id,
+            companyId: res.locals.auth.user.companyId,
             active: true,
             isDeleted: false
         },
@@ -23,143 +23,94 @@ exports.listAllUsers = async function (req, res) {
 }
 
 exports.getUserForCompany = async function (req, res, next) {
-    try {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            res.status(422).json({ errors: errors.array() });
-            return;
-        }
-        await User.findAll(
-            {
-                where: {
-                    companyId: res.locals.auth.user.company.id,
-                    active: true,
-                    isDeleted: false
-                },
-                order: [['lastName', 'ASC'], ['firstName', 'ASC']]
-            }).then(async (record) => {
-                if (record.length == 0) {
-                    res.status(404);
-                    res.send();
-                } else {
-                    let users_formatted = []
-                    for (let i = 0; i < record.length; i++) {
-                        let user = {
-                            'id': record[i].id,
-                            'label': record[i].firstName + " " + record[i].lastName
-                        }
-                        users_formatted.push(user);
-                    }
-                    res.json(
-                        users_formatted
-                    )
+    await User.findAll(
+        {
+            where: {
+                companyId: res.locals.auth.user.companyId,
+                active: true,
+                isDeleted: false
+            },
+            order: [['lastName', 'ASC'], ['firstName', 'ASC']]
+        }).then(async (record) => {
+            let users_formatted = []
+            for (let i = 0; i < record.length; i++) {
+                let user = {
+                    'id': record[i].id,
+                    'label': record[i].firstName + " " + record[i].lastName
                 }
-            })
-    } catch (err) {
-        return next(err)
-    }
+                users_formatted.push(user);
+            }
+            res.json(users_formatted)
+        })
 }
 
 exports.verifyInvitation = async function (req, res, next) {
-    try {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            res.status(422).json({ errors: errors.array() });
-            return;
+    const user = await User.findOne({
+        where: {
+            activation_token: req.params.token
         }
-        const user = await User.findOne({
-            where: {
-                activation_token: req.params.token
-            }
-        })
-        if (!user) {
+    })
+    if (!user) {
+        res.status(404);
+        res.send();
+    } else {
+        if (user.active || user.isDeleted) {
             res.status(404);
             res.send();
         } else {
-            if (user.active || user.isDeleted) {
-                res.status(404);
-                res.send();
-            } else {
-                const company = await user.getCompany();
-                res.json({ companyName: company.name, email: user.email });
-            }
+            const company = await user.getCompany();
+            res.json({ companyName: company.name, email: user.email });
         }
-    } catch (err) {
-        return next(err)
     }
 }
 
 exports.disableUser = async function (req, res, next) {
-    try {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            res.status(422).json({ errors: errors.array() });
-            return;
+    const user = await User.findOne({
+        where: {
+            id: req.params.id,
+            companyId: res.locals.auth.user.companyId
         }
-        const user = await User.findOne({
-            where: {
-                id: req.params.id,
-                companyId: res.locals.auth.user.company.id
-            }
-        })
-        if (!user) {
-            res.status(404);
-            res.send();
-        } else {
-            await user.update({ isDeleted: true });
-            res.status(200);
-            res.send();
-        }
-    } catch (err) {
-        return next(err)
+    })
+    if (!user) {
+        res.status(404);
+        res.send();
+    } else {
+        await user.update({ isDeleted: true });
+        res.status(200);
+        res.send();
     }
 }
 
 exports.createUserFromInvitation = async function (req, res, next) {
-    try {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            res.status(422).json({ errors: errors.array() });
-            return;
+    const user = await User.findOne({
+        where: {
+            activation_token: req.body.token
         }
-        const user = await User.findOne({
-            where: {
-                activation_token: req.body.token
-            }
-        })
-        if (!user) {
-            res.status(404);
-            res.send();
-        } else {
-            const password = await Security.hashPassword(req.body.password);
-            const currentDay = Moment().tz('Europe/Paris').format("YYYY-MM-DD");
-            await user.update({ firstName: req.body.firstName, lastName: req.body.lastName, phoneNumber: req.body.phoneNumber, active: true, position: req.body.position, password: password, activation_day: currentDay })
-            res.status(200);
-            res.send();
-        }
-    } catch (err) {
-        return next(err)
+    })
+    if (!user) {
+        res.status(404);
+        res.send();
+    } else {
+        const password = await Security.hashPassword(req.body.password);
+        const currentDay = Moment().tz('Europe/Paris').format("YYYY-MM-DD");
+        await user.update({ firstName: req.body.firstName, lastName: req.body.lastName, phoneNumber: req.body.phoneNumber, active: true, position: req.body.position, password: password, activation_day: currentDay })
+        res.status(200);
+        res.send();
     }
 }
 
 exports.createInvitation = async function (req, res, next) {
-    try {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            res.status(422).json({ errors: errors.array() });
-            return;
-        }
         const user = await User.findOne({
             where: {
                 email: req.body.email,
-                companyId: res.locals.auth.user.company.id
+                companyId: res.locals.auth.user.companyId
             }
         })
         const token = uuidv4()
         if (!user) {
-            await User.create({ email: req.body.email, activation_token: token, companyId: res.locals.auth.user.company.id })
+            await User.create({ email: req.body.email, activation_token: token, companyId: res.locals.auth.user.companyId })
         } else {
-            user.update({ activation_token: token });
+            await user.update({ activation_token: token });
         }
         // SHOOT EMAIL
         let link;
@@ -168,20 +119,17 @@ exports.createInvitation = async function (req, res, next) {
         } else {
             link = "https://app.ceercle.io/invitation/" + token;
         }
-        const company = await Company.findOne({ where: { id: res.locals.auth.user.company.id } });
-        Mailer.sendInvitation(req.body.email, { companyName: company.name, link: link });
+        const company = await Company.findOne({ where: { id: res.locals.auth.user.companyId } });
+        await Mailer.sendInvitation(req.body.email, { companyName: company.name, link: link });
         res.status(200);
         res.send();
-    } catch (err) {
-        return next(err)
-    }
 }
 
 exports.listGlossaryUsers = async function (req, res) {
     const users = await User.findAll({
         order: [['createdAt', 'DESC']],
         where: {
-            companyId: res.locals.auth.user.company.id,
+            companyId: res.locals.auth.user.companyId,
             active: true,
             isDeleted: false
         }
@@ -204,122 +152,88 @@ exports.listGlossaryUsers = async function (req, res) {
 }
 
 exports.listAllUsersNamesForTeam = async function (req, res, next) {
-    try {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            res.status(422).json({ errors: errors.array() });
-            return;
-        }
-        await User.findAll(
-            {
-                where: {
-                    companyId: res.locals.auth.user.company.id,
-                    active: true,
-                    isDeleted: false
-                },
-                order: [['lastName', 'ASC'], ['firstName', 'ASC']]
-            }).then(async (record) => {
-                if (record.length == 0) {
-                    res.status(404);
-                    res.send();
-                } else {
-                    let users_formatted = []
-                    for (let i = 0; i < record.length; i++) {
-                        let user = {
-                            'id': record[i].id,
-                            'label': record[i].firstName + " " + record[i].lastName,
-                            'isInTeam': await record[i].hasTeam(parseInt(req.params.teamIndex))
-                        }
-                        users_formatted.push(user);
-                    }
-                    res.json(
-                        users_formatted
-                    )
+    await User.findAll(
+        {
+            where: {
+                companyId: res.locals.auth.user.companyId,
+                active: true,
+                isDeleted: false
+            },
+            order: [['lastName', 'ASC'], ['firstName', 'ASC']]
+        }).then(async (record) => {
+            let users_formatted = []
+            for (let i = 0; i < record.length; i++) {
+                let user = {
+                    'id': record[i].id,
+                    'label': record[i].firstName + " " + record[i].lastName,
+                    'isInTeam': await record[i].hasTeam(parseInt(req.params.teamIndex))
                 }
-            })
-    } catch (err) {
-        return next(err)
-    }
+                users_formatted.push(user);
+            }
+            res.json(users_formatted)
+        })
 }
 
 exports.getUserInfo = async function (req, res, next) {
-    try {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            res.status(422).json({ errors: errors.array() });
-            return;
-        }
-        await User.findOne(
-            {
-                where: {
-                    id: res.locals.auth.user.id
-                }
-            }).then(async (record) => {
-                if (!record) {
-                    res.status(404);
-                    res.send();
-                } else {
-                    res.status(200).json({
-                        firstName: record.firstName,
-                        lastName: record.lastName,
-                        email: record.email,
-                        phoneNumber: record.phoneNumber,
-                        isAdmin: record.isAdmin,
-                        defaultWorkingMorningHour: record.defaultWorkingMorningHour,
-                        defaultWorkingMorningMinutes: record.defaultWorkingAfternoonMinutes,
-                        defaultWorkingAfternoonHour: record.defaultWorkingAfternoonHour,
-                        defaultWorkingAfternoonMinutes: record.defaultWorkingAfternoonMinutes,
-                        timezone: record.timezone,
-                        lang: record.lang,
-                        mondayStatus: record.mondayStatus,
-                        tuesdayStatus: record.tuesdayStatus,
-                        wednesdayStatus: record.wednesdayStatus,
-                        thursdayStatus: record.thursdayStatus,
-                        fridayStatus: record.fridayStatus,
-                        position: record.position,
-                        profilePicturePath: record.profilePicturePath,
-                        bannerPath: record.bannerPath,
-                        teams: await record.getTeams()
-                    });
-                }
-            })
-    } catch (err) {
-        return next(err)
-    }
+    await User.findOne(
+        {
+            where: {
+                id: res.locals.auth.user.id
+            }
+        }).then(async (record) => {
+            if (!record) {
+                res.status(404);
+                res.send();
+            } else {
+                res.status(200).json({
+                    firstName: record.firstName,
+                    lastName: record.lastName,
+                    email: record.email,
+                    phoneNumber: record.phoneNumber,
+                    isAdmin: record.isAdmin,
+                    defaultWorkingMorningHour: record.defaultWorkingMorningHour,
+                    defaultWorkingMorningMinutes: record.defaultWorkingAfternoonMinutes,
+                    defaultWorkingAfternoonHour: record.defaultWorkingAfternoonHour,
+                    defaultWorkingAfternoonMinutes: record.defaultWorkingAfternoonMinutes,
+                    timezone: record.timezone,
+                    lang: record.lang,
+                    mondayStatus: record.mondayStatus,
+                    tuesdayStatus: record.tuesdayStatus,
+                    wednesdayStatus: record.wednesdayStatus,
+                    thursdayStatus: record.thursdayStatus,
+                    fridayStatus: record.fridayStatus,
+                    position: record.position,
+                    profilePicturePath: record.profilePicturePath,
+                    bannerPath: record.bannerPath,
+                    teams: await record.getTeams()
+                });
+            }
+        })
 }
 
 exports.getUserInTeam = async function (req, res, next) {
-    try {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            res.status(422).json({ errors: errors.array() });
-            return;
-        }
-        await User.findOne(
-            {
-                where: {
-                    id: req.params.userId
-                }
-            }).then(async (record) => {
-                if (!record) {
-                    res.status(404);
-                    res.send();
-                } else {
-                    let teams = record.getTeams()
-                    let flag = false;
-                    for (let i = 0, len = teams.length; i < len; i++) {
-                        if (teams[i].id == req.params.teamId) {
-                            flag = false
-                        }
+    await User.findOne(
+        {
+            where: {
+                id: req.params.userId
+            }
+        }).then(async (record) => {
+            if (!record) {
+                res.status(404);
+                res.send();
+            } else {
+                let teams = record.getTeams()
+                let flag = false;
+                for (let i = 0, len = teams.length; i < len; i++) {
+                    if (teams[i].id === req.params.teamId) {
+                        flag = false
                     }
-                    res.status(200).json({
-                        check: flag
-                    });
                 }
-            })
-    } catch (err) {
-        return next(err)
-    }
+                res.status(200).json({
+                    check: flag
+                });
+            }
+        })
 }
 
 exports.uploadProfile = async function (req, res, next) {
@@ -381,122 +295,76 @@ exports.uploadBanner = async function (req, res, next) {
 }
 
 exports.updatePassword = async function (req, res, next) {
-    try {
-        const errors = validationResult(req);
-
-        if (!errors.isEmpty()) {
-            res.status(422).json({ errors: errors.array() });
-            return;
-        }
-        await User.findOne(
-            {
-                where: {
-                    id: res.locals.auth.user.id
-                }
-            }).then(async (record) => {
-                if (!record) {
-                    res.status(404);
-                    res.send();
+    await User.findOne(
+        {
+            where: {
+                id: res.locals.auth.user.id
+            }
+        }).then(async (record) => {
+            if (!record) {
+                res.status(404);
+                res.send();
+            } else {
+                if (await Security.verifyPassword(req.body.oldPassword, record.password)) {
+                    let password = await Security.hashPassword(req.body.newPassword);
+                    record.update({ password: password }).then((updated) => {
+                        res.json(updated);
+                    })
                 } else {
-                    if (await Security.verifyPassword(req.body.oldPassword, record.password)) {
-                        let password = await Security.hashPassword(req.body.newPassword);
-                        record.update({ password: password }).then((updated) => {
-                            res.json(updated);
-                        })
-                    } else {
-                        res.status(400)
-                        res.send()
-                    }
+                    res.status(400)
+                    res.send()
                 }
-            })
-    } catch (err) {
-        return next(err)
-    }
-}
-
-exports.createUser = async function (req, res, next) {
-    try {
-        const errors = validationResult(req);
-
-        if (!errors.isEmpty()) {
-            res.status(422).json({ errors: errors.array() });
-            return;
-        }
-        req.body.password = await Security.hashPassword(req.body.password)
-        const user = await User.create(req.body);
-        res.json(user);
-    } catch (err) {
-        return next(err)
-    }
+            }
+        })
 }
 
 exports.updateUserSettings = async function (req, res, next) {
-    try {
-        const errors = validationResult(req);
-
-        if (!errors.isEmpty()) {
-            res.status(422).json({ errors: errors.array() });
-            return;
-        }
-        await User.findOne(
-            {
-                where: {
-                    id: res.locals.auth.user.id
+    await User.findOne(
+        {
+            where: {
+                id: res.locals.auth.user.id
+            }
+        }).then((record) => {
+            if (!record) {
+                res.status(404);
+                res.send();
+            } else {
+                let to_update = {
+                    defaultWorkingMorningHour: req.body.defaultWorkingMorningHour,
+                    defaultWorkingMorningMinutes: req.body.defaultWorkingMorningMinutes,
+                    defaultWorkingAfternoonHour: req.body.defaultWorkingAfternoonHour,
+                    defaultWorkingAfternoonMinutes: req.body.defaultWorkingAfternoonMinutes,
+                    timezone: req.body.timezone,
+                    lang: req.body.lang,
+                    mondayStatus: req.body.mondayStatus,
+                    tuesdayStatus: req.body.tuesdayStatus,
+                    wednesdayStatus: req.body.wednesdayStatus,
+                    thursdayStatus: req.body.thursdayStatus,
+                    fridayStatus: req.body.fridayStatus
                 }
-            }).then((record) => {
-                if (!record) {
-                    res.status(404);
-                    res.send();
-                } else {
-                    to_update = {
-                        defaultWorkingMorningHour: req.body.defaultWorkingMorningHour,
-                        defaultWorkingMorningMinutes: req.body.defaultWorkingMorningMinutes,
-                        defaultWorkingAfternoonHour: req.body.defaultWorkingAfternoonHour,
-                        defaultWorkingAfternoonMinutes: req.body.defaultWorkingAfternoonMinutes,
-                        timezone: req.body.timezone,
-                        lang: req.body.lang,
-                        mondayStatus: req.body.mondayStatus,
-                        tuesdayStatus: req.body.tuesdayStatus,
-                        wednesdayStatus: req.body.wednesdayStatus,
-                        thursdayStatus: req.body.thursdayStatus,
-                        fridayStatus: req.body.fridayStatus
-                    }
-                    record.update(to_update).then((updated) => {
-                        res.json(updated);
-                    })
-                }
-            });
-    } catch (err) {
-        return next(err)
-    }
+                record.update(to_update).then((updated) => {
+                    res.json(updated);
+                })
+            }
+        });
 }
 
 exports.updateUserGeneral = async function (req, res, next) {
-    try {
-        const errors = validationResult(req);
-
-        if (!errors.isEmpty()) {
-            res.status(422).json({ errors: errors.array() });
-            return;
-        }
-        await User.findOne(
-            {
-                where: {
-                    id: res.locals.auth.user.id
-                }
-            }).then((record) => {
-                if (!record) {
-                    res.status(404);
-                    res.send();
-                } else {
-                    record.update({ position: req.body.position, phoneNumber: req.body.phoneNumber }).then((updated) => {
-                        res.json(updated);
-                    })
-                }
-            });
-    } catch (err) {
-        return next(err)
-    }
+    await User.findOne(
+        {
+            where: {
+                id: res.locals.auth.user.id
+            }
+        }).then((record) => {
+            if (!record) {
+                res.status(404);
+                res.send();
+            } else {
+                record.update({ position: req.body.position, phoneNumber: req.body.phoneNumber }).then((updated) => {
+                    res.json(updated);
+                })
+            }
+        });
 }
 
 exports.validate = (method) => {
@@ -539,34 +407,6 @@ exports.validate = (method) => {
                 body('position', 'position is not a string').isString(),
                 body('token', 'token doesn\'t exist').exists(),
                 body('token', 'token is not a string').isString(),
-            ]
-        }
-        case 'createUser': {
-            return [
-                body('firstName', 'firstName doesn\'t exist').exists(),
-                body('firstName', 'firstName is not a string').isString(),
-                body('lastName', 'lastName doesn\'t exist').exists(),
-                body('lastName', 'lastName is not a string').isString(),
-                body('email', 'email doesn\'t exist').exists(),
-                body('email', 'email is not an email').isEmail(),
-                body('password', 'password doesn\'t exist').exists(),
-                body('password', 'password is not a string').isString(),
-                body('phoneNumber', 'phoneNumber doesn\'t exist').exists(),
-                body('phoneNumber', 'phoneNumber is not a string').isString(),
-                body('companyId', 'companyId doesn\'t exist').exists(),
-                body('companyId', 'companyId is not a number').isNumeric(),
-            ]
-        }
-        case 'updateUser': {
-            return [
-                param('id', 'id doesn\'t exist').exists(),
-                param('id', 'id is not a number').isNumeric(),
-                body('firstName', 'firstName is not a string').isString(),
-                body('lastName', 'lastName is not a string').isString(),
-                body('email', 'email is not an email').isEmail(),
-                body('password', 'password is not a string').isString(),
-                body('phoneNumber', 'phoneNumber is not a string').isString(),
-                body('companyId', 'companyId is not a number').isNumeric(),
             ]
         }
         case 'updateUserSettings': {
@@ -623,6 +463,12 @@ exports.validate = (method) => {
                 param('userId', 'userId is not a number').isNumeric(),
                 param('teamId', 'teamId doesn\'t exist').exists(),
                 param('teamId', 'teamId is not a number').isNumeric()
+            ]
+        }
+        case 'listAllUsersNamesForTeam': {
+            return [
+                param('teamIndex', 'teamIndex doesn\'t exist').exists(),
+                param('teamIndex', 'teamIndex is not a number').isNumeric()
             ]
         }
     }
