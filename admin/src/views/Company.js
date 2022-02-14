@@ -53,7 +53,7 @@ function a11yProps(index) {
 
 function Company() {
     const { id } = useParams();
-
+    let navigate = useNavigate();
     const [company, setCompany] = useState(null);
 
 
@@ -74,6 +74,7 @@ function Company() {
     return (
         <CustomContainer>
             <Box sx={{ width: '100%' }}>
+                <Button onClick={() => navigate('/company')} variant={"contained"}>Back to Companies</Button>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <Tabs value={value} onChange={handleChangeTab} aria-label="basic tabs example">
                         <Tab label="Information" {...a11yProps(0)} />

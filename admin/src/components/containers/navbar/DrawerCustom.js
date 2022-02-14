@@ -18,6 +18,7 @@ import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import {Drawer} from "@mui/material";
 import * as Admin_Routes from "../../../navigation/Routes";
+import DashboardIcon from '@mui/icons-material/Dashboard';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -78,12 +79,19 @@ function DrawerCustom(props){
             </DrawerHeader>
 
             <Divider />
+            <ListItem button onClick={() => navigate(Admin_Routes.DASHBOARD)}>
+                <ListItemIcon>
+                    <DashboardIcon/>
+                </ListItemIcon>
+                <ListItemText style={{color: "#7F7F7F"}} primary={"Dashboard"} />
+            </ListItem>
             <ListItem button onClick={() => navigate(Admin_Routes.COMPANY_LIST)}>
                 <ListItemIcon>
                     <AppRegistrationIcon />
                 </ListItemIcon>
                 <ListItemText style={{color: "#7F7F7F"}} primary={"Companies"} />
             </ListItem>
+            <Divider style={{ marginTop: 20 }} />
             <ListItem button disabled>
                 <ListItemIcon>
                     <AppRegistrationIcon />

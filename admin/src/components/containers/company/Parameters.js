@@ -245,7 +245,7 @@ function Parameters(props){
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item>
+                <Grid item hidden={true}>
                     <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} spacing={5}>
                         <Grid item md={2} textAlign={"center"}>
                             <Typography style={{fontSize: 18}}>Max office capacity</Typography>
@@ -256,7 +256,7 @@ function Parameters(props){
                     </Grid>
                 </Grid>
                 <Divider/>
-                <Grid item>
+                <Grid item hidden={true}>
                     <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} spacing={5}>
                         <Grid item md={2} textAlign={"center"}>
                             <Typography style={{fontSize: 18}}>Restrictive Rules</Typography>

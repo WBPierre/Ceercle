@@ -129,6 +129,11 @@ function Login(){
                                 autoComplete="current-password"
                                 value={password}
                                 onChange={handleChange}
+                                onKeyPress={(e) => {
+                                    if (e.key === 'Enter') {
+                                        login();
+                                    }
+                                }}
                                 />
                                 <Button
                                 type="button"
