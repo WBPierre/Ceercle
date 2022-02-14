@@ -24,7 +24,7 @@ function Mood(props) {
             setMood(res.data);
         }
         getMood();
-    }, []);
+    }, []); //eslint-disable-line
 
     const updateMood = async (type) => {
         const resources = {

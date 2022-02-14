@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-import CustomContainer from "../../components/containers/app/CustomContainer";
 import { useEffect, useState } from "react";
 import TeamsGrid from "../../components/containers/app/teams/TeamsGrid";
 import Grid from "@mui/material/Grid";
@@ -24,7 +23,6 @@ function Teams() {
 
     const handleAddTeam = async (name, color) => {
         let team_to_add = { 'name': name, 'color': color }
-        console.log(team_to_add)
         await TeamService.createTeam(team_to_add).then(async (res) => {
             if (res.status === 200) {
                 enqueueSnackbar(t('app:teams:main.snackbar_success'), {

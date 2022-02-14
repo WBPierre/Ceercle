@@ -12,7 +12,8 @@
     "set_up_by_day": "Spécification par jour",
     "snackbar_success": "Paramètres enregistrés",
     "snackbar_warning": "Les valeurs proposées ne sont pas compatibles avec le remplissage du calendrier.",
-    "restrictive": "Règles restrictives"
+    "restrictive": "Règles restrictives",
+    "restrictive_info": "Si activé, tous les collaborateurs devront réserver un poste pour déclarer leur présence au bureau."
   },
   "offices": {
     "tab_name": "Paramétrage des bureaux",

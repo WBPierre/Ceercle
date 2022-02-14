@@ -94,6 +94,8 @@ exports.createUserFromInvitation = async function (req, res, next) {
         const password = await Security.hashPassword(req.body.password);
         const currentDay = Moment().tz('Europe/Paris').format("YYYY-MM-DD");
         await user.update({ firstName: req.body.firstName, lastName: req.body.lastName, phoneNumber: req.body.phoneNumber, active: true, position: req.body.position, password: password, activation_day: currentDay })
+        let company = await user.getCompany();
+        await Mailer.sendActivationAccount(user.email, {companyName: company.name});
         res.status(200);
         res.send();
     }

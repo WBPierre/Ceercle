@@ -3,7 +3,6 @@ import { styled, useTheme } from '@mui/material/styles';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import WeatherService from "../../../../services/app/weather.service";
 import { useEffect, useState } from "react";
@@ -49,11 +48,14 @@ export default function AppBar(props) {
     const context = useAuth();
     const day = moment().tz("Europe/London").locale(i18n.language);
 
-    useEffect(async () => {
-        await WeatherService.getWeather("Paris").then((res) => {
-            setTemp(res.data.current.temp_c);
-            setWeatherIcon(res.data.current.condition.icon);
-        });
+    useEffect(() => {
+        async function getWeather() {
+            await WeatherService.getWeather("Paris").then((res) => {
+                setTemp(res.data.current.temp_c);
+                setWeatherIcon(res.data.current.condition.icon);
+            });
+        }
+        getWeather();
     }, []);
 
 
@@ -92,7 +94,7 @@ export default function AppBar(props) {
 
                 <div style={{ flexGrow: 1 }} />
 
-                <img src={weatherIcon} />
+                <img src={weatherIcon} alt={"weather"}/>
 
                 <Typography
                     mr={3}

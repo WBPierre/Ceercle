@@ -9,7 +9,6 @@ import AwayIcon from "../../../molecules/icons/AwayIcon";
 import OffIcon from "../../../molecules/icons/OffIcon";
 import * as React from "react";
 import { useEffect, useState } from "react";
-import useAuth from "../../../context/auth/AuthHelper";
 import { useTranslation } from "react-i18next";
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
@@ -72,6 +71,7 @@ function PlanningButton(props) {
                 case 2: return "#F3F7FE"
                 case 3: return "#FAF6FF"
                 case 4: return "#FEFAF1"
+                default: return;
             }
         } else {
             switch (props.data.afternoon) {
@@ -80,6 +80,7 @@ function PlanningButton(props) {
                 case 2: return "#F3F7FE"
                 case 3: return "#FAF6FF"
                 case 4: return "#FEFAF1"
+                default: return;
             }
         }
 
@@ -95,6 +96,8 @@ function PlanningButton(props) {
                     case 2: return (<ManWorkingIcon sx={{ width: 40, height: 40 }} />)
                     case 3: return (<AwayIcon sx={{ width: 40, height: 40 }} />)
                     case 4: return (<OffIcon sx={{ width: 40, height: 40 }} />)
+                    default: return;
+
                 }
             } else {
                 switch (props.data.afternoon) {
@@ -103,6 +106,7 @@ function PlanningButton(props) {
                     case 2: return (<ManWorkingIcon sx={{ width: 40, height: 40 }} />)
                     case 3: return (<AwayIcon sx={{ width: 40, height: 40 }} />)
                     case 4: return (<OffIcon sx={{ width: 40, height: 40 }} />)
+                    default: return;
                 }
             }
         } else {
@@ -112,6 +116,7 @@ function PlanningButton(props) {
                 case 2: return (<ManWorkingIcon sx={{ width: 40, height: 40 }} />)
                 case 3: return (<AwayIcon sx={{ width: 40, height: 40 }} />)
                 case 4: return (<OffIcon sx={{ width: 40, height: 40 }} />)
+                default: return;
             }
         }
     }
@@ -124,6 +129,7 @@ function PlanningButton(props) {
                 case 2: return "#0070C0"
                 case 3: return "#7030A0"
                 case 4: return "#FFA800"
+                default: return;
             }
         } else {
             switch (props.data.afternoon) {
@@ -132,6 +138,7 @@ function PlanningButton(props) {
                 case 2: return "#0070C0"
                 case 3: return "#7030A0"
                 case 4: return "#FFA800"
+                default: return;
             }
         }
     }
@@ -144,6 +151,7 @@ function PlanningButton(props) {
                 case 2: return "#DAEFFA"
                 case 3: return "#E6DCF1"
                 case 4: return "#FBE7B4"
+                default: return;
             }
         } else {
             switch (props.data.afternoon) {
@@ -152,6 +160,7 @@ function PlanningButton(props) {
                 case 2: return "#DAEFFA"
                 case 3: return "#E6DCF1"
                 case 4: return "#FBE7B4"
+                default: return;
             }
         }
     }
@@ -164,6 +173,7 @@ function PlanningButton(props) {
                 case 2: return t('app:statuses:home_working')
                 case 3: return t('app:statuses:on_the_go')
                 case 4: return t('app:statuses:off')
+                default: return;
             }
         } else {
             switch (props.data.afternoon) {
@@ -172,6 +182,7 @@ function PlanningButton(props) {
                 case 2: return t('app:statuses:home_working')
                 case 3: return t('app:statuses:on_the_go')
                 case 4: return t('app:statuses:off')
+                default: return;
             }
         }
     }
@@ -204,14 +215,11 @@ function PlanningButton(props) {
     const [available, setAvailable] = useState(true);
     useEffect(() => {
         async function isSeatAvailable() {
-            //let when = 2;
-            //if (props.half) { when = props.order }
-            //console.log(props.order)
             const res = await OfficeService.isSeatAvailable(props.data.day, props.data.morning);
             setAvailable(res.data.available)
         }
         isSeatAvailable();
-    }, [props.data.day])
+    }, [props.data.day]) //eslint-disable-line
 
 
     return (

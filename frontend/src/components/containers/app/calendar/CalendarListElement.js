@@ -66,6 +66,7 @@ function CalendarListElement(props) {
                 return t('app:statuses:on_the_go')
             case 4:
                 return t('app:statuses:off')
+            default: return;
         }
     }
 
@@ -92,6 +93,7 @@ function CalendarListElement(props) {
                 return (
                     <OffIcon sx={{ height: 26, width: 26 }} />
                 )
+            default: return;
         }
     }
 
@@ -107,6 +109,7 @@ function CalendarListElement(props) {
                 return '#7030A0'
             case 4:
                 return '#FFA800'
+            default: return;
         }
     }
 
@@ -122,6 +125,7 @@ function CalendarListElement(props) {
                 return '#E6DCF1'
             case 4:
                 return '#FBE7B4'
+            default: return;
         }
     }
 
@@ -158,7 +162,7 @@ function CalendarListElement(props) {
                             </Grid>
                             <Grid item xs={12} hidden={open} style={{ flex: 1 }}>
                                 <Grid container direction={"row"} alignItems={"center"} spacing={1} style={{ marginLeft: '1%' }}>
-                                    {props.data.map((item, i) => {
+                                    {props.data.map((item, i) => { //eslint-disable-line
                                         if (i < 3) {
                                             return (
                                                 <Grid item key={i}>

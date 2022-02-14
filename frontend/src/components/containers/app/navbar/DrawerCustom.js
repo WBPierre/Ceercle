@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
@@ -35,7 +35,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function DrawerCustom(props) {
-    const theme = useTheme();
     let navigate = useNavigate();
     const { t } = useTranslation();
     const location = useLocation();

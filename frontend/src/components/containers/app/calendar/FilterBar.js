@@ -46,7 +46,7 @@ function FilterBar(props) {
 
     useEffect(() => {
         props.handleFilters({ search: search, team: team, type: type });
-    }, [search, team, type]);
+    }, [search, team, type]); //eslint-disable-line
 
 
     if (props.week.length === 0) {

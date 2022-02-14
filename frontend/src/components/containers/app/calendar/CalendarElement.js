@@ -18,7 +18,7 @@ function CalendarElement(props) {
 
     const filterByTeam = (data) => {
         if (props.filters.team !== 0) {
-            return data.filter((x) => {
+            return data.filter((x) => { //eslint-disable-line
                 if (x.teams.filter(t => t.id === props.filters.team).length > 0) {
                     return x;
                 }

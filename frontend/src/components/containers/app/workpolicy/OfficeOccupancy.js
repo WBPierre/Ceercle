@@ -44,8 +44,7 @@ export default function OfficeOccupancy() {
 
     useEffect(() => {
         getOfficesElements();
-
-    }, []);
+    }, []); // eslint-disable-line
 
     const { enqueueSnackbar } = useSnackbar();
 

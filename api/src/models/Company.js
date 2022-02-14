@@ -18,7 +18,7 @@ const Company = db.define('company', {
         type: DataTypes.BOOLEAN,
         defaultValue: false
     },
-    restrictive_rules: {
+    officeBookingMandatory: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
     },
@@ -69,6 +69,10 @@ const Company = db.define('company', {
     activation_day: {
         type: DataTypes.STRING,
         allowNull: true
+    },
+    activation_hour: {
+        type: DataTypes.INTEGER,
+        defaultValue: 8
     },
     active: {
         type: DataTypes.BOOLEAN,

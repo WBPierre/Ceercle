@@ -7,7 +7,6 @@ import { Divider } from "@mui/material";
 import Office from "../../components/containers/app/dashboard/Office";
 import Team from "../../components/containers/app/dashboard/Team";
 import Mood from "../../components/containers/app/dashboard/Mood";
-import CustomContainer from "../../components/containers/app/CustomContainer";
 import { useEffect, useState } from "react";
 import PlanningBoard from "../../components/containers/app/dashboard/PlanningBoard";
 import useAuth from "../../components/context/auth/AuthHelper";
@@ -41,7 +40,7 @@ export default function Dashboard(props) {
 
 
 
-    const [daySelected, setDaySelected] = useState(day.format('YYYY-MM-DD'));
+    const daySelected = day.format('YYYY-MM-DD');
 
 
     useEffect(() => {
@@ -60,7 +59,7 @@ export default function Dashboard(props) {
         }
         getTimeSheet();
         getHasUserValidatedCompanyRules(index);
-    }, []);
+    }, []); // eslint-disable-line
 
     const getHasUserValidatedCompanyRules = async (ind) => {
         await TimeService.getHasUserValidatedCompanyRules(ind).then((res) => {

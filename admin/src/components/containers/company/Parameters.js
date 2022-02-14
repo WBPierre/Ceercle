@@ -17,6 +17,9 @@ import {
 import MenuItem from "@mui/material/MenuItem";
 import moment, {Moment} from "moment";
 import {Divide} from "hamburger-react";
+import DateAdapter from "@mui/lab/AdapterMoment";
+import DatePicker from "@mui/lab/DatePicker";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
 
 function Parameters(props){
 
@@ -39,8 +42,13 @@ function Parameters(props){
     const [thursday, setThursday] = useState(0);
     const [friday, setFriday] = useState(0);
     const [activationDay, setActivationDay] = useState('');
+    const [activationHour, setActivationHour] = useState(8);
     const [invoiceType, setInvoiceType] = useState(0);
     const [active, setActive] = useState(false);
+    let list = [];
+    for (let i = 0; i <= 23; i++) {
+        list.push(i);
+    }
 
     useEffect(() => {
         if(props.company !== null) {
@@ -59,6 +67,7 @@ function Parameters(props){
             setThursday(props.company.thursdayMandatoryStatus);
             setFriday(props.company.fridayMandatoryStatus);
             setActivationDay(props.company.activation_day);
+            setActivationHour(props.company.activation_hour);
             setActive(props.company.active);
             setInvoiceType(props.company.invoice_type);
         }
@@ -75,8 +84,8 @@ function Parameters(props){
             case 'invoiceType':
                 setInvoiceType(event.target.checked);
                 break;
-            case 'activationDay':
-                setActivationDay(event.target.value);
+            case 'activationHour':
+                setActivationHour(event.target.value);
                 break;
             case 'restrictiveRules':
                 setRestrictiveRules(event.target.checked);
@@ -143,10 +152,10 @@ function Parameters(props){
                 invoice_type: invoiceType,
                 restrictive_rules: restrictiveRules,
                 activation_day: activationDay,
+                activation_hour: parseInt(activationHour),
                 ruleScope: ruleScope ? 1: 0,
                 activeOfficeHandler: activeOffice
             };
-            console.log(resources);
             await CompanyService.updateCompany(props.company.id, resources).then(async (res) => {
                 if (res.status === 200) {
                     enqueueSnackbar('Update saved.', {
@@ -166,7 +175,6 @@ function Parameters(props){
     }
 
     const validate = () => {
-        if (maxCapacity === '' || maxCapacity < 0 || maxCapacity > 100) return false;
         if (monday < 0 || monday > 2) return false;
         if (tuesday < 0 || tuesday > 2) return false;
         if (wednesday < 0 || wednesday > 2) return false;
@@ -174,7 +182,7 @@ function Parameters(props){
         if (friday < 0 || friday > 2) return false;
         if (name.length === 0 || name.length < 2) return false;
         let date = moment(activationDay, 'YYYY-MM-DD', true);
-        if(!date.isValid() || date.diff(moment().format('YYYY-MM-DD')) <= 0) return false;
+        if(!date.isValid() || date.diff(moment().format('YYYY-MM-DD')) < 0) return false;
         return true;
     }
 
@@ -208,12 +216,39 @@ function Parameters(props){
                 <Grid item>
                     <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"}  spacing={5}>
                         <Grid item md={2} textAlign={"center"}>
-                            <Typography style={{fontSize: 18}}>Activation day</Typography>
-                            <Typography style={{fontSize: 18}}>(Automatic)</Typography>
+                            <Typography style={{fontSize: 18}}>Automatic activation</Typography>
                         </Grid>
-                        <Grid item md={10}>
-                            <TextField fullWidth name={"activationDay"} onChange={handleChange} label="Day" id="fullWidth" value={activationDay} />
+                        <Grid item md={6}>
+                            <LocalizationProvider dateAdapter={DateAdapter} locale={'fr'}>
+                                <DatePicker
+                                    disablePast
+                                    label="Activation day"
+                                    value={activationDay}
+                                    onChange={(newValue) => {
+                                        setActivationDay(moment(newValue).format('YYYY-MM-DD'));
+                                    }}
+                                    renderInput={(params) => <TextField {...params} />}
+                                />
+                            </LocalizationProvider>
                         </Grid>
+                        <Grid item md={4}>
+                            <FormControl fullWidth>
+                                <InputLabel id="demo-simple-select-label">Hour</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={activationHour}
+                                    label="Hour"
+                                    name={"activationHour"}
+                                    onChange={handleChange}
+                                >
+                                    {list.map((x) => {
+                                        return(
+                                            <MenuItem key={x} value={x}>{x}:00</MenuItem>
+                                        )
+                                    })}
+                                </Select>
+                            </FormControl>                        </Grid>
                     </Grid>
                 </Grid>
                 <Grid item>
@@ -245,7 +280,7 @@ function Parameters(props){
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item>
+                <Grid item hidden={true}>
                     <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} spacing={5}>
                         <Grid item md={2} textAlign={"center"}>
                             <Typography style={{fontSize: 18}}>Max office capacity</Typography>
@@ -256,7 +291,7 @@ function Parameters(props){
                     </Grid>
                 </Grid>
                 <Divider/>
-                <Grid item>
+                <Grid item hidden={true}>
                     <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} spacing={5}>
                         <Grid item md={2} textAlign={"center"}>
                             <Typography style={{fontSize: 18}}>Restrictive Rules</Typography>

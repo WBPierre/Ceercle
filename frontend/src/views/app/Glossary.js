@@ -1,16 +1,9 @@
 import * as React from 'react';
-import { useTheme } from '@mui/material/styles';
-import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 import Grid from "@mui/material/Grid";
 import SearchGlossary from "../../components/containers/app/glossary/SearchGlossary";
 import InfoByUser from "../../components/containers/app/glossary/InfoByUser";
 
 export default function Glossary() {
-    const theme = useTheme();
-    let navigate = useNavigate();
-    const { t } = useTranslation();
-
     const [userToDisplay, setUserToDisplay] = React.useState(0);
     const newUserToDisplay = (newUser) => {
         setUserToDisplay(newUser);

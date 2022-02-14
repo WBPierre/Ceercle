@@ -4,7 +4,6 @@ import Typography from '@mui/material/Typography';
 import { useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import { Divider } from "@mui/material";
-import CustomContainer from "../../components/containers/app/CustomContainer";
 import AvatarSection from '../../components/containers/app/account/AvatarSection';
 import PreferencesSection from '../../components/containers/app/account/PreferencesSection';
 import GeneralSection from '../../components/containers/app/account/GeneralSection';

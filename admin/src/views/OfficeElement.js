@@ -213,6 +213,7 @@ function OfficeElement(){
 
     return(
         <CustomContainer>
+            <Button onClick={() => navigate('/company/'+id)} variant={"contained"}>Back to company</Button>
             <Grid container direction={"column"}>
                 <Grid item>
                     <Dialog

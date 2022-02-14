@@ -12,60 +12,16 @@ import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { Divider } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
 import * as App_Routes from "../../../../navigation/app/Routes";
-
-
-
 import SettingSectionTemplate from '../account/SettingSectionTemplate';
 
 export default function TeamRules(props) {
 
-    const timezone = moment.tz.names()
-    const theme = useTheme();
-    const { t } = useTranslation();
 
     const daysWorked = [0, 1, 2, 3, 4, 5]
     const statuses = ["Libre", "En télétravail", "Au bureau", "En déplacement"]
-
-
-
-    const [companyMin, setCompanyMin] = React.useState(1);
-    const handleCompanyMin = (event) => {
-        setCompanyMin(event.target.value);
-    };
-
-    const [companyMax, setCompanyMax] = React.useState(3);
-    const handleCompanyMax = (event) => {
-        setCompanyMax(event.target.value);
-    };
-
-    const [mondayStatusCompany, setMondayStatusCompany] = React.useState(0);
-    const handleChangeMondayStatusCompany = (event) => {
-        setMondayStatusCompany(event.target.value);
-    };
-
-    const [tuesdayStatusCompany, setTuesdayStatusCompany] = React.useState(1);
-    const handleChangeTuesdayStatusCompany = (event) => {
-        setTuesdayStatusCompany(event.target.value);
-    };
-
-    const [wednesdayStatusCompany, setWednesdayStatusCompany] = React.useState(2);
-    const handleChangeWednesdayStatusCompany = (event) => {
-        setWednesdayStatusCompany(event.target.value);
-    };
-
-    const [thursdayStatusCompany, setThursdayStatusCompany] = React.useState(1);
-    const handleChangeThursdayStatusCompany = (event) => {
-        setThursdayStatusCompany(event.target.value);
-    };
-
-    const [fridayStatusCompany, setFridayStatusCompany] = React.useState(0);
-    const handleChangeFridayStatusCompany = (event) => {
-        setFridayStatusCompany(event.target.value);
-    };
 
 
     const teams = [{ "name": "Finances", "min": 1, "max": 3, "mon": 0, "tue": 1, "wed": 2, "thu": 1, "fri": 0 },

@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { Line } from "react-chartjs-2";
 
 

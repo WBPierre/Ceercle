@@ -1,7 +1,5 @@
 import * as React from 'react';
 import { useTranslation } from "react-i18next";
-import Typography from '@mui/material/Typography';
-import CustomContainer from "../../components/containers/app/CustomContainer";
 import OfficeOccupancy from '../../components/containers/app/workpolicy/OfficeOccupancy';
 import CompanyRules from '../../components/containers/app/workpolicy/CompanyRules';
 import PropTypes from 'prop-types';
@@ -9,7 +7,6 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import UserManagement from "../../components/containers/app/workpolicy/UserManagement";
-import Integration from "../../components/containers/app/workpolicy/Integration";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;

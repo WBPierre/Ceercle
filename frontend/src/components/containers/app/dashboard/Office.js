@@ -1,12 +1,8 @@
-import { Avatar, AvatarGroup, Paper } from "@mui/material";
 import * as React from "react";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import { useTranslation } from "react-i18next";
-import { useEffect, useState } from "react";
-import BookingService from "../../../../services/app/booking.service";
-import OfficeModal from "./OfficeModal";
 
 function Office(props) {
 

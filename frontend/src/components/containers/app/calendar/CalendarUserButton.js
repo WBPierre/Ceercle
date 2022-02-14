@@ -18,12 +18,6 @@ function CalendarUserButton(props){
     const [half, setHalf] = useState(false);
     const open = Boolean(anchorEl);
 
-    const handleClick = (event) => {
-        if (!props.data.past) {
-            setAnchorEl(event.currentTarget);
-        }
-    };
-
     const handleClose = () => {
         setAnchorEl(null);
     };
@@ -47,6 +41,7 @@ function CalendarUserButton(props){
                     case 2: return (<ManWorkingIcon sx={{ width: 40, height: 40 }} />)
                     case 3: return (<AwayIcon sx={{ width: 40, height: 40 }} />)
                     case 4: return (<OffIcon sx={{ width: 40, height: 40 }} />)
+                    default: return;
                 }
             }else{
                 switch(props.data.afternoon){
@@ -55,6 +50,7 @@ function CalendarUserButton(props){
                     case 2: return (<ManWorkingIcon sx={{ width: 40, height: 40 }} />)
                     case 3: return (<AwayIcon sx={{ width: 40, height: 40 }} />)
                     case 4: return (<OffIcon sx={{ width: 40, height: 40 }} />)
+                    default: return;
                 }
             }
         }else{
@@ -64,6 +60,7 @@ function CalendarUserButton(props){
                 case 2: return (<ManWorkingIcon sx={{ width: 40, height: 40 }} />)
                 case 3: return (<AwayIcon sx={{ width: 40, height: 40 }} />)
                 case 4: return (<OffIcon sx={{ width: 40, height: 40 }} />)
+                default: return;
             }
         }
     }
@@ -76,6 +73,7 @@ function CalendarUserButton(props){
                 case 2: return "#0070C0"
                 case 3: return "#7030A0"
                 case 4: return "#FFA800"
+                default: return;
             }
         }else{
             switch(props.data.afternoon){
@@ -84,6 +82,7 @@ function CalendarUserButton(props){
                 case 2: return "#0070C0"
                 case 3: return "#7030A0"
                 case 4: return "#FFA800"
+                default: return;
             }
         }
     }
@@ -96,6 +95,7 @@ function CalendarUserButton(props){
                 case 2: return "#DAEFFA"
                 case 3: return "#E6DCF1"
                 case 4: return "#FBE7B4"
+                default: return;
             }
         }else{
             switch(props.data.afternoon){
@@ -104,6 +104,7 @@ function CalendarUserButton(props){
                 case 2: return "#DAEFFA"
                 case 3: return "#E6DCF1"
                 case 4: return "#FBE7B4"
+                default: return;
             }
         }
     }

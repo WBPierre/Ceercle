@@ -53,7 +53,7 @@ function UserAddModal(props) {
 
     useEffect(() => {
         listUsers();
-    }, []);
+    }, []); // eslint-disable-line
 
     return (
         <Modal

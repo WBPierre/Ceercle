@@ -79,7 +79,7 @@ function Team(props) {
             })
         }
         getTeamTimeSheet();
-    }, [])
+    }, []); //eslint-disable-line
 
     let navigate = useNavigate();
     if (team === null) {
@@ -144,7 +144,7 @@ function Team(props) {
                         </Grid>
                         <Grid item xs={12} paddingLeft={2}>
                             <Grid container direction={"row"} alignItems={"center"} spacing={2}>
-                                {team[1].map((e, index) => {
+                                {team[1].map((e, index) => { //eslint-disable-line
                                         if(index < 3){
                                             return(
                                                 <Grid item key={index}>
@@ -209,7 +209,7 @@ function Team(props) {
                         </Grid>
                         <Grid item xs={12} paddingLeft={2}>
                             <Grid container direction={"row"} alignItems={"center"} spacing={2}>
-                                {team[2].map((e, index) => {
+                                {team[2].map((e, index) => { //eslint-disable-line
                                     if (index < 3) {
                                         return (
                                             <Grid item key={index}>
@@ -274,7 +274,7 @@ function Team(props) {
                         </Grid>
                         <Grid item xs={12} paddingLeft={2}>
                             <Grid container direction={"row"} alignItems={"center"} spacing={2}>
-                                {team[3].map((e, index) => {
+                                {team[3].map((e, index) => { //eslint-disable-line
                                         if(index < 3){
                                             return(
                                                 <Grid item key={index}>
@@ -347,7 +347,7 @@ function Team(props) {
                         </Grid>
                         <Grid item xs={12} paddingLeft={2}>
                             <Grid container direction={"row"} alignItems={"center"} spacing={2}>
-                                {team[4].map((e, index) => {
+                                {team[4].map((e, index) => { //eslint-disable-line
                                         if(index < 3){
                                             return(
                                                 <Grid item key={index}>
@@ -426,7 +426,7 @@ function Team(props) {
                     </Grid>
                     <Grid item xs={12} paddingLeft={2}>
                         <Grid container direction={"row"} alignItems={"center"} spacing={2}>
-                            {team[0].map((e, index) => {
+                            {team[0].map((e, index) => { //eslint-disable-line
                                     if (index < 3) {
                                         return (
                                             <Grid item key={index}>
