@@ -5,121 +5,87 @@ const Office = require("../../models/Office");
 const OfficeElementService = require('../../services/OfficeElementService');
 
 exports.removeOfficeBooking = async function(req, res, next){
-    try {
-        const errors = validationResult(req);
-
-        if (!errors.isEmpty()) {
-            res.status(422).json({ errors: errors.array() });
-            return;
+    await OfficeBooking.findOne({
+        where:{
+            day: req.params.day,
+            userId: res.locals.auth.user.id
         }
+    }).then(async (record)=> {
+        if(!record){
+            res.status(404);
+            res.send();
+        }else{
+            await record.destroy();
+            res.status(200);
+            res.send();
+        }
+    })
+}
+
+exports.setOfficeBooking = async function (req, res, next){
+    const {available, used} = await OfficeElementService.verifyRoomOccupancy(req.body.officeElementId, req.body.day);
+    if(!available){
+        res.status(403);
+        res.send();
+    }else{
         await OfficeBooking.findOne({
             where:{
-                day: req.params.day,
+                day: req.body.day,
                 userId: res.locals.auth.user.id
             }
         }).then(async (record)=> {
             if(!record){
-                res.status(404);
-                res.send();
+                const officeBooking = await OfficeBooking.create({day: req.body.day, morning: req.body.morning, afternoon: req.body.afternoon, officeElementId: req.body.officeElementId, userId: res.locals.auth.user.id})
+                res.json(officeBooking);
             }else{
-                await record.destroy();
-                res.status(200);
-                res.send();
+                record.update({morning: req.body.morning, afternoon: req.body.afternoon, officeElementId: req.body.officeElementId}).then((updated) => {
+                    res.json(updated);
+                })
             }
         })
-    } catch(err) {
-        return next(err)
-    }
-}
-
-exports.setOfficeBooking = async function (req, res, next){
-    try {
-        const errors = validationResult(req);
-
-        if (!errors.isEmpty()) {
-            res.status(422).json({ errors: errors.array() });
-            return;
-        }
-
-        const {available, used} = await OfficeElementService.verifyRoomOccupancy(req.body.officeElementId, req.body.day);
-        if(!available){
-            res.status(403);
-            res.send();
-        }else{
-            req.body.userId = res.locals.auth.user.id
-            await OfficeBooking.findOne({
-                where:{
-                    day: req.body.day,
-                    userId: res.locals.auth.user.id
-                }
-            }).then(async (record)=> {
-                if(!record){
-                    const officeBooking = await OfficeBooking.create(req.body)
-                    res.json(officeBooking);
-                }else{
-                    record.update({morning: req.body.morning, afternoon: req.body.afternoon, officeElementId: req.body.officeElementId}).then((updated) => {
-                        res.json(updated);
-                    })
-                }
-            })
-        }
-
-    } catch(err) {
-        return next(err)
     }
 }
 
 exports.getOfficeBooking = async function(req, res, next) {
-    try {
-        const errors = validationResult(req);
-
-        if (!errors.isEmpty()) {
-            res.status(422).json({ errors: errors.array() });
-            return;
+    await OfficeBooking.findOne({
+        where:{
+            day:req.params.day,
+            userId: res.locals.auth.user.id
         }
-        await OfficeBooking.findOne({
-            where:{
-                day:req.params.day,
-                userId: res.locals.auth.user.id
-            }
-        }).then(async (record)=> {
-            if(!record){
-                res.json([]);
-            }else{
-                let resa = [];
-                let officeElementId = record.officeElementId;
-                while(officeElementId !== null) {
-                    const element = await OfficeElement.findOne({
-                        where:{
-                            id: officeElementId
-                        }
-                    });
-                    if(element) {
-                        officeElementId = element.parentId;
-                        if(resa.length === 0) {
-                            resa.push({id: element.id, name: element.name, color:element.color, type: element.type, capacity: element.capacity, maxCapacity: element.maxCapacity});
-                        }else {
-                            resa.unshift({id: element.id, name: element.name, color:element.color, type: element.type, capacity: element.capacity, maxCapacity: element.maxCapacity});
-                        }
-                        if(element.parentId === null){
-                            const parent = await Office.findOne({
-                                where:{
-                                    id: element.officeId
-                                }
-                            });
-                            if(parent){
-                                resa.unshift({id: parent.id, name: parent.name, capacity: parent.capacity, maxCapacity: parent.maxCapacity});
+    }).then(async (record)=> {
+        if(!record){
+            res.json([]);
+        }else{
+            let resa = [];
+            let officeElementId = record.officeElementId;
+            while(officeElementId !== null) {
+                const element = await OfficeElement.findOne({
+                    where:{
+                        id: officeElementId
+                    }
+                });
+                if(element) {
+                    officeElementId = element.parentId;
+                    if(resa.length === 0) {
+                        resa.push({id: element.id, name: element.name, color:element.color, type: element.type, capacity: element.capacity, maxCapacity: element.maxCapacity});
+                    }else {
+                        resa.unshift({id: element.id, name: element.name, color:element.color, type: element.type, capacity: element.capacity, maxCapacity: element.maxCapacity});
+                    }
+                    if(element.parentId === null){
+                        const parent = await Office.findOne({
+                            where:{
+                                id: element.officeId
                             }
+                        });
+                        if(parent){
+                            resa.unshift({id: parent.id, name: parent.name, capacity: parent.capacity, maxCapacity: parent.maxCapacity});
                         }
                     }
                 }
-                res.json(resa);
-
             }
-        })
-    } catch(err) {
-        return next(err)
-    }
+            res.json(resa);
+        }
+    })
 }
 
 exports.validate = (method) => {

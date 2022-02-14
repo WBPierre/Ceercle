@@ -1,6 +1,6 @@
 const Contact = require("../../models/Contact");
 const Mailer = require('../../services/Mailer');
-const { body, param, validationResult } = require('express-validator')
+const { body, validationResult } = require('express-validator')
 
 /*
 exports.preview = async function (req, res, next) {
@@ -24,40 +24,9 @@ exports.sendContact = async function (req, res, next){
     }
 }
 
-exports.listAllContacts = async function(req, res, next) {
-    const contacts = await Contact.findAll({order:[['createdAt', 'DESC']]}, );
-    res.json(contacts);
-}
-
-exports.getContact = async function(req, res, next) {
-    try {
-        const errors = validationResult(req);
-
-        if (!errors.isEmpty()) {
-            res.status(422).json({ errors: errors.array() });
-            return;
-        }
-        const id = req.param('id');
-        const contact = await Contact.findAll({
-            where: {
-                id: id,
-            }
-        });
-        res.json(contact);
-    } catch(err) {
-        return next(err)
-    }
-}
-
 
 exports.validate = (method) => {
     switch(method) {
-        case 'getContact': {
-            return [
-                param('id', 'id doesn\'t exist').exists(),
-                param('id', 'id is not a number').isNumeric()
-            ]
-        }
         case 'contactRequest': {
             return [
                 body('firstName', 'firstName doesn\'t exist').exists(),

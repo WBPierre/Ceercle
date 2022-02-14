@@ -187,10 +187,6 @@ function Login() {
                                         }
                                     }}
                                 />
-                                <FormControlLabel
-                                    control={<Checkbox value="remember" sx={{ color: "#363535" }} />}
-                                    label={t('public:login:stay_connected')}
-                                />
                                 <Button
                                     type="button"
                                     fullWidth

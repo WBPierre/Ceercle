@@ -1,13 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const OfficeController = require("../../../src/controllers/app/OfficeController");
-const { isAdminUser, isCeercle, isUserAuthenticated } = require("../../../src/middlewares/AuthMiddleware");
+const { isAdminUser, isUserAuthenticated } = require("../../../src/middlewares/AuthMiddleware");
+const { verifyErrors } = require('../../../src/middlewares/ErrorMiddleware');
 
 router.get('/listOffices', [isAdminUser], OfficeController.listOffices);
-router.get('/:id', [isUserAuthenticated, OfficeController.validate('getOffices')], OfficeController.getOffices);
-router.post('/', [isCeercle, OfficeController.validate('createOffice')], OfficeController.createOffice);
-router.post('/updateOccupancy', [isAdminUser, OfficeController.validate('updateOccupancy')], OfficeController.updateOccupancy);
-router.put('/', [isAdminUser, OfficeController.validate('updateOffice')], OfficeController.updateOffice);
-router.delete('/', [isCeercle, OfficeController.validate('deleteOffice')], OfficeController.deleteOffice);
+router.get('/:id', [isUserAuthenticated, OfficeController.validate('getOffices'), verifyErrors], OfficeController.getOffices);
 
 module.exports = router;
