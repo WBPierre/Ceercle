@@ -6,5 +6,10 @@
   "my_account": "My account",
   "stay_connected": "Stay connected",
   "connect_my_self": "Log in",
-  "password_forgotten": "Forgot password?"
+  "password_forgotten": "Forgot password?",
+  "modal": {
+    "title": "Fill in your email",
+    "thanks": "Thank you",
+    "text": "If the email corresponds to an existing account, you will receive an email to reset your password."
+  }
 }

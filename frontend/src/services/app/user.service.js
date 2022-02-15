@@ -1,70 +1,75 @@
 import ApiService from "../api.service";
 
 class UserService {
-    constructor() {
-        this.request = ApiService
-    }
+  constructor() {
+    this.request = ApiService;
+  }
 
-    async verifyInvitation(token) {
-        return this.request.get('/users/invitation/verify/' + token);
-    }
+  async verifyInvitation(token) {
+    return this.request.get("/users/invitation/verify/" + token);
+  }
 
-    async createUserFromInvitation(resources) {
-        return this.request.post('/users/invitation/validate', resources);
-    }
+  async createUserFromInvitation(resources) {
+    return this.request.post("/users/invitation/validate", resources);
+  }
 
-    async createInvitation(resources) {
-        return this.request.post('/users/invitation/create', resources)
-    }
+  async createInvitation(resources) {
+    return this.request.post("/users/invitation/create", resources);
+  }
 
-    async disableUser(id) {
-        return this.request.get('/users/disable/' + id)
-    }
+  async disableUser(id) {
+    return this.request.get("/users/disable/" + id);
+  }
 
-    async getUsers() {
-        return this.request.get('/users/');
-    }
+  async getUsers() {
+    return this.request.get("/users/");
+  }
 
-    async getGlossaryUsers() {
-        return this.request.get('/users/list/all');
-    }
+  async getGlossaryUsers() {
+    return this.request.get("/users/list/all");
+  }
 
-    async getUserForCompany() {
-        return this.request.get('/users/company/all');
-    }
+  async resetPassword(resources) {
+    return this.request.post("/users/resetPassword", resources);
+  }
 
-    async getUserInfo() {
-        return this.request.get('/users/current');
-    }
+  async getUserForCompany() {
+    return this.request.get("/users/company/all");
+  }
 
-    async getUserInTeam(resources) {
-        return this.request.get('/users/userInTeam/' + resources.userId + "/" + resources.teamId);
-    }
+  async getUserInfo() {
+    return this.request.get("/users/current");
+  }
 
-    async getUsersNamesForTeam(teamIndex) {
-        return this.request.get('/users/namesForTeam/' + teamIndex);
-    }
+  async getUserInTeam(resources) {
+    return this.request.get(
+      "/users/userInTeam/" + resources.userId + "/" + resources.teamId
+    );
+  }
 
-    async updateUserGeneral(ressource) {
-        return this.request.put('/users/general', ressource);
-    }
+  async getUsersNamesForTeam(teamIndex) {
+    return this.request.get("/users/namesForTeam/" + teamIndex);
+  }
 
-    async updateUserPassword(ressource) {
-        return this.request.put('/users/password', ressource);
-    }
+  async updateUserGeneral(ressource) {
+    return this.request.put("/users/general", ressource);
+  }
 
-    async updateUserSettings(ressource) {
-        return this.request.put('/users/settings', ressource);
-    }
+  async updateUserPassword(ressource) {
+    return this.request.put("/users/password", ressource);
+  }
 
-    async uploadProfile(resources) {
-        return this.request.post('/users/uploadProfile', resources);
-    }
+  async updateUserSettings(ressource) {
+    return this.request.put("/users/settings", ressource);
+  }
 
-    async uploadBanner(resources) {
-        return this.request.post('/users/uploadBanner', resources);
-    }
+  async uploadProfile(resources) {
+    return this.request.post("/users/uploadProfile", resources);
+  }
+
+  async uploadBanner(resources) {
+    return this.request.post("/users/uploadBanner", resources);
+  }
 }
-
 
 export default new UserService();

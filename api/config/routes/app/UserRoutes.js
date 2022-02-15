@@ -14,6 +14,9 @@ router.put('/general', [isUserAuthenticated, UserController.validate('updateUser
 router.put('/password', [isUserAuthenticated, UserController.validate('updatePassword'), verifyErrors], UserController.updatePassword);
 router.put('/settings', [isUserAuthenticated, UserController.validate('updateUserSettings'), verifyErrors], UserController.updateUserSettings);
 router.post('/uploadProfile', [isUserAuthenticated], UserController.uploadProfile);
+router.post("/resetPassword", [UserController.validate("resetPassword"), verifyErrors], UserController.resetPassword);
+router.post('/uploadProfile', [isUserAuthenticated], UserController.uploadProfile);
+router.post('/uploadProfile', [isUserAuthenticated], UserController.uploadProfile);
 router.post('/uploadBanner', [isUserAuthenticated], UserController.uploadBanner);
 router.get('/invitation/verify/:token', [UserController.validate('verifyInvitation'), verifyErrors], UserController.verifyInvitation);
 router.post('/invitation/validate', [UserController.validate('createUserFromInvitation'), verifyErrors], UserController.createUserFromInvitation);

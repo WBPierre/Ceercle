@@ -2,10 +2,10 @@ const Contact = require("../../models/Contact");
 const Mailer = require('../../services/Mailer');
 const { body, validationResult } = require('express-validator')
 
-/*
-exports.preview = async function (req, res, next) {
-    res.render('accountActivation', {companyName: 'The Bradery'});
-}*/
+
+// exports.preview = async function (req, res, next) {
+//     res.render('resetPassword', {firstName: 'Louis', token: "27"} );
+// }
 
 
 exports.sendContact = async function (req, res, next){
