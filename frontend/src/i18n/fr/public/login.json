@@ -6,5 +6,10 @@
   "my_account": "Mon compte",
   "stay_connected": "Rester connecté(e)",
   "connect_my_self": "Me connecter",
-  "password_forgotten": "Mot de passe oublié ?"
+  "password_forgotten": "Mot de passe oublié ?",
+  "modal": {
+    "title": "Renseigner votre email",
+    "thanks": "Merci",
+    "text": "Si votre email correspond à un compte existant, vous recevrez un mail pour réinitialiser votre mot de passe."
+  }
 }

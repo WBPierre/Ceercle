@@ -5,6 +5,6 @@ const { verifyErrors } = require('../../../src/middlewares/ErrorMiddleware');
 
 
 router.post('/', [ContactController.validate('contactRequest'), verifyErrors], ContactController.sendContact);
-//router.get('/preview', ContactController.preview); // preview for mailer
+// router.get('/preview', ContactController.preview); // preview for mailer
 
 module.exports = router;

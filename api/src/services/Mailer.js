@@ -49,3 +49,15 @@ exports.sendActivationReport = async function(data){
         html: compiledTemplate.render(data) // html body
     });
 }
+
+exports.sendResetPassword = async function(data){
+    let template = fs.readFileSync('./views/resetPassword.html', 'utf-8');
+    let compiledTemplate = hogan.compile(template);
+    return await Transporter.sendEmail({
+        from: '"Ceercle 👻" <contact@ceercle.io>', // sender address
+        to: data.email, // list of receivers
+        subject: "[Ceercle] Nouveau mot de passe", // Subject line
+        text: "Information", // plain text body
+        html: compiledTemplate.render(data) // html body
+    });
+}
