@@ -1,6 +1,7 @@
 const Company = require("../../models/Company");
 const { validationResult, param, body } = require("express-validator");
 const moment = require("moment");
+const { Op } = require("sequelize");
 
 exports.createCompany = async function (req, res, next) {
     const { name, activationDay, activationHour, invoiceType } = req.body;
@@ -60,7 +61,7 @@ exports.updateCompany = async function (req, res, next) {
 }
 
 exports.listAllCompanies = async function (req, res, next) {
-    const companies = await Company.findAll({ order: [['createdAt', 'DESC']] },);
+    const companies = await Company.findAll({ where:{admin:false, name:{[Op.ne]: 'Démo'}}, order: [['createdAt', 'DESC']] },);
     res.json(companies)
 }
 

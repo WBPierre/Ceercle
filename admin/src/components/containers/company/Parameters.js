@@ -221,11 +221,11 @@ function Parameters(props){
                         <Grid item md={6}>
                             <LocalizationProvider dateAdapter={DateAdapter} locale={'fr'}>
                                 <DatePicker
-                                    disablePast
                                     label="Activation day"
+                                    disabled={moment(activationDay, 'YYYY-MM-DD', true).diff(moment().format('YYYY-MM-DD')) <= 0}
                                     value={activationDay}
                                     onChange={(newValue) => {
-                                        setActivationDay(moment(newValue).format('YYYY-MM-DD'));
+                                        setActivationDay((moment(newValue).format('YYYY-MM-DD')));
                                     }}
                                     renderInput={(params) => <TextField {...params} />}
                                 />
@@ -238,6 +238,7 @@ function Parameters(props){
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
                                     value={activationHour}
+                                    disabled={moment(activationDay, 'YYYY-MM-DD', true).diff(moment().format('YYYY-MM-DD')) <= 0}
                                     label="Hour"
                                     name={"activationHour"}
                                     onChange={handleChange}

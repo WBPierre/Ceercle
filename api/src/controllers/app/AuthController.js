@@ -110,37 +110,27 @@ exports.verify = function (req, res, next) {
 }
 
 exports.refreshToken = async function (req, res, next) {
-    try {
-        const errors = validationResult(req);
-
-        if (!errors.isEmpty()) {
-            res.status(422).json({ errors: errors.array() });
-            return;
-        }
-        let refreshToken = await RefreshToken.findOne({ where: { token: req.body.refreshToken } });
-        if (!refreshToken) {
-            res.sendStatus(403);
-            return;
-        }
-        if (RefreshToken.verifyExpiration(refreshToken)) {
-            RefreshToken.destroy({ where: { id: refreshToken.id } });
-            res.sendStatus(403);
-            return;
-        }
-        let user = await refreshToken.getUser();
-        let newAccessToken = await jwt.sign(
-            {
-                user: {
-                    id: user.id,
-                    companyId: user.companyId,
-                    isAdmin: user.isAdmin,
-                }
-            },
-            process.env.JWT_SECRET, { expiresIn: config.jwtExpiration });
-        return res.json({ token: newAccessToken, refreshToken: refreshToken.token });
-    } catch (err) {
-        return next(err)
+    let refreshToken = await RefreshToken.findOne({ where: { token: req.body.refreshToken } });
+    if (!refreshToken) {
+        res.sendStatus(403);
+        return;
     }
+    if (RefreshToken.verifyExpiration(refreshToken)) {
+        RefreshToken.destroy({ where: { id: refreshToken.id } });
+        res.sendStatus(403);
+        return;
+    }
+    let user = await refreshToken.getUser();
+    let newAccessToken = await jwt.sign(
+        {
+            user: {
+                id: user.id,
+                companyId: user.companyId,
+                isAdmin: user.isAdmin,
+            }
+        },
+        process.env.JWT_SECRET, { expiresIn: config.jwtExpiration });
+    return res.json({ token: newAccessToken, refreshToken: refreshToken.token });
 }
 
 exports.validate = (method) => {

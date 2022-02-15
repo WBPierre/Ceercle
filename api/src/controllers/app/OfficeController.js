@@ -3,39 +3,23 @@ const { validationResult, param, body } = require("express-validator");
 
 
 exports.getOffices = async function (req, res, next) {
-    try {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            res.status(422).json({ errors: errors.array() });
+    const id = req.params.id;
+    const result = await Office.findAll({
+        where: {
+            companyId: id
         }
-        const id = req.params.id;
-        const result = await Office.findAll({
-            where: {
-                companyId: id
-            }
-        })
-        res.json(result);
-    } catch (err) {
-        return next(err)
-    }
+    })
+    res.json(result);
 }
 
 exports.listOffices = async function (req, res, next) {
-    try {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            res.status(422).json({ errors: errors.array() });
-        }
-        const result = await Office.findAll({
-            where: {
-                companyId: res.locals.auth.user.companyId
-            },
-            order: [['name', 'ASC']]
-        })
-        res.json(result);
-    } catch (err) {
-        return next(err)
-    }
+    const result = await Office.findAll({
+        where: {
+            companyId: res.locals.auth.user.companyId
+        },
+        order: [['name', 'ASC']]
+    })
+    res.json(result);
 }
 
 exports.validate = (method) => {
