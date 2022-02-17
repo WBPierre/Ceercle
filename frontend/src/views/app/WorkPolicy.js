@@ -7,6 +7,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import UserManagement from "../../components/containers/app/workpolicy/UserManagement";
+import Integration from "../../components/containers/app/workpolicy/Integration";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -60,6 +61,7 @@ export default function WorkPolicy() {
                     <Tab label={t('app:rh_parameters:company.tab_name')} {...a11yProps(0)} />
                     <Tab label={t('app:rh_parameters:offices.tab_name')} {...a11yProps(1)} />
                     <Tab label={t('app:rh_parameters:users.tab_name')} {...a11yProps(2)} />
+                    <Tab label={t('app:rh_parameters:integration.tab_name')} {...a11yProps(3)} />
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
@@ -70,6 +72,9 @@ export default function WorkPolicy() {
             </TabPanel>
             <TabPanel value={value} index={2}>
                 <UserManagement />
+            </TabPanel>
+            <TabPanel value={value} index={3}>
+                <Integration />
             </TabPanel>
         </div >
 

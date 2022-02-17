@@ -3,6 +3,7 @@ const { db } = require("./../../config/database");
 const User = require('./User');
 const Team = require('./Team');
 const Office = require('./Office');
+const Integration = require('./Integration');
 
 const Company = db.define('company', {
     // Model attributes are defined here
@@ -94,5 +95,8 @@ Team.belongsTo(Company);
 
 Company.hasMany(Office);
 Office.belongsTo(Company);
+
+Company.hasMany(Integration);
+Integration.belongsTo(Company);
 
 module.exports = Company;
