@@ -12,6 +12,7 @@ import TeamSetting from '../../views/app/TeamSetting';
 import Stats from "../../views/app/Stats";
 import CustomContainer from "../../components/containers/app/CustomContainer";
 import Invitation from "../../views/app/Invitation";
+import Auth2Validation from "../../views/app/Auth2Validation";
 
 function Rooter() {
     return (
@@ -26,6 +27,7 @@ function Rooter() {
                 <Route exact path={"/teams"} element={<ProtectedRoute><Teams /></ProtectedRoute>} />
                 <Route exact path={"/team-settings/:id"} element={<ProtectedRoute><TeamSetting /></ProtectedRoute>} />
                 <Route exact path={"/stats"} element={<ProtectedRoute><Stats /></ProtectedRoute>} />
+                <Route exact path={"/verify/oAuth"} element={<ProtectedRoute><Auth2Validation /></ProtectedRoute>} />
                 <Route exact path={"/invitation/:token"} element={<Invitation/>}/>
                 <Route path={"*"} element={<Navigate to={App_Routes.LOGIN} />} />
             </Routes>

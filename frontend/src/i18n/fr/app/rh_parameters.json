@@ -36,6 +36,8 @@
   "integration": {
     "tab_name": "Intégrations",
     "title": "Intégration avec des applications tierces",
-    "subtitle": "Intégrer directement vos employés en vous connectant avec une autre application."
+    "subtitle": "Intégrer directement vos employés en vous connectant avec une autre application.",
+    "slack": "Intégrer Ceercle dans votre workspace Slack",
+    "verify": "Vérification auprès de Slack en cours. Vous serez redirigé une fois l'opération terminée. \nMerci de patienter"
   }
 }

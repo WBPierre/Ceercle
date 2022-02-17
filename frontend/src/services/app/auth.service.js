@@ -16,6 +16,7 @@ class AuthService{
     async refreshToken(){
         return this.request.post('/auth/refreshToken');
     }
+
 }
 
 export default new AuthService();
