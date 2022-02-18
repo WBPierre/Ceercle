@@ -3,23 +3,22 @@ const {validationResult, param, body} = require("express-validator");
 const OfficeElement = require("../../models/OfficeElement");
 const Office = require("../../models/Office");
 const OfficeElementService = require('../../services/OfficeElementService');
+const OfficeBookingRepository = require('../../repositories/OfficeBookingRepository');
+const OfficeElementRepository = require('../../repositories/OfficeElementRepository');
+const OfficeRepository = require('../../repositories/OfficeRepository');
 
 exports.removeOfficeBooking = async function(req, res, next){
-    await OfficeBooking.findOne({
-        where:{
-            day: req.params.day,
-            userId: res.locals.auth.user.id
-        }
-    }).then(async (record)=> {
-        if(!record){
-            res.status(404);
-            res.send();
-        }else{
-            await record.destroy();
-            res.status(200);
-            res.send();
-        }
-    })
+    await OfficeBookingRepository.findOneByDayAndUserId(req.params.day, res.locals.auth.user.id)
+        .then(async (record)=> {
+            if(!record){
+                res.status(404);
+                res.send();
+            }else{
+                await record.destroy();
+                res.status(200);
+                res.send();
+            }
+        })
 }
 
 exports.setOfficeBooking = async function (req, res, next){
@@ -28,64 +27,48 @@ exports.setOfficeBooking = async function (req, res, next){
         res.status(403);
         res.send();
     }else{
-        await OfficeBooking.findOne({
-            where:{
-                day: req.body.day,
-                userId: res.locals.auth.user.id
-            }
-        }).then(async (record)=> {
-            if(!record){
-                const officeBooking = await OfficeBooking.create({day: req.body.day, morning: req.body.morning, afternoon: req.body.afternoon, officeElementId: req.body.officeElementId, userId: res.locals.auth.user.id})
-                res.json(officeBooking);
-            }else{
-                record.update({morning: req.body.morning, afternoon: req.body.afternoon, officeElementId: req.body.officeElementId}).then((updated) => {
-                    res.json(updated);
-                })
-            }
-        })
+        await OfficeBookingRepository.findOneByDayAndUserId(req.body.day, res.locals.auth.user.id)
+            .then(async (record)=> {
+                if(!record){
+                    const officeBooking = await OfficeBooking.create({day: req.body.day, morning: req.body.morning, afternoon: req.body.afternoon, officeElementId: req.body.officeElementId, userId: res.locals.auth.user.id})
+                    res.json(officeBooking);
+                }else{
+                    record.update({morning: req.body.morning, afternoon: req.body.afternoon, officeElementId: req.body.officeElementId}).then((updated) => {
+                        res.json(updated);
+                    })
+                }
+            })
     }
 }
 
 exports.getOfficeBooking = async function(req, res, next) {
-    await OfficeBooking.findOne({
-        where:{
-            day:req.params.day,
-            userId: res.locals.auth.user.id
-        }
-    }).then(async (record)=> {
-        if(!record){
-            res.json([]);
-        }else{
-            let resa = [];
-            let officeElementId = record.officeElementId;
-            while(officeElementId !== null) {
-                const element = await OfficeElement.findOne({
-                    where:{
-                        id: officeElementId
-                    }
-                });
-                if(element) {
-                    officeElementId = element.parentId;
-                    if(resa.length === 0) {
-                        resa.push({id: element.id, name: element.name, color:element.color, type: element.type, capacity: element.capacity, maxCapacity: element.maxCapacity});
-                    }else {
-                        resa.unshift({id: element.id, name: element.name, color:element.color, type: element.type, capacity: element.capacity, maxCapacity: element.maxCapacity});
-                    }
-                    if(element.parentId === null){
-                        const parent = await Office.findOne({
-                            where:{
-                                id: element.officeId
+    await OfficeBookingRepository.findOneByDayAndUserId(req.params.day, res.locals.auth.user.id)
+        .then(async (record)=> {
+            if(!record){
+                res.json([]);
+            }else{
+                let resa = [];
+                let officeElementId = record.officeElementId;
+                while(officeElementId !== null) {
+                    const element = await OfficeElementRepository.findOneById(officeElementId);
+                    if(element) {
+                        officeElementId = element.parentId;
+                        if(resa.length === 0) {
+                            resa.push({id: element.id, name: element.name, color:element.color, type: element.type, capacity: element.capacity, maxCapacity: element.maxCapacity});
+                        }else {
+                            resa.unshift({id: element.id, name: element.name, color:element.color, type: element.type, capacity: element.capacity, maxCapacity: element.maxCapacity});
+                        }
+                        if(element.parentId === null){
+                            const parent = await OfficeRepository.findOneById(element.officeId);
+                            if(parent){
+                                resa.unshift({id: parent.id, name: parent.name, capacity: parent.capacity, maxCapacity: parent.maxCapacity});
                             }
-                        });
-                        if(parent){
-                            resa.unshift({id: parent.id, name: parent.name, capacity: parent.capacity, maxCapacity: parent.maxCapacity});
                         }
                     }
                 }
+                res.json(resa);
             }
-            res.json(resa);
-        }
-    })
+        })
 }
 
 exports.validate = (method) => {

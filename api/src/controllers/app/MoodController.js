@@ -1,34 +1,26 @@
 const {validationResult, param, body} = require("express-validator");
 const Mood = require("../../models/Mood");
 const TimeSheet = require("../../models/TimeSheet");
+const MoodRepository = require('../../repositories/MoodRepository');
 
 exports.getMood = async function(req, res, next) {
-    const mood = await Mood.findOne({
-        where: {
-            day: req.params.day,
-            userId: res.locals.auth.user.id
-        }
-    });
+    const mood = await MoodRepository.findOneByDayAndUserId(req.params.day, res.locals.auth.user.id);
     res.json(mood);
 }
 
 exports.setMood = async function(req, res, next) {
     req.body.userId = res.locals.auth.user.id
-    await Mood.findOne({
-        where:{
-            day: req.body.day,
-            userId: res.locals.auth.user.id
-        }
-    }).then(async (record)=> {
-        if(!record){
-            const mood = await Mood.create(req.body)
-            res.json(mood);
-        }else{
-            record.update({type: req.body.type}).then((updated) => {
-                res.json(updated);
-            })
-        }
-    })
+    await MoodRepository.findOneByDayAndUserId(req.body.day, res.locals.auth.user.id)
+        .then(async (record)=> {
+            if(!record){
+                const mood = await Mood.create(req.body)
+                res.json(mood);
+            }else{
+                record.update({type: req.body.type}).then((updated) => {
+                    res.json(updated);
+                })
+            }
+        })
 }
 
 exports.validate = (method) => {
