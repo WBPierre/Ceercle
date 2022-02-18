@@ -5,7 +5,6 @@ class ThirdPartyService{
         this.request = ApiService
     }
 
-
     async verifySlack(resources){
         return this.request.post('/thirdparty/slack', resources)
     }

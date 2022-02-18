@@ -1,16 +1,16 @@
-const Office = require('../../models/Office');
-const { validationResult, param, body } = require("express-validator");
+const { param } = require("express-validator");
 const OfficeRepository = require('../../repositories/OfficeRepository');
 
 
 exports.getOffices = async function (req, res, next) {
     const id = req.params.id;
-    const result = await OfficeRepository.findOneById(id);
+    const result = await OfficeRepository.findAllForCompany(id);
     res.json(result);
 }
 
 exports.listOffices = async function (req, res, next) {
     const result = await OfficeRepository.findAllForCompany(res.locals.auth.user.companyId, [['name', 'ASC']]);
+    console.log(result);
     res.json(result);
 }
 
