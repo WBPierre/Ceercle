@@ -8,49 +8,31 @@ const uploadBanner = require("../../middlewares/UploadBannerMiddleware");
 const Moment = require("moment");
 const { v4: uuidv4 } = require("uuid");
 const Mailer = require("../../services/Mailer");
+const UserRepository = require("../../repositories/UserRepository");
+const CompanyRepository = require("../../repositories/CompanyRepository");
 
 exports.listAllUsers = async function (req, res) {
-  const users = await User.findAll({
-    where: {
-      companyId: res.locals.auth.user.companyId,
-      active: true,
-      isDeleted: false,
-    },
-    order: [["createdAt", "DESC"]],
-  });
+  const users = await UserRepository.findAllActiveForCompany(res.locals.auth.user.companyId);
   res.json(users);
 };
 
 exports.getUserForCompany = async function (req, res, next) {
-  await User.findAll({
-    where: {
-      companyId: res.locals.auth.user.companyId,
-      active: true,
-      isDeleted: false,
-    },
-    order: [
-      ["lastName", "ASC"],
-      ["firstName", "ASC"],
-    ],
-  }).then(async (record) => {
-    let users_formatted = [];
-    for (let i = 0; i < record.length; i++) {
-      let user = {
-        id: record[i].id,
-        label: record[i].firstName + " " + record[i].lastName,
-      };
-      users_formatted.push(user);
-    }
-    res.json(users_formatted);
-  });
+  await UserRepository.findAllActiveForCompany(res.locals.auth.user.companyId, [["lastName", "ASC"], ["firstName", "ASC"]])
+      .then(async (record) => {
+        let users_formatted = [];
+        for (let i = 0; i < record.length; i++) {
+          let user = {
+            id: record[i].id,
+            label: record[i].firstName + " " + record[i].lastName,
+          };
+          users_formatted.push(user);
+        }
+        res.json(users_formatted);
+      });
 };
 
 exports.verifyInvitation = async function (req, res, next) {
-  const user = await User.findOne({
-    where: {
-      activation_token: req.params.token,
-    },
-  });
+  const user = await UserRepository.findOneByToken(req.params.token);
   if (!user) {
     res.status(404);
     res.send();
@@ -66,12 +48,7 @@ exports.verifyInvitation = async function (req, res, next) {
 };
 
 exports.disableUser = async function (req, res, next) {
-  const user = await User.findOne({
-    where: {
-      id: req.params.id,
-      companyId: res.locals.auth.user.companyId,
-    },
-  });
+  const user = await UserRepository.findOneById(req.params.id);
   if (!user) {
     res.status(404);
     res.send();
@@ -83,11 +60,7 @@ exports.disableUser = async function (req, res, next) {
 };
 
 exports.createUserFromInvitation = async function (req, res, next) {
-  const user = await User.findOne({
-    where: {
-      activation_token: req.body.token,
-    },
-  });
+  const user = await UserRepository.findOneByToken(req.params.token);
   if (!user) {
     res.status(404);
     res.send();
@@ -113,12 +86,7 @@ exports.createUserFromInvitation = async function (req, res, next) {
 };
 
 exports.createInvitation = async function (req, res, next) {
-  const user = await User.findOne({
-    where: {
-      email: req.body.email,
-      companyId: res.locals.auth.user.companyId,
-    },
-  });
+  const user = await UserRepository.findOneByEmailForCompany(req.body.email, res.locals.auth.user.companyId);
   const token = uuidv4();
   if (!user) {
     await User.create({
@@ -141,26 +109,22 @@ exports.createInvitation = async function (req, res, next) {
   } else {
     link = "https://app.ceercle.io/invitation/" + token;
   }
-  const company = await Company.findOne({
-    where: { id: res.locals.auth.user.companyId },
-  });
-  await Mailer.sendInvitation(req.body.email, {
-    companyName: company.name,
-    link: link,
-  });
-  res.status(200);
-  res.send();
+  const company = await CompanyRepository.findOneById(res.locals.auth.user.companyId);
+  if(!company){
+    res.status(404);
+    res.send();
+  }else{
+    await Mailer.sendInvitation(req.body.email, {
+      companyName: company.name,
+      link: link,
+    });
+    res.status(200);
+    res.send();
+  }
 };
 
 exports.listGlossaryUsers = async function (req, res) {
-  const users = await User.findAll({
-    order: [["createdAt", "DESC"]],
-    where: {
-      companyId: res.locals.auth.user.companyId,
-      active: true,
-      isDeleted: false,
-    },
-  });
+  const users = await UserRepository.findAllActiveForCompany(res.locals.auth.user.companyId);
   let arr = [];
   for (let i = 0; i < users.length; i++) {
     let obj = {
@@ -179,17 +143,8 @@ exports.listGlossaryUsers = async function (req, res) {
 };
 
 exports.listAllUsersNamesForTeam = async function (req, res, next) {
-  await User.findAll({
-    where: {
-      companyId: res.locals.auth.user.companyId,
-      active: true,
-      isDeleted: false,
-    },
-    order: [
-      ["lastName", "ASC"],
-      ["firstName", "ASC"],
-    ],
-  }).then(async (record) => {
+  await UserRepository.findAllActiveForCompany(res.locals.auth.user.companyId, [["lastName", "ASC"], ["firstName", "ASC"]])
+  .then(async (record) => {
     let users_formatted = [];
     for (let i = 0; i < record.length; i++) {
       let user = {
@@ -204,11 +159,8 @@ exports.listAllUsersNamesForTeam = async function (req, res, next) {
 };
 
 exports.getUserInfo = async function (req, res, next) {
-  await User.findOne({
-    where: {
-      id: res.locals.auth.user.id,
-    },
-  }).then(async (record) => {
+  await UserRepository.findOneById(res.locals.auth.user.id)
+  .then(async (record) => {
     if (!record) {
       res.status(404);
       res.send();
@@ -240,11 +192,8 @@ exports.getUserInfo = async function (req, res, next) {
 };
 
 exports.getUserInTeam = async function (req, res, next) {
-  await User.findOne({
-    where: {
-      id: req.params.userId,
-    },
-  }).then(async (record) => {
+  await UserRepository.findOneById(req.params.userId)
+  .then(async (record) => {
     if (!record) {
       res.status(404);
       res.send();
@@ -278,11 +227,8 @@ exports.uploadProfile = async function (req, res, next) {
       process.env.STORAGE_PORT +
       "/public/assets/profile/" +
       req.file.filename;
-    await User.findOne({
-      where: {
-        id: res.locals.auth.user.id,
-      },
-    }).then(async (record) => {
+    await UserRepository.findOneById(req.locals.auth.user.id)
+    .then(async (record) => {
       if (!record) {
         res.status(404);
         res.send();
@@ -313,11 +259,8 @@ exports.uploadBanner = async function (req, res, next) {
       process.env.STORAGE_PORT +
       "/public/assets/banner/" +
       req.file.filename;
-    await User.findOne({
-      where: {
-        id: res.locals.auth.user.id,
-      },
-    }).then(async (record) => {
+    await UserRepository.findOneById(req.locals.auth.user.id)
+    .then(async (record) => {
       if (!record) {
         res.status(404);
         res.send();
@@ -334,11 +277,8 @@ exports.uploadBanner = async function (req, res, next) {
 };
 
 exports.updatePassword = async function (req, res, next) {
-  await User.findOne({
-    where: {
-      id: res.locals.auth.user.id,
-    },
-  }).then(async (record) => {
+  await UserRepository.findOneById(req.locals.auth.user.id)
+  .then(async (record) => {
     if (!record) {
       res.status(404);
       res.send();
@@ -359,11 +299,8 @@ exports.updatePassword = async function (req, res, next) {
 };
 
 exports.updateUserSettings = async function (req, res, next) {
-  await User.findOne({
-    where: {
-      id: res.locals.auth.user.id,
-    },
-  }).then((record) => {
+  await UserRepository.findOneById(req.locals.auth.user.id)
+  .then((record) => {
     if (!record) {
       res.status(404);
       res.send();
@@ -389,11 +326,8 @@ exports.updateUserSettings = async function (req, res, next) {
 };
 
 exports.updateUserGeneral = async function (req, res, next) {
-  await User.findOne({
-    where: {
-      id: res.locals.auth.user.id,
-    },
-  }).then((record) => {
+  await UserRepository.findOneById(req.locals.auth.user.id)
+  .then((record) => {
     if (!record) {
       res.status(404);
       res.send();
@@ -411,11 +345,8 @@ exports.updateUserGeneral = async function (req, res, next) {
 };
 
 exports.resetPassword = async function (req, res, next) {
-  await User.findOne({
-    where: {
-      email: req.body.email,
-    },
-  }).then(async (record) => {
+  await UserRepository.findOneByEmail(req.body.email)
+  .then(async (record) => {
     if (!record) {
       res.status(404);
       res.send();

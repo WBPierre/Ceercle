@@ -1,13 +1,10 @@
 const Office = require('../../models/Office');
 const { param, body } = require("express-validator");
+const OfficeRepository = require('../../repositories/OfficeRepository');
 
 exports.getOffices = async function (req, res, next) {
     const id = req.params.id;
-    const result = await Office.findAll({
-        where: {
-            companyId: id
-        }
-    })
+    const result = await OfficeRepository.findAllForCompany(id);
     res.json(result);
 }
 
@@ -17,30 +14,21 @@ exports.createOffice = async function (req, res, next) {
 }
 
 exports.updateOffice = async function (req, res, next) {
-    await Office.findOne(
-        {
-            where: {
-                id: req.body.id
+    await OfficeRepository.findOneById(req.body.id)
+        .then((record) => {
+            if (!record) {
+                res.status(404);
+                res.send();
+            } else {
+                record.update(req.body).then((updated) => {
+                    res.json(updated);
+                })
             }
-        }).then((record) => {
-        if (!record) {
-            res.status(404);
-            res.send();
-        } else {
-            record.update(req.body).then((updated) => {
-                res.json(updated);
-            })
-        }
-    });
+        });
 }
 
 exports.deleteOffice = async function (req, res, next) {
-    await Office.destroy(
-        {
-            where: {
-                id: req.body.id
-            }
-        });
+    await OfficeRepository.deleteById(req.body.id);
     res.sendStatus(200);
 }
 

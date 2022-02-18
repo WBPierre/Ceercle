@@ -1,19 +1,15 @@
-const { param, body, validationResult } = require("express-validator");
-const User = require('../../models/User');
-const Company = require('../../models/Company');
+const { body } = require("express-validator");
 const Security = require('../../services/Security');
 const jwt = require('jsonwebtoken');
 const config = require('../../../config/auth.config');
 const RefreshToken = require("../../models/RefreshToken");
+const RefreshTokenRepository = require('../../repositories/RefreshTokenRepository');
+const UserRepository = require('../../repositories/UserRepository');
 
 exports.login = async function (req, res, next) {
     const { email, password } = req.body
-    await User.findOne(
-        {
-            where: {
-                email: email
-            }
-        }).then(async (record) => {
+    await UserRepository.findOneByEmail(email)
+        .then(async (record) => {
             if (!record) {
                 res.status(403);
                 res.send();
@@ -59,12 +55,7 @@ exports.verify = function (req, res, next) {
             if (err) {
                 return res.status(401).json(err);
             }
-            const record = await User.findOne(
-                {
-                    where: {
-                        id: authData.user.id
-                    }
-                });
+            const record = await UserRepository.findOneById(authData.user.id);
             if (!record) {
                 res.status(403);
                 res.send();
@@ -110,13 +101,13 @@ exports.verify = function (req, res, next) {
 }
 
 exports.refreshToken = async function (req, res, next) {
-    let refreshToken = await RefreshToken.findOne({ where: { token: req.body.refreshToken } });
+    let refreshToken = await RefreshTokenRepository.findOneByToken(req.body.refreshToken);
     if (!refreshToken) {
         res.sendStatus(403);
         return;
     }
     if (RefreshToken.verifyExpiration(refreshToken)) {
-        RefreshToken.destroy({ where: { id: refreshToken.id } });
+        await RefreshTokenRepository.deleteById(refreshToken.id);
         res.sendStatus(403);
         return;
     }

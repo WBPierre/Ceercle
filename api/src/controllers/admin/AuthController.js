@@ -1,10 +1,11 @@
-const { param, body, validationResult } = require("express-validator");
-const User = require('../../models/User');
-const Company = require('../../models/Company');
+const { body } = require("express-validator");
 const Security = require('../../services/Security');
 const jwt = require('jsonwebtoken');
 const config = require('../../../config/auth.config');
 const RefreshToken = require("../../models/RefreshToken");
+const UserRepository = require('../../repositories/UserRepository');
+const CompanyRepository = require('../../repositories/CompanyRepository');
+const RefreshTokenRepository = require('../../repositories/RefreshTokenRepository');
 
 exports.adminVerify = function (req, res, next) {
     const authHeader = req.headers.authorization;
@@ -17,50 +18,8 @@ exports.adminVerify = function (req, res, next) {
             if (authData.user.companyId === undefined) {
                 res.sendStatus(403);
             } else {
-                await Company.findOne({
-                    where: {
-                        id: authData.user.companyId
-                    }
-                }).then(async (companyRecord) => {
-                    if (!companyRecord) {
-                        res.status(403);
-                        res.send();
-                    } else {
-                        if (!companyRecord.admin) {
-                            res.status(403);
-                            res.send();
-                        } else {
-                            res.status(200).json({
-                                firstName: authData.user.firstName,
-                                lastName: authData.user.lastName,
-                                email: authData.user.email
-                            });
-                        }
-                    }
-                })
-            }
-        });
-    }
-}
-
-exports.adminLogin = async function (req, res, next) {
-    const { email, password } = req.body
-    await User.findOne(
-        {
-            where: {
-                email: email
-            }
-        }).then(async (record) => {
-            if (!record) {
-                res.status(404);
-                res.send();
-            } else {
-                if (record.active) {
-                    await Company.findOne({
-                        where: {
-                            id: record.companyId
-                        }
-                    }).then(async (companyRecord) => {
+                await CompanyRepository.findOneById(authData.user.companyId)
+                    .then(async (companyRecord) => {
                         if (!companyRecord) {
                             res.status(403);
                             res.send();
@@ -69,22 +28,54 @@ exports.adminLogin = async function (req, res, next) {
                                 res.status(403);
                                 res.send();
                             } else {
-                                if (await Security.verifyPassword(password, record.password)) {
-                                    jwt.sign({
-                                        user: {
-                                            id: record.id,
-                                            companyId: record.companyId,
-                                            isAdmin: record.isAdmin
-                                        }
-                                    }, process.env.JWT_SECRET, { expiresIn: config.jwtExpiration }, async (err, token) => {
-                                        if (err) res.send(err);
-                                        let refreshToken = await RefreshToken.createToken(record.id);
-                                        res.json({ token: token, refreshToken: refreshToken });
-                                    });
-                                }
+                                res.status(200).json({
+                                    firstName: authData.user.firstName,
+                                    lastName: authData.user.lastName,
+                                    email: authData.user.email
+                                });
                             }
                         }
                     })
+            }
+        });
+    }
+}
+
+exports.adminLogin = async function (req, res, next) {
+    const { email, password } = req.body
+    await UserRepository.findOneByEmail(email)
+        .then(async (record) => {
+            if (!record) {
+                res.status(404);
+                res.send();
+            } else {
+                if (record.active) {
+                    await CompanyRepository.findOneById(record.companyId)
+                        .then(async (companyRecord) => {
+                            if (!companyRecord) {
+                                res.status(403);
+                                res.send();
+                            } else {
+                                if (!companyRecord.admin) {
+                                    res.status(403);
+                                    res.send();
+                                } else {
+                                    if (await Security.verifyPassword(password, record.password)) {
+                                        jwt.sign({
+                                            user: {
+                                                id: record.id,
+                                                companyId: record.companyId,
+                                                isAdmin: record.isAdmin
+                                            }
+                                        }, process.env.JWT_SECRET, { expiresIn: config.jwtExpiration }, async (err, token) => {
+                                            if (err) res.send(err);
+                                            let refreshToken = await RefreshToken.createToken(record.id);
+                                            res.json({ token: token, refreshToken: refreshToken });
+                                        });
+                                    }
+                                }
+                            }
+                        })
                 } else {
                     res.status(403);
                     res.send();
@@ -94,13 +85,13 @@ exports.adminLogin = async function (req, res, next) {
 }
 
 exports.refreshToken = async function (req, res, next) {
-    let refreshToken = await RefreshToken.findOne({ where: { token: req.body.refreshToken } });
+    let refreshToken = await RefreshTokenRepository.findOneByToken(req.body.refreshToken);
     if (!refreshToken) {
         res.sendStatus(403);
         return;
     }
     if (RefreshToken.verifyExpiration(refreshToken)) {
-        RefreshToken.destroy({ where: { id: refreshToken.id } });
+        await RefreshTokenRepository.deleteById(refreshToken.id);
         res.sendStatus(403);
         return;
     }

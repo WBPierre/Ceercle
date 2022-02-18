@@ -1,5 +1,6 @@
 const Team = require('../../models/Team');
 const { param, body } = require("express-validator");
+const TeamRepository = require('../../repositories/TeamRepository');
 
 exports.createTeam = async function (req, res, next) {
     let to_create = {
@@ -11,12 +12,8 @@ exports.createTeam = async function (req, res, next) {
 }
 
 exports.updateTeamDescription = async function (req, res, next) {
-    await Team.findOne(
-        {
-            where: {
-                id: req.body.teamId
-            }
-        }).then((record) => {
+    await TeamRepository.findOneById(req.body.teamId)
+        .then((record) => {
             if (!record) {
                 res.status(404);
                 res.send();
@@ -35,11 +32,11 @@ exports.updateTeamDescription = async function (req, res, next) {
 
 exports.getTeam = async function (req, res, next) {
     const id = req.params.id;
-    const team = await Team.findOne({
-        where: {
-            id: id,
-        }
-    });
+    const team = await TeamRepository.findOneById(id);
+    if(!team){
+        res.status(404);
+        res.send();
+    }
     let users_linked = await team.getUsers({ where:{active: true, isDeleted: false},order: [['lastName', 'ASC'], ['firstName', 'ASC']] })
     let users_formatted = []
     for (let i = 0; i < users_linked.length; i++) {
@@ -61,47 +58,33 @@ exports.getTeam = async function (req, res, next) {
 }
 
 exports.listAllTeams = async function (req, res, next) {
-    await Team.findAll(
-        {
-            where: {
-                companyId: res.locals.auth.user.companyId
+    await TeamRepository.findAllForCompany(res.locals.auth.user.companyId)
+        .then(async (record) => {
+            let teams = [];
+            for (let i = 0; i < record.length; i++) {
+                let object = {
+                    'id': record[i].id,
+                    'name': record[i].name,
+                    'color': record[i].color,
+                    'size': (await record[i].getUsers()).length
+                }
+                teams.push(object);
             }
-        }
-    ).then(async (record) => {
-        let teams = [];
-        for (let i = 0; i < record.length; i++) {
-            let object = {
-                'id': record[i].id,
-                'name': record[i].name,
-                'color': record[i].color,
-                'size': (await record[i].getUsers()).length
-            }
-            teams.push(object);
-        }
-        res.json(teams);
-    });
+            res.json(teams);
+        });
 }
 
 exports.deleteTeam = async function (req, res, next) {
     const id = req.params.id;
-    await Team.destroy(
-        {
-            where: {
-                id: id
-            }
-        });
+    await TeamRepository.deleteTeamById(id);
     res.sendStatus(200);
 }
 
 exports.addUserToTeam = async function (req, res, next) {
     const teamId = req.body.teamId;
     const userId = req.body.userId;
-    await Team.findOne(
-        {
-            where: {
-                id: teamId
-            }
-        }).then(async (record) => {
+    await TeamRepository.findOneById(teamId)
+        .then(async (record) => {
             if (!record) {
                 res.status(404);
                 res.send();
@@ -114,12 +97,8 @@ exports.addUserToTeam = async function (req, res, next) {
 exports.deleteUserFromTeam = async function (req, res, next) {
     const teamId = req.body.teamId;
     const userId = req.body.userId;
-    await Team.findOne(
-        {
-            where: {
-                id: teamId
-            }
-        }).then(async (record) => {
+    await TeamRepository.findOneById(teamId)
+        .then(async (record) => {
             if (!record) {
                 res.status(404);
                 res.send();

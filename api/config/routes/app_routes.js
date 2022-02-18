@@ -10,6 +10,7 @@ module.exports = function(server) {
     const OfficeBookingRoutes = require('./app/OfficeBookingRoutes');
     const MoodRoutes = require('./app/MoodRoutes');
     const ExternalRoutes = require('./app/ExternalRoutes');
+    const OAuthRoutes = require('./app/OAuthRoutes');
 
     const baseUrl = "/api"
 
@@ -24,4 +25,5 @@ module.exports = function(server) {
     server.use(baseUrl+"/officeBooking", OfficeBookingRoutes);
     server.use(baseUrl+"/mood", MoodRoutes);
     server.use(baseUrl+"/external", ExternalRoutes);
+    server.use(baseUrl+"/thirdparty", OAuthRoutes);
 }

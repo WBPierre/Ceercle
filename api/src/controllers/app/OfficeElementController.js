@@ -5,17 +5,13 @@ const Team = require("../../models/Team");
 const Utils = require("../../services/Utils");
 const OfficeBooking = require('../../models/OfficeBooking');
 const OfficeElementService = require("../../services/OfficeElementService");
+const OfficeElementRepository = require('../../repositories/OfficeElementRepository');
+const OfficeRepository = require('../../repositories/OfficeRepository');
 
 
 exports.getFloors = async function (req, res, next) {
     const id = req.params.id;
-    let result = await OfficeElement.findAll({
-        where: {
-            officeId: id,
-            parentId: null
-        },
-        order: [['id', 'ASC']]
-    });
+    let result = await OfficeElementRepository.findAllByOfficeIdAndParentId(id, null, [['id', 'ASC']])
 
     let arr = [];
     for (let i = 0; i < result.length; i++) {
@@ -34,12 +30,7 @@ exports.getFloors = async function (req, res, next) {
 
 exports.getRooms = async function (req, res, next) {
     const id = req.params.id;
-    let result = await OfficeElement.findAll({
-        where: {
-            parentId: id
-        },
-        order: [['id', 'ASC']]
-    });
+    let result = await OfficeElementRepository.findAllByParentId(id, [['id', 'ASC']])
     let arr = [];
     for (let i = 0; i < result.length; i++) {
         let obj = {
@@ -58,12 +49,7 @@ exports.getRooms = async function (req, res, next) {
 
 exports.getDesks = async function (req, res, next) {
     const id = req.params.id;
-    let result = await OfficeElement.findAll({
-        where: {
-            parentId: id
-        },
-        order: [['id', 'ASC']]
-    });
+    let result = await OfficeElementRepository.findAllByParentId(id, [['id', 'ASC']])
     let arr = [];
     for (let i = 0; i < result.length; i++) {
         let obj = {
@@ -82,19 +68,10 @@ exports.getDesks = async function (req, res, next) {
 exports.isSeatAvailable = async function (req, res, next) {
     let offices_with_elements = {}
     let leafs = []
-    const offices = await Office.findAll({
-        where: {
-            companyId: res.locals.auth.user.companyId
-        }
-    })
+    const offices = await OfficeRepository.findAllForCompany(res.locals.auth.user.companyId);
     if (offices.length > 0) {
         for (let j = 0; j < offices.length; j++) {
-            let result = await OfficeElement.findAll({
-                where: {
-                    officeId: offices[j].id
-                },
-                order: [['id', 'ASC']]
-            });
+            let result = await OfficeElementRepository.findAllByOfficeId(offices[j].id, [['id', 'ASC']]);
             if (result.length > 0) {
                 let arr = [];
                 for (let i = 0; i < result.length; i++) {
@@ -130,12 +107,7 @@ exports.isSeatAvailable = async function (req, res, next) {
 
 exports.getOfficeElementsWithCapacity = async function (req, res, next) {
     const id = req.params.id;
-    let result = await OfficeElement.findAll({
-        where: {
-            officeId: id
-        },
-        order: [['id', 'ASC']]
-    });
+    let result = await OfficeElementRepository.findAllByOfficeId(id, [['id', 'ASC']]);
 
     let arr = [];
     for (let i = 0; i < result.length; i++) {
@@ -164,20 +136,11 @@ exports.getOfficeElementsFromCompany = async function (req, res, next) {
     let offices_with_elements = {}
     let leafs = []
     const id = req.params.id;
-    const offices = await Office.findAll({
-        where: {
-            companyId: id
-        }
-    })
+    const offices = await OfficeRepository.findAllForCompany(id);
     if (offices.length > 0) {
         for (let j = 0; j < offices.length; j++) {
             let parents
-            let result = await OfficeElement.findAll({
-                where: {
-                    officeId: offices[j].id
-                },
-                order: [['id', 'ASC']]
-            });
+            let result = await OfficeElementRepository.findAllByOfficeId(offices[j].id, [['id', 'ASC']]);
             if (result.length > 0) {
                 let arr = [];
                 for (let i = 0; i < result.length; i++) {
@@ -207,12 +170,8 @@ exports.getOfficeElementsFromCompany = async function (req, res, next) {
 }
 
 exports.updateOccupancy = async function (req, res, next) {
-    await OfficeElement.findOne(
-        {
-            where: {
-                id: req.body.officeElementId
-            }
-        }).then((record) => {
+    await OfficeElementRepository.findOneById(req.body.officeElementId)
+        .then((record) => {
             if (!record) {
                 res.status(404);
                 res.send();

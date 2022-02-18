@@ -1,19 +1,12 @@
-const Office = require('../../models/Office');
 const OfficeElement = require('../../models/OfficeElement');
-const { validationResult, param, body } = require("express-validator");
+const { param, body } = require("express-validator");
 const Utils = require("../../services/Utils");
-const OfficeBooking = require('../../models/OfficeBooking');
-const OfficeElementService = require("../../services/OfficeElementService");
+const OfficeElementRepository = require('../../repositories/OfficeElementRepository');
 
 
 exports.getOfficeElements = async function (req, res, next) {
     const id = req.params.id;
-    let result = await OfficeElement.findAll({
-        where: {
-            officeId: id
-        },
-        order: [['id', 'ASC']]
-    });
+    let result = await OfficeElementRepository.findAllByOfficeId(id, [['id', 'ASC']]);
 
     let arr = [];
     for (let i = 0; i < result.length; i++) {
@@ -40,12 +33,8 @@ exports.createOfficeElement = async function (req, res, next) {
 }
 
 exports.updateOfficeElement = async function (req, res, next) {
-    await OfficeElement.findOne(
-        {
-            where: {
-                id: req.body.id
-            }
-        }).then((record) => {
+    await OfficeElementRepository.findOneById(req.body.id)
+        .then((record) => {
             if (!record) {
                 res.status(404);
                 res.send();
@@ -58,12 +47,7 @@ exports.updateOfficeElement = async function (req, res, next) {
 }
 
 exports.deleteOfficeElement = async function (req, res, next) {
-    await OfficeElement.destroy(
-        {
-            where: {
-                id: req.body.id
-            }
-        });
+    await OfficeElementRepository.deleteById(req.body.id);
     res.sendStatus(200);
 }
 

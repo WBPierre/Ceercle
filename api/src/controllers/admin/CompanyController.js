@@ -1,7 +1,6 @@
 const Company = require("../../models/Company");
-const { validationResult, param, body } = require("express-validator");
-const moment = require("moment");
-const { Op } = require("sequelize");
+const { param, body } = require("express-validator");
+const CompanyRepository = require('../../repositories/CompanyRepository');
 
 exports.createCompany = async function (req, res, next) {
     const { name, activationDay, activationHour, invoiceType } = req.body;
@@ -20,11 +19,7 @@ exports.getStats = async function (req, res, next) {
         res.send();
         return;
     }
-    const company = await Company.findOne({
-        where:{
-            id: req.params.companyId
-        }
-    });
+    const company = await CompanyRepository.findOneById(req.params.companyId);
     if(!company){
         res.status(404);
         res.send();
@@ -43,12 +38,8 @@ exports.getStats = async function (req, res, next) {
 }
 exports.updateCompany = async function (req, res, next) {
     const id = req.params.id;
-    await Company.findOne(
-        {
-            where: {
-                id: id
-            }
-        }).then((record) => {
+    await CompanyRepository.findOneById(id)
+        .then((record) => {
             if (!record) {
                 res.status(404);
                 res.send();
@@ -61,17 +52,13 @@ exports.updateCompany = async function (req, res, next) {
 }
 
 exports.listAllCompanies = async function (req, res, next) {
-    const companies = await Company.findAll({ where:{admin:false, name:{[Op.ne]: 'Démo'}}, order: [['createdAt', 'DESC']] },);
+    const companies = await CompanyRepository.findAllClients();
     res.json(companies)
 }
 
 exports.getCompany = async function (req, res, next) {
     const id = req.params.id;
-    const company = await Company.findOne({
-        where: {
-            id: id,
-        }
-    });
+    const company = await CompanyRepository.findOneById(id);
     res.json(company);
 }
 exports.validate = (method) => {
