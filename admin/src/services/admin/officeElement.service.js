@@ -20,6 +20,14 @@ class OfficeElementService{
     async deleteOfficeElement(resources){
         return this.request.delete('/officeElement/', {data: resources});
     }
+
+    async changeBackground(id, resources){
+        return this.request.post('/officeElement/'+id, resources);
+    }
+
+    async deleteDesks(parentId) {
+        return this.request.delete('/officeElement/desk/'+parentId);
+    }
 }
 
 export default new OfficeElementService();

@@ -5,12 +5,12 @@ import OfficeElementService from "../services/admin/officeElement.service";
 import {useEffect, useState} from "react";
 import Grid from "@mui/material/Grid";
 import {
-    Button,
+    Button, Chip,
     Collapse, Dialog, DialogActions, DialogTitle, FormControl, InputLabel, ListItem, ListItemAvatar,
     ListItemButton,
     ListItemIcon, ListItemSecondaryAction,
     ListItemText,
-    ListSubheader, Modal, Select,
+    ListSubheader, Modal, Select, Stack,
     TextField,
     Typography
 } from "@mui/material";
@@ -22,6 +22,7 @@ import OfficeService from "../services/admin/office.service";
 import ElementChildren from "../components/containers/office/ElementChildren";
 import ColorPicker from "../components/molecules/app/ColorPicker";
 import MenuItem from "@mui/material/MenuItem";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 
 const style = {
@@ -48,6 +49,7 @@ function OfficeElement(){
     const [type, setType] = useState(0);
     const [color, setColor] = useState('');
     const [capacity, setCapacity] = useState(0);
+    const [size, setSize] = useState(32);
     const [parentId, setParentId] = useState(null);
     const [update, setUpdate] = useState(false);
     const [index, setIndex] = useState(null);
@@ -76,6 +78,7 @@ function OfficeElement(){
             setCapacity(0);
             setType(0);
             setColor('');
+            setSize(32);
             setParentId(null);
             setUpdate(false);
             setIndex(null);
@@ -85,6 +88,7 @@ function OfficeElement(){
             setType(item.type);
             setColor(item.color);
             setParentId(item.parentId);
+            setSize(item.size === null ? 32 : item.size);
             setUpdate(true);
             setIndex(item.id);
         }
@@ -96,6 +100,7 @@ function OfficeElement(){
         setCapacity(0);
         setType(0);
         setColor('');
+        setSize(32);
         setParentId(id);
         setUpdate(false);
         setIndex(null);
@@ -116,6 +121,9 @@ function OfficeElement(){
             case 'type':
                 setType(event.target.value);
                 break;
+            case 'size':
+                setSize(event.target.value);
+                break;
         }
     };
 
@@ -133,6 +141,7 @@ function OfficeElement(){
                 parentId: parentId,
                 color: color,
                 type: type,
+                size: size,
                 officeId: parseInt(idOffice)
             }
             await OfficeElementService.addOfficeElement(resources).then((res) => {
@@ -157,6 +166,7 @@ function OfficeElement(){
                     name: name,
                     capacity: capacity,
                     color: color,
+                    size: size,
                     type: type
                 }
                 await OfficeElementService.updateOfficeElement(resources).then((res) => {
@@ -210,6 +220,19 @@ function OfficeElement(){
 
     const handleModalClose = () => setOpenModal(false);
 
+    const changeHandler = async (event) => {
+        const formData = new FormData();
+        formData.append('file', event.target.files[0]);
+        if(index !==  null){
+            await OfficeElementService.changeBackground(index,formData).catch(() => {
+                enqueueSnackbar("Error while uploading file", {
+                    variant: 'warning'
+                });
+            })
+        }
+
+    }
+
 
     return(
         <CustomContainer>
@@ -261,10 +284,52 @@ function OfficeElement(){
                                             onChange={handleChange}
                                         >
                                             <MenuItem value={0}>Floor</MenuItem>
-                                            <MenuItem value={1}>Room</MenuItem>
+                                            <MenuItem value={1}>Room (Can't have children)</MenuItem>
                                         </Select>
                                     </FormControl>
                                 </Grid>
+                                {type === 1 &&
+                                    <Grid item>
+                                        <Stack direction="column">
+                                            <input
+                                                accept="image/*"
+                                                style={{ display: 'none' }}
+                                                id="raised-button-file"
+                                                type="file"
+                                                onChange={changeHandler}
+                                            />
+                                            <label htmlFor="raised-button-file">
+                                                <Chip
+                                                    clickable={true}
+                                                    label="Change background image"
+                                                    sx={{ width: '100%', borderColor: "#3F07A8", color: "#3F07A8", fontWeight: "bold" }}
+                                                    color="error"
+                                                    icon={<CheckCircleIcon />}
+                                                    variant="outlined"
+                                                />
+                                            </label>
+                                        </Stack>
+                                    </Grid>
+                                }
+                                {type === 1 &&
+                                <Grid item>
+                                    <FormControl fullWidth>
+                                        <InputLabel id="demo-simple-select-label">Size</InputLabel>
+                                        <Select
+                                            labelId="demo-simple-select-label"
+                                            id="demo-simple-select"
+                                            value={size}
+                                            name={"size"}
+                                            label="Size"
+                                            onChange={handleChange}
+                                        >
+                                            <MenuItem value={24}>Small</MenuItem>
+                                            <MenuItem value={32}>Medium</MenuItem>
+                                            <MenuItem value={40}>Large</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </Grid>
+                                }
                                 <Grid item>
                                     <Grid container direction={"row"} justifyContent={"space-around"} alignItems={"center"}>
                                         <Grid item>

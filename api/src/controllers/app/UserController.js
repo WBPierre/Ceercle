@@ -10,6 +10,7 @@ const { v4: uuidv4 } = require("uuid");
 const Mailer = require("../../services/Mailer");
 const UserRepository = require("../../repositories/UserRepository");
 const CompanyRepository = require("../../repositories/CompanyRepository");
+const fs = require("fs");
 
 exports.listAllUsers = async function (req, res) {
   const users = await UserRepository.findAllActiveForCompany(res.locals.auth.user.companyId);
@@ -233,6 +234,15 @@ exports.uploadProfile = async function (req, res, next) {
         res.status(404);
         res.send();
       } else {
+        if(record.profilePicturePath !== null){
+          let oldPath = record.profilePicturePath.split("/");
+          let old = oldPath[oldPath.length - 1];
+          try {
+            fs.unlinkSync(__basedir+"/public/assets/profile/"+old);
+          } catch(err) {
+            console.error(err)
+          }
+        }
         await record.update({ profilePicturePath: url });
       }
     });
@@ -265,6 +275,15 @@ exports.uploadBanner = async function (req, res, next) {
         res.status(404);
         res.send();
       } else {
+        if(record.bannerPath !== null){
+          let oldPath = record.bannerPath.split("/");
+          let old = oldPath[oldPath.length - 1];
+          try {
+            fs.unlinkSync(__basedir+"/public/assets/banner/"+old);
+          } catch(err) {
+            console.error(err)
+          }
+        }
         await record.update({ bannerPath: url });
       }
     });
