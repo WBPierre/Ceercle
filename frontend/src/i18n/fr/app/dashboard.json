@@ -15,6 +15,7 @@
     "select_office": "Sélectionnez votre bureau",
     "confirm": "Confirmez votre réservation",
     "your_booking": "Ma réservation",
+    "subtitle": "Réserver une place à votre bureau",
     "yes": "Oui",
     "no": "Non",
     "office": "Bureau",
@@ -24,7 +25,16 @@
     "select": "Sélectionner",
     "free": "Placement libre",
     "noBooking": "Vous n'allez pas au bureau",
-    "no_remaining_seat": "Plus de siège disponible"
+    "no_remaining_seat": "Plus de siège disponible",
+    "type": {
+      "office": "Sélectionnez un bureau",
+      "0": "Sélectionnez un étage",
+      "1": "Sélectionnez une salle",
+      "2": "Sélectionnez un bureau"
+    },
+    "free_desk": "Libre",
+    "occupied": "Occupé",
+    "by": "Par"
   },
   "team": {
     "my_team": "Mon équipe",

@@ -6,6 +6,94 @@ const OfficeElementService = require('../../services/OfficeElementService');
 const OfficeBookingRepository = require('../../repositories/OfficeBookingRepository');
 const OfficeElementRepository = require('../../repositories/OfficeElementRepository');
 const OfficeRepository = require('../../repositories/OfficeRepository');
+const UserRepository = require('../../repositories/UserRepository');
+
+
+exports.getBookingsForOffice = async function(req, res, next) {
+    const result = await OfficeRepository.findAllForCompany(res.locals.auth.user.companyId);
+    const users = await UserRepository.findAllActiveForCompany(res.locals.auth.user.companyId);
+    let response = [];
+    for(let i = 0; i < result.length ; i++){
+        let obj = {
+            id: result[i].id,
+            name: result[i].name,
+            capacity: result[i].capacity,
+            maxCapacity: result[i].maxCapacity,
+            type: 'office',
+            users: []
+        }
+        response.push(obj);
+    }
+    for(let i = 0; i < users.length; i++){
+        let booking = await OfficeBookingRepository.findOneByDayAndUserId(req.params.day, users[i].id);
+        if(booking){
+            let officeElement = await OfficeElementRepository.findOneById(booking.officeElementId);
+            if(officeElement){
+                let index = response.findIndex((x) => x.id === officeElement.officeId);
+                if(index !== -1) {
+                    response[index].users.push({
+                        firstName: users[i].firstName,
+                        lastName: users[i].lastName,
+                        profilePicturePath: users[i].profilePicturePath
+                    });
+                }
+            }
+        }
+    }
+    res.json(response);
+}
+
+exports.getBookingsForOfficeElement = async function (req, res, next) {
+    if(req.params.parentId === "null"){
+        req.params.parentId = null;
+    }
+    const result = await OfficeElementRepository.findAllByOfficeIdAndParentId(req.params.id, req.params.parentId,  [["createdAt", "ASC"]]);
+    const users = await UserRepository.findAllActiveForCompany(res.locals.auth.user.companyId);
+    let response = [];
+    for(let i = 0; i < result.length ; i++){
+        let obj = {
+            id: result[i].id,
+            name: result[i].name,
+            capacity: result[i].capacity,
+            maxCapacity: result[i].maxCapacity,
+            type: result[i].type,
+            backgroundPath: result[i].backgroundPath,
+            size: result[i].size,
+            x: result[i].x,
+            y: result[i].y,
+            users: []
+        }
+        response.push(obj);
+    }
+    for(let i = 0; i < users.length; i++){
+        let booking = await OfficeBookingRepository.findOneByDayAndUserId(req.params.day, users[i].id);
+        if(booking){
+            let officeElement = await OfficeElementRepository.findOneById(booking.officeElementId);
+            if(officeElement.officeId === parseInt(req.params.id)){
+                let parentId = officeElement.parentId;
+                let bookingReverseTree = [];
+                bookingReverseTree.push(officeElement);
+                while(parentId !== null){
+                    let tmp = await OfficeElementRepository.findOneById(parentId);
+                    bookingReverseTree.push(tmp);
+                    parentId = tmp.parentId;
+                }
+                for(let j = 0; j < bookingReverseTree.length; j++){
+                    let index = response.findIndex((x) => x.id === bookingReverseTree[j].id);
+                    if(index !== -1) {
+                        response[index].users.push({
+                            id: users[i].id,
+                            firstName: users[i].firstName,
+                            lastName: users[i].lastName,
+                            profilePicturePath: users[i].profilePicturePath
+                        });
+                    }
+                }
+            }
+        }
+    }
+    res.json(response);
+}
 
 exports.removeOfficeBooking = async function(req, res, next){
     await OfficeBookingRepository.findOneByDayAndUserId(req.params.day, res.locals.auth.user.id)
@@ -73,6 +161,20 @@ exports.getOfficeBooking = async function(req, res, next) {
 
 exports.validate = (method) => {
     switch (method) {
+        case 'getBookingsForOffice': {
+            return [
+                param('day', 'day doesn\'t exist').exists(),
+                param('day', 'day is not a number').isString()
+            ]
+        }
+        case 'getBookingsForOfficeElement':{
+            return [
+                param('id', 'id doesn\'t exist').exists(),
+                param('id', 'id is not a number').isNumeric(),
+                param('day', 'day doesn\'t exist').exists(),
+                param('day', 'day is not a number').isString()
+            ]
+        }
         case 'getOfficeBooking': {
             return [
                 param('day', 'day doesn\'t exist').exists(),

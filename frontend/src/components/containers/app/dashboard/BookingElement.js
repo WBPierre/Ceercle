@@ -4,7 +4,7 @@ import * as React from "react";
 import useAuth from "../../../context/auth/AuthHelper";
 import {useTranslation} from "react-i18next";
 import {useState} from "react";
-import OfficeModal from "./OfficeModal";
+import OfficeModal from "./OfficeBooking/OfficeModal";
 import moment from "moment";
 
 function BookingElement(props){

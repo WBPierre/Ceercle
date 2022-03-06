@@ -28,13 +28,24 @@ function Office(props) {
                 {props.reservation.length !== 0 ? (
                     <Grid container direction={"row"} alignItems={"center"} justifyContent={"space-around"}>
                         {props.reservation.map((b, index) => {
-                            return (
-                                <Grid item key={index}>
-                                    <Typography variant={"h5"} color={"secondary"}>
-                                        {b.name}
-                                    </Typography>
-                                </Grid>
-                            )
+                            if(b.type && b.type === 3){
+                                return (
+                                    <Grid item key={index}>
+                                        <Typography variant={"h5"} color={"secondary"} fontSize={24}>
+                                            {t('app:dashboard:desk.desk')} {b.name}
+                                        </Typography>
+                                    </Grid>
+                                )
+                            }else{
+                                return (
+                                    <Grid item key={index}>
+                                        <Typography variant={"h5"} color={"secondary"} fontSize={21}>
+                                            {b.name}
+                                        </Typography>
+                                    </Grid>
+                                )
+                            }
+
                         })}
                     </Grid>
                 ) : (

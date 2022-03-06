@@ -5,6 +5,14 @@ class BookingService{
         this.request = ApiService
     }
 
+    async getBookingsForOffice(day){
+        return this.request.get('/officeBooking/office/'+day);
+    }
+
+    async getBookingsForOfficeElement(id, parentId, day){
+        return this.request.get('/officeBooking/office/'+id+'/element/'+parentId+'/'+day);
+    }
+
     async getBooking(day) {
         return this.request.get('/officeBooking/'+day);
     }

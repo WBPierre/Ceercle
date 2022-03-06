@@ -7,11 +7,13 @@ const Security = require("../../src/services/Security");
 const Utils = require('../../src/services/Utils');
 const { v4: uuidv4 } = require('uuid');
 const TimeSheet = require("../../src/models/TimeSheet");
+const OfficeBooking = require('../../src/models/OfficeBooking');
 const { Op } = require("sequelize");
 const Moment = require("moment");
 
 const profileUrl = process.env.STORAGE_PROTOCOL + '://' + process.env.STORAGE_HOST + ':' + process.env.STORAGE_PORT + "/public/assets/demo/profile/";
 const bannerUrl = process.env.STORAGE_PROTOCOL + '://' + process.env.STORAGE_HOST + ':' + process.env.STORAGE_PORT + "/public/assets/demo/banner/";
+const roomUrl = process.env.STORAGE_PROTOCOL + '://' + process.env.STORAGE_HOST + ':' + process.env.STORAGE_PORT + "/public/assets/demo/room/";
 
 exports.generateDemo = async function () {
     // Test profile
@@ -125,7 +127,7 @@ async function generateOffices(companyId) {
         }
     }).then(async (record) => {
         if (!record) {
-            return await Office.create({ name: "New York", country: 'USA', capacity: 10, companyId: companyId });
+            return await Office.create({ name: "New York", country: 'USA', capacity: 8, companyId: companyId });
         } else {
             return record;
         }
@@ -291,7 +293,7 @@ async function generateOffices(companyId) {
         }
     }).then(async (record) => {
         if (!record) {
-            return await OfficeElement.create({ name: "57th Floor", type: 0, color: '#2CCCE4', capacity: 10, officeId: newYork.id });
+            return await OfficeElement.create({ name: "57th Floor", type: 0, color: '#2CCCE4', capacity: 8, officeId: newYork.id });
         } else {
             return record;
         }
@@ -304,11 +306,192 @@ async function generateOffices(companyId) {
         }
     }).then(async (record) => {
         if (!record) {
-            return await OfficeElement.create({ name: "Open Space", type: 1, color: '#BA68C8', capacity: 10, officeId: newYork.id, parentId: newyork_floor_1.id });
+            return await OfficeElement.create({
+                name: "Open Space",
+                type: 1,
+                color: '#BA68C8',
+                capacity: 8,
+                backgroundPath: roomUrl + 'office.jpg',
+                size: 32,
+                officeId: newYork.id,
+                parentId: newyork_floor_1.id });
         } else {
             return record;
         }
-    })
+    });
+
+    await OfficeElement.findOne({
+        where: {
+            name: "1",
+            officeId: newYork.id,
+            parentId: newyork_room_1.id
+        }
+    }).then(async (record) => {
+        if (!record) {
+            return await OfficeElement.create({
+                name: "1",
+                type: 3,
+                color: '#BA68C8',
+                capacity: 1,
+                x: 245,
+                y: 120,
+                officeId: newYork.id,
+                parentId: newyork_room_1.id });
+        } else {
+            return record;
+        }
+    });
+    await OfficeElement.findOne({
+        where: {
+            name: "2",
+            officeId: newYork.id,
+            parentId: newyork_room_1.id
+        }
+    }).then(async (record) => {
+        if (!record) {
+            return await OfficeElement.create({
+                name: "2",
+                type: 3,
+                color: '#BA68C8',
+                capacity: 1,
+                x: 355,
+                y: 175,
+                officeId: newYork.id,
+                parentId: newyork_room_1.id });
+        } else {
+            return record;
+        }
+    });
+    await OfficeElement.findOne({
+        where: {
+            name: "3",
+            officeId: newYork.id,
+            parentId: newyork_room_1.id
+        }
+    }).then(async (record) => {
+        if (!record) {
+            return await OfficeElement.create({
+                name: "3",
+                type: 3,
+                color: '#BA68C8',
+                capacity: 1,
+                x: 300,
+                y: 65,
+                officeId: newYork.id,
+                parentId: newyork_room_1.id });
+        } else {
+            return record;
+        }
+    });
+    await OfficeElement.findOne({
+        where: {
+            name: "4",
+            officeId: newYork.id,
+            parentId: newyork_room_1.id
+        }
+    }).then(async (record) => {
+        if (!record) {
+            return await OfficeElement.create({
+                name: "4",
+                type: 3,
+                color: '#BA68C8',
+                capacity: 1,
+                x: 350,
+                y: 65,
+                officeId: newYork.id,
+                parentId: newyork_room_1.id });
+        } else {
+            return record;
+        }
+    });
+
+    await OfficeElement.findOne({
+        where: {
+            name: "5",
+            officeId: newYork.id,
+            parentId: newyork_room_1.id
+        }
+    }).then(async (record) => {
+        if (!record) {
+            return await OfficeElement.create({
+                name: "5",
+                type: 3,
+                color: '#BA68C8',
+                capacity: 1,
+                x: 305,
+                y: 175,
+                officeId: newYork.id,
+                parentId: newyork_room_1.id });
+        } else {
+            return record;
+        }
+    });
+
+    await OfficeElement.findOne({
+        where: {
+            name: "6",
+            officeId: newYork.id,
+            parentId: newyork_room_1.id
+        }
+    }).then(async (record) => {
+        if (!record) {
+            return await OfficeElement.create({
+                name: "6",
+                type: 3,
+                color: '#BA68C8',
+                capacity: 1,
+                x: 55,
+                y: 280,
+                officeId: newYork.id,
+                parentId: newyork_room_1.id });
+        } else {
+            return record;
+        }
+    });
+
+    await OfficeElement.findOne({
+        where: {
+            name: "7",
+            officeId: newYork.id,
+            parentId: newyork_room_1.id
+        }
+    }).then(async (record) => {
+        if (!record) {
+            return await OfficeElement.create({
+                name: "7",
+                type: 3,
+                color: '#BA68C8',
+                capacity: 1,
+                x: 185,
+                y: 215,
+                officeId: newYork.id,
+                parentId: newyork_room_1.id });
+        } else {
+            return record;
+        }
+    });
+
+    await OfficeElement.findOne({
+        where: {
+            name: "8",
+            officeId: newYork.id,
+            parentId: newyork_room_1.id
+        }
+    }).then(async (record) => {
+        if (!record) {
+            return await OfficeElement.create({
+                name: "8",
+                type: 3,
+                color: '#BA68C8',
+                capacity: 1,
+                x: 185,
+                y: 340,
+                officeId: newYork.id,
+                parentId: newyork_room_1.id });
+        } else {
+            return record;
+        }
+    });
 }
 
 async function generateTimeSheet(userId, week) {
@@ -320,12 +503,34 @@ async function generateTimeSheet(userId, week) {
             }
         }).then(async (record) => {
             if (!record) {
-                let rand = Math.floor(Math.random() * 4) + 1
-                await TimeSheet.create({ day: week[i].day, morning: rand, afternoon: rand, userId: userId });
+                let office = Math.floor(Math.random()*2);
+                if(office === 0){
+                    let rand = Math.floor(Math.random() * 4) + 1
+                    await TimeSheet.create({ day: week[i].day, morning: rand, afternoon: rand, userId: userId });
+                }else{
+                    await TimeSheet.create({ day: week[i].day, morning: 1, afternoon: 1, userId: userId });
+                    await assignOffice(week[i].day, userId);
+                }
             }
         })
     }
+}
 
+async function assignOffice(day, userId){
+    const names = ['Open Space', 'Radiance', 'Joy', 'Clarity', 'Salle Diderot', 'Salle Hugo'];
+    let index = Math.floor(Math.random() * names.length);
+    let ol = await OfficeElement.findOne({where:{name:names[index]}});
+    if(ol) {
+        if(ol.name === "Open Space"){
+            let desks = await OfficeElement.findAll({where:{parentId:ol.id}});
+            if(desks.length !== 0){
+                let deskToBook = Math.floor(Math.random()* (desks.length-1));
+                await OfficeBooking.create({day: day, morning: true, afternoon: true, userId: userId, officeElementId: desks[deskToBook].id})
+            }
+        }else{
+            await OfficeBooking.create({day: day, morning: true, afternoon: true, userId: userId, officeElementId: ol.id})
+        }
+    }
 }
 
 async function generateTestCompany() {

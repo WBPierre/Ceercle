@@ -47,7 +47,11 @@ function PlanningElement(props) {
 
     const reservationString = () => {
         if (props.data.reservation.length !== 0) {
-            return props.data.reservation[0].name + " | " + props.data.reservation[props.data.reservation.length - 1].name;
+            if(props.data.reservation[props.data.reservation.length - 1].type !== 3){
+                return props.data.reservation[0].name + " | " + props.data.reservation[props.data.reservation.length - 1].name;
+            }else{
+                return props.data.reservation[0].name + " | " + t('app:dashboard:desk.desk') + ' '+ props.data.reservation[props.data.reservation.length - 1].name;
+            }
         } else {
             return t('app:dashboard:no_reservation')
         }

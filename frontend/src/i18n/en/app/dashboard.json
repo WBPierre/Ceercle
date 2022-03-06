@@ -15,6 +15,7 @@
     "select_office": "Select your desk",
     "confirm": "Confirm your desk",
     "your_booking": "Your booking",
+    "subtitle": "Reserve a place in your office",
     "yes": "Yes",
     "no": "No",
     "office": "Office",
@@ -24,7 +25,16 @@
     "select": "Select",
     "free": "Free placement",
     "noBooking": "You are not going to the office",
-    "no_remaining_seat": "No available seat"
+    "no_remaining_seat": "No available seat",
+    "type": {
+      "office": "Select an office",
+      "0": "Select a floor",
+      "1": "Select a room",
+      "2": "Select a desk"
+    },
+    "free_desk": "Free",
+    "occupied": "Occupied",
+    "by": "By"
   },
   "team": {
     "my_team": "My team",

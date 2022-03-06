@@ -5,6 +5,6 @@ const { isAdminUser, isUserAuthenticated } = require("../../../src/middlewares/A
 const { verifyErrors } = require('../../../src/middlewares/ErrorMiddleware');
 
 router.get('/listOffices', [isAdminUser], OfficeController.listOffices);
-router.get('/:id', [isUserAuthenticated, OfficeController.validate('getOffices'), verifyErrors], OfficeController.getOffices);
+router.get('/', [isUserAuthenticated], OfficeController.getOffices);
 
 module.exports = router;
