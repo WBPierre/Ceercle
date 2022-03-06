@@ -11,6 +11,10 @@ export default function Seat(props){
     const handleClick = (item) => {
         if(item.users.length === 0){
             props.handleSelection(item);
+        }else{
+            if(item.users[0].firstName === context.user.firstName && item.users[0].lastName === context.user.lastName){
+                props.handleSelection(item);
+            }
         }
     }
 
@@ -38,7 +42,7 @@ export default function Seat(props){
             position={{x:props.data.x, y:props.data.y}}
         >
             <div style={{display: 'inline-block', position:'absolute'}}>
-                <Tooltip title={<SeatInfo seat={props.data} isSelected={props.isSelected}/>}>
+                <Tooltip title={<SeatInfo seat={props.data} isSelected={props.isSelected} shouldDisplay={testIfUserShouldBeDisplay()}/>}>
                     {props.isSelected ? (
                         <Avatar sx={{width:props.size, height:props.size}} style={{fontSize:10, cursor:'pointer'}} onDragStart={preventDragHandler} alt={`${context.user.firstName} ${context.user.lastName}`} src={context.user.profilePicturePath === null ? ProfileDefault : context.user.profilePicturePath} />
                     ):(

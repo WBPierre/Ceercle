@@ -14,29 +14,18 @@ export default function SeatInfo(props){
                 <ListItemText primary={`${t('app:dashboard:desk.desk')} ${props.seat.name}`} />
             </ListItem>
             <Divider color={"white"}/>
-            {props.isSelected ? (
+            {props.seat.users.length !== 0 && props.shouldDisplay ? (
                 <ListItem disablePadding>
                     <ListItemText primary={`Status : ${t('app:dashboard:desk.occupied')}`} />
                 </ListItem>
             ):(
-                props.seat.users.length !== 0 ? (
-                    <ListItem disablePadding>
-                        <ListItemText primary={`Status : ${t('app:dashboard:desk.occupied')}`} />
-                    </ListItem>
-                ):(
-                    <ListItem disablePadding>
-                        <ListItemText primary={`Status : ${t('app:dashboard:desk.free_desk')}`} />
-                    </ListItem>
-                )
-            )}
-            {props.seat.users.length !== 0 && (
                 <ListItem disablePadding>
-                    <ListItemText primary={`${t('app:dashboard:desk.by')} :  ${props.seat.users[0].firstName} ${props.seat.users[0].lastName}`} />
+                    <ListItemText primary={`Status : ${t('app:dashboard:desk.free_desk')}`} />
                 </ListItem>
             )}
-            {props.isSelected && (
+            {props.seat.users.length !== 0 && props.shouldDisplay && (
                 <ListItem disablePadding>
-                    <ListItemText primary={`${t('app:dashboard:desk.by')} :  ${context.user.firstName} ${context.user.lastName}`} />
+                    <ListItemText primary={`${t('app:dashboard:desk.by')} :  ${props.seat.users[0].firstName} ${props.seat.users[0].lastName}`} />
                 </ListItem>
             )}
         </List>
