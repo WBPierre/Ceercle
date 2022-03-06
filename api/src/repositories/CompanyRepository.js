@@ -16,6 +16,6 @@ module.exports = CompanyRepository = {
     },
 
     async findAllClients() {
-        return await Company.findAll({ where:{admin:false, name:{[Op.ne]: 'Démo'}}, order: [['createdAt', 'DESC']] });
+        return await Company.findAll({ where:{admin:false}, order: [['createdAt', 'DESC']] });
     }
 }

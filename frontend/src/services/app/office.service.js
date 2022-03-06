@@ -5,8 +5,8 @@ class OfficeService {
         this.request = ApiService
     }
 
-    async getOffices(id) {
-        return this.request.get('/office/' + id);
+    async getOffices() {
+        return this.request.get('/office/');
     }
 
     async getFloors(id) {

@@ -1,4 +1,5 @@
 const OfficeElement = require('../models/OfficeElement');
+const {Op} = require("sequelize");
 
 module.exports = OfficeElementRepository = {
     async findOneById(id){
@@ -7,7 +8,7 @@ module.exports = OfficeElementRepository = {
     },
 
     async findAllByOfficeIdAndParentId(officeId, parentId = null, order = [["createdAt", "DESC"]]){
-        if(officeId) return await OfficeElement.findAll({where:{officeId:officeId, parentId: parentId}, order:order});
+        if(officeId) return await OfficeElement.findAll({where:{officeId:officeId, parentId: {[Op.eq]: parentId}}, order:order});
         return [];
     },
 

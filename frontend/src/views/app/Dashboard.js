@@ -12,7 +12,7 @@ import PlanningBoard from "../../components/containers/app/dashboard/PlanningBoa
 import useAuth from "../../components/context/auth/AuthHelper";
 import moment from "moment";
 import TimeService from "../../services/app/time.service";
-import OfficeModal from "../../components/containers/app/dashboard/OfficeModal";
+import OfficeModal from "../../components/containers/app/dashboard/OfficeBooking/OfficeModal";
 import { useSnackbar } from "notistack";
 
 

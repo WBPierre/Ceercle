@@ -141,14 +141,14 @@ exports.getTimeSheet = async function (req, res, next) {
                                 if (element) {
                                     officeElementId = element.parentId;
                                     if (resa.length === 0) {
-                                        resa.push({ id: element.id, name: element.name, color: element.color, type: element.type, capacity: element.capacity, maxCapacity: element.maxCapacity });
+                                        resa.push({ id: element.id, name: element.name, color: element.color, type: element.type, capacity: element.capacity, maxCapacity: element.maxCapacity, backgroundPath: element.backgroundPath, users: [] });
                                     } else {
-                                        resa.unshift({ id: element.id, name: element.name, color: element.color, type: element.type, capacity: element.capacity, maxCapacity: element.maxCapacity });
+                                        resa.unshift({ id: element.id, name: element.name, color: element.color, type: element.type, capacity: element.capacity, maxCapacity: element.maxCapacity, backgroundPath: element.backgroundPath, users: [] });
                                     }
                                     if (element.parentId === null) {
                                         const parent = await OfficeRepository.findOneById(element.officeId);
                                         if (parent) {
-                                            resa.unshift({ id: parent.id, name: parent.name, capacity: parent.capacity, maxCapacity: parent.maxCapacity });
+                                            resa.unshift({ id: parent.id, name: parent.name, capacity: parent.capacity, maxCapacity: parent.maxCapacity, users:[] });
                                         }
                                     }
                                 }
