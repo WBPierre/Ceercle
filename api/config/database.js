@@ -17,7 +17,7 @@ async function verifyDatabase() {
       "Connection to the database has been established successfully."
     );
     console.log("Database synchronizing...");
-    await db.sync({ force: true });
+    await db.sync({ alter: true });
     console.log("Database synchronized");
     return true;
   } catch (error) {
