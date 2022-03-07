@@ -18,7 +18,7 @@ export default function ElementSelection(props){
         available = available*100;
         if(available > 60){
             return '#008946';
-        } else if(available > 30){
+        } else if(available > 20){
             return '#FFA800'
         } else {
             return '#DE5959'
