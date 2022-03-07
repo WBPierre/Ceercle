@@ -23,17 +23,6 @@ export default function BookingInformation(props){
         }
     }
 
-    const handleCapacityColor = (item) => {
-        let available = (((item.capacity*item.maxCapacity)/100)-item.users.length)/(item.capacity*item.maxCapacity/100);
-        available = available*100;
-        if(available > 60){
-            return '#008946';
-        } else if(available > 30){
-            return '#FFA800'
-        } else {
-            return '#DE5959'
-        }
-    }
 
     return(
         <div style={{height:'100%', display:"flex"}}>
