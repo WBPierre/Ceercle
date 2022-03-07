@@ -228,7 +228,7 @@ exports.uploadProfile = async function (req, res, next) {
       process.env.STORAGE_PORT +
       "/public/assets/profile/" +
       req.file.filename;
-    await UserRepository.findOneById(req.locals.auth.user.id)
+    await UserRepository.findOneById(res.locals.auth.user.id)
     .then(async (record) => {
       if (!record) {
         res.status(404);
@@ -269,7 +269,7 @@ exports.uploadBanner = async function (req, res, next) {
       process.env.STORAGE_PORT +
       "/public/assets/banner/" +
       req.file.filename;
-    await UserRepository.findOneById(req.locals.auth.user.id)
+    await UserRepository.findOneById(res.locals.auth.user.id)
     .then(async (record) => {
       if (!record) {
         res.status(404);
@@ -296,7 +296,7 @@ exports.uploadBanner = async function (req, res, next) {
 };
 
 exports.updatePassword = async function (req, res, next) {
-  await UserRepository.findOneById(req.locals.auth.user.id)
+  await UserRepository.findOneById(res.locals.auth.user.id)
   .then(async (record) => {
     if (!record) {
       res.status(404);
@@ -318,7 +318,7 @@ exports.updatePassword = async function (req, res, next) {
 };
 
 exports.updateUserSettings = async function (req, res, next) {
-  await UserRepository.findOneById(req.locals.auth.user.id)
+  await UserRepository.findOneById(res.locals.auth.user.id)
   .then((record) => {
     if (!record) {
       res.status(404);
@@ -345,7 +345,7 @@ exports.updateUserSettings = async function (req, res, next) {
 };
 
 exports.updateUserGeneral = async function (req, res, next) {
-  await UserRepository.findOneById(req.locals.auth.user.id)
+  await UserRepository.findOneById(res.locals.auth.user.id)
   .then((record) => {
     if (!record) {
       res.status(404);
