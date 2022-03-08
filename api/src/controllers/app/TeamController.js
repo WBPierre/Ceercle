@@ -128,7 +128,7 @@ exports.updateHasSpecificRules = async function (req, res, next) {
       }
     });
   };
-  
+   
   exports.updateRulesValue = async function (req, res, next) {
     await TeamRepository.findOneById(req.body.teamId)
     .then(async (record) => {

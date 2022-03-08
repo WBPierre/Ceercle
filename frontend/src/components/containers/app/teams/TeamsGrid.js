@@ -48,7 +48,7 @@ function TeamsGrid(props) {
                         label={t('generic:update')}
                         color="primary"
                         sx={{ borderColor: "#3F07A8", color: "#3F07A8" }}
-                        onClick={() => navigate(App_Routes.TEAMSETTING + params.row.id)}
+                        onClick={() => navigate(App_Routes.TEAMSETTINGNEW + params.row.id)}
                         icon={<EditIcon />}
                         variant="outlined"
                     />

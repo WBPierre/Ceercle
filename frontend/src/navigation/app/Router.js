@@ -27,7 +27,7 @@ function Rooter() {
                 <Route exact path={"/workpolicy"} element={<ProtectedRoute><WorkPolicy /></ProtectedRoute>} />
                 <Route exact path={"/teams"} element={<ProtectedRoute><Teams /></ProtectedRoute>} />
                 <Route exact path={"/team-settings/:id"} element={<ProtectedRoute><TeamSetting /></ProtectedRoute>} />
-                <Route exact path={"/team-settings-new"} element={<ProtectedRoute><TeamSettingNew /></ProtectedRoute>} />
+                <Route exact path={"/team-settings-new/:id"} element={<ProtectedRoute><TeamSettingNew /></ProtectedRoute>} />
                 <Route exact path={"/stats"} element={<ProtectedRoute><Stats /></ProtectedRoute>} />
                 <Route exact path={"/verify/oAuth"} element={<ProtectedRoute><Auth2Validation /></ProtectedRoute>} />
                 <Route exact path={"/invitation/:token"} element={<Invitation/>}/>
