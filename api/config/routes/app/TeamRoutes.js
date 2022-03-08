@@ -11,6 +11,9 @@ router.post('/', [isAdminUser, TeamController.validate('createTeam'), verifyErro
 router.post('/addUserToTeam', [isAdminUser, TeamController.validate('addUserToTeam'), verifyErrors], TeamController.addUserToTeam);
 router.put('/updateTeamDescription', [isAdminUser, TeamController.validate('updateTeamDescription'), verifyErrors], TeamController.updateTeamDescription);
 router.post('/deleteUserFromTeam', [isAdminUser, TeamController.validate('deleteUserFromTeam'), verifyErrors], TeamController.deleteUserFromTeam);
+router.get('/getTeamRules/:teamId', [isAdminUser, TeamController.validate('getTeamRules'), verifyErrors], TeamController.getTeamRules);
+router.post('/updateHasSpecificRules', [isAdminUser, TeamController.validate('updateHasSpecificRules'), verifyErrors], TeamController.updateHasSpecificRules);
+router.post('/updateRulesValue', [isAdminUser, TeamController.validate('updateRulesValue'), verifyErrors], TeamController.updateRulesValue);
 router.delete('/:id', [isAdminUser, TeamController.validate('deleteTeam'), verifyErrors], TeamController.deleteTeam);
 
 module.exports = router;

@@ -11,6 +11,7 @@ const Mailer = require("../../services/Mailer");
 const UserRepository = require("../../repositories/UserRepository");
 const CompanyRepository = require("../../repositories/CompanyRepository");
 const fs = require("fs");
+const RulesService = require("../../services/RulesService");
 
 exports.listAllUsers = async function (req, res) {
   const users = await UserRepository.findAllActiveForCompany(res.locals.auth.user.companyId);
@@ -389,6 +390,61 @@ exports.resetPassword = async function (req, res, next) {
   });
 };
 
+exports.updateHasSpecificRules = async function (req, res, next) {
+  await UserRepository.findOneById(req.body.userId)
+  .then(async (record) => {
+    if (!record) {
+      res.status(404);
+      res.send();
+    } else {
+      await record
+        .update({
+          hasSpecificRules: req.body.hasSpecificRules
+        })
+        .then(() => {
+          res.status(200);
+          res.send();
+        });
+    }
+  });
+};
+
+exports.updateRulesValue = async function (req, res, next) {
+  await UserRepository.findOneById(req.body.userId)
+  .then(async (record) => {
+    if (!record) {
+      res.status(404);
+      res.send();
+    } else {
+      const update = await UserService.updateRulesValue(record, req.body)
+      res.status(200);
+      res.send();
+    }
+  });
+};
+
+exports.getUserRules = async function (req, res, next) {
+  await UserRepository.findOneById(req.params.userId)
+  .then(async (record) => {
+    if (!record) {
+      res.status(404);
+      res.send();
+    } else {
+      res.status(200).json({
+        hasSpecificRules: record.hasSpecificRules,
+        ruleScope: record.ruleScope,
+        officeMaximum: record.officeMaximum,
+        remoteMaximum: record.remoteMaximum,
+        mondayMandatoryStatus: record.mondayMandatoryStatus,
+        tuesdayMandatoryStatus: record.tuesdayMandatoryStatus,
+        wednesdayMandatoryStatus: record.wednesdayMandatoryStatus,
+        thursdayMandatoryStatus: record.thursdayMandatoryStatus,
+        fridayMandatoryStatus: record.fridayMandatoryStatus
+      });
+    }
+  });
+};
+
 exports.validate = (method) => {
   switch (method) {
     case "getUser": {
@@ -521,6 +577,30 @@ exports.validate = (method) => {
       return [
         body("email", "email is not a string").exists(),
         body("email", "email is not an email").isEmail(),
+      ];
+    }
+    case "updateHasSpecificRules": {
+      return [
+        body("hasSpecificRules", "hasSpecificRules does not exist").exists(),
+        body("hasSpecificRules", "hasSpecificRules is not an boolean").isBoolean(),
+      ];
+    }
+    case "updateRulesValue": {
+      return [
+        body('ruleScope', 'ruleScope is not a number').isNumeric(),
+        body('remoteMaximum', 'remoteMaximum is not a number').isNumeric(),
+        body('officeMaximum', 'officeMaximum is not a number').isNumeric(),
+        body('mondayMandatoryStatus', 'mondayMandatoryStatus is not a number').isNumeric(),
+        body('tuesdayMandatoryStatus', 'tuesdayMandatoryStatus is not a number').isNumeric(),
+        body('wednesdayMandatoryStatus', 'wednesdayMandatoryStatus is not a number').isNumeric(),
+        body('thursdayMandatoryStatus', 'thursdayMandatoryStatus is not a number').isNumeric(),
+        body('fridayMandatoryStatus', 'fridayMandatoryStatus is not a number').isNumeric(),
+      ];
+    }
+    case "getUserRules": {
+      return [
+        param("userId", "userId does not exist").exists(),
+        param("userId", "userId is not an integer").isNumeric(),
       ];
     }
   }
