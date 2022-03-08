@@ -1,3 +1,4 @@
+
 exports.updateRulesValue = async function(record, rules) {
     try {
         await record
@@ -24,7 +25,7 @@ exports.updateCompanyRulesValue = async function(record, rules) {
             ruleScope: rules.ruleScope,
             officeMaximum: rules.officeMaximum,
             remoteMaximum: rules.remoteMaximum,
-            officeBookingMandatory: req.body.officeBookingMandatory,
+            officeBookingMandatory: rules.officeBookingMandatory,
             mondayMandatoryStatus: rules.mondayMandatoryStatus,
             tuesdayMandatoryStatus: rules.tuesdayMandatoryStatus,
             wednesdayMandatoryStatus: rules.wednesdayMandatoryStatus,

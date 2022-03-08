@@ -55,9 +55,8 @@ export default function WorkPolicy() {
           textColor="secondary"
           indicatorColor="secondary"
         >
-          <Tab label="Informations générales" {...a11yProps(0)} />
+          <Tab label="Paramètres d'équipe" {...a11yProps(0)} />
           <Tab label="Utilisateurs" {...a11yProps(1)} />
-          <Tab label="Règles spécifiques" {...a11yProps(2)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
@@ -65,9 +64,6 @@ export default function WorkPolicy() {
       </TabPanel>
       <TabPanel value={value} index={1}>
         hella
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        test
       </TabPanel>
     </div>
   );

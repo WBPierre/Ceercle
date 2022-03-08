@@ -2,6 +2,7 @@ const Team = require('../../models/Team');
 const { param, body } = require("express-validator");
 const TeamRepository = require('../../repositories/TeamRepository');
 const RulesService = require("../../services/RulesService");
+const CompanyRepository = require('../../repositories/CompanyRepository');
 
 exports.createTeam = async function (req, res, next) {
     let to_create = {
@@ -136,7 +137,7 @@ exports.updateHasSpecificRules = async function (req, res, next) {
         res.status(404);
         res.send();
       } else {
-        const rules = {
+        let rules = {
             ruleScope: req.body.ruleScope,
             officeMaximum: req.body.officeMaximum,
             remoteMaximum: req.body.remoteMaximum,
@@ -145,6 +146,20 @@ exports.updateHasSpecificRules = async function (req, res, next) {
             wednesdayMandatoryStatus: req.body.wednesdayMandatoryStatus,
             thursdayMandatoryStatus: req.body.thursdayMandatoryStatus,
             fridayMandatoryStatus: req.body.fridayMandatoryStatus
+        }
+        
+        if (!record.hasSpecificRules){
+            const company = await CompanyRepository.findOneById(res.locals.auth.user.companyId)
+            rules = {
+                ruleScope: company.ruleScope,
+                officeMaximum: company.officeMaximum,
+                remoteMaximum: company.remoteMaximum,
+                mondayMandatoryStatus: company.mondayMandatoryStatus,
+                tuesdayMandatoryStatus: company.tuesdayMandatoryStatus,
+                wednesdayMandatoryStatus: company.wednesdayMandatoryStatus,
+                thursdayMandatoryStatus: company.thursdayMandatoryStatus,
+                fridayMandatoryStatus: company.fridayMandatoryStatus
+            }
         }
         const update =  await RulesService.updateRulesValue(record, rules)
         if (update){
@@ -162,7 +177,7 @@ exports.updateHasSpecificRules = async function (req, res, next) {
   };
 
 exports.getTeamRules = async function (req, res, next) {
-    await TeamRepository.findOneById(req.params.id)
+    await TeamRepository.findOneById(req.params.teamId)
     .then(async (record) => {
       if (!record) {
         res.status(404);
