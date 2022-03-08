@@ -1,10 +1,17 @@
 import * as React from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate} from "react-router-dom";
 import PropTypes from "prop-types";
+
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
+import Chip from '@mui/material/Chip';
+import Grid from "@mui/material/Grid";
+import { Divider } from "@mui/material";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
+import * as App_Routes from "../../navigation/app/Routes";
 import TeamParameters from "../../components/containers/app/teamsnew/TeamParameters";
 
 function TabPanel(props) {
@@ -38,33 +45,51 @@ function a11yProps(index) {
 
 export default function WorkPolicy() {
   const { t } = useTranslation();
-
+  let navigate = useNavigate();
   const [value, setValue] = React.useState(0);
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   return (
     <div>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
-          textColor="secondary"
-          indicatorColor="secondary"
-        >
-          <Tab label="Paramètres d'équipe" {...a11yProps(0)} />
-          <Tab label="Utilisateurs" {...a11yProps(1)} />
-        </Tabs>
-      </Box>
-      <TabPanel value={value} index={0}>
-        <TeamParameters />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        hella
-      </TabPanel>
+        <Grid container direction="ra" spacing={3}>
+          <Grid item md={10}>
+            <Box>
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                aria-label="basic tabs example"
+                textColor="secondary"
+                indicatorColor="secondary"
+              >
+                <Tab label="Paramètres d'équipe" {...a11yProps(0)} />
+                <Tab label="Utilisateurs" {...a11yProps(1)} />
+              </Tabs>
+            </Box>
+          </Grid>
+          <Grid item md={2}>
+              <Chip
+                  label={t('app:teams:personalize.back_to_team')}
+                  sx={{
+                      borderColor: "#777575", color: "#777575", fontWeight: "bold"
+                  }}
+                  color="error"
+                  icon={<ArrowBackIcon />}
+                  variant="outlined"
+                  onClick={() => navigate(App_Routes.TEAMS)}
+              />
+          </Grid>
+        </Grid>
+
+        <Divider/>
+
+        <TabPanel value={value} index={0}>
+          <TeamParameters />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          hella
+        </TabPanel>
     </div>
   );
 }
