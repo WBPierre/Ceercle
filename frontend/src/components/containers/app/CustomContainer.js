@@ -55,7 +55,7 @@ function CustomContainer(props){
     };
 
 
-    if(location.pathname === "/app/" || location.pathname === "/" || location.pathname.includes("invitation") || location.pathname.includes("verify/oAuth")){
+    if(location.pathname === "/app/" || location.pathname === "/" || location.pathname.includes("invitation") || location.pathname.includes("/verify")){
         return (
             props.children
         )

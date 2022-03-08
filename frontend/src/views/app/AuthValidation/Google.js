@@ -2,11 +2,11 @@ import {useTranslation} from "react-i18next";
 import {useTheme} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
-import * as App_Routes from "../../navigation/app/Routes";
-import ThirdPartyService from "../../services/app/thirdparty.service";
+import * as App_Routes from "../../../navigation/app/Routes";
+import ThirdPartyService from "../../../services/app/thirdparty.service";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import logo from "../../assets/images/logo/logo_2.png";
+import logo from "../../../assets/images/logo/logo_2.png";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import LoadingIcons from 'react-loading-icons'
@@ -18,27 +18,26 @@ function useQuery() {
     return React.useMemo(() => new URLSearchParams(search), [search]);
 }
 
-function Auth2Validation(){
+function Google(){
     const { t } = useTranslation();
     const theme = useTheme();
     let navigate = useNavigate();
     let query = useQuery();
 
     useEffect(() => {
-        async function verifySlack(){
+        async function verifyGoogle(){
             const code = query.get('code');
-            const state = query.get('state');
-            if(state !== "ceercleinstall"){
-                navigate(App_Routes.WORKPOLICY);
-            }else{
-                const resources = {
-                    code: code
-                }
-                await ThirdPartyService.verifySlack(resources);
-                navigate(App_Routes.WORKPOLICY);
+            const resources = {
+                code: code
             }
+            if(!code || code.length === 0){
+                navigate(App_Routes.ACCOUNT);
+            }
+            await ThirdPartyService.connectToGoogle(resources).then((res) => {
+                navigate(App_Routes.ACCOUNT);
+            });
         }
-        verifySlack();
+        verifyGoogle();
     }, []);
 
     return (
@@ -60,7 +59,7 @@ function Auth2Validation(){
                             fontSize={24}
                             textAlign={"center"}
                         >
-                            {t('app:rh_parameters:integration.verify')}Slack{t('app:rh_parameters:integration.verify_next')}
+                            {t('app:rh_parameters:integration.verify')}Google{t('app:rh_parameters:integration.verify_next')}
                         </Typography>
                     </Grid>
                     <Grid item>
@@ -72,4 +71,4 @@ function Auth2Validation(){
     )
 }
 
-export default Auth2Validation;
+export default Google;

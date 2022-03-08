@@ -20,7 +20,10 @@
     "language": "Langage",
     "default_statuses": "Statuts par défaut",
     "snackbar_success": "Paramètres enregistrés",
-    "snackbar_warning": "Veuillez remplir correctement les champs."
+    "snackbar_warning": "Veuillez remplir correctement les champs.",
+    "connect_to_google": "Connecter son compte avec Google Calendar",
+    "connect_my_google_calendar": "Connecter mon calendrier Google",
+    "google_calendar_connected": "Vous êtes connecté à Google Calendar !"
   },
   "general": {
     "title": "Paramètres généraux",
