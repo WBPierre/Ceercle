@@ -15,9 +15,14 @@ import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
 import UserService from "../../../../services/app/user.service";
 import * as App_Routes from "../../../../navigation/app/Routes";
-
-
+import ThirdPartyService from "../../../../services/app/thirdparty.service";
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import SettingSectionTemplate from './SettingSectionTemplate';
+import {Avatar, Button, ListItem, ListItemAvatar, ListItemButton, ListItemText} from "@mui/material";
+import {useEffect, useState} from "react";
+import List from "@mui/material/List";
+import IconButton from "@mui/material/IconButton";
+import GoogleCalendarIcon from "../../../molecules/icons/GoogleCalendarIcon";
 
 export default function PreferencesSection(props) {
     const { i18n } = useTranslation();
@@ -87,6 +92,34 @@ export default function PreferencesSection(props) {
     const handleChangeLanguage = (event) => {
         setLanguage(event.target.value);
     };
+
+    const handleGoogleConnect = async () => {
+        const res = await ThirdPartyService.getGoogleUrl();
+        window.open(res.data.url, "_blank");
+    }
+
+    const [googleCalendarConnected, setGoogleCalendarConnected] = useState(false);
+    useEffect(() => {
+        async function verifyGoogleCalendar(){
+            await ThirdPartyService.verifyGoogleCalendarConnection().then((res) => {
+                if(res.data.connected){
+                    setGoogleCalendarConnected(true);
+                }else{
+                    setGoogleCalendarConnected(false);
+                }
+            });
+        }
+        verifyGoogleCalendar();
+    }, []);
+
+    const handleRemoveGoogleConnect = async () => {
+        await ThirdPartyService.removeGoogleCalendar();
+        setGoogleCalendarConnected(false);
+    }
+
+    const handleGoogleTest = async () => {
+        await ThirdPartyService.test();
+    }
 
 
     const { enqueueSnackbar } = useSnackbar();
@@ -312,6 +345,27 @@ export default function PreferencesSection(props) {
                             )}
                         </Select>
                     </FormControl>
+                </Grid>
+
+                <Grid item mt={6}>
+                    {!googleCalendarConnected ? (
+                        <FormControl sx={{ width: 400 }} variant="standard">
+                            <Button variant={"outlined"} startIcon={<GoogleCalendarIcon/>} color={"secondary"} onClick={() => handleGoogleConnect()}>{t('app:account:preferences.connect_my_google_calendar')}</Button>
+                        </FormControl>
+                    ):(
+                        <List style={{maxWidth:'400px'}}>
+                            <ListItem secondaryAction={
+                                <IconButton edge="end" aria-label="delete" onClick={() => handleRemoveGoogleConnect()}>
+                                    <CancelIcon />
+                                </IconButton>
+                            }>
+                                <ListItemAvatar>
+                                    <GoogleCalendarIcon/>
+                                </ListItemAvatar>
+                                <ListItemText primary={t('app:account:preferences.google_calendar_connected')} primaryTypographyProps={{fontSize: 16, fontWeight:500, marginTop:0}}/>
+                            </ListItem>
+                        </List>
+                    )}
                 </Grid>
 
 
