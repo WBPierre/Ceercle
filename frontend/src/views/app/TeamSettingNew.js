@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import Tabs from "@mui/material/Tabs";
@@ -13,6 +14,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import * as App_Routes from "../../navigation/app/Routes";
 import TeamParameters from "../../components/containers/app/teamsnew/TeamParameters";
+import TeamUsersGrid from "../../components/containers/app/teamsnew/TeamUsersGrid";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -45,6 +47,7 @@ function a11yProps(index) {
 
 export default function WorkPolicy() {
   const { t } = useTranslation();
+  const {id} = useParams()
   let navigate = useNavigate();
   const [value, setValue] = React.useState(0);
   const handleChange = (event, newValue) => {
@@ -85,10 +88,10 @@ export default function WorkPolicy() {
         <Divider/>
 
         <TabPanel value={value} index={0}>
-          <TeamParameters />
+          <TeamParameters teamId={id}/>
         </TabPanel>
         <TabPanel value={value} index={1}>
-          hella
+           <TeamUsersGrid teamId={id}/>
         </TabPanel>
     </div>
   );
