@@ -1,18 +1,18 @@
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+
 import { DataGrid } from '@mui/x-data-grid';
 import { Chip } from "@mui/material";
 import { Avatar } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import Typography from '@mui/material/Typography';
-import {
-    Dialog, DialogActions, DialogTitle,
-} from "@mui/material";
+import {Dialog, DialogActions, DialogTitle} from "@mui/material";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Button } from "@mui/material";
-import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
-import TeamService from "../../../../services/app/team.service";
 import { useSnackbar } from "notistack";
+
+import TeamService from "../../../../services/app/team.service";
 import ProfileDefault from "../../../../assets/images/example/default.png";
 import UserAddModal from "../teamsnew/UserAddModal";
 
