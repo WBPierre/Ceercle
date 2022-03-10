@@ -32,6 +32,18 @@ class TeamService {
     async updateTeamDescription(ressource) {
         return this.request.put('/team/updateTeamDescription', ressource);
     }
+
+    async getTeamRules(teamId){
+        return this.request.get('/team/getTeamRules/' + teamId);
+    }
+
+    async updateHasSpecificRules(ressource){
+        return this.request.post('/team/updateHasSpecificRules', ressource);
+    }
+
+    async updateRulesValue(ressource){
+        return this.request.post('/team/updateRulesValue', ressource);
+    }
 }
 
 

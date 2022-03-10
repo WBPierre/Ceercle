@@ -1,9 +1,10 @@
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
+import { BlockPicker } from 'react-color';
+
 import Grid from "@mui/material/Grid";
 import { Button, Divider, Modal, TextField, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
-import { BlockPicker } from 'react-color';
 
 
 const style = {

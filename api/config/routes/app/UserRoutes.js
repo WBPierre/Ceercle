@@ -22,4 +22,8 @@ router.get('/invitation/verify/:token', [UserController.validate('verifyInvitati
 router.post('/invitation/validate', [UserController.validate('createUserFromInvitation'), verifyErrors], UserController.createUserFromInvitation);
 router.post('/invitation/create', [isAdminUser, UserController.validate('createInvitation'), verifyErrors], UserController.createInvitation);
 router.get('/disable/:id', [isAdminUser, UserController.validate('disableUser'), verifyErrors], UserController.disableUser);
+router.get('/getUserRules/:userId', [isAdminUser, UserController.validate('getUserRules'), verifyErrors], UserController.getUserRules);
+router.post('/updateHasSpecificRules', [isAdminUser, UserController.validate('updateHasSpecificRules'), verifyErrors], UserController.updateHasSpecificRules);
+router.post('/overwriteUserRuleWithTeam', [isAdminUser, UserController.validate('overwriteUserRuleWithTeam'), verifyErrors], UserController.overwriteUserRuleWithTeam);
+router.post('/updateRulesValue', [isAdminUser, UserController.validate('updateRulesValue'), verifyErrors], UserController.updateRulesValue);
 module.exports = router;

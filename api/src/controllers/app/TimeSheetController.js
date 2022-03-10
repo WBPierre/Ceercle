@@ -7,7 +7,6 @@ const TimeSheetRepository = require('../../repositories/TimeSheetRepository');
 const OfficeBookingRepository = require('../../repositories/OfficeBookingRepository');
 const OfficeRepository = require('../../repositories/OfficeRepository');
 const OfficeElementRepository = require('../../repositories/OfficeElementRepository');
-const CompanyRepository = require('../../repositories/CompanyRepository');
 const TeamRepository = require('../../repositories/TeamRepository');
 const ThirdPartyService = require('../../services/ThirdPartyService');
 
@@ -183,21 +182,21 @@ exports.setTimeSheet = async function (req, res, next) {
 
 
 exports.hasUserValidatedCompanyRules = async function (req, res, next) {
-    const company = await CompanyRepository.findOneById(res.locals.auth.user.companyId);
-    if (!company) {
+    const user = await UserRepository.findOneById(res.locals.auth.user.id);
+    if (!user) {
         res.status(404);
         res.send();
         return;
     }
 
-    const companyRuleScope = company.ruleScope
-    const companyOfficeMaximum = company.officeMaximum
-    const companyRemoteMaximum = company.remoteMaximum
-    const mondayMandatoryStatus = company.mondayMandatoryStatus
-    const tuesdayMandatoryStatus = company.tuesdayMandatoryStatus
-    const wednesdayMandatoryStatus = company.wednesdayMandatoryStatus
-    const thursdayMandatoryStatus = company.thursdayMandatoryStatus
-    const fridayMandatoryStatus = company.fridayMandatoryStatus
+    const companyRuleScope = user.ruleScope
+    const companyOfficeMaximum = user.officeMaximum
+    const companyRemoteMaximum = user.remoteMaximum
+    const mondayMandatoryStatus = user.mondayMandatoryStatus
+    const tuesdayMandatoryStatus = user.tuesdayMandatoryStatus
+    const wednesdayMandatoryStatus = user.wednesdayMandatoryStatus
+    const thursdayMandatoryStatus = user.thursdayMandatoryStatus
+    const fridayMandatoryStatus = user.fridayMandatoryStatus
     companyMandatoryStatuses = [mondayMandatoryStatus, tuesdayMandatoryStatus, wednesdayMandatoryStatus, thursdayMandatoryStatus, fridayMandatoryStatus]
     let userStatusesForWeek = [0, 0, 0, 0, 0]
     let userStatusesForMonth = [0, 0, 0, 0, 0]

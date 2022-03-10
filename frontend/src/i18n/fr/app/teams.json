@@ -1,6 +1,9 @@
 {
   "team_name": "Nom de l'équipe",
   "color": "Couleur",
+  "parameters": "Paramètres d'équipe",
+  "users": "Collaborateurs",
+  "test": "test",
   "main": {
     "title": "Gestion des équipes",
     "subtitle": "Gérer et paramétrez les équipes au sein de l'entreprise.",
@@ -13,10 +16,14 @@
   },
   "personalize": {
     "title": "Personnalisation de l'équipe",
+    "description": "Paramétrez le nom et la couleur de l'équipe",
     "back_to_team": "Revenir aux équipes",
+    "define_rules": "Définir des règles spécifiques à l'équipe",
+    "warning": "Si aucune règle spécifique n'est définie, les règles de l'entreprise s'appliqueront sur les membres de cette équipe.",
     "add_user": "Ajouter un utilisateur",
     "name": "Nom",
     "position": "Poste",
+    "specific_rules": "Droits spécifiques",
     "user": "Collaborateur",
     "delete_team": "Supprimer l'équipe",
     "delete_team_ask": "Supprimer l'équipe ?",
@@ -25,5 +32,6 @@
     "snackbar_team_saved": "Equipe enregistrée",
     "snackbar_team_deleted": "Equipe supprimée",
     "snackbar_team_warning": "Veuillez remplir les champs (nom, couleur)"
-  }
+  },
+  "specific_rules": "Règles spécifiques - "
 }
