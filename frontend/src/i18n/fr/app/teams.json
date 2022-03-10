@@ -1,6 +1,9 @@
 {
   "team_name": "Nom de l'équipe",
   "color": "Couleur",
+  "parameters": "Paramètres d'équipe",
+  "users": "Collaborateurs",
+  "test": "test",
   "main": {
     "title": "Gestion des équipes",
     "subtitle": "Gérer et paramétrez les équipes au sein de l'entreprise.",

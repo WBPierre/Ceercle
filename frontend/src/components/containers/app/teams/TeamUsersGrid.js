@@ -142,7 +142,7 @@ function TeamUsersGrid(props) {
             renderCell: (params) => {
                 return (
                     <div>
-                        <Switch value={params.row.hasSpecificRules} checked={params.row.hasSpecificRules} onChange={handleChangeHasSpecificRules} id={params.row.id.toString()} />
+                        <Switch color="secondary" value={params.row.hasSpecificRules} checked={params.row.hasSpecificRules} onChange={handleChangeHasSpecificRules} id={params.row.id.toString()} />
                         <Chip
                             label={t('generic:update')}
                             color="primary"
