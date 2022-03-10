@@ -46,7 +46,8 @@ exports.getTeam = async function (req, res, next) {
             'id': users_linked[i].id,
             'name': users_linked[i].firstName + " " + users_linked[i].lastName,
             'position': users_linked[i].position,
-            'avatar': users_linked[i].profilePicturePath
+            'avatar': users_linked[i].profilePicturePath,
+            'hasSpecificRules': users_linked[i].hasSpecificRules
         }
         users_formatted.push(user);
     }

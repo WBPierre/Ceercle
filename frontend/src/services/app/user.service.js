@@ -70,6 +70,22 @@ class UserService {
   async uploadBanner(resources) {
     return this.request.post("/users/uploadBanner", resources);
   }
+
+  async updateHasSpecificRules(resources){
+    return this.request.post("users/updateHasSpecificRules", resources)
+  }
+
+  async getUserRules(userId){
+    return this.request.get("users/getUserRules/" + userId)
+  }
+
+  async updateRulesValue(resources){
+    return this.request.post("users/updateRulesValue", resources)
+  }
+
+  async overwriteUserRuleWithTeam(resources){
+    return this.request.post("users/overwriteUserRuleWithTeam", resources)
+  }
 }
 
 export default new UserService();

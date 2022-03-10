@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -9,12 +10,15 @@ import Typography from '@mui/material/Typography';
 import {Dialog, DialogActions, DialogTitle} from "@mui/material";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Button } from "@mui/material";
+import {Switch} from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { useSnackbar } from "notistack";
 
 import TeamService from "../../../../services/app/team.service";
+import UserService from "../../../../services/app/user.service";
 import ProfileDefault from "../../../../assets/images/example/default.png";
 import UserAddModal from "../teamsnew/UserAddModal";
+import UserRulesModal from "../teamsnew/UserRulesModal";
 
 function TeamUsersGrid(props) {
 
@@ -60,6 +64,32 @@ function TeamUsersGrid(props) {
     };
 
 
+    const [openModifyRulesForUser, setOpenModifyRulesForUser] = useState(false);
+    const [userToModify, setUserToModify] = useState(0);
+    const [userName, setUserName] = useState(" ");
+    const handleOpenModifyRulesForUser = (userId) => {
+        setUserToModify(userId)
+        for (let i = 0; i < listUsers.length; i++) {
+            if (listUsers[i].id == userId) {
+                setUserName(listUsers[i].name)
+            }
+        }
+        setOpenModifyRulesForUser(true);
+    };
+    const handleOpenModifyRulesForUserClose = () => {
+        setOpenModifyRulesForUser(false);
+    };
+    
+
+    const handleChangeHasSpecificRules = async (event) => {
+        const hasSpecificRules = event.target.checked
+        await UserService.updateHasSpecificRules({userId: event.target.id, hasSpecificRules: hasSpecificRules})
+        if (!hasSpecificRules){
+            await UserService.overwriteUserRuleWithTeam({userId: parseInt(event.target.id), teamId: parseInt(props.teamId)})
+        }
+        await getTeam(props.teamId)
+    }
+
     async function getTeam(index) {
         const res = await TeamService.getTeam(index);
         let listUsersTemp = []
@@ -68,7 +98,8 @@ function TeamUsersGrid(props) {
                 'id': res.data.users[i].id,
                 'name': res.data.users[i].name,
                 'position': res.data.users[i].position,
-                'avatar': res.data.users[i].avatar
+                'avatar': res.data.users[i].avatar,
+                'hasSpecificRules': res.data.users[i].hasSpecificRules
             }
             listUsersTemp.push(object);
         }
@@ -102,13 +133,31 @@ function TeamUsersGrid(props) {
             }
         },
         {
+            field: 'update', headerName: 'Droits spécifiques', minWidth: 200, headerAlign: 'center', align: "center", resizable: false,
+            renderCell: (params) => {
+                return (
+                    <div>
+                        <Switch value={params.row.hasSpecificRules} checked={params.row.hasSpecificRules} onChange={handleChangeHasSpecificRules} id={params.row.id} />
+                        <Chip
+                            label="Modifier"
+                            color="primary"
+                            sx={{ borderColor: "#3C3B3D", color: "#3C3B3D" }}
+                            onClick={() => handleOpenModifyRulesForUser(params.row.id)}
+                            variant="outlined"
+                            disabled={!params.row.hasSpecificRules}
+                        />
+                    </div>
+                )
+            }
+        },
+        {
             field: 'action', headerName: '', minWidth: 200, headerAlign: 'center', align: "right", flex: 1, resizable: false,
             renderCell: (params) => {
                 return (
                     <Chip
                         label={t('generic:delete')}
                         color="primary"
-                        sx={{ borderColor: "#3C3B3D", color: "#3C3B3D" }}
+                        sx={{ borderColor: "#E60E0E", color: "#E60E0E" }}
                         onClick={() => handleClickOnDelete(params.row.id)}
                         icon={<DeleteIcon />}
                         variant="outlined"
@@ -121,7 +170,7 @@ function TeamUsersGrid(props) {
     return (
         <div style={{ height: 500, width: '100%' }}>
             
-            <DataGrid rows={listUsers} columns={columns} disableColumnSelector={true} disableColumnMen={true} disableSelectionOnClick hideFooterPagination />
+            <DataGrid rows={listUsers} columns={columns} disableColumnSelector disableColumnMenu disableSelectionOnClick hideFooterPagination />
             
             <Grid container direction="column">
                 <Grid item mt={5}>
@@ -155,6 +204,7 @@ function TeamUsersGrid(props) {
             </Dialog>
 
             <UserAddModal openModal={openAddUser} handleModalClose={handleAddUserClose} teamId={props.teamId} />
+            <UserRulesModal openModal={openModifyRulesForUser} handleModalClose={handleOpenModifyRulesForUserClose} userId={userToModify} userName={userName}/>
         </div>
     )
 }

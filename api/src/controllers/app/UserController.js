@@ -12,6 +12,7 @@ const UserRepository = require("../../repositories/UserRepository");
 const CompanyRepository = require("../../repositories/CompanyRepository");
 const fs = require("fs");
 const RulesService = require("../../services/RulesService");
+const TeamRepository = require('../../repositories/TeamRepository');
 
 exports.listAllUsers = async function (req, res) {
   const users = await UserRepository.findAllActiveForCompany(res.locals.auth.user.companyId);
@@ -416,9 +417,57 @@ exports.updateRulesValue = async function (req, res, next) {
       res.status(404);
       res.send();
     } else {
-      const update = await UserService.updateRulesValue(record, req.body)
+      if (record.hasSpecificRules) {
+        await RulesService.updateRulesValue(record, req.body)
+      } else {
+        const teams_list = await record.getTeams()
+        let level = teams_list
+        if(!level){
+          level = record.getCompany()
+        } else {
+          level = team[0]
+        }
+        const rules = {
+          ruleScope: team.ruleScope,
+          officeMaximum: team.officeMaximum,
+          remoteMaximum: team.remoteMaximum,
+          mondayMandatoryStatus: team.mondayMandatoryStatus,
+          tuesdayMandatoryStatus: team.tuesdayMandatoryStatus,
+          wednesdayMandatoryStatus: team.wednesdayMandatoryStatus,
+          thursdayMandatoryStatus: team.thursdayMandatoryStatus,
+          fridayMandatoryStatus: team.fridayMandatoryStatus
+        }
+        await RulesService.updateRulesValue(record, rules)
+      }
       res.status(200);
       res.send();
+    }
+  });
+};
+
+exports.overwriteUserRuleWithTeam = async function (req, res, next) {
+  await UserRepository.findOneById(req.body.userId)
+  .then(async (record) => {
+    if (!record) {
+      res.status(404);
+      res.send();
+    } else {
+      if (!record.hasSpecificRules) {
+        const team = await TeamRepository.findOneById(req.body.teamId)
+        const rules = {
+          ruleScope: team.ruleScope,
+          officeMaximum: team.officeMaximum,
+          remoteMaximum: team.remoteMaximum,
+          mondayMandatoryStatus: team.mondayMandatoryStatus,
+          tuesdayMandatoryStatus: team.tuesdayMandatoryStatus,
+          wednesdayMandatoryStatus: team.wednesdayMandatoryStatus,
+          thursdayMandatoryStatus: team.thursdayMandatoryStatus,
+          fridayMandatoryStatus: team.fridayMandatoryStatus
+        }
+        await RulesService.updateRulesValue(record, rules)
+        res.status(200);
+        res.send();
+      } 
     }
   });
 };
@@ -595,6 +644,14 @@ exports.validate = (method) => {
         body('wednesdayMandatoryStatus', 'wednesdayMandatoryStatus is not a number').isNumeric(),
         body('thursdayMandatoryStatus', 'thursdayMandatoryStatus is not a number').isNumeric(),
         body('fridayMandatoryStatus', 'fridayMandatoryStatus is not a number').isNumeric(),
+      ];
+    }
+    case "overwriteUserRuleWithTeam": {
+      return [
+        body("userId", "userId does not exist").exists(),
+        body("userId", "userId is not an integer").isNumeric(),
+        body("teamId", "teamId does not exist").exists(),
+        body("teamId", "teamId is not an integer").isNumeric(),
       ];
     }
     case "getUserRules": {
