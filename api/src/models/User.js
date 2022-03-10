@@ -1,6 +1,7 @@
-const { DataTypes } = require("sequelize");
-const { db } = require("./../../config/database");
-const Mood = require("./Mood");
+const {DataTypes} = require('sequelize');
+const {db} =  require("./../../config/database");
+const Mood = require('./Mood');
+const UserIntegration = require('./UserIntegration');
 
 const User = db.define(
   "user",
@@ -146,5 +147,8 @@ const User = db.define(
 
 User.hasMany(Mood);
 Mood.belongsTo(User);
+
+User.hasMany(UserIntegration);
+UserIntegration.belongsTo(User);
 
 module.exports = User;

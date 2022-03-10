@@ -8,6 +8,7 @@ const OfficeBookingRepository = require('../../repositories/OfficeBookingReposit
 const OfficeRepository = require('../../repositories/OfficeRepository');
 const OfficeElementRepository = require('../../repositories/OfficeElementRepository');
 const TeamRepository = require('../../repositories/TeamRepository');
+const ThirdPartyService = require('../../services/ThirdPartyService');
 
 // Moment warning
 Moment.suppressDeprecationWarnings = true;
@@ -167,6 +168,7 @@ exports.setTimeSheet = async function (req, res, next) {
     req.body.userId = res.locals.auth.user.id
     await TimeSheetRepository.findOneByDayAndUserId(req.body.day, res.locals.auth.user.id)
         .then(async (record) => {
+            await ThirdPartyService.setTeamSheetInGoogleCalendar(res.locals.auth.user.id, req.body.day, req.body.morning, req.body.afternoon);
             if (!record) {
                 const timesheet = await TimeSheet.create(req.body)
                 res.json(timesheet);

@@ -38,6 +38,7 @@
     "title": "Integration with external apps.",
     "subtitle": "Onboard your collaborators in one click using one of your current HR app.",
     "slack": "Integrate Ceercle into Slack",
-    "verify": "Verification with Slack. You will be redirected once the operation is done. \nPlease wait"
+    "verify": "Verification with ",
+    "verify_next": " . You will be redirected once the operation is done. \nPlease wait"
   }
 }
