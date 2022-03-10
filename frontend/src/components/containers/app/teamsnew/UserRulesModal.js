@@ -83,7 +83,9 @@ function UserRulesModal(props) {
     }
 
     useEffect(() => {
-        getUserRules(props.userId);
+        if (props.userId != 0){
+            getUserRules(props.userId);
+        }
     }, [props.userId, props.openModal]);
 
 

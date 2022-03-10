@@ -9,7 +9,6 @@ export const WORKPOLICY = getRoutesBaseUrl()+"/workpolicy"
 export const TEAMS = getRoutesBaseUrl()+"/teams"
 export const TEAMSETTING = getRoutesBaseUrl()+"/team-settings/" // NEED ID
 export const TEAMSETTINGNEW = getRoutesBaseUrl()+"/team-settings-new/" // NEED ID
-export const USER = getRoutesBaseUrl()+"/user/" // NEED ID
 export const INVIT = getRoutesBaseUrl() + "/invit/" // NEED INVIT TOKEN
 
 function getRoutesBaseUrl() {

@@ -56,7 +56,7 @@ export default function WorkPolicy() {
 
   return (
     <div>
-        <Grid container direction="ra" spacing={3}>
+        <Grid container direction="row" spacing={3}>
           <Grid item md={10}>
             <Box>
               <Tabs
