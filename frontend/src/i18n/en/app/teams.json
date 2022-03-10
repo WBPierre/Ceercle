@@ -1,6 +1,8 @@
 {
   "team_name": "Team's name",
   "color": "color",
+  "parameters": "Team parameters",
+  "users": "Teammates",
   "main": {
     "title": "Teams management",
     "subtitle": "Manage and configure teams within the company.",
@@ -13,10 +15,14 @@
   },
   "personalize": {
     "title": "One-team configuration",
+    "description": "Set-up team's name and color",
     "back_to_team": "Back to teams",
+    "define_rules": "Define specific rules for the team",
+    "warning": "If no specific rules are provided, the company rules will apply.",
     "add_user": "Add a user",
     "name": "Name",
     "position": "Position",
+    "specific_rules": "Specific rules",
     "user": "Collaborator",
     "delete_team": "Delete team",
     "delete_team_ask": "Delete team?",
@@ -25,5 +31,6 @@
     "snackbar_team_saved": "Team saved",
     "snackbar_team_deleted": "Team deleted",
     "snackbar_team_warning": "Please, fill the fields (name, color) properly."
-  }
+  },
+  "specific_rules": "Specific rules - "
 }

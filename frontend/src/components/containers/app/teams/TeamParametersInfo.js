@@ -111,7 +111,7 @@ export default function TeamParametersInfo(props) {
 
 
     return (
-        <SectionTemplate title="Description générale de l'équipe" description="Paramétrez le nom et la couleur de l'équipe">
+        <SectionTemplate title={t("app:teams:personalize.title")} description={t("app:teams:personalize.description")}>
             <Grid container direction="column" spacing={4}>
               <Grid item>
                 <TextField

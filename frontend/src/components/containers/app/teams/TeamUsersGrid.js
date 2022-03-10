@@ -134,12 +134,17 @@ function TeamUsersGrid(props) {
         },
         {
             field: 'update', headerName: 'Droits spécifiques', minWidth: 200, headerAlign: 'center', align: "center", resizable: false,
+            renderHeader: () => (
+                <Typography sx={{ fontSize: 20, fontWeight: 'bold' }}>
+                    {t('app:teams:personalize.specific_rules')}
+                </Typography>
+            ),
             renderCell: (params) => {
                 return (
                     <div>
                         <Switch value={params.row.hasSpecificRules} checked={params.row.hasSpecificRules} onChange={handleChangeHasSpecificRules} id={params.row.id.toString()} />
                         <Chip
-                            label="Modifier"
+                            label={t('generic:update')}
                             color="primary"
                             sx={{ borderColor: "#3C3B3D", color: "#3C3B3D" }}
                             onClick={() => handleOpenModifyRulesForUser(params.row.id)}

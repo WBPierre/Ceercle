@@ -151,7 +151,7 @@ function UserRulesModal(props) {
 
                 <Grid item>
                     <Typography variant="body" fontWeight={500} fontSize={20} style={{ color: '#383737'}}>
-                        Règles spécifiques - {props.userName}
+                        {t('app:teams:specific_rules')} {props.userName}
                     </Typography>
                 </Grid>
 

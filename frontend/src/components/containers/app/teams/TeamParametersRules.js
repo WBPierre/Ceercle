@@ -144,12 +144,12 @@ export default function TeamParametersRules(props) {
             <Grid container direction="column">
                 <Grid item>
                     <Typography variant="body" fontWeight={300} fontSize={17} style={{ color: '#414040', fontStyle: "italic" }}>
-                        Définir des règles spécifiques à l'équipe
+                        {t('app:teams:personalize.define_rules')}
                     </Typography>
                 </Grid>
                 <Grid item>
                     <Typography variant="body" fontWeight={400} fontSize={14} style={{ color: '#2A2828' }}>
-                        Si aucune règle spécifique n'est définie, les règles de l'entreprise s'appliqueront sur les membres de cette équipe.
+                        {t('app:teams:personalize.warning')}
                     </Typography>
                 </Grid>
 

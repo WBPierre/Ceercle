@@ -66,8 +66,8 @@ export default function TeamSetting() {
                 textColor="secondary"
                 indicatorColor="secondary"
               >
-                <Tab label="Paramètres d'équipe" {...a11yProps(0)} />
-                <Tab label="Utilisateurs" {...a11yProps(1)} />
+                <Tab label={t('app:teams:parameters')} {...a11yProps(0)} />
+                <Tab label={t('app:teams:users')} {...a11yProps(1)} />
               </Tabs>
             </Box>
           </Grid>
