@@ -48,15 +48,13 @@ exports.updateHRRules = async function (req, res, next) {
                 const teams =  await TeamRepository.findAllForCompany(res.locals.auth.user.companyId)
                 for (const team of teams){
                     if(!team.hasSpecificRules){
-                        const team_update = await RulesService.updateRulesValue(team, rules)
-                        if (team_update){
-                            let users_linked = await team.getUsers({ where:{active: true, isDeleted: false}})
-                            for (const user of users_linked) {
-                                if(!user.hasSpecificRules){
-                                    await RulesService.updateRulesValue(user, rules)
-                                }
-                            }
-                        }
+                        await RulesService.updateRulesValue(team, rules)
+                    }
+                }
+                let users_linked = await record.getUsers({ where:{active: true, isDeleted: false}})
+                for (const user of users_linked) {
+                    if(!user.hasSpecificRules){
+                        await RulesService.updateRulesValue(user, rules)
                     }
                 }
             }
