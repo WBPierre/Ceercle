@@ -1,21 +1,22 @@
 import { useTranslation } from "react-i18next";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useSnackbar } from "notistack";
+
 import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
 import Chip from "@mui/material/Chip";
 import { TextField } from "@mui/material";
 import { Stack } from "@mui/material";
 import CircleIcon from "@mui/icons-material/Circle";
-import ColorPicker from "../../../molecules/app/ColorPicker";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Dialog, DialogActions, DialogTitle } from "@mui/material";
+
 import TeamService from "../../../../services/app/team.service";
-import { useSnackbar } from "notistack";
 import * as App_Routes from "../../../../navigation/app/Routes";
-import SectionTemplate from "../teamsnew/SectionTemplate"
+import SectionTemplate from "../teams/SectionTemplate"
+import ColorPicker from "../../../molecules/app/ColorPicker";
 
 export default function TeamParametersInfo(props) {
 

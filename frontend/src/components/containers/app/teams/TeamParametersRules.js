@@ -1,77 +1,79 @@
 import * as React from 'react';
-import FormControl from '@mui/material/FormControl';
 import { useTranslation } from "react-i18next";
-import MenuItem from '@mui/material/MenuItem';
-import { useEffect, useState } from "react";
-import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
+import { useSnackbar } from "notistack";
+import { useEffect } from "react";
+
+import Typography from '@mui/material/Typography';
 import Grid from "@mui/material/Grid";
-import { Divider, Modal, Typography } from "@mui/material";
-import Box from "@mui/material/Box";
-import { Stack } from "@mui/material";
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
+import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
-import TextField from '@mui/material/TextField';
-import UserService from "../../../../services/app/user.service";
-import TeamService from "../../../../services/app/team.service";
-import { useSnackbar } from "notistack";
+import {Switch} from "@mui/material";
 
+import TeamService from '../../../../services/app/team.service';
+import SectionTemplate from '../account/SettingSectionTemplate';
 
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 600,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-};
+export default function TeamParametersRules(props) {
 
-
-function UserRulesModal(props) {
     const { t } = useTranslation();
 
     const daysWorked = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
     const statuses = [t('app:statuses:free'), t('app:statuses:office'), t('app:statuses:home_working')]
     const scopes = [t('app:rh_parameters:company.week'), t('app:rh_parameters:company.month')]
+
     const [ruleScope, setRuleScope] = React.useState(0);
     const handleScope = (event) => {
         setRuleScope(event.target.value);
     };
-    const [remoteMaximum, setRemoteMaximum] = React.useState(0);
+
+    const [remoteMaximum, setRemoteMaximum] = React.useState(null);
     const handleRemoteMaximum = (event) => {
         setRemoteMaximum(event.target.value);
     };
+
     const [officeMaximum, setOfficeMaximum] = React.useState(0);
     const handleOfficeMaximum = (event) => {
         setOfficeMaximum(event.target.value);
     };
+
     const [mondayMandatoryStatus, setMondayMandatoryStatus] = React.useState(0);
     const handleChangeMondayStatusCompany = (event) => {
         setMondayMandatoryStatus(event.target.value);
     };
+
     const [tuesdayMandatoryStatus, setTuesdayMandatoryStatus] = React.useState(0);
     const handleChangeTuesdayStatusCompany = (event) => {
         setTuesdayMandatoryStatus(event.target.value);
     };
+
     const [wednesdayMandatoryStatus, setWednesdayMandatoryStatus] = React.useState(0);
     const handleChangeWednesdayStatusCompany = (event) => {
         setWednesdayMandatoryStatus(event.target.value);
     };
+
     const [thursdayMandatoryStatus, setThursdayMandatoryStatus] = React.useState(0);
     const handleChangeThursdayStatusCompany = (event) => {
         setThursdayMandatoryStatus(event.target.value);
     };
+
     const [fridayMandatoryStatus, setFridayMandatoryStatus] = React.useState(0);
     const handleChangeFridayStatusCompany = (event) => {
         setFridayMandatoryStatus(event.target.value);
     };
 
-    async function getUserRules(userId) {
-        const res = await UserService.getUserRules(userId);
+    const [hasSpecificRules, setHasSpecificRules] = React.useState(false);
+    const handleChangeHasSpecificRules = (event) => {
+        setHasSpecificRules(event.target.checked);
+    }
+
+    async function getTeamRules(teamId) {
+        const res = await TeamService.getTeamRules(teamId);
+        setHasSpecificRules(res.data.hasSpecificRules);
         setRuleScope(res.data.ruleScope);
         setRemoteMaximum(res.data.remoteMaximum);
         setOfficeMaximum(res.data.officeMaximum);
@@ -83,15 +85,13 @@ function UserRulesModal(props) {
     }
 
     useEffect(() => {
-        if (props.userId != 0){
-            getUserRules(props.userId);
-        }
-    }, [props.userId, props.openModal]);
+        getTeamRules(props.teamId);
+    }, []);
 
 
     const { enqueueSnackbar } = useSnackbar();
 
-    const validateUserRules = () => {
+    const validateTeamRules = () => {
         if (remoteMaximum > 5 && ruleScope === 0) return false;
         if (officeMaximum > 5 && ruleScope === 0) return false;
         if ((officeMaximum + remoteMaximum) < 5 && ruleScope === 0) return false;
@@ -99,10 +99,11 @@ function UserRulesModal(props) {
         return true;
     }
 
-    const saveUserRules = async () => {
-        if (validateUserRules()) {
+    const saveTeamRules = async () => {
+        if (validateTeamRules()) {
+            await TeamService.updateHasSpecificRules({teamId: props.teamId, hasSpecificRules: hasSpecificRules})
             const resources = {
-                userId: props.userId,
+                teamId: props.teamId,
                 ruleScope: ruleScope,
                 remoteMaximum: remoteMaximum,
                 officeMaximum: officeMaximum,
@@ -112,11 +113,12 @@ function UserRulesModal(props) {
                 thursdayMandatoryStatus: thursdayMandatoryStatus,
                 fridayMandatoryStatus: fridayMandatoryStatus
             };
-            await UserService.updateRulesValue(resources).then(async (res) => {
+            await TeamService.updateRulesValue(resources).then(async (res) => {
                 if (res.status === 200) {
                     enqueueSnackbar(t('app:rh_parameters:company.snackbar_success'), {
                         variant: 'success'
                     });
+                    getTeamRules(props.teamId);
                 } else {
                     enqueueSnackbar(t('app:snackbar:error'), {
                         variant: 'error'
@@ -130,30 +132,35 @@ function UserRulesModal(props) {
         }
     }
 
-    const confirmUpdateRules = async () => {
-        await saveUserRules()
-        props.handleModalClose(true)
-    };
+    const cancel = () => {
+        getTeamRules(props.teamId);
+    }
 
-    const closeModal = () => {
-        props.handleModalClose(false)
-    };
-
+    if (remoteMaximum === null) {
+        return (< SectionTemplate title={t('app:rh_parameters:company.title')} description={t('app:rh_parameters:company.subtitle')} />)
+    }
     return (
-        <Modal
-            open={props.openModal}
-            onClose={closeModal}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-        >
-            <Box sx={style}>
-                <Grid container direction={"column"} spacing={1}>
-
+        <SectionTemplate title={t('app:rh_parameters:company.title')} description={t('app:rh_parameters:company.subtitle')}>
+            <Grid container direction="column">
                 <Grid item>
-                    <Typography variant="body" fontWeight={500} fontSize={20} style={{ color: '#383737'}}>
-                        Règles spécifiques - {props.userName}
+                    <Typography variant="body" fontWeight={300} fontSize={17} style={{ color: '#414040', fontStyle: "italic" }}>
+                        Définir des règles spécifiques à l'équipe
                     </Typography>
                 </Grid>
+                <Grid item>
+                    <Typography variant="body" fontWeight={400} fontSize={14} style={{ color: '#2A2828' }}>
+                        Si aucune règle spécifique n'est définie, les règles de l'entreprise s'appliqueront sur les membres de cette équipe.
+                    </Typography>
+                </Grid>
+
+                <Grid item mt={1}>
+                    <Stack direction="row" spacing={1} alignItems="center">
+                        <Typography>{t('generic:no')}</Typography>
+                        <Switch value={hasSpecificRules} checked={hasSpecificRules} onChange={handleChangeHasSpecificRules} name={"restrictiveRules"} />
+                        <Typography>{t('generic:yes')}</Typography>
+                    </Stack>
+                </Grid>
+
 
                 <Grid item mt={3}>
                     <Typography variant="body" fontWeight={300} fontSize={17} style={{ color: '#414040', fontStyle: "italic" }}>
@@ -164,7 +171,7 @@ function UserRulesModal(props) {
                 <Grid item mt={1}>
                     <Grid container direction="row" alignItems="center">
                         <Grid item md={3}>
-                            <FormControl sx={{ m: 1, width: 100 }} variant="standard">
+                            <FormControl sx={{ m: 1, width: 100 }} variant="standard" disabled={!hasSpecificRules}>
                                 <InputLabel htmlFor="demo-customized-select-native">{t('app:rh_parameters:company:scope')}</InputLabel>
                                 <Select
                                     id="demo-customized-select-native"
@@ -183,10 +190,10 @@ function UserRulesModal(props) {
                         </Grid>
 
                         <Grid item md={3}>
-                            <FormControl sx={{ m: 1, width: 90 }} variant="standard">
+                            <FormControl sx={{ m: 1, width: 70 }} variant="standard" disabled={!hasSpecificRules}>
                                 <InputLabel htmlFor="demo-customized-select-native">{t('app:statuses:home_working')}</InputLabel>
                                 <Select
-                                    id="remoteMaximum"
+                                    id="demo-customized-select-native"
                                     value={remoteMaximum}
                                     onChange={handleRemoteMaximum}
                                 >
@@ -201,10 +208,10 @@ function UserRulesModal(props) {
                             </FormControl>
                         </Grid>
                         <Grid item md={3}>
-                            <FormControl sx={{ m: 1, width: 90 }} variant="standard">
+                            <FormControl sx={{ m: 1, width: 70 }} variant="standard" disabled={!hasSpecificRules}>
                                 <InputLabel htmlFor="demo-customized-select-native">{t('app:statuses:office')}</InputLabel>
                                 <Select
-                                    id="officeMaximum"
+                                    id="demo-customized-select-native"
                                     value={officeMaximum}
                                     onChange={handleOfficeMaximum}
                                 >
@@ -231,7 +238,7 @@ function UserRulesModal(props) {
                 <Grid item mt={1}>
                     <Grid container direction="row" spacing={1}>
                         <Grid item xs={2}>
-                            <FormControl variant="standard">
+                            <FormControl variant="standard" disabled={!hasSpecificRules}>
                                 <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements:Mon')}</InputLabel>
                                 <Select
                                     id="demo-customized-select-native"
@@ -249,7 +256,7 @@ function UserRulesModal(props) {
                         </Grid>
 
                         <Grid item xs={2}>
-                            <FormControl variant="standard">
+                            <FormControl variant="standard" disabled={!hasSpecificRules}>
                                 <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements:Tue')}</InputLabel>
                                 <Select
                                     id="demo-customized-select-native"
@@ -267,7 +274,7 @@ function UserRulesModal(props) {
                         </Grid>
 
                         <Grid item xs={2}>
-                            <FormControl variant="standard">
+                            <FormControl variant="standard" disabled={!hasSpecificRules}>
                                 <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements:Wed')}</InputLabel>
                                 <Select
                                     id="demo-customized-select-native"
@@ -285,7 +292,7 @@ function UserRulesModal(props) {
                         </Grid>
 
                         <Grid item xs={2}>
-                            <FormControl variant="standard">
+                            <FormControl variant="standard" disabled={!hasSpecificRules}>
                                 <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements:Thu')}</InputLabel>
                                 <Select
                                     id="demo-customized-select-native"
@@ -303,7 +310,7 @@ function UserRulesModal(props) {
                         </Grid>
 
                         <Grid item xs={2}>
-                            <FormControl variant="standard">
+                            <FormControl variant="standard" disabled={!hasSpecificRules}>
                                 <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements:Fri')}</InputLabel>
                                 <Select
                                     id="demo-customized-select-native"
@@ -322,40 +329,35 @@ function UserRulesModal(props) {
 
                     </Grid>
                 </Grid>
+                <Grid item mt={6}>
+                    <Grid container direction="row">
+                        <Grid item md={7} />
 
-                    <Grid item mt={4}>
-
-                        <Grid container direction="row">
-                            <Grid item md={6}/>
-                            <Grid item md={6}>
-                                <Stack direction="row" spacing={1}>
-                                    <Chip
-                                        label={t('generic:cancel')}
-                                        sx={{
-                                            borderColor: "#3C3B3D", color: "#3C3B3D", fontWeight: "bold"
-                                        }}
-                                        color="error"
-                                        onClick={closeModal}
-                                        icon={<CancelIcon />}
-                                        variant="outlined"
-                                    />
-                                    <Chip
-                                        label="Confirmer"
-                                        sx={{ borderColor: "#3F07A8", color: "#3F07A8", fontWeight: "bold" }}
-                                        color="error"
-                                        onClick={confirmUpdateRules}
-                                        icon={<CheckCircleIcon />}
-                                        variant="outlined"
-                                    />
-                                </Stack>
-                            </Grid>
+                        <Grid item md={5}>
+                            <Stack direction="row" spacing={1}>
+                                <Chip
+                                    label={t('generic:cancel')}
+                                    sx={{
+                                        borderColor: "#3C3B3D", color: "#3C3B3D", fontWeight: "bold"
+                                    }}
+                                    color="error"
+                                    onClick={cancel}
+                                    icon={<CancelIcon />}
+                                    variant="outlined"
+                                />
+                                <Chip
+                                    label={t('generic:save')}
+                                    sx={{ borderColor: "#3F07A8", color: "#3F07A8", fontWeight: "bold" }}
+                                    color="error"
+                                    onClick={saveTeamRules}
+                                    icon={<CheckCircleIcon />}
+                                    variant="outlined"
+                                />
+                            </Stack>
                         </Grid>
                     </Grid>
                 </Grid>
-            </Box>
-        </Modal>
-
+            </Grid>
+        </SectionTemplate>
     )
-}
-
-export default UserRulesModal;
+};

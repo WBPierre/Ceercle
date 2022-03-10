@@ -1,10 +1,12 @@
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+
 import { DataGrid } from '@mui/x-data-grid';
 import CircleIcon from '@mui/icons-material/Circle';
 import EditIcon from '@mui/icons-material/Edit';
 import { Chip } from "@mui/material";
 import Typography from '@mui/material/Typography';
+
 import * as App_Routes from "../../../../navigation/app/Routes";
 
 function TeamsGrid(props) {
@@ -48,7 +50,7 @@ function TeamsGrid(props) {
                         label={t('generic:update')}
                         color="primary"
                         sx={{ borderColor: "#3F07A8", color: "#3F07A8" }}
-                        onClick={() => navigate(App_Routes.TEAMSETTINGNEW + params.row.id)}
+                        onClick={() => navigate(App_Routes.TEAMSETTING + params.row.id)}
                         icon={<EditIcon />}
                         variant="outlined"
                     />

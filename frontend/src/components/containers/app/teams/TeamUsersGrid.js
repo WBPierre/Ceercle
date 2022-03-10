@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
+import { useSnackbar } from "notistack";
 import { DataGrid } from '@mui/x-data-grid';
 import { Chip } from "@mui/material";
 import { Avatar } from "@mui/material";
@@ -12,13 +13,12 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Button } from "@mui/material";
 import {Switch} from "@mui/material";
 import Grid from "@mui/material/Grid";
-import { useSnackbar } from "notistack";
 
 import TeamService from "../../../../services/app/team.service";
 import UserService from "../../../../services/app/user.service";
 import ProfileDefault from "../../../../assets/images/example/default.png";
-import UserAddModal from "../teamsnew/UserAddModal";
-import UserRulesModal from "../teamsnew/UserRulesModal";
+import UserAddModal from "../teams/UserAddModal";
+import UserRulesModal from "../teams/UserRulesModal";
 
 function TeamUsersGrid(props) {
 
@@ -85,7 +85,7 @@ function TeamUsersGrid(props) {
         const hasSpecificRules = event.target.checked
         await UserService.updateHasSpecificRules({userId: event.target.id, hasSpecificRules: hasSpecificRules})
         if (!hasSpecificRules){
-            await UserService.overwriteUserRuleWithTeam({userId: parseInt(event.target.id), teamId: parseInt(props.teamId)})
+            await UserService.overwriteUserRuleWithTeam({userId: event.target.id, teamId: props.teamId})
         }
         await getTeam(props.teamId)
     }
@@ -137,7 +137,7 @@ function TeamUsersGrid(props) {
             renderCell: (params) => {
                 return (
                     <div>
-                        <Switch value={params.row.hasSpecificRules} checked={params.row.hasSpecificRules} onChange={handleChangeHasSpecificRules} id={params.row.id} />
+                        <Switch value={params.row.hasSpecificRules} checked={params.row.hasSpecificRules} onChange={handleChangeHasSpecificRules} id={params.row.id.toString()} />
                         <Chip
                             label="Modifier"
                             color="primary"

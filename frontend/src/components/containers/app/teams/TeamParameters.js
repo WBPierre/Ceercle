@@ -4,8 +4,8 @@ import { useTranslation } from "react-i18next";
 import Grid from "@mui/material/Grid";
 import { Divider } from "@mui/material";
 
-import TeamParametersRules from "../teamsnew/TeamParametersRules";
-import TeamParametersInfo from "../teamsnew/TeamParametersInfo";
+import TeamParametersRules from "../teams/TeamParametersRules";
+import TeamParametersInfo from "../teams/TeamParametersInfo";
 
 export default function TeamParameters(props) {
   const { t } = useTranslation();
