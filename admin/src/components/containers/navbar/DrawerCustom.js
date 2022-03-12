@@ -19,6 +19,7 @@ import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import {Drawer} from "@mui/material";
 import * as Admin_Routes from "../../../navigation/Routes";
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import BuildIcon from "@mui/icons-material/Build";
 
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -97,6 +98,12 @@ function DrawerCustom(props){
                     <AppRegistrationIcon />
                 </ListItemIcon>
                 <ListItemText style={{color: "#7F7F7F"}} primary={"Users"} />
+            </ListItem>
+            <ListItem button onClick={() => navigate(Admin_Routes.TEST)}>
+                <ListItemIcon>
+                    <BuildIcon />
+                </ListItemIcon>
+                <ListItemText style={{color: "#7F7F7F"}} primary={"Tester"} />
             </ListItem>
         </Drawer>
     )

@@ -3,13 +3,12 @@ import ScrollToTop from "./ScrollToTop";
 import * as Admin_Routes from "./Routes";
 import Dashboard from "../views/Dashboard";
 import Login from "../views/Login";
-import useAuth from "../components/context/auth/AuthHelper";
 import CompanyList from "../views/CompanyList";
 import Company from "../views/Company";
 import Office from "../components/containers/company/Office";
 import OfficeElement from "../views/OfficeElement";
 import ProtectedRoute from "./ProtectedRoute";
-import {LOGIN} from "./Routes";
+import Tester from "../views/Tester";
 
 function Rooter(){
     return(
@@ -22,6 +21,7 @@ function Rooter(){
                     <Route exact path={Admin_Routes.COMPANY_DETAILS} element={<ProtectedRoute><Company/></ProtectedRoute>} />
                     <Route exact path={Admin_Routes.OFFICE} element={<ProtectedRoute><Office/></ProtectedRoute>} />
                     <Route exact path={Admin_Routes.OFFICE_ELEMENT} element={<ProtectedRoute><OfficeElement/></ProtectedRoute>} />
+                    <Route exact path={Admin_Routes.TEST} element={<ProtectedRoute><Tester/></ProtectedRoute>} />
                     <Route path={"*"} element={<Navigate to={Admin_Routes.LOGIN} />} />
                 </Routes>
             </ScrollToTop>

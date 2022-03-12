@@ -49,11 +49,9 @@ exports.updateSlackStatus = async function(){
     let hour = parseInt(moment().tz('Europe/Paris').format('HH').toString());
     const companies = await Company.findAll({where: {active: true}});
     for(let i = 0; i < companies.length; i++){
-        let hasIntegration = await companies[i].getIntegration({where:{name: 'Slack'}});
-        console.log(hasIntegration);
-        if(hasIntegration){
-            let getSlackUserList = await axios.post('https://slack.com/api/users.list', {token: hasIntegration.token})
-            console.log(getSlackUserList);
+        let hasIntegration = await companies[i].getIntegrations({where:{name: 'Slack'}});
+        if(hasIntegration.length !== 0){
+            let getSlackUserList = await axios.post('https://slack.com/api/users.list', {token: hasIntegration[0].token})
             let slackUserList = getSlackUserList.data.members;
             const users = await companies[i].getUsers({where:{active: true, isDeleted:false}});
             for(let j = 0; j < users.length; j++){
@@ -61,14 +59,14 @@ exports.updateSlackStatus = async function(){
                     let timesheet = await TimeSheet.findOne({where:{day: day, userId: users[j].id}});
                     for(let k = 0; k < slackUserList.length; k++){
                         if(slackUserList[k].profile.email === users[j].email){
-                            await ThirdPartyService.setSlackStatus(slackUserList[k].id, hasIntegration.token, users[j].lang, timesheet.morning);
+                            await ThirdPartyService.setSlackStatus(slackUserList[k].id, hasIntegration[0].token, users[j].lang, timesheet.morning);
                             break;
                         }
                     }
                 }else if(users[j].defaultWorkingAfternoonHour === parseInt(hour)){
                     for(let k = 0; k < slackUserList.length; k++){
                         if(slackUserList[k].profile.email === users[j].email){
-                            await ThirdPartyService.unsetSlackStatus(slackUserList[k].id, hasIntegration.token);
+                            await ThirdPartyService.unsetSlackStatus(slackUserList[k].id, hasIntegration[0].token);
                             break;
                         }
                     }
@@ -76,7 +74,7 @@ exports.updateSlackStatus = async function(){
                     let timesheet = await TimeSheet.findOne({where:{day: day, userId: users[j].id}});
                     for(let k = 0; k < slackUserList.length; k++){
                         if(slackUserList[k].profile.email === users[j].email){
-                            await ThirdPartyService.setSlackStatus(slackUserList[k].id, hasIntegration.token, users[j].lang, timesheet.afternoon);
+                            await ThirdPartyService.setSlackStatus(slackUserList[k].id, hasIntegration[0].token, users[j].lang, timesheet.afternoon);
                             break;
                         }
                     }
@@ -89,18 +87,16 @@ exports.updateSlackStatus = async function(){
 exports.sendSlackReminder = async function(){
     const companies = await Company.findAll({where: {active: true}});
     for(let i = 0; i < companies.length; i++){
-        let hasIntegration = await companies[i].getIntegration({where:{name: 'Slack'}});
-        console.log(hasIntegration);
-        if(hasIntegration) {
-            let getSlackUserList = await axios.post('https://slack.com/api/users.list', {token: hasIntegration.token})
-            console.log(getSlackUserList);
+        let hasIntegration = await companies[i].getIntegrations({where:{name: 'Slack'}});
+        if(hasIntegration.length !== 0) {
+            let getSlackUserList = await axios.post('https://slack.com/api/users.list', {token: hasIntegration[0].token})
             let slackUserList = getSlackUserList.data.members;
             const users = await companies[i].getUsers({where: {active: true, isDeleted: false}});
             for (let j = 0; j < users.length; j++) {
                 for(let k = 0; k < slackUserList.length; k++){
                     if(slackUserList[k].profile.email === users[j].email){
                         await axios.post("https://slack.com/api/chat.postMessage", {
-                            token: hasIntegration.token,
+                            token: hasIntegration[0].token,
                             channel: slackUserList[k].id,
                             text: users[j].lang === "fr" ? "N'oubliez pas de mettre à jour votre déclaration pour la semaine prochaine sur https://app.ceercle.io !" : "Don't forget to update your status for next week on https://app.ceercle.io !",
                             as_user: true

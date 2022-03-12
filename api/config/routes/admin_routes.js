@@ -4,6 +4,7 @@ module.exports = function(server) {
     const OfficeRoutes = require('./admin/OfficeRoutes');
     const OfficeElementRoutes = require('./admin/OfficeElementRoutes');
     const UserRoutes = require('./admin/UserRoutes');
+    const TestRoutes = require('./admin/TestRoutes');
 
     const baseUrl = "/api/admin"
 
@@ -12,4 +13,5 @@ module.exports = function(server) {
     server.use(baseUrl+"/office", OfficeRoutes);
     server.use(baseUrl+"/officeElement", OfficeElementRoutes);
     server.use(baseUrl+"/users", UserRoutes);
+    server.use(baseUrl+"/test", TestRoutes);
 }
