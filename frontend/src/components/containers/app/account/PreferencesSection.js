@@ -1,27 +1,30 @@
 import * as React from 'react';
 import { useTranslation } from "react-i18next";
+import {useEffect, useState} from "react";
+import { useNavigate } from "react-router-dom";
+import moment from 'moment-timezone';
+import { useSnackbar } from "notistack";
+
 import Typography from '@mui/material/Typography';
 import Grid from "@mui/material/Grid";
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
-import moment from 'moment-timezone';
 import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { useSnackbar } from "notistack";
-import { useNavigate } from "react-router-dom";
+import SettingsIcon from '@mui/icons-material/Settings';
+import {Button, ListItem, ListItemAvatar, ListItemButton, ListItemText} from "@mui/material";
+import List from "@mui/material/List";
+import IconButton from "@mui/material/IconButton";
+import {Switch} from "@mui/material";
+
 import UserService from "../../../../services/app/user.service";
 import * as App_Routes from "../../../../navigation/app/Routes";
 import ThirdPartyService from "../../../../services/app/thirdparty.service";
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import SettingSectionTemplate from './SettingSectionTemplate';
-import {Avatar, Button, ListItem, ListItemAvatar, ListItemButton, ListItemText} from "@mui/material";
-import {useEffect, useState} from "react";
-import List from "@mui/material/List";
-import IconButton from "@mui/material/IconButton";
 import GoogleCalendarIcon from "../../../molecules/icons/GoogleCalendarIcon";
 
 export default function PreferencesSection(props) {
@@ -84,7 +87,10 @@ export default function PreferencesSection(props) {
         setFridayStatus(event.target.value);
     };
 
-
+    const [hasFavoriteDesk, setHasFavoriteDesk] = React.useState(false);
+    const handleChangeHasFavoriteDesk = (event) => {
+        setHasFavoriteDesk(event.target.checked);
+    }
 
     const languageOptions = ["Français", "English"]
 
@@ -297,10 +303,149 @@ export default function PreferencesSection(props) {
                 </Grid>
 
 
-
-
+                <Grid item>
+                    <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#414040' }}>
+                        Status par défaut
+                    </Typography>
+                </Grid>
 
                 <Grid item>
+                    <Grid container direction="row" spacing={1}>
+                        <Grid item xs={2}>
+                            <FormControl variant="standard">
+                                <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements:Mon')}</InputLabel>
+                                <Select
+                                    id="demo-customized-select-native"
+                                    value={mondayStatus}
+                                    onChange={handleChangeMondayStatus}
+                                >
+                                    {statuses.map((status, index) => {
+                                        return (
+                                            <MenuItem value={index} key={index}>{status}</MenuItem>
+                                        )
+                                    }
+                                    )}
+                                </Select>
+                            </FormControl>
+                        </Grid>
+
+                        <Grid item xs={2}>
+                            <FormControl variant="standard">
+                                <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements:Tue')}</InputLabel>
+                                <Select
+                                    id="demo-customized-select-native"
+                                    value={tuesdayStatus}
+                                    onChange={handleChangeTuesdayStatus}
+                                >
+                                    {statuses.map((status, index) => {
+                                        return (
+                                            <MenuItem value={index} key={index}>{status}</MenuItem>
+                                        )
+                                    }
+                                    )}
+                                </Select>
+                            </FormControl>
+                        </Grid>
+
+                        <Grid item xs={2}>
+                            <FormControl variant="standard">
+                                <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements:Wed')}</InputLabel>
+                                <Select
+                                    id="demo-customized-select-native"
+                                    value={wednesdayStatus}
+                                    onChange={handleChangeWednesdayStatus}
+                                >
+                                    {statuses.map((status, index) => {
+                                        return (
+                                            <MenuItem value={index} key={index}>{status}</MenuItem>
+                                        )
+                                    }
+                                    )}
+                                </Select>
+                            </FormControl>
+                        </Grid>
+
+                        <Grid item xs={2}>
+                            <FormControl variant="standard">
+                                <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements:Thu')}</InputLabel>
+                                <Select
+                                    id="demo-customized-select-native"
+                                    value={thursdayStatus}
+                                    onChange={handleChangeThursdayStatus}
+                                >
+                                    {statuses.map((status, index) => {
+                                        return (
+                                            <MenuItem value={index} key={index}>{status}</MenuItem>
+                                        )
+                                    }
+                                    )}
+                                </Select>
+                            </FormControl>
+                        </Grid>
+
+                        <Grid item xs={2}>
+                            <FormControl variant="standard">
+                                <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements:Fri')}</InputLabel>
+                                <Select
+                                    id="demo-customized-select-native"
+                                    value={fridayStatus}
+                                    onChange={handleChangeFridayStatus}
+                                >
+                                    {statuses.map((status, index) => {
+                                        return (
+                                            <MenuItem value={index} key={index}>{status}</MenuItem>
+                                        )
+                                    }
+                                    )}
+                                </Select>
+                            </FormControl>
+                        </Grid>
+
+                    </Grid>
+                </Grid>
+
+                <Grid item mt={6}>
+                    <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#414040' }}>
+                        Bureau favori
+                    </Typography>
+                </Grid>
+
+                <Grid item>
+                    <Grid container direction="row" spacing={1}>
+                        <Grid item xs={4}>
+                            <Stack direction="row" spacing={1} alignItems="center">
+                                <Typography>{t('generic:no')}</Typography>
+                                <Switch value={hasFavoriteDesk} checked={hasFavoriteDesk} onChange={handleChangeHasFavoriteDesk} name={"SwitchFavoriteDesk"} color='secondary' />
+                                <Typography>{t('generic:yes')}</Typography>
+                            </Stack>
+                        </Grid>
+                        <Grid item xs={5}>
+                            { hasFavoriteDesk ? 
+                                <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#414040' }}>
+                                    Paris - Salle Eiffel
+                                </Typography>
+                                :
+                                <Typography variant="body" fontWeight={300} fontSize={17} style={{ color: '#414040' }}>
+                                    Pas de bureau favori
+                                </Typography>
+                            } 
+                        </Grid>
+                        <Grid item xs={3}>
+                            <Chip
+                                disabled={!hasFavoriteDesk}
+                                label={t('generic:update')}
+                                sx={{ width: '100%', borderColor: "#3F07A8", color: "#3F07A8", fontWeight: "bold" }}
+                                color="error"
+                                icon={<SettingsIcon />}
+                                variant="outlined"
+                            />
+                        </Grid>
+                    </Grid>
+                </Grid>
+
+
+
+                <Grid item mt={6}>
                     <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#414040' }}>
                         {t('app:account:preferences.timezone')}
                     </Typography>

@@ -1,5 +1,8 @@
 import * as React from 'react';
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
+import { useSnackbar } from "notistack";
+
 import Typography from '@mui/material/Typography';
 import Grid from "@mui/material/Grid";
 import FormControl from '@mui/material/FormControl';
@@ -10,14 +13,10 @@ import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { useSnackbar } from "notistack";
-import { useEffect } from "react";
-import CompanyService from '../../../../services/app/company.service';
-
-
-
-import SettingSectionTemplate from '../account/SettingSectionTemplate';
 import {Switch} from "@mui/material";
+
+import CompanyService from '../../../../services/app/company.service';
+import SettingSectionTemplate from '../account/SettingSectionTemplate';
 
 export default function CompanyRules() {
 
