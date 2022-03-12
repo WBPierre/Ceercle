@@ -84,6 +84,9 @@ export default function PreferencesSection(props) {
         const value = event.target.checked
         if(value){
             setOpenModal(true)
+        } else {
+            updateFavoriteDeskName(0)
+            setFavoriteDesk(0)
         }
         setHasFavoriteDesk(event.target.checked);
     }
@@ -105,7 +108,8 @@ export default function PreferencesSection(props) {
     const updateFavoriteDeskName = (deskId) => {
         if (deskId != 0){
             //get parents of desk id
-            setFavoriteDeskName("Paris | Salle Eiffel")
+            // setFavoriteDeskName("Paris | Salle Eiffel")
+            setFavoriteDeskName(deskId)
         } else {
             setFavoriteDeskName("Pas de bureau favori")
         }
@@ -160,7 +164,8 @@ export default function PreferencesSection(props) {
                 tuesdayStatus: tuesdayStatus,
                 wednesdayStatus: wednesdayStatus,
                 thursdayStatus: thursdayStatus,
-                fridayStatus: fridayStatus
+                fridayStatus: fridayStatus,
+                favoriteDesk: favoriteDesk
             };
             await UserService.updateUserSettings(resources).then(async (res) => {
                 if (res.status === 200) {
