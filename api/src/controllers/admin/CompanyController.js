@@ -1,6 +1,9 @@
-const Company = require("../../models/Company");
 const { param, body } = require("express-validator");
+
+const Company = require("../../models/Company");
 const CompanyRepository = require('../../repositories/CompanyRepository');
+const RulesService = require("../../services/RulesService");
+const TeamRepository = require('../../repositories/TeamRepository');
 
 exports.createCompany = async function (req, res, next) {
     const { name, activationDay, activationHour, invoiceType } = req.body;
@@ -44,7 +47,29 @@ exports.updateCompany = async function (req, res, next) {
                 res.status(404);
                 res.send();
             } else {
-                record.update(req.body).then((updated) => {
+                record.update(req.body).then(async (updated) => {
+                    let rules = {
+                        ruleScope: req.body.ruleScope,
+                        remoteMaximum: req.body.remoteMaximum,
+                        officeMaximum: req.body.officeMaximum,
+                        mondayMandatoryStatus: req.body.mondayMandatoryStatus,
+                        tuesdayMandatoryStatus: req.body.tuesdayMandatoryStatus,
+                        wednesdayMandatoryStatus: req.body.wednesdayMandatoryStatus,
+                        thursdayMandatoryStatus: req.body.thursdayMandatoryStatus,
+                        fridayMandatoryStatus: req.body.fridayMandatoryStatus
+                    }
+                    const teams =  await TeamRepository.findAllForCompany(req.params.id)
+                    for (const team of teams){
+                        if(!team.hasSpecificRules){
+                            await RulesService.updateRulesValue(team, rules)
+                        }
+                    }
+                    let users_linked = await record.getUsers({ where:{active: true, isDeleted: false}})
+                    for (const user of users_linked) {
+                        if(!user.hasSpecificRules){
+                            await RulesService.updateRulesValue(user, rules)
+                        }
+                    }
                     res.json(updated);
                 })
             }
