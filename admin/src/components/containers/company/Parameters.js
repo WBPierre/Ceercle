@@ -42,6 +42,7 @@ function Parameters(props){
     const [thursday, setThursday] = useState(0);
     const [friday, setFriday] = useState(0);
     const [activationDay, setActivationDay] = useState('');
+    const [activationDateChange, setActivationDateChange] = useState(false);
     const [activationHour, setActivationHour] = useState(8);
     const [invoiceType, setInvoiceType] = useState(0);
     const [active, setActive] = useState(false);
@@ -182,7 +183,7 @@ function Parameters(props){
         if (friday < 0 || friday > 2) return false;
         if (name.length === 0 || name.length < 2) return false;
         let date = moment(activationDay, 'YYYY-MM-DD', true);
-        if(!date.isValid() || date.diff(moment().format('YYYY-MM-DD')) < 0) return false;
+        if(!date.isValid() || (activationDateChange && date.diff(moment().format('YYYY-MM-DD')) < 0)) return false;
         return true;
     }
 
@@ -225,6 +226,7 @@ function Parameters(props){
                                     disabled={moment(activationDay, 'YYYY-MM-DD', true).diff(moment().format('YYYY-MM-DD')) <= 0}
                                     value={activationDay}
                                     onChange={(newValue) => {
+                                        setActivationDateChange(true)
                                         setActivationDay((moment(newValue).format('YYYY-MM-DD')));
                                     }}
                                     renderInput={(params) => <TextField {...params} />}
