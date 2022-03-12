@@ -197,46 +197,44 @@ exports.hasUserValidatedCompanyRules = async function (req, res, next) {
     const wednesdayMandatoryStatus = user.wednesdayMandatoryStatus
     const thursdayMandatoryStatus = user.thursdayMandatoryStatus
     const fridayMandatoryStatus = user.fridayMandatoryStatus
-    companyMandatoryStatuses = [mondayMandatoryStatus, tuesdayMandatoryStatus, wednesdayMandatoryStatus, thursdayMandatoryStatus, fridayMandatoryStatus]
+    let companyMandatoryStatuses = [mondayMandatoryStatus, tuesdayMandatoryStatus, wednesdayMandatoryStatus, thursdayMandatoryStatus, fridayMandatoryStatus]
     let userStatusesForWeek = [0, 0, 0, 0, 0]
     let userStatusesForMonth = [0, 0, 0, 0, 0]
     let userStatusesByDayForWeek = [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]
 
     const week = Utils.getCurrentWeek(req.params.index);
-    await TimeSheetRepository.findAllByUserIdBetweenDates(res.locals.auth.user.id, Moment(new Date(week[0].day)), Moment(new Date(week[week.length - 1].day)), [['day', 'ASC']])
-        .then((record) => {
-            if (record.length === 0) {
-                res.json({
-                    check: true, checkFailed: null,
-                    companyOfficeMaximum: companyOfficeMaximum, companyRemoteMaximum: companyRemoteMaximum, companyRuleScope: companyRuleScope,
-                    userOffice: 0, userRemote: 0
-                });
-            } else {
-                for (let i = 0; i < record.length; i++) {
-                    userStatusesForWeek[record[i].morning] += 0.5
-                    userStatusesForWeek[record[i].afternoon] += 0.5
-                    userStatusesByDayForWeek[i][0] = record[i].morning
-                    userStatusesByDayForWeek[i][1] = record[i].afternoon
-                }
-            }
-        })
+    let userTimeSheetBetweenDatesOnWeek = await TimeSheetRepository.findAllByUserIdBetweenDates(res.locals.auth.user.id, Moment(new Date(week[0].day)), Moment(new Date(week[week.length - 1].day)), [['day', 'ASC']]);
+    if(userTimeSheetBetweenDatesOnWeek.length === 0){
+        res.json({
+            check: true, checkFailed: null,
+            companyOfficeMaximum: companyOfficeMaximum, companyRemoteMaximum: companyRemoteMaximum, companyRuleScope: companyRuleScope,
+            userOffice: 0, userRemote: 0
+        });
+        return;
+    } else {
+        for (let i = 0; i < userTimeSheetBetweenDatesOnWeek.length; i++) {
+            userStatusesForWeek[userTimeSheetBetweenDatesOnWeek[i].morning] += 0.5
+            userStatusesForWeek[userTimeSheetBetweenDatesOnWeek[i].afternoon] += 0.5
+            userStatusesByDayForWeek[i][0] = userTimeSheetBetweenDatesOnWeek[i].morning
+            userStatusesByDayForWeek[i][1] = userTimeSheetBetweenDatesOnWeek[i].afternoon
+        }
+    }
 
     const month = Utils.getCurrentMonth(req.params.index);
-    await TimeSheetRepository.findAllByUserIdBetweenDates(res.locals.auth.user.id, month[0], month[1])
-        .then((record) => {
-            if (record.length === 0) {
-                res.json({
-                    check: true,
-                    companyOfficeMaximum: companyOfficeMaximum, companyRemoteMaximum: companyRemoteMaximum, companyRuleScope: companyRuleScope,
-                    userOffice: 0, userRemote: 0
-                });
-            } else {
-                for (let i = 0; i < record.length; i++) {
-                    userStatusesForMonth[record[i].morning] += 0.5
-                    userStatusesForMonth[record[i].afternoon] += 0.5
-                }
-            }
-        })
+    let userTimeSheetBetweenDatesOnMonth = await TimeSheetRepository.findAllByUserIdBetweenDates(res.locals.auth.user.id, month[0], month[1]);
+    if(userTimeSheetBetweenDatesOnMonth.length === 0){
+        res.json({
+            check: true,
+            companyOfficeMaximum: companyOfficeMaximum, companyRemoteMaximum: companyRemoteMaximum, companyRuleScope: companyRuleScope,
+            userOffice: 0, userRemote: 0
+        });
+        return;
+    } else {
+        for (let i = 0; i < userTimeSheetBetweenDatesOnMonth.length; i++) {
+            userStatusesForMonth[userTimeSheetBetweenDatesOnMonth[i].morning] += 0.5
+            userStatusesForMonth[userTimeSheetBetweenDatesOnMonth[i].afternoon] += 0.5
+        }
+    }
 
     let userOffice = userStatusesForWeek[1]
     let userRemote = userStatusesForWeek[2]
