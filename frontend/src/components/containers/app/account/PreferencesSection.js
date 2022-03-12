@@ -26,28 +26,26 @@ import * as App_Routes from "../../../../navigation/app/Routes";
 import ThirdPartyService from "../../../../services/app/thirdparty.service";
 import SettingSectionTemplate from './SettingSectionTemplate';
 import GoogleCalendarIcon from "../../../molecules/icons/GoogleCalendarIcon";
+import OfficeModal from "../dashboard/OfficeBooking/OfficeModal";
 
 export default function PreferencesSection(props) {
     const { i18n } = useTranslation();
-
-    const timezones = moment.tz.names()
     const { t } = useTranslation();
+    let navigate = useNavigate();
+    const timezones = moment.tz.names()
 
     const [hoursAM, setHoursAM] = React.useState(props.user.defaultWorkingMorningHour);
     const handleChangeHoursAM = (event) => {
         setHoursAM(event.target.value);
     };
-
     const [minutesAM, setMinutesAM] = React.useState(props.user.defaultWorkingMorningMinutes);
     const handleChangeMinutesAM = (event) => {
         setMinutesAM(event.target.value);
     };
-
     const [hoursPM, setHoursPM] = React.useState(props.user.defaultWorkingAfternoonHour);
     const handleChangeHoursPM = (event) => {
         setHoursPM(event.target.value);
     };
-
     const [minutesPM, setMinutesPM] = React.useState(props.user.defaultWorkingAfternoonMinutes);
     const handleChangeMinutesPM = (event) => {
         setMinutesPM(event.target.value);
@@ -58,53 +56,79 @@ export default function PreferencesSection(props) {
         setTz(event.target.value);
     };
 
-
-
     const statuses = [t('app:statuses:to_be_defined'), t('app:statuses:office'), t('app:statuses:home_working')]
-
     const [mondayStatus, setMondayStatus] = React.useState(props.user.mondayStatus);
     const handleChangeMondayStatus = (event) => {
         setMondayStatus(event.target.value);
     };
-
     const [tuesdayStatus, setTuesdayStatus] = React.useState(props.user.tuesdayStatus);
     const handleChangeTuesdayStatus = (event) => {
         setTuesdayStatus(event.target.value);
     };
-
     const [wednesdayStatus, setWednesdayStatus] = React.useState(props.user.wednesdayStatus);
     const handleChangeWednesdayStatus = (event) => {
         setWednesdayStatus(event.target.value);
     };
-
     const [thursdayStatus, setThursdayStatus] = React.useState(props.user.thursdayStatus);
     const handleChangeThursdayStatus = (event) => {
         setThursdayStatus(event.target.value);
     };
-
     const [fridayStatus, setFridayStatus] = React.useState(props.user.fridayStatus);
     const handleChangeFridayStatus = (event) => {
         setFridayStatus(event.target.value);
     };
 
+    const [favoriteDesk, setFavoriteDesk] = React.useState(0);
     const [hasFavoriteDesk, setHasFavoriteDesk] = React.useState(false);
     const handleChangeHasFavoriteDesk = (event) => {
+        const value = event.target.checked
+        if(value){
+            setOpenModal(true)
+        }
         setHasFavoriteDesk(event.target.checked);
+    }
+    const [openModal, setOpenModal] = React.useState(false);
+    const handleOpenModal = () => {
+        setOpenModal(true)
+    }
+    const handleCloseModal = (deskId) => {
+        if(deskId == 0 && favoriteDesk==0){
+            setHasFavoriteDesk(false)
+            updateFavoriteDeskName(0)
+        } else if (deskId !=0) {
+            updateFavoriteDeskName(deskId)
+            setFavoriteDesk(deskId)
+        }
+        setOpenModal(false)
+    }
+    const [favoriteDeskName, setFavoriteDeskName] = React.useState("Pas de bureau favori");
+    const updateFavoriteDeskName = (deskId) => {
+        if (deskId != 0){
+            //get parents of desk id
+            setFavoriteDeskName("Paris | Salle Eiffel")
+        } else {
+            setFavoriteDeskName("Pas de bureau favori")
+        }
     }
 
     const languageOptions = ["Français", "English"]
-
     const [language, setLanguage] = React.useState(languageOptions.indexOf(props.user.lang));
     const handleChangeLanguage = (event) => {
         setLanguage(event.target.value);
     };
 
+    const [googleCalendarConnected, setGoogleCalendarConnected] = useState(false);
     const handleGoogleConnect = async () => {
         const res = await ThirdPartyService.getGoogleUrl();
         window.open(res.data.url, "_blank");
     }
-
-    const [googleCalendarConnected, setGoogleCalendarConnected] = useState(false);
+    const handleRemoveGoogleConnect = async () => {
+        await ThirdPartyService.removeGoogleCalendar();
+        setGoogleCalendarConnected(false);
+    }
+    const handleGoogleTest = async () => {
+        await ThirdPartyService.test();
+    }
     useEffect(() => {
         async function verifyGoogleCalendar(){
             await ThirdPartyService.verifyGoogleCalendarConnection().then((res) => {
@@ -117,15 +141,6 @@ export default function PreferencesSection(props) {
         }
         verifyGoogleCalendar();
     }, []);
-
-    const handleRemoveGoogleConnect = async () => {
-        await ThirdPartyService.removeGoogleCalendar();
-        setGoogleCalendarConnected(false);
-    }
-
-    const handleGoogleTest = async () => {
-        await ThirdPartyService.test();
-    }
 
 
     const { enqueueSnackbar } = useSnackbar();
@@ -170,7 +185,6 @@ export default function PreferencesSection(props) {
             });
         }
     }
-    let navigate = useNavigate();
 
     const cancel = () => {
         setHoursAM(props.user.defaultWorkingMorningHour);
@@ -188,6 +202,9 @@ export default function PreferencesSection(props) {
 
     return (
         <SettingSectionTemplate title={t('app:account:preferences.title')} description={t('app:account:preferences.subtitle')}>
+
+            <OfficeModal open={openModal} favoriteDesk={favoriteDesk} day={moment().add(1001, 'days').format('YYYY-MM-DD')} booking={[]} handleClose={handleCloseModal}/>
+
             <Grid container direction="column" spacing={1}>
                 <Grid item>
                     <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#414040' }}>
@@ -421,12 +438,12 @@ export default function PreferencesSection(props) {
                         </Grid>
                         <Grid item xs={5}>
                             { hasFavoriteDesk ? 
-                                <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#414040' }}>
-                                    Paris - Salle Eiffel
+                                <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#000000' }}>
+                                    {favoriteDeskName}
                                 </Typography>
                                 :
-                                <Typography variant="body" fontWeight={300} fontSize={17} style={{ color: '#414040' }}>
-                                    Pas de bureau favori
+                                <Typography variant="body" fontWeight={300} fontSize={17} style={{ color: '#414040' }} fontStyle="italic">
+                                    {favoriteDeskName}
                                 </Typography>
                             } 
                         </Grid>
@@ -438,6 +455,7 @@ export default function PreferencesSection(props) {
                                 color="error"
                                 icon={<SettingsIcon />}
                                 variant="outlined"
+                                onClick={handleOpenModal}
                             />
                         </Grid>
                     </Grid>

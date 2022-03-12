@@ -25,7 +25,7 @@ export default function ElementSelection(props){
         }
     }
 
-    console.log(((props.data.capacity*props.data.maxCapacity)/100)-props.data.users.length);
+    //console.log(((props.data.capacity*props.data.maxCapacity)/100)-props.data.users.length);
 
     if(!props.data) return (<div/>)
     return(
