@@ -17,7 +17,7 @@ function Integration(props) {
         const slackParams = "" +
             "client_id=2680388727490.3116158101621&" +
             "scope=im:write,users.profile:read,users:read,users:write&" +
-            "user_scope=users:read,users.profile:read,users.profile:write&" +
+            "user_scope=users:read,users.profile:read,users.profile:write, users:read.email&" +
             "redirect_uri=https://app.ceercle.io/verify/oAuth";
         window.open('https://slack.com/oauth/v2/authorize?'+slackParams, '_blank');
     }
