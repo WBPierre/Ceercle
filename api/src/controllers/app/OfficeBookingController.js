@@ -142,15 +142,22 @@ exports.setAutomaticBooking = async function (req, res, next){
         if(available){
             await OfficeBooking.create({day: req.body.day, morning: true, afternoon: true, officeElementId: favoriteDeskId, userId: res.locals.auth.user.id})
             response.status = "validated"
-        }else if(!available && favoriteOfficeElement.type == 2){
+        }else if(!available && favoriteOfficeElement.type == 3){
             let room = await OfficeElementRepository.findOneById(favoriteOfficeElement.parentId)
             let {available, used} = await OfficeElementService.verifyRoomOccupancy(room.id, req.body.day);
             if(available){
                 let desks = await OfficeElementRepository.findAllByParentId(room.id)
                 let bookedDesk = 0;
                 for(let i = 0; i < desks.length; i++){
-                    let {deskAvailable, deskUsed} = await OfficeElementService.verifyRoomOccupancy(desks[i].id, req.body.day)
-                    if(deskAvailable) bookedDesk = desks[i].id;
+                    const booked = await OfficeBooking.findOne({
+                        where:{
+                            officeElementId: desks[i].id,
+                            day: req.body.day
+                        }
+                    })
+                    if(!booked) { 
+                        bookedDesk = desks[i].id;
+                    }
                 }
                 await OfficeBooking.create({day: req.body.day, morning: true, afternoon: true, officeElementId: bookedDesk, userId: res.locals.auth.user.id})
                 response.status = "other_seat"
@@ -167,15 +174,22 @@ exports.setAutomaticBooking = async function (req, res, next){
         if(available){
             await OfficeBooking.create({day: req.body.day, morning: true, afternoon: true, officeElementId: favoriteDeskId, userId: res.locals.auth.user.id})
             response.status = "validated"
-        } else if(favoriteOfficeElement.type == 2){
+        } else if(favoriteOfficeElement.type == 3){
             let room = await OfficeElementRepository.findOneById(favoriteOfficeElement.parentId)
             let {available, used} = await OfficeElementService.verifyRoomOccupancy(room.id, req.body.day);
             if(available){
                 let desks = await OfficeElementRepository.findAllByParentId(room.id)
                 let bookedDesk = 0;
                 for(let i = 0; i < desks.length; i++){
-                    let {deskAvailable, deskUsed} = await OfficeElementService.verifyRoomOccupancy(desks[i].id, req.body.day)
-                    if(deskAvailable) bookedDesk = desks[i].id;
+                    const booked = await OfficeBooking.findOne({
+                        where:{
+                            officeElementId: desks[i].id,
+                            day: req.body.day
+                        }
+                    })
+                    if(!booked) {
+                        bookedDesk = desks[i].id;
+                    }
                 }
                 await OfficeBooking.create({day: req.body.day, morning: true, afternoon: true, officeElementId: bookedDesk, userId: res.locals.auth.user.id})
                 response.status = "other_seat"

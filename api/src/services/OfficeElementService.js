@@ -28,9 +28,9 @@ exports.verifyRoomOccupancy = async (id, day) => {
             }
         }
         if(maxPlace > used){
-            return {available: false, used};
+            return {available: true, used}; // IS THIS NORMAL?
         }else{
-            return {available: true, used};
+            return {available: false, used};
         }
     }else{
         const booked = await OfficeBooking.count({

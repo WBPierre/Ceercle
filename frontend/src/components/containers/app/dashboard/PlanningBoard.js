@@ -1,4 +1,5 @@
 import Grid from "@mui/material/Grid";
+import { Chip } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
@@ -111,7 +112,7 @@ function PlanningBoard(props) {
 
     const declareWeek = async () => {
         const followingDays = props.week.filter(x => moment(x.day).diff(moment()) >= 0);
-        console.log(context.user.company.officeBookingMandatory)
+        let validation = 0
         if(followingDays.length >0){
             for(let i=0; i<followingDays.length; i++){
                 let dayOfTheWeek = moment(followingDays[i].day).day() - 1
@@ -135,29 +136,27 @@ function PlanningBoard(props) {
                             morning: status,
                             afternoon: status,
                         }
+                        console.log(res.data.status)
                         if(res.data.status == 'validated'){
                             await TimeService.setTimeSheet(timeSheetResources);
-                            enqueueSnackbar(t('app:dashboard:snackbar_success'), {
-                                variant: 'success'
-                            });
+                            validation += 1
                         } else if (res.data.status == 'other_seat'){
-                            await TimeService.setTimeSheet(timeSheetResources);
-                            enqueueSnackbar("Votre bureau favori n'est pas disponible.", {
-                                variant: 'success'
-                            });
-                        } else if(res.data.status == 'warning'){
                             await TimeService.setTimeSheet(timeSheetResources);
                             enqueueSnackbar("Votre bureau favori n'est pas disponible. Un autre bureau vous a été attribué.", {
                                 variant: 'success'
                             });
-                        } else if(res.data.status == 'declare_favorite_seat'){
+                        } else if(res.data.status == 'warning'){
                             await TimeService.setTimeSheet(timeSheetResources);
+                            enqueueSnackbar("Votre bureau favori n'est pas disponible.", {
+                                variant: 'success'
+                            });
+                        } else if(res.data.status == 'declare_favorite_seat'){
                             enqueueSnackbar("Veuillez déclarer un bureau favori dans vos paramètres de compte.", {
                                 variant: 'warning'
                             });
                         } else {
                             enqueueSnackbar("Pas de place disponible", {
-                                variant: 'success'
+                                variant: 'error'
                             });
                         }
                     })
@@ -168,8 +167,14 @@ function PlanningBoard(props) {
                         afternoon: status,
                     }
                     await TimeService.setTimeSheet(resources);
+                    validation += 1
                 }
             }
+        }
+        if(validation > 0){
+            enqueueSnackbar(t('app:dashboard:snackbar_success'), {
+                variant: 'success'
+            });
         }
         await props.getTimeSheet(index);
     }
@@ -183,7 +188,11 @@ function PlanningBoard(props) {
                 <Grid item xs={12} style={{ width: '100%' }}>
                     <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} maxWidth={true}>
                         <Grid item xs={2} textAlign={"center"}>
-                            <HRRulesCheckDisplay ruleRespected={props.ruleRespected} />
+                            <Chip
+                                label="Semaine par défaut"
+                                icon={<EventAvailableIcon />}
+                                onClick={() => declareWeek()}
+                            />
                         </Grid>
                         <Grid item xs={2} textAlign={"right"}>
                             <IconButton onClick={() => handlePrevious()} aria-label="previous" size={"medium"}>
@@ -200,8 +209,8 @@ function PlanningBoard(props) {
                                 <ChevronRightIcon fontSize={"large"} />
                             </IconButton>
                         </Grid>
-                        <Grid item xs={2} textAlign={"right"}>
-                            <ColorButton variant="contained" startIcon={<EventAvailableIcon />} onClick={() => declareWeek()}>Semaine par défaut</ColorButton>
+                        <Grid item xs={2} textAlign={"center"}>
+                            <HRRulesCheckDisplay ruleRespected={props.ruleRespected} />
                         </Grid>
                     </Grid>
                 </Grid>
