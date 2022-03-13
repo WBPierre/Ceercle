@@ -42,12 +42,12 @@ exports.getStats = async function (req, res, next) {
 exports.updateCompany = async function (req, res, next) {
     const id = req.params.id;
     await CompanyRepository.findOneById(id)
-        .then((record) => {
+        .then(async (record) => {
             if (!record) {
                 res.status(404);
                 res.send();
             } else {
-                record.update(req.body).then(async (updated) => {
+                await record.update(req.body).then(async (updated) => {
                     let rules = {
                         ruleScope: req.body.ruleScope,
                         remoteMaximum: req.body.remoteMaximum,

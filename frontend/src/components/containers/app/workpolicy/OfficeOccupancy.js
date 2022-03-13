@@ -39,7 +39,7 @@ export default function OfficeOccupancy() {
     async function getOfficesElements() {
         const res = await OfficeService.listOfficesElements(parseInt(context.user.company.id));
         setOfficesList(res.data);
-        setOccupancy(parseInt(res.data[office].maxCapacity / 10))
+        if(res.data.length !== 0) setOccupancy(parseInt(res.data[office].maxCapacity / 10))
     }
 
     useEffect(() => {
@@ -100,25 +100,29 @@ export default function OfficeOccupancy() {
                     <Grid container direction="row">
                         <Grid item>
                             <FormControl sx={{ mr: 1, width: 200 }} variant="standard">
-                                <Select
-                                    id="demo-customized-select-native"
-                                    value={office}
-                                    onChange={handleChangeOffice}
-                                >
-                                    {officesList.map((off, index) => {
-                                        return (
-                                            <MenuItem value={index} key={index}>{off.name}</MenuItem>
-                                        )
-                                    }
-                                    )}
-                                </Select>
+                                    <Select
+                                        id="demo-customized-select-native"
+                                        value={office}
+                                        onChange={handleChangeOffice}
+                                        disabled={officesList.length === 0}
+                                    >
+                                        {officesList.map((off, index) => {
+                                                return (
+                                                    <MenuItem value={index} key={index}>{off.name}</MenuItem>
+                                                )
+                                            }
+                                        )}
+                                    </Select>
                             </FormControl>
                         </Grid>
+                        {officesList.length !== 0 &&
                         <Grid item mt={1}>
-                            <Typography variant="body" fontWeight={300} fontSize={17} style={{ color: '#414040', fontStyle: "italic" }}>
+                            <Typography variant="body" fontWeight={300} fontSize={17}
+                                        style={{color: '#414040', fontStyle: "italic"}}>
                                 ({officesList[office].capacity} {t('app:rh_parameters:offices.seats')})
                             </Typography>
                         </Grid>
+                        }
                     </Grid>
                 </Grid>
 
@@ -138,6 +142,7 @@ export default function OfficeOccupancy() {
                                     value={occupancy}
                                     variant="standard"
                                     onChange={handleChangeOccupancy}
+                                    disabled={officesList.length === 0}
                                 >
                                     {occupancies.map((off, index) => {
                                         return (
@@ -148,11 +153,14 @@ export default function OfficeOccupancy() {
                                 </Select>
                             </FormControl>
                         </Grid>
+                        {officesList.length !== 0 &&
                         <Grid item mt={1}>
-                            <Typography variant="body" fontWeight={300} fontSize={17} style={{ color: '#414040', fontStyle: "italic" }}>
+                            <Typography variant="body" fontWeight={300} fontSize={17}
+                                        style={{color: '#414040', fontStyle: "italic"}}>
                                 ({Math.round(officesList[office].capacity * occupancy_0_1[occupancy])} {t('app:rh_parameters:offices.seats')})
                             </Typography>
                         </Grid>
+                        }
                     </Grid>
                 </Grid>
 
