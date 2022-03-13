@@ -78,6 +78,10 @@ const User = db.define(
       type: DataTypes.INTEGER,
       defaultValue: 0,
     },
+    favoriteDesk: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
     position: {
       type: DataTypes.STRING,
       allowNull: true,

@@ -1,50 +1,53 @@
 import * as React from 'react';
 import { useTranslation } from "react-i18next";
+import {useEffect, useState} from "react";
+import { useNavigate } from "react-router-dom";
+import moment from 'moment-timezone';
+import { useSnackbar } from "notistack";
+
 import Typography from '@mui/material/Typography';
 import Grid from "@mui/material/Grid";
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
-import moment from 'moment-timezone';
 import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { useSnackbar } from "notistack";
-import { useNavigate } from "react-router-dom";
+import SettingsIcon from '@mui/icons-material/Settings';
+import {Button, ListItem, ListItemAvatar, ListItemButton, ListItemText} from "@mui/material";
+import List from "@mui/material/List";
+import IconButton from "@mui/material/IconButton";
+import {Switch} from "@mui/material";
+
 import UserService from "../../../../services/app/user.service";
 import * as App_Routes from "../../../../navigation/app/Routes";
 import ThirdPartyService from "../../../../services/app/thirdparty.service";
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import SettingSectionTemplate from './SettingSectionTemplate';
-import {Avatar, Button, ListItem, ListItemAvatar, ListItemButton, ListItemText} from "@mui/material";
-import {useEffect, useState} from "react";
-import List from "@mui/material/List";
-import IconButton from "@mui/material/IconButton";
 import GoogleCalendarIcon from "../../../molecules/icons/GoogleCalendarIcon";
+import BookingService from "../../../../services/app/booking.service";
+import OfficeService from "../../../../services/app/office.service";
+import OfficeModal from "../dashboard/OfficeBooking/OfficeModal";
 
 export default function PreferencesSection(props) {
     const { i18n } = useTranslation();
-
-    const timezones = moment.tz.names()
     const { t } = useTranslation();
+    let navigate = useNavigate();
+    const timezones = moment.tz.names()
 
     const [hoursAM, setHoursAM] = React.useState(props.user.defaultWorkingMorningHour);
     const handleChangeHoursAM = (event) => {
         setHoursAM(event.target.value);
     };
-
     const [minutesAM, setMinutesAM] = React.useState(props.user.defaultWorkingMorningMinutes);
     const handleChangeMinutesAM = (event) => {
         setMinutesAM(event.target.value);
     };
-
     const [hoursPM, setHoursPM] = React.useState(props.user.defaultWorkingAfternoonHour);
     const handleChangeHoursPM = (event) => {
         setHoursPM(event.target.value);
     };
-
     const [minutesPM, setMinutesPM] = React.useState(props.user.defaultWorkingAfternoonMinutes);
     const handleChangeMinutesPM = (event) => {
         setMinutesPM(event.target.value);
@@ -55,51 +58,83 @@ export default function PreferencesSection(props) {
         setTz(event.target.value);
     };
 
-
-
     const statuses = [t('app:statuses:to_be_defined'), t('app:statuses:office'), t('app:statuses:home_working')]
-
     const [mondayStatus, setMondayStatus] = React.useState(props.user.mondayStatus);
     const handleChangeMondayStatus = (event) => {
         setMondayStatus(event.target.value);
     };
-
     const [tuesdayStatus, setTuesdayStatus] = React.useState(props.user.tuesdayStatus);
     const handleChangeTuesdayStatus = (event) => {
         setTuesdayStatus(event.target.value);
     };
-
     const [wednesdayStatus, setWednesdayStatus] = React.useState(props.user.wednesdayStatus);
     const handleChangeWednesdayStatus = (event) => {
         setWednesdayStatus(event.target.value);
     };
-
     const [thursdayStatus, setThursdayStatus] = React.useState(props.user.thursdayStatus);
     const handleChangeThursdayStatus = (event) => {
         setThursdayStatus(event.target.value);
     };
-
     const [fridayStatus, setFridayStatus] = React.useState(props.user.fridayStatus);
     const handleChangeFridayStatus = (event) => {
         setFridayStatus(event.target.value);
     };
 
-
+    const [favoriteDesk, setFavoriteDesk] = React.useState(props.user.favoriteDesk);
+    const [hasFavoriteDesk, setHasFavoriteDesk] = React.useState(false);
+    const handleChangeHasFavoriteDesk = (event) => {
+        const value = event.target.checked
+        if(value){
+            setOpenModal(true)
+        } else {
+            updateFavoriteDeskName(0)
+            setFavoriteDesk(0)
+        }
+        setHasFavoriteDesk(event.target.checked);
+    }
+    const [openModal, setOpenModal] = React.useState(false);
+    const handleOpenModal = () => {
+        setOpenModal(true)
+    }
+    const handleCloseModal = (deskId) => {
+        if(deskId == 0 && favoriteDesk==0){
+            setHasFavoriteDesk(false)
+            updateFavoriteDeskName(0)
+        } else if (deskId !=0) {
+            updateFavoriteDeskName(deskId)
+            setFavoriteDesk(deskId)
+        }
+        setOpenModal(false)
+    }
+    const [favoriteDeskName, setFavoriteDeskName] = React.useState(t('app:account:preferences.no_favorite_desk'));
+    const updateFavoriteDeskName = async (deskId) => {
+        if (deskId != 0){
+            let name = await OfficeService.gestDeskFullName(deskId)
+            setFavoriteDeskName(name.data)
+        } else {
+            setFavoriteDeskName(t('app:account:preferences.no_favorite_desk'))
+        }
+    }
 
     const languageOptions = ["Français", "English"]
-
     const [language, setLanguage] = React.useState(languageOptions.indexOf(props.user.lang));
     const handleChangeLanguage = (event) => {
         setLanguage(event.target.value);
     };
 
+    const [googleCalendarConnected, setGoogleCalendarConnected] = useState(false);
     const handleGoogleConnect = async () => {
         const res = await ThirdPartyService.getGoogleUrl();
         window.open(res.data.url, "_blank");
     }
-
-    const [googleCalendarConnected, setGoogleCalendarConnected] = useState(false);
-    useEffect(() => {
+    const handleRemoveGoogleConnect = async () => {
+        await ThirdPartyService.removeGoogleCalendar();
+        setGoogleCalendarConnected(false);
+    }
+    const handleGoogleTest = async () => {
+        await ThirdPartyService.test();
+    }
+    useEffect(async () => {
         async function verifyGoogleCalendar(){
             await ThirdPartyService.verifyGoogleCalendarConnection().then((res) => {
                 if(res.data.connected){
@@ -110,16 +145,13 @@ export default function PreferencesSection(props) {
             });
         }
         verifyGoogleCalendar();
+        if(props.user.favoriteDesk > 0){
+            let name = await OfficeService.gestDeskFullName(props.user.favoriteDesk)
+            setFavoriteDeskName(name.data)
+            setHasFavoriteDesk(true)
+        }
+        
     }, []);
-
-    const handleRemoveGoogleConnect = async () => {
-        await ThirdPartyService.removeGoogleCalendar();
-        setGoogleCalendarConnected(false);
-    }
-
-    const handleGoogleTest = async () => {
-        await ThirdPartyService.test();
-    }
 
 
     const { enqueueSnackbar } = useSnackbar();
@@ -139,7 +171,8 @@ export default function PreferencesSection(props) {
                 tuesdayStatus: tuesdayStatus,
                 wednesdayStatus: wednesdayStatus,
                 thursdayStatus: thursdayStatus,
-                fridayStatus: fridayStatus
+                fridayStatus: fridayStatus,
+                favoriteDesk: favoriteDesk
             };
             await UserService.updateUserSettings(resources).then(async (res) => {
                 if (res.status === 200) {
@@ -164,7 +197,6 @@ export default function PreferencesSection(props) {
             });
         }
     }
-    let navigate = useNavigate();
 
     const cancel = () => {
         setHoursAM(props.user.defaultWorkingMorningHour);
@@ -177,11 +209,15 @@ export default function PreferencesSection(props) {
         setWednesdayStatus(props.user.wednesdayStatus);
         setThursdayStatus(props.user.thursdayStatus);
         setFridayStatus(props.user.fridayStatus);
+        setFavoriteDesk(props.user.favoriteDesk);
         setLanguage(languageOptions.indexOf(props.user.lang));
     }
 
     return (
         <SettingSectionTemplate title={t('app:account:preferences.title')} description={t('app:account:preferences.subtitle')}>
+
+            <OfficeModal open={openModal} favoriteDesk={favoriteDesk} day={moment().add(1001, 'days').format('YYYY-MM-DD')} booking={[]} handleClose={handleCloseModal}/>
+
             <Grid container direction="column" spacing={1}>
                 <Grid item>
                     <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#414040' }}>
@@ -297,10 +333,150 @@ export default function PreferencesSection(props) {
                 </Grid>
 
 
-
-
+                <Grid item>
+                    <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#414040' }}>
+                        {t('app:account:preferences.default_status')}
+                    </Typography>
+                </Grid>
 
                 <Grid item>
+                    <Grid container direction="row" spacing={1}>
+                        <Grid item xs={2}>
+                            <FormControl variant="standard">
+                                <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements:Mon')}</InputLabel>
+                                <Select
+                                    id="demo-customized-select-native"
+                                    value={mondayStatus}
+                                    onChange={handleChangeMondayStatus}
+                                >
+                                    {statuses.map((status, index) => {
+                                        return (
+                                            <MenuItem value={index} key={index}>{status}</MenuItem>
+                                        )
+                                    }
+                                    )}
+                                </Select>
+                            </FormControl>
+                        </Grid>
+
+                        <Grid item xs={2}>
+                            <FormControl variant="standard">
+                                <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements:Tue')}</InputLabel>
+                                <Select
+                                    id="demo-customized-select-native"
+                                    value={tuesdayStatus}
+                                    onChange={handleChangeTuesdayStatus}
+                                >
+                                    {statuses.map((status, index) => {
+                                        return (
+                                            <MenuItem value={index} key={index}>{status}</MenuItem>
+                                        )
+                                    }
+                                    )}
+                                </Select>
+                            </FormControl>
+                        </Grid>
+
+                        <Grid item xs={2}>
+                            <FormControl variant="standard">
+                                <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements:Wed')}</InputLabel>
+                                <Select
+                                    id="demo-customized-select-native"
+                                    value={wednesdayStatus}
+                                    onChange={handleChangeWednesdayStatus}
+                                >
+                                    {statuses.map((status, index) => {
+                                        return (
+                                            <MenuItem value={index} key={index}>{status}</MenuItem>
+                                        )
+                                    }
+                                    )}
+                                </Select>
+                            </FormControl>
+                        </Grid>
+
+                        <Grid item xs={2}>
+                            <FormControl variant="standard">
+                                <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements:Thu')}</InputLabel>
+                                <Select
+                                    id="demo-customized-select-native"
+                                    value={thursdayStatus}
+                                    onChange={handleChangeThursdayStatus}
+                                >
+                                    {statuses.map((status, index) => {
+                                        return (
+                                            <MenuItem value={index} key={index}>{status}</MenuItem>
+                                        )
+                                    }
+                                    )}
+                                </Select>
+                            </FormControl>
+                        </Grid>
+
+                        <Grid item xs={2}>
+                            <FormControl variant="standard">
+                                <InputLabel htmlFor="demo-customized-select-native">{t('app:date_elements:Fri')}</InputLabel>
+                                <Select
+                                    id="demo-customized-select-native"
+                                    value={fridayStatus}
+                                    onChange={handleChangeFridayStatus}
+                                >
+                                    {statuses.map((status, index) => {
+                                        return (
+                                            <MenuItem value={index} key={index}>{status}</MenuItem>
+                                        )
+                                    }
+                                    )}
+                                </Select>
+                            </FormControl>
+                        </Grid>
+
+                    </Grid>
+                </Grid>
+
+                <Grid item mt={6}>
+                    <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#414040' }}>
+                        {t('app:account:preferences.favorite_desk')}
+                    </Typography>
+                </Grid>
+
+                <Grid item>
+                    <Grid container direction="row" spacing={1}>
+                        <Grid item xs={4}>
+                            <Stack direction="row" spacing={1} alignItems="center">
+                                <Typography>{t('generic:no')}</Typography>
+                                <Switch value={hasFavoriteDesk} checked={hasFavoriteDesk} onChange={handleChangeHasFavoriteDesk} name={"SwitchFavoriteDesk"} color='secondary' />
+                                <Typography>{t('generic:yes')}</Typography>
+                            </Stack>
+                        </Grid>
+                        <Grid item xs={5}>
+                            { hasFavoriteDesk ? 
+                                <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#000000' }}>
+                                    {favoriteDeskName}
+                                </Typography>
+                                :
+                                <Typography variant="body" fontWeight={300} fontSize={17} style={{ color: '#414040' }} fontStyle="italic">
+                                    {favoriteDeskName}
+                                </Typography>
+                            } 
+                        </Grid>
+                        <Grid item xs={3}>
+                            <Chip
+                                disabled={!hasFavoriteDesk}
+                                label={t('generic:update')}
+                                sx={{ width: '100%', borderColor: "#3F07A8", color: "#3F07A8", fontWeight: "bold" }}
+                                color="error"
+                                icon={<SettingsIcon />}
+                                variant="outlined"
+                                onClick={handleOpenModal}
+                            />
+                        </Grid>
+                    </Grid>
+                </Grid>
+
+
+
+                <Grid item mt={6}>
                     <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#414040' }}>
                         {t('app:account:preferences.timezone')}
                     </Typography>

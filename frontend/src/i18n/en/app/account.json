@@ -23,7 +23,10 @@
     "snackbar_warning": "Please, fill the fields properly.",
     "connect_to_google": "Connect your account with Google Calendar",
     "connect_my_google_calendar": "Connect my Google calendar",
-    "google_calendar_connected": "You are connected to Google calendar !"
+    "google_calendar_connected": "You are connected to Google calendar !",
+    "no_favorite_desk": "No favorite desk",
+    "default_status": "Default statuses",
+    "favorite_desk": "Favorite desk"
   },
   "general": {
     "title": "General settings",

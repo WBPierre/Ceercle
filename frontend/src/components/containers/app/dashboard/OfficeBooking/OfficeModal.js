@@ -1,23 +1,19 @@
-import { Chip, Divider, InputBase, Modal } from "@mui/material";
+import * as React from "react";
+import { useEffect, useState } from "react";
+import { useSnackbar } from "notistack";
+import { useTranslation } from "react-i18next";
+
+import { Divider, Modal } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import BookingService from "../../../../../services/app/booking.service";
-import OfficeService from "../../../../../services/app/office.service";
-import TimeService from "../../../../../services/app/time.service";
-import { useEffect, useState } from "react";
-import useAuth from "../../../../context/auth/AuthHelper";
 import Grid from "@mui/material/Grid";
-import Button from "@mui/material/Button";
-import { useTranslation } from "react-i18next";
 import IconButton from "@mui/material/IconButton";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import * as React from "react";
 import CloseIcon from '@mui/icons-material/Close';
-import { useSnackbar } from "notistack";
 import ElementDisplay from "./ElementDisplay";
+
 import BookingInformation from "./BookingInformation";
+import BookingService from "../../../../../services/app/booking.service";
+import TimeService from "../../../../../services/app/time.service";
 
 const style = {
     position: 'absolute',
@@ -114,25 +110,29 @@ function OfficeModal(props) {
 
 
     const confirmBooking = async () => {
-        if (props.resources) {
-            await TimeService.setTimeSheet(props.resources);
-            enqueueSnackbar(t('app:dashboard:snackbar_success'), {
-                variant: 'success'
+        if(props.favoriteDesk != null){
+            props.handleClose(booking[booking.length-1].id)
+        } else {
+            if (props.resources) {
+                await TimeService.setTimeSheet(props.resources);
+                enqueueSnackbar(t('app:dashboard:snackbar_success'), {
+                    variant: 'success'
+                });
+            }
+            const resources = {
+                day: props.day,
+                morning: props.resaType === 0 || props.resaType === 1,
+                afternoon: props.resaType === 0 || props.resaType === 2,
+                officeElementId: null
+            }
+            resources.officeElementId = booking[booking.length-1].id;
+            await BookingService.setBooking(resources).catch((err) => {
+                enqueueSnackbar(t('app:errors.officeAlreadyBooked'), {
+                    variant: 'error'
+                });
             });
+            closeModal(true);
         }
-        const resources = {
-            day: props.day,
-            morning: props.resaType === 0 || props.resaType === 1,
-            afternoon: props.resaType === 0 || props.resaType === 2,
-            officeElementId: null
-        }
-        resources.officeElementId = booking[booking.length-1].id;
-        await BookingService.setBooking(resources).catch((err) => {
-            enqueueSnackbar(t('app:errors.officeAlreadyBooked'), {
-                variant: 'error'
-            });
-        });
-        closeModal(true);
     }
 
 
@@ -140,7 +140,14 @@ function OfficeModal(props) {
     return (
         <Modal
             open={props.open}
-            onClose={() => closeModal(false)}
+            onClose={() => {
+                    if(props.favoriteDesk != null){
+                        props.handleClose(0)
+                    } else {
+                    closeModal(false)
+                    }
+                }
+            }
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
             disableAutoFocus={true}

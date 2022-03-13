@@ -21,6 +21,10 @@ class BookingService{
         return this.request.post('/officeBooking', resources);
     }
 
+    async setAutomaticBooking(resources){
+        return this.request.post('/officeBooking/setAutomaticBooking', resources);
+    }
+
     async removeBooking(day){
         return this.request.delete('/officeBooking/'+day);
     }

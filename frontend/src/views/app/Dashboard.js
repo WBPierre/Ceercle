@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import PlanningBoard from "../../components/containers/app/dashboard/PlanningBoard";
 import useAuth from "../../components/context/auth/AuthHelper";
 import moment from "moment";
+import UserService from "../../services/app/user.service";
 import TimeService from "../../services/app/time.service";
 import OfficeModal from "../../components/containers/app/dashboard/OfficeBooking/OfficeModal";
 import { useSnackbar } from "notistack";
@@ -36,12 +37,9 @@ export default function Dashboard(props) {
     const [resaType, setResaType] = useState(0);
     const [index, setIndex] = useState(0);
     const [timeSheetResources, setTimeSheetResources] = useState(undefined);
-    const { enqueueSnackbar } = useSnackbar();
-
-
-
+    const [user, setUser] = useState(null);
     const daySelected = day.format('YYYY-MM-DD');
-
+    const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
         const getTimeSheet = async () => {
@@ -58,7 +56,13 @@ export default function Dashboard(props) {
             })
         }
         getTimeSheet();
+        async function getUserInfo() {
+            const res = await UserService.getUserInfo();
+            setUser(res.data);
+        }
+        getUserInfo();
         getHasUserValidatedCompanyRules(index);
+
     }, []); // eslint-disable-line
 
     const getHasUserValidatedCompanyRules = async (ind) => {
@@ -112,7 +116,7 @@ export default function Dashboard(props) {
         <Grid wrap={"nowrap"} container direction={"column"} spacing={1}>
             <OfficeModal open={openOffice} resources={timeSheetResources} handleClose={(update) => handleCloseOffice(update)} day={dayOffice} booking={booking} resaType={resaType} />
             <Grid item>
-                <PlanningBoard getTimeSheet={(index) => getTimeSheet(index)} week={week} ruleRespected={ruleRespected} handleOpenOffice={(day, booking, type, resources) => handleOpenOffice(day, booking, type, resources)} />
+                <PlanningBoard getTimeSheet={(index) => getTimeSheet(index)} week={week} ruleRespected={ruleRespected} handleOpenOffice={(day, booking, type, resources) => handleOpenOffice(day, booking, type, resources)} user={user}/>
             </Grid>
             <Grid item xs={12} mb={2}>
                 <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"}>

@@ -1,26 +1,26 @@
-import Grid from "@mui/material/Grid";
-import IconButton from "@mui/material/IconButton";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import Fade from "react-reveal/Fade";
-import PlanningElement from "./PlanningElement";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import Paper from "@mui/material/Paper";
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useState } from "react";
-import TimeService from "../../../../services/app/time.service";
-import BookingService from "../../../../services/app/booking.service";
+import Fade from "react-reveal/Fade";
 import moment from "moment";
 import "moment/min/locales";
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import { Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
-import * as App_Routes from "../../../../navigation/app/Routes";
-import { useTranslation } from "react-i18next";
+
+import Grid from "@mui/material/Grid";
+import { Chip } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import EventAvailableIcon from "@mui/icons-material/EventAvailable";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import Paper from "@mui/material/Paper";
+import { Typography } from "@mui/material";
+
+import PlanningElement from "./PlanningElement";
 import HRRulesCheckDisplay from "./HRRulesCheckDisplay";
 import useAuth from "../../../context/auth/AuthHelper";
-
-
+import TimeService from "../../../../services/app/time.service";
+import BookingService from "../../../../services/app/booking.service";
 
 function PlanningBoard(props) {
     const context = useAuth();
@@ -33,7 +33,6 @@ function PlanningBoard(props) {
     const [index, setIndex] = useState(0);
     const [orientation, setOrientation] = useState(true);
     const { enqueueSnackbar } = useSnackbar();
-
 
     const handlePrevious = async () => {
         let ind = index - 1;
@@ -92,9 +91,77 @@ function PlanningBoard(props) {
                     }
                 }
             }
-
             await props.getTimeSheet(index);
         }
+    }
+
+    const declareWeek = async () => {
+        const followingDays = props.week.filter(x => moment(x.day).diff(moment()) >= 0);
+        let validation = 0
+        if(followingDays.length >0){
+            for(let i=0; i<followingDays.length; i++){
+                let dayOfTheWeek = moment(followingDays[i].day).day() - 1
+                let status = 0
+                switch (dayOfTheWeek){
+                    case 0: status = props.user.mondayStatus; break;
+                    case 1: status = props.user.tuesdayStatus; break;
+                    case 2: status = props.user.wednesdayStatus; break;
+                    case 3: status = props.user.thursdayStatus; break;
+                    case 4: status = props.user.fridayStatus; break;
+                }
+                if(status == 1 && context.user.company.activeOfficeHandler && (followingDays[i].morning != 1) && (followingDays[i].afternoon != 1)){
+                    const resources = {
+                        day: followingDays[i].day,
+                        officeElementId: props.user.favoriteDesk,
+                        officeBookingMandatory: context.user.company.officeBookingMandatory
+                    }
+                    await BookingService.setAutomaticBooking(resources).then(async (res) => {
+                        let timeSheetResources = {
+                            day: followingDays[i].day,
+                            morning: status,
+                            afternoon: status,
+                        }
+                        console.log(res.data.status)
+                        if(res.data.status == 'validated'){
+                            await TimeService.setTimeSheet(timeSheetResources);
+                            validation += 1
+                        } else if (res.data.status == 'other_seat'){
+                            await TimeService.setTimeSheet(timeSheetResources);
+                            enqueueSnackbar(t('app:dashboard:snackbar_other_seat'), {
+                                variant: 'success'
+                            });
+                        } else if(res.data.status == 'warning'){
+                            await TimeService.setTimeSheet(timeSheetResources);
+                            enqueueSnackbar(t('app:dashboard:snackbar_warning'), {
+                                variant: 'success'
+                            });
+                        } else if(res.data.status == 'declare_favorite_seat'){
+                            enqueueSnackbar(t('app:dashboard:snackbar_declare_favorite_seat'), {
+                                variant: 'warning'
+                            });
+                        } else {
+                            enqueueSnackbar(t('app:dashboard:snackbar_error'), {
+                                variant: 'error'
+                            });
+                        }
+                    })
+                } else {
+                    let resources = {
+                        day: followingDays[i].day,
+                        morning: status,
+                        afternoon: status,
+                    }
+                    await TimeService.setTimeSheet(resources);
+                    validation += 1
+                }
+            }
+        }
+        if(validation > 0){
+            enqueueSnackbar(t('app:dashboard:snackbar_success'), {
+                variant: 'success'
+            });
+        }
+        await props.getTimeSheet(index);
     }
 
     if (props.week === undefined || props.week.length === 0) {
@@ -106,7 +173,11 @@ function PlanningBoard(props) {
                 <Grid item xs={12} style={{ width: '100%' }}>
                     <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} maxWidth={true}>
                         <Grid item xs={2} textAlign={"center"}>
-                            <HRRulesCheckDisplay ruleRespected={props.ruleRespected} />
+                            <Chip
+                                label={t('app:dashboard:default_week')}
+                                icon={<EventAvailableIcon />}
+                                onClick={() => declareWeek()}
+                            />
                         </Grid>
                         <Grid item xs={2} textAlign={"right"}>
                             <IconButton onClick={() => handlePrevious()} aria-label="previous" size={"medium"}>
@@ -123,10 +194,8 @@ function PlanningBoard(props) {
                                 <ChevronRightIcon fontSize={"large"} />
                             </IconButton>
                         </Grid>
-                        <Grid item xs={2} textAlign={"right"}>
-                            <IconButton onClick={() => navigate(App_Routes.CALENDAR)} aria-label="previous" size={"medium"}>
-                                <ExitToAppIcon fontSize={"large"} />
-                            </IconButton>
+                        <Grid item xs={2} textAlign={"center"}>
+                            <HRRulesCheckDisplay ruleRespected={props.ruleRespected} />
                         </Grid>
                     </Grid>
                 </Grid>
