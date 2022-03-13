@@ -129,6 +129,70 @@ exports.setOfficeBooking = async function (req, res, next){
     }
 }
 
+exports.setAutomaticBooking = async function (req, res, next){
+    let officeBookingMandatory = req.body.officeBookingMandatory
+    let favoriteDeskId = req.body.officeElementId
+    let response = {status: ""}
+    if(!officeBookingMandatory && favoriteDeskId == 0){
+        response.status = "validated"
+    }
+    if(!officeBookingMandatory && favoriteDeskId > 0){
+        let favoriteOfficeElement = await OfficeElementRepository.findOneById(favoriteDeskId);
+        let {available, used} = await OfficeElementService.verifyRoomOccupancy(favoriteDeskId, req.body.day);
+        if(available){
+            await OfficeBooking.create({day: req.body.day, morning: true, afternoon: true, officeElementId: favoriteDeskId, userId: res.locals.auth.user.id})
+            response.status = "validated"
+        }else if(!available && favoriteOfficeElement.type == 2){
+            let room = await OfficeElementRepository.findOneById(favoriteOfficeElement.parentId)
+            let {available, used} = await OfficeElementService.verifyRoomOccupancy(room.id, req.body.day);
+            if(available){
+                let desks = await OfficeElementRepository.findAllByParentId(room.id)
+                let bookedDesk = 0;
+                for(let i = 0; i < desks.length; i++){
+                    let {deskAvailable, deskUsed} = await OfficeElementService.verifyRoomOccupancy(desks[i].id, req.body.day)
+                    if(deskAvailable) bookedDesk = desks[i].id;
+                }
+                await OfficeBooking.create({day: req.body.day, morning: true, afternoon: true, officeElementId: bookedDesk, userId: res.locals.auth.user.id})
+                response.status = "other_seat"
+            } else {
+                response.status = "warning"
+            }
+        } else {
+            response.status = "warning"
+        }
+    }
+    if(officeBookingMandatory && favoriteDeskId > 0){
+        let favoriteOfficeElement = await OfficeElementRepository.findOneById(favoriteDeskId);
+        let {available, used} = await OfficeElementService.verifyRoomOccupancy(favoriteDeskId, req.body.day);
+        if(available){
+            await OfficeBooking.create({day: req.body.day, morning: true, afternoon: true, officeElementId: favoriteDeskId, userId: res.locals.auth.user.id})
+            response.status = "validated"
+        } else if(favoriteOfficeElement.type == 2){
+            let room = await OfficeElementRepository.findOneById(favoriteOfficeElement.parentId)
+            let {available, used} = await OfficeElementService.verifyRoomOccupancy(room.id, req.body.day);
+            if(available){
+                let desks = await OfficeElementRepository.findAllByParentId(room.id)
+                let bookedDesk = 0;
+                for(let i = 0; i < desks.length; i++){
+                    let {deskAvailable, deskUsed} = await OfficeElementService.verifyRoomOccupancy(desks[i].id, req.body.day)
+                    if(deskAvailable) bookedDesk = desks[i].id;
+                }
+                await OfficeBooking.create({day: req.body.day, morning: true, afternoon: true, officeElementId: bookedDesk, userId: res.locals.auth.user.id})
+                response.status = "other_seat"
+            } else {
+                response.status = "error"
+            }
+        } else {
+            response.status = "error"
+        }
+    }
+    if(officeBookingMandatory && favoriteDeskId == 0){
+        response.status = "declare_favorite_seat"
+    }
+    res.json(response);
+    return
+}
+
 exports.getOfficeBooking = async function(req, res, next) {
     await OfficeBookingRepository.findOneByDayAndUserId(req.params.day, res.locals.auth.user.id)
         .then(async (record)=> {
@@ -197,6 +261,16 @@ exports.validate = (method) => {
                 body('afternoon', 'afternoon is not a number').isBoolean(),
                 body('officeElementId', 'officeElementId doesn\'t exist').exists(),
                 body('officeElementId', 'officeElementId is not a number').isNumeric()
+            ]
+        }
+        case 'setAutomaticBooking':{
+            return [
+                body('day', 'day doesn\'t exist').exists(),
+                body('day', 'day is not a number').isString(),
+                body('officeElementId', 'officeElementId doesn\'t exist').exists(),
+                body('officeElementId', 'officeElementId is not a number').isNumeric(),
+                body('officeBookingMandatory', 'officeBookingMandatory doesn\'t exist').exists(),
+                body('officeBookingMandatory', 'officeBookingMandatory is not a number').isBoolean()
             ]
         }
     }

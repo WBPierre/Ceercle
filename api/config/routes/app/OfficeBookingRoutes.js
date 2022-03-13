@@ -9,5 +9,6 @@ router.get('/office/:day', [isUserAuthenticated, OfficeBookingController.validat
 router.get('/:day', [isUserAuthenticated, OfficeBookingController.validate('getOfficeBooking'), verifyErrors], OfficeBookingController.getOfficeBooking);
 router.delete('/:day', [isUserAuthenticated, OfficeBookingController.validate('removeOfficeBooking'), verifyErrors], OfficeBookingController.removeOfficeBooking);
 router.post('/', [isUserAuthenticated, OfficeBookingController.validate('setOfficeBooking'), verifyErrors], OfficeBookingController.setOfficeBooking);
+router.post('/setAutomaticBooking', [isUserAuthenticated, OfficeBookingController.validate('setAutomaticBooking'), verifyErrors], OfficeBookingController.setAutomaticBooking);
 
 module.exports = router;

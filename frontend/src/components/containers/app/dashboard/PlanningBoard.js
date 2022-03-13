@@ -1,6 +1,8 @@
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
+import Button from "@mui/material/Button";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import Fade from "react-reveal/Fade";
 import PlanningElement from "./PlanningElement";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -19,8 +21,18 @@ import * as App_Routes from "../../../../navigation/app/Routes";
 import { useTranslation } from "react-i18next";
 import HRRulesCheckDisplay from "./HRRulesCheckDisplay";
 import useAuth from "../../../context/auth/AuthHelper";
+import { styled } from '@mui/material/styles';
+import { grey } from '@mui/material/colors';
 
-
+const ColorButton = styled(Button)(({ theme }) => ({
+    color: theme.palette.getContrastText(grey[500]),
+    backgroundColor: grey[500],
+    '&:hover': {
+      backgroundColor: grey[700],
+    },
+    fontSize: 11,
+    fontColor: '#FFFFFF'
+  }));
 
 function PlanningBoard(props) {
     const context = useAuth();
@@ -97,6 +109,71 @@ function PlanningBoard(props) {
         }
     }
 
+    const declareWeek = async () => {
+        const followingDays = props.week.filter(x => moment(x.day).diff(moment()) >= 0);
+        console.log(context.user.company.officeBookingMandatory)
+        if(followingDays.length >0){
+            for(let i=0; i<followingDays.length; i++){
+                let dayOfTheWeek = moment(followingDays[i].day).day() - 1
+                let status = 0
+                switch (dayOfTheWeek){
+                    case 0: status = props.user.mondayStatus; break;
+                    case 1: status = props.user.tuesdayStatus; break;
+                    case 2: status = props.user.wednesdayStatus; break;
+                    case 3: status = props.user.thursdayStatus; break;
+                    case 4: status = props.user.fridayStatus; break;
+                }
+                if(status == 1 && context.user.company.activeOfficeHandler && (followingDays[i].morning != 1) && (followingDays[i].afternoon != 1)){
+                    const resources = {
+                        day: followingDays[i].day,
+                        officeElementId: props.user.favoriteDesk,
+                        officeBookingMandatory: context.user.company.officeBookingMandatory
+                    }
+                    await BookingService.setAutomaticBooking(resources).then(async (res) => {
+                        let timeSheetResources = {
+                            day: followingDays[i].day,
+                            morning: status,
+                            afternoon: status,
+                        }
+                        if(res.data.status == 'validated'){
+                            await TimeService.setTimeSheet(timeSheetResources);
+                            enqueueSnackbar(t('app:dashboard:snackbar_success'), {
+                                variant: 'success'
+                            });
+                        } else if (res.data.status == 'other_seat'){
+                            await TimeService.setTimeSheet(timeSheetResources);
+                            enqueueSnackbar("Votre bureau favori n'est pas disponible.", {
+                                variant: 'success'
+                            });
+                        } else if(res.data.status == 'warning'){
+                            await TimeService.setTimeSheet(timeSheetResources);
+                            enqueueSnackbar("Votre bureau favori n'est pas disponible. Un autre bureau vous a été attribué.", {
+                                variant: 'success'
+                            });
+                        } else if(res.data.status == 'declare_favorite_seat'){
+                            await TimeService.setTimeSheet(timeSheetResources);
+                            enqueueSnackbar("Veuillez déclarer un bureau favori dans vos paramètres de compte.", {
+                                variant: 'warning'
+                            });
+                        } else {
+                            enqueueSnackbar("Pas de place disponible", {
+                                variant: 'success'
+                            });
+                        }
+                    })
+                } else {
+                    let resources = {
+                        day: followingDays[i].day,
+                        morning: status,
+                        afternoon: status,
+                    }
+                    await TimeService.setTimeSheet(resources);
+                }
+            }
+        }
+        await props.getTimeSheet(index);
+    }
+
     if (props.week === undefined || props.week.length === 0) {
         return (<div />)
     }
@@ -124,9 +201,7 @@ function PlanningBoard(props) {
                             </IconButton>
                         </Grid>
                         <Grid item xs={2} textAlign={"right"}>
-                            <IconButton onClick={() => navigate(App_Routes.CALENDAR)} aria-label="previous" size={"medium"}>
-                                <ExitToAppIcon fontSize={"large"} />
-                            </IconButton>
+                            <ColorButton variant="contained" startIcon={<EventAvailableIcon />} onClick={() => declareWeek()}>Semaine par défaut</ColorButton>
                         </Grid>
                     </Grid>
                 </Grid>
