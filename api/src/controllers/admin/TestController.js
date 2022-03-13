@@ -1,5 +1,6 @@
 const Company = require("../../models/Company");
 const axios = require("axios");
+const ThirdPartyService = require("./ThirdPartyService");
 
 
 exports.testSlack = async function(req, res, next) {
@@ -12,22 +13,7 @@ exports.testSlack = async function(req, res, next) {
         for (let j = 0; j < users.length; j++) {
             for(let k = 0; k < slackUserList.length; k++){
                 if(slackUserList[k].profile.email === users[j].email){
-                    console.log('FOUND ', users[j].email);
-                    await axios.post("https://slack.com/api/chat.postMessage", {
-                        channel: slackUserList[k].id,
-                        text: users[j].lang === "fr" ? "N'oubliez pas de mettre à jour votre déclaration pour la semaine prochaine sur https://app.ceercle.io !" : "Don't forget to update your status for next week on https://app.ceercle.io !",
-                        as_user: true
-                    }, {
-                        headers:{
-                            Authorization: 'Bearer ' + hasIntegration[0].token,
-                            'Content-Type': 'application/json'
-                        }
-                    }).then((res) => {
-                        console.log(res)
-                    }).catch((err) => {
-                        console.log(err.response);
-                    })
-                    break;
+                    await ThirdPartyService.setSlackStatus(slackUserList[k].id, hasIntegration[0].token, users[j].lang, 1);
                 }
             }
         }

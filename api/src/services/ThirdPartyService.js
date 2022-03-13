@@ -172,22 +172,31 @@ function getColorForType(type){
 exports.setSlackStatus = async function(userId, token, lang, type) {
     let status = getStatus(lang, type);
     const resources = {
-        token: token,
         user: userId,
         profile: status
     }
-    let result = await axios.post('https://slack.com/api/users.profile.set', resources);
+    let result = await axios.post('https://slack.com/api/users.profile.set', resources,
+        {
+            headers:{
+                Authorization: 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            }
+        });
     return result.data.ok;
 }
 
 exports.unsetSlackStatus = async function(userId, token) {
     let status = {status_text: "", status_emoji:""};
     const resources = {
-        token: token,
         user: userId,
         profile: status
     }
-    let result = await axios.post('https://slack.com/api/users.profile.set', resources);
+    let result = await axios.post('https://slack.com/api/users.profile.set', resources, {
+        headers:{
+            Authorization: 'Bearer ' + token,
+                'Content-Type': 'application/json'
+        }
+    });
     return result.data.ok;
 }
 
@@ -221,16 +230,16 @@ function getTextStatus(lang, type){
         case 0:
             break;
         case 1:
-            text = lang === "fr" ? "Au bureau" : "At the office"
+            text = lang === "Français" ? "Au bureau" : "At the office"
             break;
         case 2:
-            text = lang === "fr" ? "En télétravail" : "Remote"
+            text = lang === "Français" ? "En télétravail" : "Remote"
             break;
         case 3:
-            text = lang === "fr" ? "En déplacement" : "Away"
+            text = lang === "Français" ? "En déplacement" : "Away"
             break;
         case 4:
-            text = lang === "fr" ? "Off" : "Off"
+            text = lang === "Français" ? "Off" : "Off"
             break;
     }
     return text;

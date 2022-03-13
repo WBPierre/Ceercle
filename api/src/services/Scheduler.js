@@ -51,16 +51,18 @@ exports.updateSlackStatus = async function(){
     for(let i = 0; i < companies.length; i++){
         let hasIntegration = await companies[i].getIntegrations({where:{name: 'Slack'}});
         if(hasIntegration.length !== 0){
-            let getSlackUserList = await axios.post('https://slack.com/api/users.list', {token: hasIntegration[0].token})
+            let getSlackUserList = await axios.post('https://slack.com/api/users.list', new URLSearchParams({token: hasIntegration[0].token}));
             let slackUserList = getSlackUserList.data.members;
             const users = await companies[i].getUsers({where:{active: true, isDeleted:false}});
             for(let j = 0; j < users.length; j++){
                 if(users[j].defaultWorkingMorningHour === parseInt(hour)){
                     let timesheet = await TimeSheet.findOne({where:{day: day, userId: users[j].id}});
-                    for(let k = 0; k < slackUserList.length; k++){
-                        if(slackUserList[k].profile.email === users[j].email){
-                            await ThirdPartyService.setSlackStatus(slackUserList[k].id, hasIntegration[0].token, users[j].lang, timesheet.morning);
-                            break;
+                    if(timesheet){
+                        for(let k = 0; k < slackUserList.length; k++){
+                            if(slackUserList[k].profile.email === users[j].email){
+                                await ThirdPartyService.setSlackStatus(slackUserList[k].id, hasIntegration[0].token, users[j].lang, timesheet.morning);
+                                break;
+                            }
                         }
                     }
                 }else if(users[j].defaultWorkingAfternoonHour === parseInt(hour)){
@@ -72,10 +74,12 @@ exports.updateSlackStatus = async function(){
                     }
                 }else if (parseInt(hour) === 13){
                     let timesheet = await TimeSheet.findOne({where:{day: day, userId: users[j].id}});
-                    for(let k = 0; k < slackUserList.length; k++){
-                        if(slackUserList[k].profile.email === users[j].email){
-                            await ThirdPartyService.setSlackStatus(slackUserList[k].id, hasIntegration[0].token, users[j].lang, timesheet.afternoon);
-                            break;
+                    if(timesheet){
+                        for(let k = 0; k < slackUserList.length; k++){
+                            if(slackUserList[k].profile.email === users[j].email){
+                                await ThirdPartyService.setSlackStatus(slackUserList[k].id, hasIntegration[0].token, users[j].lang, timesheet.afternoon);
+                                break;
+                            }
                         }
                     }
                 }
@@ -89,17 +93,25 @@ exports.sendSlackReminder = async function(){
     for(let i = 0; i < companies.length; i++){
         let hasIntegration = await companies[i].getIntegrations({where:{name: 'Slack'}});
         if(hasIntegration.length !== 0) {
-            let getSlackUserList = await axios.post('https://slack.com/api/users.list', {token: hasIntegration[0].token})
+            let getSlackUserList = await axios.post('https://slack.com/api/users.list', new URLSearchParams({token: hasIntegration[0].token}));
             let slackUserList = getSlackUserList.data.members;
-            const users = await companies[i].getUsers({where: {active: true, isDeleted: false}});
+            const users = await ceercle.getUsers({where: {active: true, isDeleted: false}});
             for (let j = 0; j < users.length; j++) {
                 for(let k = 0; k < slackUserList.length; k++){
                     if(slackUserList[k].profile.email === users[j].email){
                         await axios.post("https://slack.com/api/chat.postMessage", {
-                            token: hasIntegration[0].token,
                             channel: slackUserList[k].id,
-                            text: users[j].lang === "fr" ? "N'oubliez pas de mettre à jour votre déclaration pour la semaine prochaine sur https://app.ceercle.io !" : "Don't forget to update your status for next week on https://app.ceercle.io !",
+                            text: users[j].lang === "Français" ? "N'oubliez pas de mettre à jour votre déclaration pour la semaine prochaine sur https://app.ceercle.io !" : "Don't forget to update your status for next week on https://app.ceercle.io !",
                             as_user: true
+                        }, {
+                            headers:{
+                                Authorization: 'Bearer ' + hasIntegration[0].token,
+                                'Content-Type': 'application/json'
+                            }
+                        }).then((res) => {
+                            console.log(res)
+                        }).catch((err) => {
+                            console.log(err.response);
                         })
                         break;
                     }
