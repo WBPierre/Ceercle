@@ -16,7 +16,8 @@ exports.testSlack = async function(req, res, next) {
                     await axios.post("https://slack.com/api/chat.postMessage", {
                         token: hasIntegration[0].token,
                         channel: slackUserList[k].id,
-                        text: users[j].lang === "fr" ? "N'oubliez pas de mettre à jour votre déclaration pour la semaine prochaine sur https://app.ceercle.io !" : "Don't forget to update your status for next week on https://app.ceercle.io !"
+                        text: users[j].lang === "fr" ? "N'oubliez pas de mettre à jour votre déclaration pour la semaine prochaine sur https://app.ceercle.io !" : "Don't forget to update your status for next week on https://app.ceercle.io !",
+                        as_user: true
                     }).then((res) => {
                         console.log(res)
                     }).catch((err) => {
