@@ -98,7 +98,7 @@ exports.verifySlack = async function (req, res, next) {
                             if(!int){
                                 await Integration.create({name: 'Slack', token: token, companyId: record.id});
                             }else{
-                                await Integration.update({token: token});
+                                await int.update({token: token});
                             }
                             console.log('Slack updated for company :', record.name);
                             res.status(200);
