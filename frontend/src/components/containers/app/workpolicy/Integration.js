@@ -19,8 +19,7 @@ function Integration(props) {
             "scope=im:write,users.profile:read,users:read,users:write&" +
             "user_scope=users:read,users.profile:read,users.profile:write&" +
             "redirect_uri=https://app.ceercle.io/verify/oAuth";
-        console.log('clicked');
-        window.open('https://slack.com/oauth/authorize?'+slackParams, '_blank');
+        window.open('https://slack.com/oauth/v2/authorize?'+slackParams, '_blank');
     }
 
     return (
