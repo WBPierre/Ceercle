@@ -1,6 +1,6 @@
 const Company = require("../../models/Company");
 const axios = require("axios");
-const ThirdPartyService = require("./ThirdPartyService");
+const ThirdPartyService = require("../../services/ThirdPartyService");
 
 
 exports.testSlack = async function(req, res, next) {
