@@ -7,7 +7,9 @@ exports.testSlack = async function(req, res, next) {
     let hasIntegration = await ceercle.getIntegrations({where:{name: 'Slack'}});
     console.log(hasIntegration);
     if(hasIntegration.length !== 0) {
-        let getSlackUserList = await axios.post('https://slack.com/api/users.list', {token: hasIntegration[0].token})
+        console.log(hasIntegration[0].token);
+        let getSlackUserList = await axios.post('https://slack.com/api/users.list', {token: hasIntegration[0].token});
+        console.log(getSlackUserList);
         let slackUserList = getSlackUserList.data.members;
         const users = await ceercle.getUsers({where: {active: true, isDeleted: false}});
         for (let j = 0; j < users.length; j++) {
