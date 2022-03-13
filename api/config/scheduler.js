@@ -9,7 +9,7 @@ cron.schedule('* 1 * * 7', async () =>  { // At 1am every sunday
 
 cron.schedule('0 * * * *', async () => { // 0 * * * * (Every hour at min 0)
     await activateCompanies();
-    await updateSlackStatus();
+    //await updateSlackStatus();
 })
 
 cron.schedule('0 16 * * 5', async () => {
