@@ -9,6 +9,7 @@ router.get('/rooms/:id/:day', [isUserAuthenticated, OfficeElementController.vali
 router.get('/desks/:id/:day', [isUserAuthenticated, OfficeElementController.validate('getDesks'), verifyErrors], OfficeElementController.getDesks)
 router.get('/isSeatAvailable/:day/:when', [isUserAuthenticated, OfficeElementController.validate('isSeatAvailable'), verifyErrors], OfficeElementController.isSeatAvailable);
 router.get('/:id/full/:day', [isUserAuthenticated, OfficeElementController.validate('getOfficeElements'), verifyErrors], OfficeElementController.getOfficeElementsWithCapacity);
+router.get('/deskFullName/:id', [isUserAuthenticated, OfficeElementController.validate('getDeskFullName'), verifyErrors], OfficeElementController.getDeskFullName);
 router.post('/updateOccupancy', [isAdminUser, OfficeElementController.validate('updateOccupancy'), verifyErrors], OfficeElementController.updateOccupancy);
 router.get('/byCompany/:id', [isUserAuthenticated, OfficeElementController.validate('getOfficeElementsFromCompany'), verifyErrors], OfficeElementController.getOfficeElementsFromCompany);
 

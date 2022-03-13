@@ -40,6 +40,10 @@ class OfficeService {
     async getOfficeElements(officeId, day) {
         return this.request.get('/officeElement/' + officeId + '/full/' + day);
     }
+
+    async gestDeskFullName(id){
+        return this.request.get('/officeElement/deskFullName/' + id)
+    }
 }
 
 export default new OfficeService();

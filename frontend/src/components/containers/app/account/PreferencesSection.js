@@ -26,6 +26,8 @@ import * as App_Routes from "../../../../navigation/app/Routes";
 import ThirdPartyService from "../../../../services/app/thirdparty.service";
 import SettingSectionTemplate from './SettingSectionTemplate';
 import GoogleCalendarIcon from "../../../molecules/icons/GoogleCalendarIcon";
+import BookingService from "../../../../services/app/booking.service";
+import OfficeService from "../../../../services/app/office.service";
 import OfficeModal from "../dashboard/OfficeBooking/OfficeModal";
 
 export default function PreferencesSection(props) {
@@ -78,7 +80,7 @@ export default function PreferencesSection(props) {
         setFridayStatus(event.target.value);
     };
 
-    const [favoriteDesk, setFavoriteDesk] = React.useState(0);
+    const [favoriteDesk, setFavoriteDesk] = React.useState(props.user.favoriteDesk);
     const [hasFavoriteDesk, setHasFavoriteDesk] = React.useState(false);
     const handleChangeHasFavoriteDesk = (event) => {
         const value = event.target.checked
@@ -105,11 +107,10 @@ export default function PreferencesSection(props) {
         setOpenModal(false)
     }
     const [favoriteDeskName, setFavoriteDeskName] = React.useState("Pas de bureau favori");
-    const updateFavoriteDeskName = (deskId) => {
+    const updateFavoriteDeskName = async (deskId) => {
         if (deskId != 0){
-            //get parents of desk id
-            // setFavoriteDeskName("Paris | Salle Eiffel")
-            setFavoriteDeskName(deskId)
+            let name = await OfficeService.gestDeskFullName(deskId)
+            setFavoriteDeskName(name.data)
         } else {
             setFavoriteDeskName("Pas de bureau favori")
         }
@@ -133,7 +134,7 @@ export default function PreferencesSection(props) {
     const handleGoogleTest = async () => {
         await ThirdPartyService.test();
     }
-    useEffect(() => {
+    useEffect(async () => {
         async function verifyGoogleCalendar(){
             await ThirdPartyService.verifyGoogleCalendarConnection().then((res) => {
                 if(res.data.connected){
@@ -144,6 +145,12 @@ export default function PreferencesSection(props) {
             });
         }
         verifyGoogleCalendar();
+        if(props.user.favoriteDesk > 0){
+            let name = await OfficeService.gestDeskFullName(props.user.favoriteDesk)
+            setFavoriteDeskName(name.data)
+            setHasFavoriteDesk(true)
+        }
+        
     }, []);
 
 
@@ -202,6 +209,7 @@ export default function PreferencesSection(props) {
         setWednesdayStatus(props.user.wednesdayStatus);
         setThursdayStatus(props.user.thursdayStatus);
         setFridayStatus(props.user.fridayStatus);
+        setFavoriteDesk(props.user.favoriteDesk);
         setLanguage(languageOptions.indexOf(props.user.lang));
     }
 

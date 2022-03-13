@@ -185,6 +185,7 @@ exports.getUserInfo = async function (req, res, next) {
         wednesdayStatus: record.wednesdayStatus,
         thursdayStatus: record.thursdayStatus,
         fridayStatus: record.fridayStatus,
+        favoriteDesk: record.favoriteDesk,
         position: record.position,
         profilePicturePath: record.profilePicturePath,
         bannerPath: record.bannerPath,
@@ -338,6 +339,7 @@ exports.updateUserSettings = async function (req, res, next) {
         wednesdayStatus: req.body.wednesdayStatus,
         thursdayStatus: req.body.thursdayStatus,
         fridayStatus: req.body.fridayStatus,
+        favoriteDesk: req.body.favoriteDesk,
       };
       record.update(to_update).then((updated) => {
         res.json(updated);
@@ -584,6 +586,8 @@ exports.validate = (method) => {
         body("thursdayStatus", "thursdayStatus is not an int").isInt(),
         body("fridayStatus", "fridayStatus doesn't exist").exists(),
         body("fridayStatus", "fridayStatus is not an int").isInt(),
+        body("favoriteDesk", "favoriteDesk doesn't exist").exists(),
+        body("favoriteDesk", "favoriteDesk is not an int").isInt(),
       ];
     }
     case "updateUserGeneral": {

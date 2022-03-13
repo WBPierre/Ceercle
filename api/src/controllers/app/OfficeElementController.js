@@ -183,6 +183,27 @@ exports.updateOccupancy = async function (req, res, next) {
         });
 }
 
+exports.getDeskFullName = async function (req, res, next) {
+    const id = req.params.id;
+    let result = await OfficeElementRepository.findOneById(id)
+    let names = [result.name]
+    let parentId = result.parentId
+    while (parentId && parentId > 0){
+        console.log(parentId)
+        result = await OfficeElementRepository.findOneById(parentId)
+        parentId = result.parentId
+        names.push(result.name)
+    }
+    let office = await result.getOffice()
+    names.push(office.name)
+    let name = office.name + " | "
+    if(names.length > 1){
+        name += names[1] + " - "
+    }
+    name += names[0]
+    res.json(name);
+}
+
 
 exports.validate = (method) => {
     switch (method) {
@@ -231,6 +252,12 @@ exports.validate = (method) => {
                 body('officeElementId', 'officeElementId doesn\'t exist').exists(),
                 body('officeElementId', 'officeElementId is not a number').isNumeric(),
                 body('maxCapacity', 'maxCapacity is not a number').isNumeric(),
+            ]
+        }
+        case 'getDeskFullName': {
+            return [
+                param('id', 'id doesn\'t exist').exists(),
+                param('id', 'id is not a number').isNumeric()
             ]
         }
     }
