@@ -91,7 +91,6 @@ exports.verifySlack = async function (req, res, next) {
                     client_secret: process.env.SLACK_CLIENT_SECRET,
                     code: code
                 }));
-                console.log(result);
                 if(result.data.ok){
                     let token = result.data.access_token;
                     await IntegrationRepository.findOneByNameForCompany('Slack', record.id)
@@ -101,6 +100,7 @@ exports.verifySlack = async function (req, res, next) {
                             }else{
                                 await Integration.update({token: token});
                             }
+                            console.log('Slack updated for company :', record.name);
                             res.status(200);
                             res.send();
                         })
