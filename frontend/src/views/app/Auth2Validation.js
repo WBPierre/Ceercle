@@ -27,16 +27,13 @@ function Auth2Validation(){
     useEffect(() => {
         async function verifySlack(){
             const code = query.get('code');
-            const state = query.get('state');
-            if(state !== "ceercleinstall"){
-                navigate(App_Routes.WORKPOLICY);
-            }else{
-                const resources = {
-                    code: code
-                }
-                await ThirdPartyService.verifySlack(resources);
-                navigate(App_Routes.WORKPOLICY);
+            const resources = {
+                code: code
             }
+            await ThirdPartyService.verifySlack(resources).catch((err) => {
+                console.log(err.response);
+            });
+            navigate(App_Routes.WORKPOLICY);
         }
         verifySlack();
     }, []);

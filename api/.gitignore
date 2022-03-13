@@ -29,3 +29,5 @@ yarn-error.log*
 public/assets/profile/
 public/assets/banner/
 public/assets/room/
+
+config/database.js
