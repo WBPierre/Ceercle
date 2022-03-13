@@ -16,7 +16,7 @@ function Integration(props) {
     const SlackClick = () => {
         const slackParams = "" +
             "client_id=2680388727490.3116158101621&" +
-            "scope=im:write,users:read,users:write,users.profile:read&" +
+            "scope=im:write,users.profile:read,users:read,users:write,users:read.email&" +
             "user_scope=users.profile:read,users.profile:write,users:read,users:read.email&" +
             "redirect_uri=https://app.ceercle.io/verify/oAuth";
         window.open('https://slack.com/oauth/v2/authorize?'+slackParams, '_blank');
