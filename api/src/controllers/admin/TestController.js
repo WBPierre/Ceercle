@@ -9,18 +9,19 @@ exports.testSlack = async function(req, res, next) {
         let getSlackUserList = await axios.post('https://slack.com/api/users.list', new URLSearchParams({token: hasIntegration[0].token}));
         let slackUserList = getSlackUserList.data.members;
         const users = await ceercle.getUsers({where: {active: true, isDeleted: false}});
-        for(let k = 0; k < slackUserList.length; k++){
-            console.log(slackUserList[k]);
-        }
         for (let j = 0; j < users.length; j++) {
             for(let k = 0; k < slackUserList.length; k++){
                 if(slackUserList[k].profile.email === users[j].email){
-                    await axios.post("https://slack.com/api/chat.postMessage", new URLSearchParams({
+                    console.log('FOUND ', users[j].email);
+                    await axios.post("https://slack.com/api/chat.postMessage", {
                         token: hasIntegration[0].token,
                         channel: slackUserList[k].id,
-                        text: users[j].lang === "fr" ? "N'oubliez pas de mettre à jour votre déclaration pour la semaine prochaine sur https://app.ceercle.io !" : "Don't forget to update your status for next week on https://app.ceercle.io !",
-                        as_user: true
-                    }))
+                        text: users[j].lang === "fr" ? "N'oubliez pas de mettre à jour votre déclaration pour la semaine prochaine sur https://app.ceercle.io !" : "Don't forget to update your status for next week on https://app.ceercle.io !"
+                    }).then((res) => {
+                        console.log(res)
+                    }).catch((err) => {
+                        console.log(err.response);
+                    })
                     break;
                 }
             }
