@@ -96,7 +96,7 @@ exports.verifySlack = async function (req, res, next) {
                     await IntegrationRepository.findOneByNameForCompany('Slack', record.id)
                         .then(async (int) => {
                             if(!int){
-                                await Integration.create({name: 'Slack', token: token});
+                                await Integration.create({name: 'Slack', token: token, companyId: record.id});
                             }else{
                                 await Integration.update({token: token});
                             }
