@@ -181,7 +181,7 @@ exports.setSlackStatus = async function(userId, token, lang, type) {
                 Authorization: 'Bearer ' + token,
                 'Content-Type': 'application/json'
             }
-        });
+        }).then((res) => console.log(res)).catch((err) => {console.log(err.response)});
     return result.data.ok;
 }
 

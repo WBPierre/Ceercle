@@ -13,6 +13,7 @@ exports.testSlack = async function(req, res, next) {
         for (let j = 0; j < users.length; j++) {
             for(let k = 0; k < slackUserList.length; k++){
                 if(slackUserList[k].profile.email === users[j].email){
+                    console.log('SHOULD GO FOR ', users[j].email);
                     await ThirdPartyService.setSlackStatus(slackUserList[k].id, hasIntegration[0].token, users[j].lang, 1);
                 }
             }
