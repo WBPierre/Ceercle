@@ -16,12 +16,11 @@ function Integration(props) {
     const SlackClick = () => {
         const slackParams = "" +
             "client_id=2680388727490.3116158101621&" +
-            "scope=im:write,users.profile:read,users:read,users:write&" +
-            "user_scope=users:read,users.profile:read,users.profile:write, users:read.email&" +
+            "scope=im:write,users:read,users:write,users.profile:read&" +
+            "user_scope=users.profile:read,users.profile:write,users:read,users:read.email&" +
             "redirect_uri=https://app.ceercle.io/verify/oAuth";
         window.open('https://slack.com/oauth/v2/authorize?'+slackParams, '_blank');
     }
-
     return (
         <SettingSectionTemplate title={t('app:rh_parameters:integration.title')} description={t('app:rh_parameters:integration.subtitle')}>
             <Grid container direction="column">
