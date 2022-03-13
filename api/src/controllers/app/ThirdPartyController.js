@@ -86,14 +86,12 @@ exports.verifySlack = async function (req, res, next) {
                 res.status(404);
                 res.send();
             }else{
-                const data = {
+                const result = await axios.post("https://slack.com/api/oauth.v2.access", new URLSearchParams({
                     client_id: process.env.SLACK_CLIENT_ID,
                     client_secret: process.env.SLACK_CLIENT_SECRET,
                     code: code
-                };
-                const result = await axios.post("https://slack.com/api/oauth.v2.access", data);
+                }));
                 console.log(result);
-
                 if(result.data.ok){
                     let token = result.data.access_token;
                     await IntegrationRepository.findOneByNameForCompany('Slack', record.id)

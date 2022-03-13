@@ -30,7 +30,6 @@ function Auth2Validation(){
             const resources = {
                 code: code
             }
-            console.log(resources);
             await ThirdPartyService.verifySlack(resources).then((res) => {
                 console.log("Response", res);
             }).catch((err) => {
