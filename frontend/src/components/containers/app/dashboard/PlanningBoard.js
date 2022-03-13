@@ -1,39 +1,26 @@
+import * as React from "react";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useState } from "react";
+import Fade from "react-reveal/Fade";
+import moment from "moment";
+import "moment/min/locales";
+import { useSnackbar } from "notistack";
+
 import Grid from "@mui/material/Grid";
 import { Chip } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
-import Button from "@mui/material/Button";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
-import Fade from "react-reveal/Fade";
-import PlanningElement from "./PlanningElement";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Paper from "@mui/material/Paper";
-import * as React from "react";
-import { useState } from "react";
-import TimeService from "../../../../services/app/time.service";
-import BookingService from "../../../../services/app/booking.service";
-import moment from "moment";
-import "moment/min/locales";
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import { useSnackbar } from "notistack";
-import * as App_Routes from "../../../../navigation/app/Routes";
-import { useTranslation } from "react-i18next";
+
+import PlanningElement from "./PlanningElement";
 import HRRulesCheckDisplay from "./HRRulesCheckDisplay";
 import useAuth from "../../../context/auth/AuthHelper";
-import { styled } from '@mui/material/styles';
-import { grey } from '@mui/material/colors';
-
-const ColorButton = styled(Button)(({ theme }) => ({
-    color: theme.palette.getContrastText(grey[500]),
-    backgroundColor: grey[500],
-    '&:hover': {
-      backgroundColor: grey[700],
-    },
-    fontSize: 11,
-    fontColor: '#FFFFFF'
-  }));
+import TimeService from "../../../../services/app/time.service";
+import BookingService from "../../../../services/app/booking.service";
 
 function PlanningBoard(props) {
     const context = useAuth();
@@ -46,7 +33,6 @@ function PlanningBoard(props) {
     const [index, setIndex] = useState(0);
     const [orientation, setOrientation] = useState(true);
     const { enqueueSnackbar } = useSnackbar();
-
 
     const handlePrevious = async () => {
         let ind = index - 1;
@@ -105,7 +91,6 @@ function PlanningBoard(props) {
                     }
                 }
             }
-
             await props.getTimeSheet(index);
         }
     }
@@ -142,20 +127,20 @@ function PlanningBoard(props) {
                             validation += 1
                         } else if (res.data.status == 'other_seat'){
                             await TimeService.setTimeSheet(timeSheetResources);
-                            enqueueSnackbar("Votre bureau favori n'est pas disponible. Un autre bureau vous a été attribué.", {
+                            enqueueSnackbar(t('app:dashboard:snackbar_other_seat'), {
                                 variant: 'success'
                             });
                         } else if(res.data.status == 'warning'){
                             await TimeService.setTimeSheet(timeSheetResources);
-                            enqueueSnackbar("Votre bureau favori n'est pas disponible.", {
+                            enqueueSnackbar(t('app:dashboard:snackbar_warning'), {
                                 variant: 'success'
                             });
                         } else if(res.data.status == 'declare_favorite_seat'){
-                            enqueueSnackbar("Veuillez déclarer un bureau favori dans vos paramètres de compte.", {
+                            enqueueSnackbar(t('app:dashboard:snackbar_declare_favorite_seat'), {
                                 variant: 'warning'
                             });
                         } else {
-                            enqueueSnackbar("Pas de place disponible", {
+                            enqueueSnackbar(t('app:dashboard:snackbar_error'), {
                                 variant: 'error'
                             });
                         }
@@ -189,7 +174,7 @@ function PlanningBoard(props) {
                     <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} maxWidth={true}>
                         <Grid item xs={2} textAlign={"center"}>
                             <Chip
-                                label="Semaine par défaut"
+                                label={t('app:dashboard:default_week')}
                                 icon={<EventAvailableIcon />}
                                 onClick={() => declareWeek()}
                             />

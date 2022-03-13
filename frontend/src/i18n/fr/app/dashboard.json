@@ -2,7 +2,12 @@
   "my_planning": "Mon planning",
   "today": "Aujourd'hui",
   "snackbar_success": "Déclaration enregistrée",
+  "snackbar_other_seat": "Votre bureau favori n'est pas disponible. Un autre bureau vous a été attribué.",
+  "snackbar_warning": "Votre bureau favori n'est pas disponible.",
+  "snackbar_declare_favorite_seat": "Veuillez déclarer un bureau favori dans vos paramètres de compte.",
+  "snackbar_error": "Pas de place disponible",
   "no_reservation": "Aucune réservation",
+  "default_week": "Semaine par défaut",
   "desk_modification": "Réservation modifiée",
   "desk_remove": "Réservation de bureau annulée",
   "desk": {

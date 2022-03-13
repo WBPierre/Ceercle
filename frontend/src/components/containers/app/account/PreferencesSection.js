@@ -106,13 +106,13 @@ export default function PreferencesSection(props) {
         }
         setOpenModal(false)
     }
-    const [favoriteDeskName, setFavoriteDeskName] = React.useState("Pas de bureau favori");
+    const [favoriteDeskName, setFavoriteDeskName] = React.useState(t('app:account:preferences.no_favorite_desk'));
     const updateFavoriteDeskName = async (deskId) => {
         if (deskId != 0){
             let name = await OfficeService.gestDeskFullName(deskId)
             setFavoriteDeskName(name.data)
         } else {
-            setFavoriteDeskName("Pas de bureau favori")
+            setFavoriteDeskName(t('app:account:preferences.no_favorite_desk'))
         }
     }
 
@@ -335,7 +335,7 @@ export default function PreferencesSection(props) {
 
                 <Grid item>
                     <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#414040' }}>
-                        Status par défaut
+                        {t('app:account:preferences.default_status')}
                     </Typography>
                 </Grid>
 
@@ -436,7 +436,7 @@ export default function PreferencesSection(props) {
 
                 <Grid item mt={6}>
                     <Typography variant="body" fontWeight={600} fontSize={17} style={{ color: '#414040' }}>
-                        Bureau favori
+                        {t('app:account:preferences.favorite_desk')}
                     </Typography>
                 </Grid>
 
