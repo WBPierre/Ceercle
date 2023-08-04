@@ -1,7 +1,6 @@
 # Ceercle
-
-
-Version [0.1.0]
+Project created in 2022 as a company handling flex office during COVID.
+(Originally hosted on Gitlab)
 
 ## Requirements
 
@@ -9,18 +8,22 @@ Version [0.1.0]
 - Git
 - Node ^17.0.1
 
-### Starting up
+## Installation
 
 Go to project directory and run :
-```docker-compose -f docker-compose.dev.yml up```
 
-If you don't need the console, add ````-d```` to up in order to run it in background.
+```bash
+docker-compose -f docker-compose.dev.yml up
+```
+
+If you don't need the console, add ```-d``` to up in order to run it in background.
+
 
 ### Troubleshooting
 
-- If you're using Windows with Docker and WSL2, modify your : ````/etc/wsl.conf```` inside your WSL System.
-- Add to the file :   
-```
+- If you're using Windows with Docker and WSL2, modify your : ```/etc/wsl.conf``` inside your WSL System.
+- Add to the file :
+```bash
 [automount]
 root = /
 options = "metadata"
@@ -28,22 +31,13 @@ options = "metadata"
 
 Save, reboot, and retry
 
-### How to use Git
+## Contributing
 
+Pull requests are welcome. For major changes, please open an issue first
+to discuss what you would like to change.
 
-Rules :
-[Never push on main branch]
+Please make sure to update tests as appropriate.
 
-Commands : 
-- ````git clone https://gitlab.com/l585/spacecorner.git````
+## License
 
-- ```git pull``` : to fetch any changes
-
-- ```git branch``` : check on which branch you are
-- ```git checkout -b {BRANCH_NAME}``` : create a branch and go to it
-- ````git add {FILES | . }```` : add giles to git commit
-- ````git commit -m "{MESSAGE}"```` : add a message to commit
-- ```git push``` : push to gitlab
-
-- Go to gitlab to merge your branch if necessary
-  
+[MIT](https://choosealicense.com/licenses/mit/)
