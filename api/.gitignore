@@ -31,3 +31,4 @@ public/assets/banner/
 public/assets/room/
 
 config/database.js
+.env.*
